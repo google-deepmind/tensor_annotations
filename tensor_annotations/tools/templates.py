@@ -49,14 +49,14 @@ def axis_list(n_axes: int, reverse=False) -> str:
 def jax_array_type(n_axes: int) -> str:
   """Returns the generic JAX array type, parameterised by a number of axes.
 
-  For example, get_jax_array_type(2) -> 'array2[A1, A2]'.
+  For example, get_jax_array_type(2) -> 'Array2[A1, A2]'.
 
   Args:
     n_axes: Rank of array type to return.
   Returns:
     A string containing array type.
   """
-  return f'array{n_axes}[{axis_list(n_axes)}]'
+  return f'Array{n_axes}[{axis_list(n_axes)}]'
 
 
 def transpose_axes(n_axes: int):

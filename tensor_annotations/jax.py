@@ -37,7 +37,7 @@ A4 = TypeVar('A4', bound=axes.Axis)
 # pylint: disable=invalid-name
 
 
-class array0:
+class Array0:
   """A scalar - produced by e.g. jnp.sum(jnp.zeros((2, 3)))."""
 
   def __new__(cls, *args, **kwargs):
@@ -65,7 +65,7 @@ class array0:
   reshape: Any
 
 
-class array1(Generic[A1]):
+class Array1(Generic[A1]):
   """A tensor of rank 1."""
 
   def __new__(cls, *args, **kwargs):
@@ -95,7 +95,7 @@ class array1(Generic[A1]):
   reshape: Any
 
 
-class array2(Generic[A1, A2]):
+class Array2(Generic[A1, A2]):
   """A tensor of rank 2."""
 
   def __new__(cls, *args, **kwargs):
@@ -125,7 +125,7 @@ class array2(Generic[A1, A2]):
   reshape: Any
 
 
-class array3(Generic[A1, A2, A3]):
+class Array3(Generic[A1, A2, A3]):
   """A tensor of rank 3."""
 
   def __new__(cls, *args, **kwargs):
@@ -155,7 +155,7 @@ class array3(Generic[A1, A2, A3]):
   reshape: Any
 
 
-class array4(Generic[A1, A2, A3, A4]):
+class Array4(Generic[A1, A2, A3, A4]):
   """A tensor of rank 4."""
 
   def __new__(cls, *args, **kwargs):

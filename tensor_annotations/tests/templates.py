@@ -41,11 +41,11 @@ class TemplateTests(unittest.TestCase):
 
   def test_jax_array_type(self):
     self.assertEqual(
-        'array1[A1]',
+        'Array1[A1]',
         templates.jax_array_type(n_axes=1)
     )
     self.assertEqual(
-        'array2[A1, A2]',
+        'Array2[A1, A2]',
         templates.jax_array_type(n_axes=2)
     )
 

@@ -160,7 +160,7 @@ def pytype_infer_types(code: str) -> types.SimpleNamespace:
     if match is None:
       raise Exception(f"Couldn't parse type from line: {line}")
     t = match.group(1)
-    # ...jax.array0 -> array0
+    # ...jax.Array0 -> Array0
     t = re.sub(r'tensor_annotations.[^.]*\.', '', t)
     types_dict[var] = t
 
@@ -197,7 +197,7 @@ def pytype_infer_shapes(code: str) -> types.SimpleNamespace:
                if not d.startswith('_')]
   for var in var_names:
     t = getattr(types_namespace, var)
-    if t.endswith('array0') or t.endswith('Tensor0'):
+    if t.endswith('Array0') or t.endswith('Tensor0'):
       shape = ()
     elif t == 'Any':
       shape = 'Any'

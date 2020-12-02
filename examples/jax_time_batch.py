@@ -27,7 +27,7 @@ Batch = axes.Batch
 Time = axes.Time
 
 
-def sample_batch() -> tjax.array2[Time, Batch]:
+def sample_batch() -> tjax.Array2[Time, Batch]:
   # jnp.zeros((x, y)) returns a Tensor2[Any, Any], which is a compatible
   # with Tensor2[Batch, Time] => pytype accepts this return.
   return jnp.zeros((3, 5))
@@ -42,22 +42,22 @@ def sample_batch_legacy() -> jnp.ndarray:
   return jnp.zeros([3, 5])
 
 
-def train_batch(batch: tjax.array2[Batch, Time]):
-  b: tjax.array1[Batch] = jnp.max(batch, axis=1)
+def train_batch(batch: tjax.Array2[Batch, Time]):
+  b: tjax.Array1[Batch] = jnp.max(batch, axis=1)
   del b  # Unused
 
 
 def transpose_example():
   # From the signature of sample_batch() x is inferred to be of type
-  # array2[Batch, Time].
+  # Array2[Batch, Time].
   x = sample_batch()
 
   # Using our custom stubs for jnp.transpose(...), x is inferred to be of type
-  # array2[Time, Batch]. Try removing this line - you should find that
+  # Array2[Time, Batch]. Try removing this line - you should find that
   # this script no longer passes type check.
   x = jnp.transpose(x)
 
-  # array2[Batch, Time] is compatible with the signature of train_batch(),
+  # Array2[Batch, Time] is compatible with the signature of train_batch(),
   # so we're good! :)
   train_batch(x)
 
@@ -68,10 +68,10 @@ def legacy_example():
   y = sample_batch_legacy()
 
   # We explicitly cast it to the desired type. This is a no-op at runtime.
-  y = cast(tjax.array2[Batch, Time], y)
+  y = cast(tjax.Array2[Batch, Time], y)
 
   # Alternative syntax for casting; again a no-op.
-  y2: tjax.array2[Batch, Time] = y  # type: ignore
+  y2: tjax.Array2[Batch, Time] = y  # type: ignore
 
   train_batch(y)
   train_batch(y2)

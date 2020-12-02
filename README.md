@@ -3,7 +3,7 @@
 TensorAnnotations is an experimental library enabling annotation of semantic
 tensor shape information using type annotations - for example:
 ```python
-def calculate_loss(frames: array4[Time, Batch, Height, Width]):
+def calculate_loss(frames: Array4[Time, Batch, Height, Width]):
   ...
 ```
 
@@ -187,8 +187,8 @@ L64 = typing.NewType('L64', axes.Axis)
 ### Stubs
 
 By default, TensorFlow and JAX are not aware of our annotations. For example, if
-you have a tensor `x: array2[Time, Batch]` and you call `jnp.sum(x, axis=0)`,
-you won't get a `array1[Batch]`, you'll just get an `Any`. We therefore provide
+you have a tensor `x: Array2[Time, Batch]` and you call `jnp.sum(x, axis=0)`,
+you won't get a `Array1[Batch]`, you'll just get an `Any`. We therefore provide
 a set of custom type annotations for TensorFlow and JAX packaged in 'stub'
 (`.pyi`) files.
 
@@ -255,14 +255,14 @@ code, you can cast to TensorAnnotations classes with `typing.cast`:
 ```python
 from typing import cast
 
-x = cast(tjax.array2[Batch, Time], x)
+x = cast(tjax.Array2[Batch, Time], x)
 ```
 
 Note that this is only a hint to the type checker - at runtime, it's a no-op. An
 alternative syntax emphasising this fact is:
 
 ```python
-x: tjax.array2[Batch, Time] = x  # type: ignore
+x: tjax.Array2[Batch, Time] = x  # type: ignore
 ```
 
 ## Gotchas
@@ -302,8 +302,8 @@ anything about the actual shape value either. The following will _not_ raise an
 error:
 
 ```python
-x: tjax.array1[Batch] = jnp.zeros((3,))
-y: tjax.array1[Batch] = jnp.zeros((5,))
+x: tjax.Array1[Batch] = jnp.zeros((3,))
+y: tjax.Array1[Batch] = jnp.zeros((5,))
 ```
 
 Note that _this is by design_! Shape symbols such as `Batch` are _not_

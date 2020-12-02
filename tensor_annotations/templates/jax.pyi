@@ -23,7 +23,7 @@ To regenerate, run the following from the tensor_annotations directory:
 
 from typing import overload, Any, List, Literal, Tuple, TypeVar
 
-from tensor_annotations.jax import array0, array1, array2, array3, array4
+from tensor_annotations.jax import Array0, Array1, Array2, Array3, Array4
 from tensor_annotations.axes import Axis
 
 
@@ -167,19 +167,19 @@ def ones(shape: List, dtype=...) -> Any: ...
 # But if shape is specified as an int or a tuple, we're good! :)
 
 @overload
-def zeros(shape: L0, dtype=...) -> array0: ...
+def zeros(shape: L0, dtype=...) -> Array0: ...
 
 
 @overload
-def zeros(shape: Tuple[()], dtype=...) -> array0: ...
+def zeros(shape: Tuple[()], dtype=...) -> Array0: ...
 
 
 @overload
-def ones(shape: L0, dtype=...) -> array0: ...
+def ones(shape: L0, dtype=...) -> Array0: ...
 
 
 @overload
-def ones(shape: Tuple[()], dtype=...) -> array0: ...
+def ones(shape: Tuple[()], dtype=...) -> Array0: ...
 
 
 {% for i in range(1, 4) %}
@@ -187,19 +187,19 @@ def ones(shape: Tuple[()], dtype=...) -> array0: ...
 {% set n_any = (['Any'] * i)|join(', ') %}
 
 @overload
-def zeros(shape: L{{ i }}, dtype=...) -> array{{ i }}[{{ n_any }}]: ...
+def zeros(shape: L{{ i }}, dtype=...) -> Array{{ i }}[{{ n_any }}]: ...
 
 
 @overload
-def ones(shape: L{{ i }}, dtype=...) -> array{{ i }}[{{ n_any }}]: ...
+def ones(shape: L{{ i }}, dtype=...) -> Array{{ i }}[{{ n_any }}]: ...
 
 
 @overload
-def zeros(shape: Shape{{ i }}, dtype=...) -> array{{ i }}[{{ n_any }}]: ...
+def zeros(shape: Shape{{ i }}, dtype=...) -> Array{{ i }}[{{ n_any }}]: ...
 
 
 @overload
-def ones(shape: Shape{{ i }}, dtype=...) -> array{{ i }}[{{ n_any }}]: ...
+def ones(shape: Shape{{ i }}, dtype=...) -> Array{{ i }}[{{ n_any }}]: ...
 
 {% endfor %}
 
@@ -230,17 +230,17 @@ def {{ op }}(
 
 @overload
 def {{ op }}(
-    a: array{{ axes.n_axes }}{{ axes.all_axes }},
+    a: Array{{ axes.n_axes }}{{ axes.all_axes }},
     axis: {{ axes.reduction_axes }},
     out=..., keepdims=..., dtype=...
-) -> array{{ axes.remaining_n_axes }}{{ axes.remaining_axes }}: ...
+) -> Array{{ axes.remaining_n_axes }}{{ axes.remaining_axes }}: ...
 
 {% endfor %}
 
 # Fallback: `axis` not any of the above
 @overload
 def {{ op }}(
-    a: array{{ n_axes }}[{{ (['Any'] * n_axes)|join(', ') }}],
+    a: Array{{ n_axes }}[{{ (['Any'] * n_axes)|join(', ') }}],
     axis: Literal[Any],
     out=..., keepdims=..., dtype=...
 ) -> Any: ...
@@ -249,9 +249,9 @@ def {{ op }}(
 
 @overload
 def {{ op }}(
-    a: array{{ n_axes }}[{{ (['Any'] * n_axes)|join(', ') }}],
+    a: Array{{ n_axes }}[{{ (['Any'] * n_axes)|join(', ') }}],
     out=..., keepdims=..., dtype=...
-) -> array0: ...
+) -> Array0: ...
 
 {% endfor %}
 
@@ -278,9 +278,9 @@ def {{ op }}(
 
 @overload
 def transpose(
-    a: array{{ n_axes }}{{ axes.all_axes }},
+    a: Array{{ n_axes }}{{ axes.all_axes }},
     axes: {{ axes.transpose_axes }}
-) -> array{{ n_axes }}{{ axes.result_axes }}: ...
+) -> Array{{ n_axes }}{{ axes.result_axes }}: ...
 
 {% endfor %}
 
@@ -293,8 +293,8 @@ def transpose(
 
 @overload
 def transpose(
-    a: array{{ n_axes }}[{{ axes }}]
-) -> array{{ n_axes }}[{{ reverse_axes }}]: ...
+    a: Array{{ n_axes }}[{{ axes }}]
+) -> Array{{ n_axes }}[{{ reverse_axes }}]: ...
 
 {% endfor %}
 

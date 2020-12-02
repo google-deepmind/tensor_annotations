@@ -35,162 +35,162 @@ Number = Union[int, float]
 
 
 # A quick refresher on broadcasting rules:
-# 1. array[A, B] + scalar = array[A, B].
+# 1. Array[A, B] + scalar = Array[A, B].
 # 2. Otherwise, start with trailing dimension of each tensor and work
 #    forwards. Broadcasting is possible if, for each axis, the dimensions
 #    of that axis in each tensor are either a) equal or b) one of them is 1.
 # We deliberately ignore case b) for the time being since we don't support
 # literal shapes yet.
 
-class array0:
+class Array0:
   def __getitem__(self, index) -> Any: ...
   def __setitem__(self, index, value) -> Any: ...
 
   # BEGIN: Unary operators
   {% for func in unary_funcs %}
-  def {{ func }}(self) -> array0: ...
+  def {{ func }}(self) -> Array0: ...
   {% endfor %}
   # END: Unary operators
 
   # BEGIN: Binary element-wise operators
   {% for func in binary_elementwise_funcs %}
   @overload
-  def {{ func }}(self, other: array0) -> array0: ...
+  def {{ func }}(self, other: Array0) -> Array0: ...
   @overload
-  def {{ func }}(self, other: array1) -> array1: ...
+  def {{ func }}(self, other: Array1) -> Array1: ...
   @overload
-  def {{ func }}(self, other: array2) -> array2: ...
+  def {{ func }}(self, other: Array2) -> Array2: ...
   @overload
-  def {{ func }}(self, other: array3) -> array3: ...
+  def {{ func }}(self, other: Array3) -> Array3: ...
   @overload
-  def {{ func }}(self, other: array4) -> array4: ...
+  def {{ func }}(self, other: Array4) -> Array4: ...
   {% endfor %}
   # END: Binary element-wise operators
 
 
-class array1(Generic[A1]):
+class Array1(Generic[A1]):
   def __getitem__(self, index) -> Any: ...
   def __setitem__(self, index, value) -> Any: ...
 
   # BEGIN: Unary operators
   {% for func in unary_funcs %}
-  def {{ func }}(self) -> array1[A1]: ...
+  def {{ func }}(self) -> Array1[A1]: ...
   {% endfor %}
   # END: Unary operators
 
   # BEGIN: Binary element-wise operators
 
-  # Broadcasting case 1: array[A, B] + scalar = array[A, B].
+  # Broadcasting case 1: Array[A, B] + scalar = Array[A, B].
   {% for func in binary_elementwise_funcs %}
   @overload
-  def {{ func }}(self, other: Number) -> array1[A1]: ...
+  def {{ func }}(self, other: Number) -> Array1[A1]: ...
   @overload
-  def {{ func }}(self, other: array0) -> array1[A1]: ...
+  def {{ func }}(self, other: Array0) -> Array1[A1]: ...
   {% endfor %}
 
-  # Broadcasting case 2: array[A, B, C] + array[B, C] = array[A, B, C].
+  # Broadcasting case 2: Array[A, B, C] + Array[B, C] = Array[A, B, C].
   {% for func in binary_elementwise_funcs %}
   @overload
-  def {{ func }}(self, other: array1[A1]) -> array1[A1]: ...
-  {% endfor %}
-
-  # END: Binary element-wise operators
-
-
-class array2(Generic[A1, A2]):
-  def __getitem__(self, index) -> Any: ...
-  def __setitem__(self, index, value) -> Any: ...
-
-  # BEGIN: Unary operators
-  {% for func in unary_funcs %}
-  def {{ func }}(self) -> array2[A1, A2]: ...
-  {% endfor %}
-  # END: Unary operators
-
-  # BEGIN: Binary element-wise operators
-
-  # Broadcasting case 1: array[A, B] + scalar = array[A, B].
-  {% for func in binary_elementwise_funcs %}
-  @overload
-  def {{ func }}(self, other: Number) -> array2[A1, A2]: ...
-  @overload
-  def {{ func }}(self, other: array0) -> array2[A1, A2]: ...
-  {% endfor %}
-
-  # Broadcasting case 2: array[A, B, C] + array[B, C] = array[A, B, C].
-  {% for func in binary_elementwise_funcs %}
-  @overload
-  def {{ func }}(self, other: array1[A2]) -> array2[A1, A2]: ...
-  @overload
-  def {{ func }}(self, other: array2[A1, A2]) -> array2[A1, A2]: ...
+  def {{ func }}(self, other: Array1[A1]) -> Array1[A1]: ...
   {% endfor %}
 
   # END: Binary element-wise operators
 
 
-class array3(Generic[A1, A2, A3]):
+class Array2(Generic[A1, A2]):
   def __getitem__(self, index) -> Any: ...
   def __setitem__(self, index, value) -> Any: ...
 
   # BEGIN: Unary operators
   {% for func in unary_funcs %}
-  def {{ func }}(self) -> array3[A1, A2, A3]: ...
+  def {{ func }}(self) -> Array2[A1, A2]: ...
   {% endfor %}
   # END: Unary operators
 
   # BEGIN: Binary element-wise operators
 
-  # Broadcasting case 1: array[A, B] + scalar = array[A, B].
+  # Broadcasting case 1: Array[A, B] + scalar = Array[A, B].
   {% for func in binary_elementwise_funcs %}
   @overload
-  def {{ func }}(self, other: Number) -> array3[A1, A2, A3]: ...
+  def {{ func }}(self, other: Number) -> Array2[A1, A2]: ...
   @overload
-  def {{ func }}(self, other: array0) -> array3[A1, A2, A3]: ...
+  def {{ func }}(self, other: Array0) -> Array2[A1, A2]: ...
   {% endfor %}
 
-  # Broadcasting case 2: array[A, B, C] + array[B, C] = array[A, B, C].
+  # Broadcasting case 2: Array[A, B, C] + Array[B, C] = Array[A, B, C].
   {% for func in binary_elementwise_funcs %}
   @overload
-  def {{ func }}(self, other: array1[A3]) -> array3[A1, A2, A3]: ...
+  def {{ func }}(self, other: Array1[A2]) -> Array2[A1, A2]: ...
   @overload
-  def {{ func }}(self, other: array2[A2, A3]) -> array3[A1, A2, A3]: ...
-  @overload
-  def {{ func }}(self, other: array3[A1, A2, A3]) -> array3[A1, A2, A3]: ...
+  def {{ func }}(self, other: Array2[A1, A2]) -> Array2[A1, A2]: ...
   {% endfor %}
 
   # END: Binary element-wise operators
 
 
-class array4(Generic[A1, A2, A3, A4]):
+class Array3(Generic[A1, A2, A3]):
   def __getitem__(self, index) -> Any: ...
   def __setitem__(self, index, value) -> Any: ...
 
   # BEGIN: Unary operators
   {% for func in unary_funcs %}
-  def {{ func }}(self) -> array4[A1, A2, A3, A4]: ...
+  def {{ func }}(self) -> Array3[A1, A2, A3]: ...
   {% endfor %}
   # END: Unary operators
 
   # BEGIN: Binary element-wise operators
 
-  # Broadcasting case 1: array[A, B] + scalar = array[A, B].
+  # Broadcasting case 1: Array[A, B] + scalar = Array[A, B].
   {% for func in binary_elementwise_funcs %}
   @overload
-  def {{ func }}(self, other: Number) -> array4[A1, A2, A3, A4]: ...
+  def {{ func }}(self, other: Number) -> Array3[A1, A2, A3]: ...
   @overload
-  def {{ func }}(self, other: array0) -> array4[A1, A2, A3, A4]: ...
+  def {{ func }}(self, other: Array0) -> Array3[A1, A2, A3]: ...
   {% endfor %}
 
-  # Broadcasting case 2: array[A, B, C] + array[B, C] = array[A, B, C].
+  # Broadcasting case 2: Array[A, B, C] + Array[B, C] = Array[A, B, C].
   {% for func in binary_elementwise_funcs %}
   @overload
-  def {{ func }}(self, other: array1[A4]) -> array4[A1, A2, A3, A4]: ...
+  def {{ func }}(self, other: Array1[A3]) -> Array3[A1, A2, A3]: ...
   @overload
-  def {{ func }}(self, other: array2[A3, A4]) -> array4[A1, A2, A3, A4]: ...
+  def {{ func }}(self, other: Array2[A2, A3]) -> Array3[A1, A2, A3]: ...
   @overload
-  def {{ func }}(self, other: array3[A2, A3, A4]) -> array4[A1, A2, A3, A4]: ...
+  def {{ func }}(self, other: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
+  {% endfor %}
+
+  # END: Binary element-wise operators
+
+
+class Array4(Generic[A1, A2, A3, A4]):
+  def __getitem__(self, index) -> Any: ...
+  def __setitem__(self, index, value) -> Any: ...
+
+  # BEGIN: Unary operators
+  {% for func in unary_funcs %}
+  def {{ func }}(self) -> Array4[A1, A2, A3, A4]: ...
+  {% endfor %}
+  # END: Unary operators
+
+  # BEGIN: Binary element-wise operators
+
+  # Broadcasting case 1: Array[A, B] + scalar = Array[A, B].
+  {% for func in binary_elementwise_funcs %}
   @overload
-  def {{ func }}(self, other: array4[A1, A2, A3, A4]) -> array4[A1, A2, A3, A4]: ...
+  def {{ func }}(self, other: Number) -> Array4[A1, A2, A3, A4]: ...
+  @overload
+  def {{ func }}(self, other: Array0) -> Array4[A1, A2, A3, A4]: ...
+  {% endfor %}
+
+  # Broadcasting case 2: Array[A, B, C] + Array[B, C] = Array[A, B, C].
+  {% for func in binary_elementwise_funcs %}
+  @overload
+  def {{ func }}(self, other: Array1[A4]) -> Array4[A1, A2, A3, A4]: ...
+  @overload
+  def {{ func }}(self, other: Array2[A3, A4]) -> Array4[A1, A2, A3, A4]: ...
+  @overload
+  def {{ func }}(self, other: Array3[A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
+  @overload
+  def {{ func }}(self, other: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
   {% endfor %}
 
   # END: Binary element-wise operators
