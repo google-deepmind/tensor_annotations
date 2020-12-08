@@ -38,7 +38,7 @@ setuptools.setup(
                  'describing how library functions change shapes.'),
     # Copybara takes care of moving files to 'tensor_annotations/'
     packages=['tensor_annotations', 'tensor_annotations/tests'],
-    package_data={'tensor_annotations': stub_files},
+    package_data={'tensor_annotations': stub_files + ['py.typed']},
     include_package_data=True,
     extras_require={'dev': [
         'absl-py',
