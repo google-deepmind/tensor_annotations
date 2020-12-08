@@ -18,7 +18,7 @@
 # See README.md for more details.
 
 # BEGIN: tensor_annotations annotations
-from typing import Any, TypeVar, Tuple, Sequence, Generic
+from typing import Any, TypeVar, Tuple, overload
 from typing_extensions import Literal
 
 # from numbers import Number
