@@ -974,6 +974,7 @@ def reduce_all(input_tensor: Tensor3[A3, A2, A1],
 def reduce_all(input_tensor:Tensor4[A4, A3, A2, A1],
                axis=..., keepdims: TRUE = ..., name=...) -> Tensor4[A4, A3, A2, A1]: ...
 
+@overload
 def reduce_all(input_tensor, axis=..., keepdims=..., name=...) -> Any: ...
 # END: tensor_annotations annotations for reduce_all(...)
 
@@ -1031,6 +1032,7 @@ def reduce_any(input_tensor: Tensor3[A3, A2, A1],
 def reduce_any(input_tensor:Tensor4[A4, A3, A2, A1],
                axis=..., keepdims: TRUE = ..., name=...) -> Tensor4[A4, A3, A2, A1]: ...
 
+@overload
 def reduce_any(input_tensor, axis=..., keepdims=..., name=...) -> Any: ...
 # END: tensor_annotations annotations for reduce_any(...)
 
@@ -1088,6 +1090,7 @@ def reduce_logsumexp(input_tensor: Tensor3[A3, A2, A1],
 def reduce_logsumexp(input_tensor:Tensor4[A4, A3, A2, A1],
                axis=..., keepdims: TRUE = ..., name=...) -> Tensor4[A4, A3, A2, A1]: ...
 
+@overload
 def reduce_logsumexp(input_tensor, axis=..., keepdims=..., name=...) -> Any: ...
 # END: tensor_annotations annotations for reduce_logsumexp(...)
 
@@ -1145,6 +1148,7 @@ def reduce_max(input_tensor: Tensor3[A3, A2, A1],
 def reduce_max(input_tensor:Tensor4[A4, A3, A2, A1],
                axis=..., keepdims: TRUE = ..., name=...) -> Tensor4[A4, A3, A2, A1]: ...
 
+@overload
 def reduce_max(input_tensor, axis=..., keepdims=..., name=...) -> Any: ...
 # END: tensor_annotations annotations for reduce_max(...)
 
@@ -1202,6 +1206,7 @@ def reduce_mean(input_tensor: Tensor3[A3, A2, A1],
 def reduce_mean(input_tensor:Tensor4[A4, A3, A2, A1],
                axis=..., keepdims: TRUE = ..., name=...) -> Tensor4[A4, A3, A2, A1]: ...
 
+@overload
 def reduce_mean(input_tensor, axis=..., keepdims=..., name=...) -> Any: ...
 # END: tensor_annotations annotations for reduce_mean(...)
 
@@ -1259,6 +1264,7 @@ def reduce_min(input_tensor: Tensor3[A3, A2, A1],
 def reduce_min(input_tensor:Tensor4[A4, A3, A2, A1],
                axis=..., keepdims: TRUE = ..., name=...) -> Tensor4[A4, A3, A2, A1]: ...
 
+@overload
 def reduce_min(input_tensor, axis=..., keepdims=..., name=...) -> Any: ...
 # END: tensor_annotations annotations for reduce_min(...)
 
@@ -1316,6 +1322,7 @@ def reduce_prod(input_tensor: Tensor3[A3, A2, A1],
 def reduce_prod(input_tensor:Tensor4[A4, A3, A2, A1],
                axis=..., keepdims: TRUE = ..., name=...) -> Tensor4[A4, A3, A2, A1]: ...
 
+@overload
 def reduce_prod(input_tensor, axis=..., keepdims=..., name=...) -> Any: ...
 # END: tensor_annotations annotations for reduce_prod(...)
 
@@ -1373,6 +1380,7 @@ def reduce_sum(input_tensor: Tensor3[A3, A2, A1],
 def reduce_sum(input_tensor:Tensor4[A4, A3, A2, A1],
                axis=..., keepdims: TRUE = ..., name=...) -> Tensor4[A4, A3, A2, A1]: ...
 
+@overload
 def reduce_sum(input_tensor, axis=..., keepdims=..., name=...) -> Any: ...
 # END: tensor_annotations annotations for reduce_sum(...)
 
