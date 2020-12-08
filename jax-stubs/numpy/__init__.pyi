@@ -2464,7 +2464,7 @@ around: Any
 
 array: Any
 
-Array2string: Any
+array2string: Any
 
 array_equal: Any
 
