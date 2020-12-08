@@ -3056,8 +3056,6 @@ polyint: Any
 
 polymul: Any
 
-polynomial: Any
-
 polysub: Any
 
 polyval: Any
