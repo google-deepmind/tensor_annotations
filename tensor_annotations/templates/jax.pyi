@@ -209,12 +209,27 @@ def ones(shape: Shape{{ i }}, dtype=...) -> Array{{ i }}[{{ n_any }}]: ...
 
 ## keepdims = True: yet be to be typed
 
+# This type signature is technically incorrect: `keepdims` is *not*
+# the second argument. However, this way seems to be the only way
+# to get both pytype and Mypy to recognise this overload: if we put
+# `keepdims: Literal[True]` in the right position, Mypy complains
+# about a non-default argument following a default argument; if we
+# put `keepdims: Literal[True] = ...` in the right place, pytype
+# matches this overload even when `keepdims=False`.
+#
+# In practice, though, this shouldn't be an issue:
+# * It's very unlikely that anyone would pass `True` as the second (non-keyword)
+#   argument here (since the second argument is *supposed* to be `axis`).
+# * If someone *did* want to set `keepdims` to `True`, they'd *have* to
+#   use a keyword argument, since `keepdims` comes after `out, and setting `out`
+#   to anything (even `None`) produces a "The 'out' argument to jnp.{{op}} is
+#   not supported" error.
 @overload
 def {{ op }}(
     a: Any,
+    keepdims: Literal[True],
     axis=...,
     out=...,
-    keepdims: Literal[True],
     dtype=...
 ) -> Any: ...
 
