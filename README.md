@@ -362,10 +362,12 @@ This library is one approach of many to checking tensor shapes. We don't expect
 it to be the final solution; we create it to explore one point in the space of
 possibilities.
 
-Other libraries for checking tensor shapes include:
+Other tools for checking tensor shapes include:
 
+* [Pythia](https://yanniss.github.io/tensor-ecoop20.pdf), a static analyzer
+  designed specifically for detecting TensorFlow shape errors
 * [tsanley](https://github.com/ofnote/tsanley), which uses string annotations
-  combines with runtime verification
+  combined with runtime verification
 * [Shape Guard](https://github.com/Qwlouse/shapeguard), another runtime
   verification tool using concise helper methods
 * [swift-tfp](https://github.com/google-research/swift-tfp), a static analyzer
@@ -373,20 +375,22 @@ Other libraries for checking tensor shapes include:
   
 To learn more about tensor shape checking in general, see:
 
-* Stephan Hoyer's [Ideas for array shape typing in Python] doc
+* Stephan Hoyer's
+  [Ideas for array shape typing in Python](https://docs.google.com/document/d/1vpMse4c6DrWH5rq2tQSx3qwP_m_0lyn-Ij4WHqQqRHY/edit)
+  document
 * The
   [Typing for multi-dimensional arrays](https://github.com/python/typing/issues/513)
   GitHub issue in `python/typing`
 * Our
   [Shape annotation feature scoping](https://docs.google.com/document/d/1t-j1MJ9M0f0KMAnM22J97tCHSfVoFjAy9k4Lexi75c4/edit)
-  and our [Shape annotation syntax proposal](https://docs.google.com/document/d/1But-hjet8-djv519HEKvBN6Ik2lW3yu0ojZo6pG9osY/edit) doc (a synthesis of the most promising ideas
+  and our [Shape annotation syntax proposal](https://docs.google.com/document/d/1But-hjet8-djv519HEKvBN6Ik2lW3yu0ojZo6pG9osY/edit) documents (a synthesis of the most promising ideas
   from the full doc)
 * The Python
   [typing-sig](https://mail.python.org/archives/list/typing-sig@python.org/)
   mailing list (in particular,
   [this thread](https://mail.python.org/archives/list/typing-sig@python.org/thread/IOBJGI5SJCUHJAUE4BOULGFBBEO5DCVG/)
   )
-* [Notes and recordsings](https://docs.google.com/document/d/1oaG0V2ZE5BRDjd9N-Tr1N0IKGwZQcraIlZ0N8ayqVg8/edit)
+* [Notes and recordings](https://docs.google.com/document/d/1oaG0V2ZE5BRDjd9N-Tr1N0IKGwZQcraIlZ0N8ayqVg8/edit)
   from the Tensor Typing Open Design Meetings
 
 ## Repository structure
