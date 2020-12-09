@@ -22,6 +22,7 @@ import subprocess
 import tempfile
 import textwrap
 import types
+from typing import List
 from typing import Optional
 
 
@@ -150,18 +151,53 @@ def pytype_infer_types(code: str) -> types.SimpleNamespace:
   # depending on whether we run the Google-internal version or the normal
   # version
   lines = (process.stdout.decode() + process.stderr.decode()).split('\n')
+
+  return _parse_pytype_output(var_names, lines)
+
+
+def _parse_pytype_output(var_names: List[str],
+                         lines: List[str]) -> types.SimpleNamespace:
+  """Parses the inferred type of each variable from pytype output."""
   reveal_type_lines = [l for l in lines if '[reveal-type]' in l]
   assert len(reveal_type_lines) == len(var_names)
 
   types_dict = {}
   for var, line in zip(var_names, reveal_type_lines):
-    match = re.search(r'File "[^"]*", line \d+, in [^:]*: (.*) \[reveal-type\]',
-                      line)
+    match = re.search(r'File "[^"]*", line \d+, in [^:]*: '
+                      r'(.*) \[reveal-type\]', line)
     if match is None:
       raise Exception(f"Couldn't parse type from line: {line}")
     t = match.group(1)
-    # ...jax.Array0 -> Array0
+    # Simplifies e.g. `tensor_annotations.jax.Array0` to just `Array0`
     t = re.sub(r'tensor_annotations.[^.]*\.', '', t)
+    types_dict[var] = t
+
+  return types.SimpleNamespace(**types_dict)
+
+
+def _parse_mypy_output(var_names: List[str],
+                       lines: List[str]) -> types.SimpleNamespace:
+  """Parses the inferred type of each variable from Mypy output."""
+  reveal_type_lines = [l for l in lines if 'Revealed type is' in l]
+  assert len(reveal_type_lines) == len(var_names)
+
+  types_dict = {}
+  for var, line in zip(var_names, reveal_type_lines):
+    match = re.search("Revealed type is '(.*)'", line)
+    if match is None:
+      raise Exception(f"Couldn't parse type from line: {line}")
+    t = match.group(1)
+    # Simplifies e.g. `tensor_annotations.jax.Array0` to just `Array0`
+    t = re.sub(r'tensor_annotations.[^.]*\.', '', t)
+    # Remove the '*' that Mypy suffixes types with if the types were inferred
+    # using type variable substitution.
+    t = t.replace('*', '')
+    # Mypy will format axis types as e.g. `test.A1`. Get rid of the `test.`.
+    t = re.sub(r'test.(A\d+)', r'\1', t)
+    # Mypy will format unparameterised generics as e.g. `Tensor1[Any]`, but
+    # we wrote tests assuming they'd be formatted as just `Tensor1`, so get
+    # rid of the `[Any]`.
+    t = t.replace('[Any]', '')
     types_dict[var] = t
 
   return types.SimpleNamespace(**types_dict)
