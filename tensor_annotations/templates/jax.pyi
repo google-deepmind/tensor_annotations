@@ -47,107 +47,78 @@ L3 = Literal[3]
 
 # ---------- UNARY OPERATORS ----------
 
-{% for i in range(1, 5) %}
-
-{# type = arrayN[A1, A2, ..., An] #}
-{% set type = get_jax_array_type(i) %}
-
-@overload
-def abs(x: {{ type }}) -> {{ type }}: ...
-
+{% set unary_funcs = ['abs', 'acos', 'acosh', 'asin', 'asinh', 'atan', 'atanh',
+                      'cos', 'cosh', 'exp', 'floor', 'logical_not', 'negative',
+                      'sigmoid', 'sign', 'sin', 'sinh', 'sqrt', 'square', 'tan',
+                      'tanh'] %}
+{% for func in unary_funcs %}
 
 @overload
-def acos(x: {{ type }}) -> {{ type }}: ...
+def {{ func }}(x: Array0) -> Array0: ...
 
 
 @overload
-def acosh(x: {{ type }}) -> {{ type }}: ...
+def {{ func }}(x: Array1[A1]) -> Array1[A1]: ...
 
 
 @overload
-def asin(x: {{ type }}) -> {{ type }}: ...
+def {{ func }}(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
 
 
 @overload
-def asinh(x: {{ type }}) -> {{ type }}: ...
+def {{ func }}(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
 
 
 @overload
-def atan(x: {{ type }}) -> {{ type }}: ...
-
-
-@overload
-def atanh(x: {{ type }}) -> {{ type }}: ...
-
-
-@overload
-def cos(x: {{ type }}) -> {{ type }}: ...
-
-
-@overload
-def cosh(x: {{ type }}) -> {{ type }}: ...
-
-
-@overload
-def exp(x: {{ type }}) -> {{ type }}: ...
-
-
-@overload
-def floor(x: {{ type }}) -> {{ type }}: ...
-
-
-@overload
-def logical_not(x: {{ type }}) -> {{ type }}: ...
-
-
-@overload
-def negative(x: {{ type }}) -> {{ type }}: ...
-
-
-@overload
-def ones_like(x: {{ type }}, dtype=...) -> {{ type }}: ...
-
-
-@overload
-def round(x: {{ type }}, decimals=...) -> {{ type }}: ...
-
-
-@overload
-def sigmoid(x: {{ type }}) -> {{ type }}: ...
-
-
-@overload
-def sign(x: {{ type }}) -> {{ type }}: ...
-
-
-@overload
-def sin(x: {{ type }}) -> {{ type }}: ...
-
-
-@overload
-def sinh(x: {{ type }}) -> {{ type }}: ...
-
-
-@overload
-def sqrt(x: {{ type }}) -> {{ type }}: ...
-
-
-@overload
-def square(x: {{ type }}) -> {{ type }}: ...
-
-
-@overload
-def tan(x: {{ type }}) -> {{ type }}: ...
-
-
-@overload
-def tanh(x: {{ type }}) -> {{ type }}: ...
-
-
-@overload
-def zeros_like(x: {{ type }}, dtype=...) -> {{ type }}: ...
+def {{ func }}(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
 
 {% endfor %}
+
+
+{% set dtype_unary_funcs = ['zeros_like', 'ones_like'] %}
+{% for func in dtype_unary_funcs %}
+
+@overload
+def {{ func }}(x: Array0, dtype=...) -> Array0: ...
+
+
+@overload
+def {{ func }}(x: Array1[A1], dtype=...) -> Array1[A1]: ...
+
+
+@overload
+def {{ func }}(x: Array2[A1, A2], dtype=...) -> Array2[A1, A2]: ...
+
+
+@overload
+def {{ func }}(x: Array3[A1, A2, A3], dtype=...) -> Array3[A1, A2, A3]: ...
+
+
+@overload
+def {{ func }}(x: Array4[A1, A2, A3, A4], dtype=...) -> Array4[A1, A2, A3, A4]: ...
+
+{% endfor %}
+
+
+@overload
+def round(x: Array0, decimals=...) -> Array0: ...
+
+
+@overload
+def round(x: Array1[A1], decimals=...) -> Array1[A1]: ...
+
+
+@overload
+def round(x: Array2[A1, A2], decimals=...) -> Array2[A1, A2]: ...
+
+
+@overload
+def round(x: Array3[A1, A2, A3], decimals=...) -> Array3[A1, A2, A3]: ...
+
+
+@overload
+def round(x: Array4[A1, A2, A3, A4], decimals=...) -> Array4[A1, A2, A3, A4]: ...
+
 
 # I what even why would you
 @overload

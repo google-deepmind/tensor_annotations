@@ -49,99 +49,11 @@ L3 = Literal[3]
 
 
 @overload
+def abs(x: Array0) -> Array0: ...
+
+
+@overload
 def abs(x: Array1[A1]) -> Array1[A1]: ...
-
-
-@overload
-def acos(x: Array1[A1]) -> Array1[A1]: ...
-
-
-@overload
-def acosh(x: Array1[A1]) -> Array1[A1]: ...
-
-
-@overload
-def asin(x: Array1[A1]) -> Array1[A1]: ...
-
-
-@overload
-def asinh(x: Array1[A1]) -> Array1[A1]: ...
-
-
-@overload
-def atan(x: Array1[A1]) -> Array1[A1]: ...
-
-
-@overload
-def atanh(x: Array1[A1]) -> Array1[A1]: ...
-
-
-@overload
-def cos(x: Array1[A1]) -> Array1[A1]: ...
-
-
-@overload
-def cosh(x: Array1[A1]) -> Array1[A1]: ...
-
-
-@overload
-def exp(x: Array1[A1]) -> Array1[A1]: ...
-
-
-@overload
-def floor(x: Array1[A1]) -> Array1[A1]: ...
-
-
-@overload
-def logical_not(x: Array1[A1]) -> Array1[A1]: ...
-
-
-@overload
-def negative(x: Array1[A1]) -> Array1[A1]: ...
-
-
-@overload
-def ones_like(x: Array1[A1], dtype=...) -> Array1[A1]: ...
-
-
-@overload
-def round(x: Array1[A1], decimals=...) -> Array1[A1]: ...
-
-
-@overload
-def sigmoid(x: Array1[A1]) -> Array1[A1]: ...
-
-
-@overload
-def sign(x: Array1[A1]) -> Array1[A1]: ...
-
-
-@overload
-def sin(x: Array1[A1]) -> Array1[A1]: ...
-
-
-@overload
-def sinh(x: Array1[A1]) -> Array1[A1]: ...
-
-
-@overload
-def sqrt(x: Array1[A1]) -> Array1[A1]: ...
-
-
-@overload
-def square(x: Array1[A1]) -> Array1[A1]: ...
-
-
-@overload
-def tan(x: Array1[A1]) -> Array1[A1]: ...
-
-
-@overload
-def tanh(x: Array1[A1]) -> Array1[A1]: ...
-
-
-@overload
-def zeros_like(x: Array1[A1], dtype=...) -> Array1[A1]: ...
 
 
 @overload
@@ -149,191 +61,7 @@ def abs(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
 
 
 @overload
-def acos(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
-
-
-@overload
-def acosh(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
-
-
-@overload
-def asin(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
-
-
-@overload
-def asinh(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
-
-
-@overload
-def atan(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
-
-
-@overload
-def atanh(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
-
-
-@overload
-def cos(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
-
-
-@overload
-def cosh(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
-
-
-@overload
-def exp(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
-
-
-@overload
-def floor(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
-
-
-@overload
-def logical_not(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
-
-
-@overload
-def negative(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
-
-
-@overload
-def ones_like(x: Array2[A1, A2], dtype=...) -> Array2[A1, A2]: ...
-
-
-@overload
-def round(x: Array2[A1, A2], decimals=...) -> Array2[A1, A2]: ...
-
-
-@overload
-def sigmoid(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
-
-
-@overload
-def sign(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
-
-
-@overload
-def sin(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
-
-
-@overload
-def sinh(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
-
-
-@overload
-def sqrt(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
-
-
-@overload
-def square(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
-
-
-@overload
-def tan(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
-
-
-@overload
-def tanh(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
-
-
-@overload
-def zeros_like(x: Array2[A1, A2], dtype=...) -> Array2[A1, A2]: ...
-
-
-@overload
 def abs(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
-
-
-@overload
-def acos(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
-
-
-@overload
-def acosh(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
-
-
-@overload
-def asin(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
-
-
-@overload
-def asinh(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
-
-
-@overload
-def atan(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
-
-
-@overload
-def atanh(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
-
-
-@overload
-def cos(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
-
-
-@overload
-def cosh(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
-
-
-@overload
-def exp(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
-
-
-@overload
-def floor(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
-
-
-@overload
-def logical_not(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
-
-
-@overload
-def negative(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
-
-
-@overload
-def ones_like(x: Array3[A1, A2, A3], dtype=...) -> Array3[A1, A2, A3]: ...
-
-
-@overload
-def round(x: Array3[A1, A2, A3], decimals=...) -> Array3[A1, A2, A3]: ...
-
-
-@overload
-def sigmoid(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
-
-
-@overload
-def sign(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
-
-
-@overload
-def sin(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
-
-
-@overload
-def sinh(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
-
-
-@overload
-def sqrt(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
-
-
-@overload
-def square(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
-
-
-@overload
-def tan(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
-
-
-@overload
-def tanh(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
-
-
-@overload
-def zeros_like(x: Array3[A1, A2, A3], dtype=...) -> Array3[A1, A2, A3]: ...
 
 
 @overload
@@ -341,7 +69,39 @@ def abs(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
 
 
 @overload
+def acos(x: Array0) -> Array0: ...
+
+
+@overload
+def acos(x: Array1[A1]) -> Array1[A1]: ...
+
+
+@overload
+def acos(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
+
+
+@overload
+def acos(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
+
+
+@overload
 def acos(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
+
+
+@overload
+def acosh(x: Array0) -> Array0: ...
+
+
+@overload
+def acosh(x: Array1[A1]) -> Array1[A1]: ...
+
+
+@overload
+def acosh(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
+
+
+@overload
+def acosh(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
 
 
 @overload
@@ -349,7 +109,39 @@ def acosh(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
 
 
 @overload
+def asin(x: Array0) -> Array0: ...
+
+
+@overload
+def asin(x: Array1[A1]) -> Array1[A1]: ...
+
+
+@overload
+def asin(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
+
+
+@overload
+def asin(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
+
+
+@overload
 def asin(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
+
+
+@overload
+def asinh(x: Array0) -> Array0: ...
+
+
+@overload
+def asinh(x: Array1[A1]) -> Array1[A1]: ...
+
+
+@overload
+def asinh(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
+
+
+@overload
+def asinh(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
 
 
 @overload
@@ -357,7 +149,39 @@ def asinh(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
 
 
 @overload
+def atan(x: Array0) -> Array0: ...
+
+
+@overload
+def atan(x: Array1[A1]) -> Array1[A1]: ...
+
+
+@overload
+def atan(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
+
+
+@overload
+def atan(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
+
+
+@overload
 def atan(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
+
+
+@overload
+def atanh(x: Array0) -> Array0: ...
+
+
+@overload
+def atanh(x: Array1[A1]) -> Array1[A1]: ...
+
+
+@overload
+def atanh(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
+
+
+@overload
+def atanh(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
 
 
 @overload
@@ -365,7 +189,39 @@ def atanh(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
 
 
 @overload
+def cos(x: Array0) -> Array0: ...
+
+
+@overload
+def cos(x: Array1[A1]) -> Array1[A1]: ...
+
+
+@overload
+def cos(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
+
+
+@overload
+def cos(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
+
+
+@overload
 def cos(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
+
+
+@overload
+def cosh(x: Array0) -> Array0: ...
+
+
+@overload
+def cosh(x: Array1[A1]) -> Array1[A1]: ...
+
+
+@overload
+def cosh(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
+
+
+@overload
+def cosh(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
 
 
 @overload
@@ -373,7 +229,39 @@ def cosh(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
 
 
 @overload
+def exp(x: Array0) -> Array0: ...
+
+
+@overload
+def exp(x: Array1[A1]) -> Array1[A1]: ...
+
+
+@overload
+def exp(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
+
+
+@overload
+def exp(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
+
+
+@overload
 def exp(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
+
+
+@overload
+def floor(x: Array0) -> Array0: ...
+
+
+@overload
+def floor(x: Array1[A1]) -> Array1[A1]: ...
+
+
+@overload
+def floor(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
+
+
+@overload
+def floor(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
 
 
 @overload
@@ -381,11 +269,240 @@ def floor(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
 
 
 @overload
+def logical_not(x: Array0) -> Array0: ...
+
+
+@overload
+def logical_not(x: Array1[A1]) -> Array1[A1]: ...
+
+
+@overload
+def logical_not(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
+
+
+@overload
+def logical_not(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
+
+
+@overload
 def logical_not(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
 
 
 @overload
+def negative(x: Array0) -> Array0: ...
+
+
+@overload
+def negative(x: Array1[A1]) -> Array1[A1]: ...
+
+
+@overload
+def negative(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
+
+
+@overload
+def negative(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
+
+
+@overload
 def negative(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
+
+
+@overload
+def sigmoid(x: Array0) -> Array0: ...
+
+
+@overload
+def sigmoid(x: Array1[A1]) -> Array1[A1]: ...
+
+
+@overload
+def sigmoid(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
+
+
+@overload
+def sigmoid(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
+
+
+@overload
+def sigmoid(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
+
+
+@overload
+def sign(x: Array0) -> Array0: ...
+
+
+@overload
+def sign(x: Array1[A1]) -> Array1[A1]: ...
+
+
+@overload
+def sign(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
+
+
+@overload
+def sign(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
+
+
+@overload
+def sign(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
+
+
+@overload
+def sin(x: Array0) -> Array0: ...
+
+
+@overload
+def sin(x: Array1[A1]) -> Array1[A1]: ...
+
+
+@overload
+def sin(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
+
+
+@overload
+def sin(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
+
+
+@overload
+def sin(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
+
+
+@overload
+def sinh(x: Array0) -> Array0: ...
+
+
+@overload
+def sinh(x: Array1[A1]) -> Array1[A1]: ...
+
+
+@overload
+def sinh(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
+
+
+@overload
+def sinh(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
+
+
+@overload
+def sinh(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
+
+
+@overload
+def sqrt(x: Array0) -> Array0: ...
+
+
+@overload
+def sqrt(x: Array1[A1]) -> Array1[A1]: ...
+
+
+@overload
+def sqrt(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
+
+
+@overload
+def sqrt(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
+
+
+@overload
+def sqrt(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
+
+
+@overload
+def square(x: Array0) -> Array0: ...
+
+
+@overload
+def square(x: Array1[A1]) -> Array1[A1]: ...
+
+
+@overload
+def square(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
+
+
+@overload
+def square(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
+
+
+@overload
+def square(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
+
+
+@overload
+def tan(x: Array0) -> Array0: ...
+
+
+@overload
+def tan(x: Array1[A1]) -> Array1[A1]: ...
+
+
+@overload
+def tan(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
+
+
+@overload
+def tan(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
+
+
+@overload
+def tan(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
+
+
+@overload
+def tanh(x: Array0) -> Array0: ...
+
+
+@overload
+def tanh(x: Array1[A1]) -> Array1[A1]: ...
+
+
+@overload
+def tanh(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
+
+
+@overload
+def tanh(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
+
+
+@overload
+def tanh(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
+
+
+@overload
+def zeros_like(x: Array0, dtype=...) -> Array0: ...
+
+
+@overload
+def zeros_like(x: Array1[A1], dtype=...) -> Array1[A1]: ...
+
+
+@overload
+def zeros_like(x: Array2[A1, A2], dtype=...) -> Array2[A1, A2]: ...
+
+
+@overload
+def zeros_like(x: Array3[A1, A2, A3], dtype=...) -> Array3[A1, A2, A3]: ...
+
+
+@overload
+def zeros_like(x: Array4[A1, A2, A3, A4], dtype=...) -> Array4[
+  A1, A2, A3, A4]: ...
+
+
+@overload
+def ones_like(x: Array0, dtype=...) -> Array0: ...
+
+
+@overload
+def ones_like(x: Array1[A1], dtype=...) -> Array1[A1]: ...
+
+
+@overload
+def ones_like(x: Array2[A1, A2], dtype=...) -> Array2[A1, A2]: ...
+
+
+@overload
+def ones_like(x: Array3[A1, A2, A3], dtype=...) -> Array3[A1, A2, A3]: ...
 
 
 @overload
@@ -394,44 +511,23 @@ def ones_like(x: Array4[A1, A2, A3, A4], dtype=...) -> Array4[
 
 
 @overload
+def round(x: Array0, decimals=...) -> Array0: ...
+
+
+@overload
+def round(x: Array1[A1], decimals=...) -> Array1[A1]: ...
+
+
+@overload
+def round(x: Array2[A1, A2], decimals=...) -> Array2[A1, A2]: ...
+
+
+@overload
+def round(x: Array3[A1, A2, A3], decimals=...) -> Array3[A1, A2, A3]: ...
+
+
+@overload
 def round(x: Array4[A1, A2, A3, A4], decimals=...) -> Array4[
-  A1, A2, A3, A4]: ...
-
-
-@overload
-def sigmoid(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
-
-
-@overload
-def sign(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
-
-
-@overload
-def sin(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
-
-
-@overload
-def sinh(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
-
-
-@overload
-def sqrt(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
-
-
-@overload
-def square(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
-
-
-@overload
-def tan(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
-
-
-@overload
-def tanh(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
-
-
-@overload
-def zeros_like(x: Array4[A1, A2, A3, A4], dtype=...) -> Array4[
   A1, A2, A3, A4]: ...
 
 
