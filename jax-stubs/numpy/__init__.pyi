@@ -539,16 +539,11 @@ def sqrt(x: float) -> float: ...
 # ---------- ZEROS, ONES ----------
 
 # Can't type these properly when shape is specified as a list. :(
+# But if shape is specified as an int or a tuple, we're good! :)
 
 @overload
 def zeros(shape: List, dtype=...) -> Any: ...
 
-
-@overload
-def ones(shape: List, dtype=...) -> Any: ...
-
-
-# But if shape is specified as an int or a tuple, we're good! :)
 
 @overload
 def zeros(shape: L0, dtype=...) -> Array0: ...
@@ -556,6 +551,34 @@ def zeros(shape: L0, dtype=...) -> Array0: ...
 
 @overload
 def zeros(shape: Tuple[()], dtype=...) -> Array0: ...
+
+
+@overload
+def zeros(shape: L1, dtype=...) -> Array1[Any]: ...
+
+
+@overload
+def zeros(shape: Shape1, dtype=...) -> Array1[Any]: ...
+
+
+@overload
+def zeros(shape: L2, dtype=...) -> Array2[Any, Any]: ...
+
+
+@overload
+def zeros(shape: Shape2, dtype=...) -> Array2[Any, Any]: ...
+
+
+@overload
+def zeros(shape: L3, dtype=...) -> Array3[Any, Any, Any]: ...
+
+
+@overload
+def zeros(shape: Shape3, dtype=...) -> Array3[Any, Any, Any]: ...
+
+
+@overload
+def ones(shape: List, dtype=...) -> Any: ...
 
 
 @overload
@@ -567,15 +590,7 @@ def ones(shape: Tuple[()], dtype=...) -> Array0: ...
 
 
 @overload
-def zeros(shape: L1, dtype=...) -> Array1[Any]: ...
-
-
-@overload
 def ones(shape: L1, dtype=...) -> Array1[Any]: ...
-
-
-@overload
-def zeros(shape: Shape1, dtype=...) -> Array1[Any]: ...
 
 
 @overload
@@ -583,15 +598,7 @@ def ones(shape: Shape1, dtype=...) -> Array1[Any]: ...
 
 
 @overload
-def zeros(shape: L2, dtype=...) -> Array2[Any, Any]: ...
-
-
-@overload
 def ones(shape: L2, dtype=...) -> Array2[Any, Any]: ...
-
-
-@overload
-def zeros(shape: Shape2, dtype=...) -> Array2[Any, Any]: ...
 
 
 @overload
@@ -599,15 +606,7 @@ def ones(shape: Shape2, dtype=...) -> Array2[Any, Any]: ...
 
 
 @overload
-def zeros(shape: L3, dtype=...) -> Array3[Any, Any, Any]: ...
-
-
-@overload
 def ones(shape: L3, dtype=...) -> Array3[Any, Any, Any]: ...
-
-
-@overload
-def zeros(shape: Shape3, dtype=...) -> Array3[Any, Any, Any]: ...
 
 
 @overload

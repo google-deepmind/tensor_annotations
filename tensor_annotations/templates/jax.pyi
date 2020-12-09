@@ -127,15 +127,11 @@ def sqrt(x: float) -> float: ...
 # ---------- ZEROS, ONES ----------
 
 # Can't type these properly when shape is specified as a list. :(
+# But if shape is specified as an int or a tuple, we're good! :)
 
 @overload
 def zeros(shape: List, dtype=...) -> Any: ...
 
-
-@overload
-def ones(shape: List, dtype=...) -> Any: ...
-
-# But if shape is specified as an int or a tuple, we're good! :)
 
 @overload
 def zeros(shape: L0, dtype=...) -> Array0: ...
@@ -143,6 +139,23 @@ def zeros(shape: L0, dtype=...) -> Array0: ...
 
 @overload
 def zeros(shape: Tuple[()], dtype=...) -> Array0: ...
+
+
+{% for i in range(1, 4) %}
+{% set n_any = (['Any'] * i)|join(', ') %}
+
+@overload
+def zeros(shape: L{{ i }}, dtype=...) -> Array{{ i }}[{{ n_any }}]: ...
+
+
+@overload
+def zeros(shape: Shape{{ i }}, dtype=...) -> Array{{ i }}[{{ n_any }}]: ...
+
+{% endfor %}
+
+
+@overload
+def ones(shape: List, dtype=...) -> Any: ...
 
 
 @overload
@@ -154,25 +167,17 @@ def ones(shape: Tuple[()], dtype=...) -> Array0: ...
 
 
 {% for i in range(1, 4) %}
-
 {% set n_any = (['Any'] * i)|join(', ') %}
-
-@overload
-def zeros(shape: L{{ i }}, dtype=...) -> Array{{ i }}[{{ n_any }}]: ...
-
 
 @overload
 def ones(shape: L{{ i }}, dtype=...) -> Array{{ i }}[{{ n_any }}]: ...
 
 
 @overload
-def zeros(shape: Shape{{ i }}, dtype=...) -> Array{{ i }}[{{ n_any }}]: ...
-
-
-@overload
 def ones(shape: Shape{{ i }}, dtype=...) -> Array{{ i }}[{{ n_any }}]: ...
 
 {% endfor %}
+
 
 # ---------- REDUCTION OPERATORS ----------
 
