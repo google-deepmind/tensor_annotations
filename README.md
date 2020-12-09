@@ -97,9 +97,9 @@ pip install git+https://github.com/deepmind/tensor_annotations
 Then, depending on whether you use JAX or TensorFlow:
 
 ```bash
-pip install git+https://github.com/deepmind/tensor_annotations/jax-stubs
+pip install 'git+https://github.com/deepmind/tensor_annotations#egg=jax-stubs&subdirectory=jax-stubs'
 # and/or
-pip install git+https://github.com/deepmind/tensor_annotations/tensorflow-stubs
+pip install 'git+https://github.com/deepmind/tensor_annotations#egg=tensorflow-stubs&subdirectory=tensorflow-stubs'
 ```
 
 If you use pytype, you'll also need to take a few extra steps to let
