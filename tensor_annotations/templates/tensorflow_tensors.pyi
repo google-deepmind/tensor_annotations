@@ -80,18 +80,18 @@ class Tensor1(Generic[A1]):
 
   # BEGIN: Binary element-wise operators
 
-  # Broadcasting case 1: Tensor[A, B] + scalar = Tensor[A, B].
   {% for func in binary_elementwise_funcs %}
+
+  {# Broadcasting case 1: Broadcasting with scalars #}
   @overload
   def {{ func }}(self, other: Number) -> Tensor1[A1]: ...
   @overload
   def {{ func }}(self, other: Tensor0) -> Tensor1[A1]: ...
-  {% endfor %}
 
-  # Broadcasting case 2: Tensor[A, B, C] + Tensor[B, C] = Tensor[A, B, C].
-  {% for func in binary_elementwise_funcs %}
+  {# No broadcast #}
   @overload
   def {{ func }}(self, other: Tensor1[A1]) -> Tensor1[A1]: ...
+
   {% endfor %}
 
   # END: Binary element-wise operators
@@ -109,20 +109,22 @@ class Tensor2(Generic[A1, A2]):
 
   # BEGIN: Binary element-wise operators
 
-  # Broadcasting case 1: Tensor[A, B] + scalar = Tensor[A, B].
   {% for func in binary_elementwise_funcs %}
+
+  {# Broadcasting case 1: Broadcasting with scalars #}
   @overload
   def {{ func }}(self, other: Number) -> Tensor2[A1, A2]: ...
   @overload
   def {{ func }}(self, other: Tensor0) -> Tensor2[A1, A2]: ...
-  {% endfor %}
 
-  # Broadcasting case 2: Tensor[A, B, C] + Tensor[B, C] = Tensor[A, B, C].
-  {% for func in binary_elementwise_funcs %}
+  {# Broadcasting case 2: Broadcasting with a lesser rank #}
   @overload
   def {{ func }}(self, other: Tensor1[A2]) -> Tensor2[A1, A2]: ...
+
+  {# No broadcast #}
   @overload
   def {{ func }}(self, other: Tensor2[A1, A2]) -> Tensor2[A1, A2]: ...
+
   {% endfor %}
 
   # END: Binary element-wise operators
@@ -140,22 +142,24 @@ class Tensor3(Generic[A1, A2, A3]):
 
   # BEGIN: Binary element-wise operators
 
-  # Broadcasting case 1: Tensor[A, B] + scalar = Tensor[A, B].
   {% for func in binary_elementwise_funcs %}
+
+  {# Broadcasting case 1: Broadcasting with scalars #}
   @overload
   def {{ func }}(self, other: Number) -> Tensor3[A1, A2, A3]: ...
   @overload
   def {{ func }}(self, other: Tensor0) -> Tensor3[A1, A2, A3]: ...
-  {% endfor %}
 
-  # Broadcasting case 2: Tensor[A, B, C] + Tensor[B, C] = Tensor[A, B, C].
-  {% for func in binary_elementwise_funcs %}
+  {# Broadcasting case 2: Broadcasting with a lesser rank #}
   @overload
   def {{ func }}(self, other: Tensor1[A3]) -> Tensor3[A1, A2, A3]: ...
   @overload
   def {{ func }}(self, other: Tensor2[A2, A3]) -> Tensor3[A1, A2, A3]: ...
+
+  {# No broadcast #}
   @overload
   def {{ func }}(self, other: Tensor3[A1, A2, A3]) -> Tensor3[A1, A2, A3]: ...
+
   {% endfor %}
 
   # END: Binary element-wise operators
@@ -173,24 +177,26 @@ class Tensor4(Generic[A1, A2, A3, A4]):
 
   # BEGIN: Binary element-wise operators
 
-  # Broadcasting case 1: Tensor[A, B] + scalar = Tensor[A, B].
   {% for func in binary_elementwise_funcs %}
+
+  {# Broadcasting case 1: Broadcasting with scalars #}
   @overload
   def {{ func }}(self, other: Number) -> Tensor4[A1, A2, A3, A4]: ...
   @overload
   def {{ func }}(self, other: Tensor0) -> Tensor4[A1, A2, A3, A4]: ...
-  {% endfor %}
 
-  # Broadcasting case 2: Tensor[A, B, C] + Tensor[B, C] = Tensor[A, B, C].
-  {% for func in binary_elementwise_funcs %}
+  {# Broadcasting case 2: Broadcasting with a lesser rank #}
   @overload
   def {{ func }}(self, other: Tensor1[A4]) -> Tensor4[A1, A2, A3, A4]: ...
   @overload
   def {{ func }}(self, other: Tensor2[A3, A4]) -> Tensor4[A1, A2, A3, A4]: ...
   @overload
   def {{ func }}(self, other: Tensor3[A2, A3, A4]) -> Tensor4[A1, A2, A3, A4]: ...
+
+  {# No broadcast #}
   @overload
   def {{ func }}(self, other: Tensor4[A1, A2, A3, A4]) -> Tensor4[A1, A2, A3, A4]: ...
+
   {% endfor %}
 
   # END: Binary element-wise operators
