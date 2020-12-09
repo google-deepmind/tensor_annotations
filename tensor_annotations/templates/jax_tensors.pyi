@@ -80,18 +80,18 @@ class Array1(Generic[A1]):
 
   # BEGIN: Binary element-wise operators
 
-  # Broadcasting case 1: Array[A, B] + scalar = Array[A, B].
   {% for func in binary_elementwise_funcs %}
+
+  {# Broadcasting case 1: Broadcasting with scalars #}
   @overload
   def {{ func }}(self, other: Number) -> Array1[A1]: ...
   @overload
   def {{ func }}(self, other: Array0) -> Array1[A1]: ...
-  {% endfor %}
 
-  # Broadcasting case 2: Array[A, B, C] + Array[B, C] = Array[A, B, C].
-  {% for func in binary_elementwise_funcs %}
+  {# No broadcast #}
   @overload
   def {{ func }}(self, other: Array1[A1]) -> Array1[A1]: ...
+
   {% endfor %}
 
   # END: Binary element-wise operators
@@ -109,20 +109,22 @@ class Array2(Generic[A1, A2]):
 
   # BEGIN: Binary element-wise operators
 
-  # Broadcasting case 1: Array[A, B] + scalar = Array[A, B].
   {% for func in binary_elementwise_funcs %}
+
+  {# Broadcasting case 1: Broadcasting with scalars #}
   @overload
   def {{ func }}(self, other: Number) -> Array2[A1, A2]: ...
   @overload
   def {{ func }}(self, other: Array0) -> Array2[A1, A2]: ...
-  {% endfor %}
 
-  # Broadcasting case 2: Array[A, B, C] + Array[B, C] = Array[A, B, C].
-  {% for func in binary_elementwise_funcs %}
+  {# Broadcasting case 2: Broadcasting with a lesser rank #}
   @overload
   def {{ func }}(self, other: Array1[A2]) -> Array2[A1, A2]: ...
+
+  {# No broadcast #}
   @overload
   def {{ func }}(self, other: Array2[A1, A2]) -> Array2[A1, A2]: ...
+
   {% endfor %}
 
   # END: Binary element-wise operators
@@ -140,22 +142,24 @@ class Array3(Generic[A1, A2, A3]):
 
   # BEGIN: Binary element-wise operators
 
-  # Broadcasting case 1: Array[A, B] + scalar = Array[A, B].
   {% for func in binary_elementwise_funcs %}
+
+  {# Broadcasting case 1: Broadcasting with scalars #}
   @overload
   def {{ func }}(self, other: Number) -> Array3[A1, A2, A3]: ...
   @overload
   def {{ func }}(self, other: Array0) -> Array3[A1, A2, A3]: ...
-  {% endfor %}
 
-  # Broadcasting case 2: Array[A, B, C] + Array[B, C] = Array[A, B, C].
-  {% for func in binary_elementwise_funcs %}
+  {# Broadcasting case 2: Broadcasting with a lesser rank #}
   @overload
   def {{ func }}(self, other: Array1[A3]) -> Array3[A1, A2, A3]: ...
   @overload
   def {{ func }}(self, other: Array2[A2, A3]) -> Array3[A1, A2, A3]: ...
+
+  {# No broadcast #}
   @overload
   def {{ func }}(self, other: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
+
   {% endfor %}
 
   # END: Binary element-wise operators
@@ -173,24 +177,26 @@ class Array4(Generic[A1, A2, A3, A4]):
 
   # BEGIN: Binary element-wise operators
 
-  # Broadcasting case 1: Array[A, B] + scalar = Array[A, B].
   {% for func in binary_elementwise_funcs %}
+
+  {# Broadcasting case 1: Broadcasting with scalars #}
   @overload
   def {{ func }}(self, other: Number) -> Array4[A1, A2, A3, A4]: ...
   @overload
   def {{ func }}(self, other: Array0) -> Array4[A1, A2, A3, A4]: ...
-  {% endfor %}
 
-  # Broadcasting case 2: Array[A, B, C] + Array[B, C] = Array[A, B, C].
-  {% for func in binary_elementwise_funcs %}
+  {# Broadcasting case 2: Broadcasting with a lesser rank #}
   @overload
   def {{ func }}(self, other: Array1[A4]) -> Array4[A1, A2, A3, A4]: ...
   @overload
   def {{ func }}(self, other: Array2[A3, A4]) -> Array4[A1, A2, A3, A4]: ...
   @overload
   def {{ func }}(self, other: Array3[A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
+
+  {# No broadcast #}
   @overload
   def {{ func }}(self, other: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
+
   {% endfor %}
 
   # END: Binary element-wise operators
