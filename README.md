@@ -88,35 +88,43 @@ See `examples/tf_time_batch.py` for a complete example.
 
 
 
-To install TensorAnnotations itself:
+To install custom tensor types:
 
 ```bash
 pip install git+https://github.com/deepmind/tensor_annotations
 ```
 
-You'll also need to take a few extra steps in order to let pytype (currently
-the only type checker we support) to take advantage of these stubs. First, make a
-copy of typeshed in e.g. your home directory:
+Then, depending on whether you use JAX or TensorFlow:
 
 ```bash
-git clone https://github.com/python/typeshed
+pip install git+https://github.com/deepmind/tensor_annotations/jax-stubs
+# and/or
+pip install git+https://github.com/deepmind/tensor_annotations/tensorflow-stubs
 ```
 
-Next, symlink `tensor_annotations` into your copy of typeshed:
+If you use pytype, you'll also need to take a few extra steps to let
+it take advantage of JAX/TensorFlow stubs (since it doesn't yet support
+PEP 561 stub packages). First, make a copy of typeshed in e.g. your home
+directory:
 
 ```bash
-# Path to installed tensor_annotations/__init__.pyi
-d=$(python -c 'import tensor_annotations; print(tensor_annotations.__file__)')
-# Path to tensor_annotations/
-d=$(dirname "$d")
+git clone https://github.com/python/typeshed "$HOME/typeshed"
+```
 
-ln -s "$d/library_stubs/third_party/py/tensorflow" typeshed/third_party/3/tensorflow
-ln -s "$d/library_stubs/third_party/py/jax" typeshed/third_party/3/jax
-mkdir typeshed/third_party/3/tensor_annotations
-ln -s "$d/__init__.py" typeshed/third_party/3/tensor_annotations/__init__.pyi
-ln -s "$d/jax.pyi" typeshed/third_party/3/tensor_annotations/jax.pyi
-ln -s "$d/tensorflow.pyi" typeshed/third_party/3/tensor_annotations/tensorflow.pyi
-ln -s "$d/axes.py" typeshed/third_party/3/tensor_annotations/axes.pyi
+Next, symlink the stubs into your copy of typeshed:
+
+```bash
+site_packages=$(python -m site --user-site)
+# Custom tensor classes
+mkdir "$HOME/typeshed/third_party/3/tensor_annotations"
+ln -s "$site_packages/tensor_annotations/__init__.py" "$HOME/typeshed/third_party/3/tensor_annotations/__init__.pyi"
+ln -s "$site_packages/tensor_annotations/jax.pyi" "$HOME/typeshed/third_party/3/tensor_annotations/jax.pyi"
+ln -s "$site_packages/tensor_annotations/tensorflow.pyi" "$HOME/typeshed/third_party/3/tensor_annotations/tensorflow.pyi"
+ln -s "$site_packages/tensor_annotations/axes.py" "$HOME/typeshed/third_party/3/tensor_annotations/axes.pyi"
+# TensorFlow
+ln -s "$site_packages/tensorflow-stubs" "$HOME/typeshed/third_party/3/tensorflow"
+# JAX
+ln -s "$site_packages/jax-stubs" "$HOME/typeshed/third_party/3/jax"
 ```
 
 ## General usage
@@ -124,13 +132,12 @@ ln -s "$d/axes.py" typeshed/third_party/3/tensor_annotations/axes.pyi
 First, import `tensor_annotations` and start annotating function signatures
 and variable assignments. This can be done gradually.
 
-Next, run a static type checker on your code. At the moment we only support
-pytype, but we're working on support for mypy and Pyre. However, even pytype
-must be invoked in a special way, in order to let it know about the custom
-typeshed installation as described above:
+Next, run a static type checker on your code. If you use Mypy, it should just
+work. If you use pytype, you need to invoke it in a special way in order to let
+it know about the custom typeshed installation:
 
 ```
-TYPESHED_HOME=$HOME/typeshed pytype your_code.py
+TYPESHED_HOME="$HOME/typeshed" pytype your_code.py
 ```
 
 
