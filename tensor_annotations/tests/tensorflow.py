@@ -107,12 +107,12 @@ class TensorFlowStubTests(unittest.TestCase):
 
   def testTensorUnaryOp_ReturnsCorrectTypeAndShape(self):
     with utils.SaveCodeAsString() as code_saver:
-      x: Tensor0 = tf.zeros(())
-      y1 = abs(x)  # pylint: disable=unused-variable
-      y2 = -x  # pylint: disable=unused-variable
-      x: Tensor1[A1] = tf.zeros((1,))
-      y3 = abs(x)  # pylint: disable=unused-variable
-      y4 = -x  # pylint: disable=unused-variable
+      x1: Tensor0 = tf.zeros(())
+      y1 = abs(x1)  # pylint: disable=unused-variable
+      y2 = -x1  # pylint: disable=unused-variable
+      x2: Tensor1[A1] = tf.zeros((1,))
+      y3 = abs(x2)  # pylint: disable=unused-variable
+      y4 = -x2  # pylint: disable=unused-variable
 
     inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
 
