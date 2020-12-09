@@ -84,6 +84,11 @@ into improving this.)
 
 See `examples/tf_time_batch.py` for a complete example.
 
+## Requirements
+
+TensorAnnotatations requires Python 3.8 or above, due to the use of
+`typing.Literal`.
+
 ## Installation
 
 
