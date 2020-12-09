@@ -45,23 +45,23 @@ def sample_batch() -> ttf.Tensor2[Time, Batch]:
   return tf.zeros((3, 5))
 
 def train_batch(batch: ttf.Tensor2[Batch, Time]):
-  m: ttf.Tensor1[Batch] = tf.reduce_max(batch, axis=1)  # B
-  # do something useful
+  m: ttf.Tensor1[Batch] = tf.reduce_max(batch, axis=1)
+  # Do something useful
 
 def main():
-  batch = sample_batch()
-  batch = tf.transpose(batch)  # A
-  train_batch(batch)
+  batch1 = sample_batch()
+  batch2 = tf.transpose(batch1)
+  train_batch(batch2)
 ```
 
 This code contains shape annotations in the signatures of `sample_batch` and
-`train_batch`, and in the line marked with `# B`. It is otherwise the same code
-you would have written in an unchecked program.
+`train_batch`, and in the line calling `reduce_max`. It is otherwise the
+same code you would have written in an unchecked program.
 
 You can check these annotations for inconsistencies by running a static type
-checker on your code (see 'General usage' below). For example, deleting the
-`tf.transpose` statement in the line marked with `# A` will result in the
-following error from pytype:
+checker on your code (see 'General usage' below). For example, running
+`train_batch` directly on `batch1` will result in the following error from
+pytype:
 
 ```
 File "example.py", line 10: Function train_batch was called with the wrong arguments [wrong-arg-types]
@@ -69,8 +69,8 @@ File "example.py", line 10: Function train_batch was called with the wrong argum
   Actually passed: (batch: Tensor2[Time, Batch])
 ```
 
-Similarly, changing the axis argument in the line marked with `# B` to
-`tf.reduce_max(batch, axis=0)` results in:
+Similarly, changing the the call to `reduce_max` from `axis=1` to `axis=0`
+results in:
 
 ```
 File "example.py", line 15: Type annotation for m does not match type of assignment [annotation-type-mismatch]

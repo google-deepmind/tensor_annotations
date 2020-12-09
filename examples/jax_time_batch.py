@@ -47,34 +47,37 @@ def train_batch(batch: tjax.Array2[Batch, Time]):
   del b  # Unused
 
 
-def transpose_example():
-  # From the signature of sample_batch() x is inferred to be of type
-  # Array2[Batch, Time].
-  x = sample_batch()
+# `-> None` is necessary for Mypy to check this function
+def transpose_example() -> None:
+  # From the signature of sample_batch(), x1 is inferred to be of type
+  # Array2[Time, Batch].
+  x1 = sample_batch()
 
-  # Using our custom stubs for jnp.transpose(...), x is inferred to be of type
-  # Array2[Time, Batch]. Try removing this line - you should find that
-  # this script no longer passes type check.
-  x = jnp.transpose(x)
+  # Using our custom stubs for jnp.transpose(...), x2 is inferred to be of type
+  # Array2[Batch, Time].
+  x2 = jnp.transpose(x1)
 
   # Array2[Batch, Time] is compatible with the signature of train_batch(),
   # so we're good! :)
-  train_batch(x)
+  # Try changing `x2` to `x1` - you should find that this script no longer
+  # passes type check.
+  train_batch(x2)
 
 
-def legacy_example():
+# `-> None` is necessary for Mypy to check this function
+def legacy_example() -> None:
   # From the signature of sample_batch_legacy(), y is inferred to be of
   # type jnp.ndarray.
-  y = sample_batch_legacy()
+  y1 = sample_batch_legacy()
 
   # We explicitly cast it to the desired type. This is a no-op at runtime.
-  y = cast(tjax.Array2[Batch, Time], y)
+  y2 = cast(tjax.Array2[Batch, Time], y1)
 
   # Alternative syntax for casting; again a no-op.
-  y2: tjax.Array2[Batch, Time] = y  # type: ignore
+  y3: tjax.Array2[Batch, Time] = y1  # type: ignore
 
-  train_batch(y)
   train_batch(y2)
+  train_batch(y3)
 
 
 def main(argv):
