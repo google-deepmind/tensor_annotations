@@ -13,7 +13,18 @@
 # limitations under the License.
 # ==============================================================================
 
-from typing import Any
+# BEGIN: tensor_annotations annotations
+from typing import Any, TypeVar, overload
+from typing_extensions import Literal
+
+from tensor_annotations.axes import Axis
+from tensor_annotations.tensorflow import Tensor1, Tensor2, Tensor3, Tensor4
+
+A1 = TypeVar('A1', bound=Axis)
+A2 = TypeVar('A2', bound=Axis)
+A3 = TypeVar('A3', bound=Axis)
+A4 = TypeVar('A4', bound=Axis)
+# END: tensor_annotations annotations
 
 def __getattr__(name) -> Any: ...
 _HAS_DYNAMIC_ATTRIBUTES = True

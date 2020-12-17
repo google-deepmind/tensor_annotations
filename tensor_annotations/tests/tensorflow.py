@@ -73,6 +73,25 @@ class TensorFlowStubTests(unittest.TestCase):
     self.assertEqual(inferred.e, expected)
     self.assertEqual(inferred.f, expected)
 
+  def testMathUnaryOperator_ReturnCustomType(self):
+    with utils.SaveCodeAsString() as code_saver:
+      x: Tensor1[A1] = tf.zeros((1,))
+      # Let's just test a representative subset.
+      a = tf.math.abs(x)  # pylint: disable=unused-variable
+      b = tf.math.sin(x)  # pylint: disable=unused-variable
+      c = tf.math.floor(x)  # pylint: disable=unused-variable
+      d = tf.math.round(x)  # pylint: disable=unused-variable
+      e = tf.math.sign(x)  # pylint: disable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    expected = 'Tensor1[A1]'
+    self.assertEqual(inferred.a, expected)
+    self.assertEqual(inferred.b, expected)
+    self.assertEqual(inferred.c, expected)
+    self.assertEqual(inferred.d, expected)
+    self.assertEqual(inferred.e, expected)
+
   def testZerosOnes_ReturnsCustomType(self):
     with utils.SaveCodeAsString() as code_saver:
       a = tf.zeros((1,))  # pylint: disable=unused-variable
