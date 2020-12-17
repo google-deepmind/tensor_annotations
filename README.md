@@ -205,7 +205,8 @@ a set of custom type annotations for TensorFlow and JAX packaged in 'stub'
 (`.pyi`) files.
 
 Our stubs currently cover the following parts of the API. All operations are
-supported for rank 1, 2, 3 and 4 tensors, unless otherwise noted.
+supported for rank 1, 2, 3 and 4 tensors, unless otherwise noted. Unary
+operators are also supported for rank 0 (scalar) tensors.
 
 #### TensorFlow
 
@@ -213,7 +214,7 @@ supported for rank 1, 2, 3 and 4 tensors, unless otherwise noted.
 `tf.atanh`, `tf.cos`, `tf.cosh`, `tf.exp`, `tf.floor`, `tf.logical_not`,
 `tf.negative`, `tf.round`, `tf.sigmoid`, `tf.sign`, `tf.sin`, `tf.sinh`,
 `tf.sqrt`, `tf.square`, `tf.tan`, `tf.tanh`, `tf.math.erf`, `tf.math.erfc`,
-`tf.math.erfinv`, `tf.math.expm1`, `tf.math.is_inite`, `tf.math.is_inf`,
+`tf.math.erfinv`, `tf.math.expm1`, `tf.math.is_finite`, `tf.math.is_inf`,
 `tf.math.is_nan`, `tf.math.lbeta`, `tf.math.lgamma`, `tf.math.log`,
 `tf.math.log1p`, `tf.math.log_sigmoid`, `tf.math.ndtri`, `tf.math.reciprocal`,
 `tf.math.reciprocal_no_nan`, `tf.math.rint`, `tf.math.rsqrt`,

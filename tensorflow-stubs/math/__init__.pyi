@@ -18,7 +18,7 @@ from typing import Any, TypeVar, overload
 from typing_extensions import Literal
 
 from tensor_annotations.axes import Axis
-from tensor_annotations.tensorflow import Tensor1, Tensor2, Tensor3, Tensor4
+from tensor_annotations.tensorflow import Tensor0, Tensor1, Tensor2, Tensor3, Tensor4
 
 A1 = TypeVar('A1', bound=Axis)
 A2 = TypeVar('A2', bound=Axis)
@@ -29,8 +29,10 @@ A4 = TypeVar('A4', bound=Axis)
 def __getattr__(name) -> Any: ...
 _HAS_DYNAMIC_ATTRIBUTES = True
 
-
 # BEGIN: tensor_annotations annotations for abs(...)
+@overload
+def abs(x: Tensor0, name=...) -> Tensor0: ...
+
 @overload
 def abs(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
@@ -51,6 +53,9 @@ def accumulate_n(inputs, shape=..., tensor_dtype=..., name=...) -> Any: ...
 
 # BEGIN: tensor_annotations annotations for acos(...)
 @overload
+def acos(x: Tensor0, name=...) -> Tensor0: ...
+
+@overload
 def acos(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
 @overload
@@ -68,6 +73,9 @@ def acos(x, name=...) -> Any: ...
 
 
 # BEGIN: tensor_annotations annotations for acosh(...)
+@overload
+def acosh(x: Tensor0, name=...) -> Tensor0: ...
+
 @overload
 def acosh(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
@@ -93,6 +101,9 @@ def argmin(input, axis=..., output_type=..., name=...) -> Any: ...
 
 # BEGIN: tensor_annotations annotations for asin(...)
 @overload
+def asin(x: Tensor0, name=...) -> Tensor0: ...
+
+@overload
 def asin(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
 @overload
@@ -111,6 +122,9 @@ def asin(x, name=...) -> Any: ...
 
 # BEGIN: tensor_annotations annotations for asinh(...)
 @overload
+def asinh(x: Tensor0, name=...) -> Tensor0: ...
+
+@overload
 def asinh(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
 @overload
@@ -127,6 +141,9 @@ def asinh(x, name=...) -> Any: ...
 # END: tensor_annotations annotations for asinh(...)
 
 # BEGIN: tensor_annotations annotations for atan(...)
+@overload
+def atan(x: Tensor0, name=...) -> Tensor0: ...
+
 @overload
 def atan(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
@@ -147,6 +164,9 @@ def atan2(y, x, name=...) -> Any: ...
 
 
 # BEGIN: tensor_annotations annotations for atanh(...)
+@overload
+def atanh(x: Tensor0, name=...) -> Tensor0: ...
+
 @overload
 def atanh(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
@@ -176,6 +196,9 @@ def conj(x, name=...) -> Any: ...
 
 # BEGIN: tensor_annotations annotations for cos(...)
 @overload
+def cos(x: Tensor0, name=...) -> Tensor0: ...
+
+@overload
 def cos(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
 @overload
@@ -192,6 +215,9 @@ def cos(x, name=...) -> Any: ...
 # END: tensor_annotations annotations for cos(...)
 
 # BEGIN: tensor_annotations annotations for cosh(...)
+@overload
+def cosh(x: Tensor0, name=...) -> Tensor0: ...
+
 @overload
 def cosh(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
@@ -219,6 +245,9 @@ def equal(x, y, name=...) -> Any: ...
 
 # BEGIN: tensor_annotations annotations for erf(...)
 @overload
+def erf(x: Tensor0, name=...) -> Tensor0: ...
+
+@overload
 def erf(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
 @overload
@@ -236,6 +265,9 @@ def erf(x, name=...) -> Any: ...
 
 
 # BEGIN: tensor_annotations annotations for erfc(...)
+@overload
+def erfc(x: Tensor0, name=...) -> Tensor0: ...
+
 @overload
 def erfc(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
@@ -255,6 +287,9 @@ def erfc(x, name=...) -> Any: ...
 
 # BEGIN: tensor_annotations annotations for erfinv(...)
 @overload
+def erfinv(x: Tensor0, name=...) -> Tensor0: ...
+
+@overload
 def erfinv(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
 @overload
@@ -272,6 +307,9 @@ def erfinv(x, name=...) -> Any: ...
 
 
 # BEGIN: tensor_annotations annotations for exp(...)
+@overload
+def exp(x: Tensor0, name=...) -> Tensor0: ...
+
 @overload
 def exp(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
@@ -291,6 +329,9 @@ def exp(x, name=...) -> Any: ...
 
 # BEGIN: tensor_annotations annotations for expm1(...)
 @overload
+def expm1(x: Tensor0, name=...) -> Tensor0: ...
+
+@overload
 def expm1(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
 @overload
@@ -308,6 +349,9 @@ def expm1(x, name=...) -> Any: ...
 
 
 # BEGIN: tensor_annotations annotations for floor(...)
+@overload
+def floor(x: Tensor0, name=...) -> Tensor0: ...
+
 @overload
 def floor(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
@@ -336,6 +380,9 @@ def invert_permutation(x, name=...) -> Any: ...
 
 # BEGIN: tensor_annotations annotations for is_finite(...)
 @overload
+def is_finite(x: Tensor0, name=...) -> Tensor0: ...
+
+@overload
 def is_finite(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
 @overload
@@ -354,6 +401,9 @@ def is_finite(x, name=...) -> Any: ...
 
 # BEGIN: tensor_annotations annotations for is_inf(...)
 @overload
+def is_inf(x: Tensor0, name=...) -> Tensor0: ...
+
+@overload
 def is_inf(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
 @overload
@@ -371,6 +421,9 @@ def is_inf(x, name=...) -> Any: ...
 
 
 # BEGIN: tensor_annotations annotations for is_nan(...)
+@overload
+def is_nan(x: Tensor0, name=...) -> Tensor0: ...
+
 @overload
 def is_nan(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
@@ -393,6 +446,9 @@ def l2_normalize(x, axis=..., epsilon=..., name=...) -> Any: ...
 
 # BEGIN: tensor_annotations annotations for lbeta(...)
 @overload
+def lbeta(x: Tensor0, name=...) -> Tensor0: ...
+
+@overload
 def lbeta(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
 @overload
@@ -413,6 +469,9 @@ def less_equal(x, y, name=...) -> Any: ...
 
 # BEGIN: tensor_annotations annotations for lgamma(...)
 @overload
+def lgamma(x: Tensor0, name=...) -> Tensor0: ...
+
+@overload
 def lgamma(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
 @overload
@@ -430,6 +489,9 @@ def lgamma(x, name=...) -> Any: ...
 
 
 # BEGIN: tensor_annotations annotations for log(...)
+@overload
+def log(x: Tensor0, name=...) -> Tensor0: ...
+
 @overload
 def log(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
@@ -449,6 +511,9 @@ def log(x, name=...) -> Any: ...
 
 # BEGIN: tensor_annotations annotations for log1p(...)
 @overload
+def log1p(x: Tensor0, name=...) -> Tensor0: ...
+
+@overload
 def log1p(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
 @overload
@@ -466,6 +531,9 @@ def log1p(x, name=...) -> Any: ...
 
 
 # BEGIN: tensor_annotations annotations for log_sigmoid(...)
+@overload
+def log_sigmoid(x: Tensor0, name=...) -> Tensor0: ...
+
 @overload
 def log_sigmoid(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
@@ -486,6 +554,9 @@ def log_softmax(logits, axis=..., name=...) -> Any: ...
 def logical_and(x, y, name=...) -> Any: ...
 
 # BEGIN: tensor_annotations annotations for logical_not(...)
+@overload
+def logical_not(x: Tensor0, name=...) -> Tensor0: ...
+
 @overload
 def logical_not(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
@@ -513,6 +584,9 @@ def multiply_no_nan(x, y, name=...) -> Any: ...
 
 # BEGIN: tensor_annotations annotations for ndtri(...)
 @overload
+def ndtri(x: Tensor0, name=...) -> Tensor0: ...
+
+@overload
 def ndtri(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
 @overload
@@ -530,6 +604,9 @@ def ndtri(x, name=...) -> Any: ...
 
 
 # BEGIN: tensor_annotations annotations for negative(...)
+@overload
+def negative(x: Tensor0, name=...) -> Tensor0: ...
+
 @overload
 def negative(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
@@ -556,6 +633,9 @@ def real(input, name=...) -> Any: ...
 
 # BEGIN: tensor_annotations annotations for reciprocal(...)
 @overload
+def reciprocal(x: Tensor0, name=...) -> Tensor0: ...
+
+@overload
 def reciprocal(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
 @overload
@@ -573,6 +653,9 @@ def reciprocal(x, name=...) -> Any: ...
 
 
 # BEGIN: tensor_annotations annotations for reciprocal_no_nan(...)
+@overload
+def reciprocal_no_nan(x: Tensor0, name=...) -> Tensor0: ...
+
 @overload
 def reciprocal_no_nan(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
@@ -603,6 +686,9 @@ def reduce_variance(input_tensor, axis=..., keepdims=..., name=...) -> Any: ...
 
 # BEGIN: tensor_annotations annotations for rint(...)
 @overload
+def rint(x: Tensor0, name=...) -> Tensor0: ...
+
+@overload
 def rint(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
 @overload
@@ -621,6 +707,9 @@ def rint(x, name=...) -> Any: ...
 
 # BEGIN: tensor_annotations annotations for round(...)
 @overload
+def round(x: Tensor0, name=...) -> Tensor0: ...
+
+@overload
 def round(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
 @overload
@@ -638,6 +727,9 @@ def round(x, name=...) -> Any: ...
 
 
 # BEGIN: tensor_annotations annotations for rsqrt(...)
+@overload
+def rsqrt(x: Tensor0, name=...) -> Tensor0: ...
+
 @overload
 def rsqrt(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
@@ -664,6 +756,9 @@ def segment_sum(data, segment_ids, name=...) -> Any: ...
 
 # BEGIN: tensor_annotations annotations for sigmoid(...)
 @overload
+def sigmoid(x: Tensor0, name=...) -> Tensor0: ...
+
+@overload
 def sigmoid(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
 @overload
@@ -681,6 +776,9 @@ def sigmoid(x, name=...) -> Any: ...
 
 
 # BEGIN: tensor_annotations annotations for sign(...)
+@overload
+def sign(x: Tensor0, name=...) -> Tensor0: ...
+
 @overload
 def sign(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
@@ -700,6 +798,9 @@ def sign(x, name=...) -> Any: ...
 
 # BEGIN: tensor_annotations annotations for sin(...)
 @overload
+def sin(x: Tensor0, name=...) -> Tensor0: ...
+
+@overload
 def sin(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
 @overload
@@ -717,6 +818,9 @@ def sin(x, name=...) -> Any: ...
 
 
 # BEGIN: tensor_annotations annotations for sinh(...)
+@overload
+def sinh(x: Tensor0, name=...) -> Tensor0: ...
+
 @overload
 def sinh(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
@@ -739,6 +843,9 @@ def softmax(logits, axis=..., name=...) -> Any: ...
 
 # BEGIN: tensor_annotations annotations for softplus(...)
 @overload
+def softplus(features: Tensor0, name=...) -> Tensor0: ...
+
+@overload
 def softplus(features: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
 @overload
@@ -756,6 +863,9 @@ def softplus(features, name=...) -> Any: ...
 
 
 # BEGIN: tensor_annotations annotations for softsign(...)
+@overload
+def softsign(features: Tensor0, name=...) -> Tensor0: ...
+
 @overload
 def softsign(features: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
@@ -775,6 +885,9 @@ def softsign(features, name=...) -> Any: ...
 
 # BEGIN: tensor_annotations annotations for sqrt(...)
 @overload
+def sqrt(x: Tensor0, name=...) -> Tensor0: ...
+
+@overload
 def sqrt(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
 @overload
@@ -792,6 +905,9 @@ def sqrt(x, name=...) -> Any: ...
 
 
 # BEGIN: tensor_annotations annotations for square(...)
+@overload
+def square(x: Tensor0, name=...) -> Tensor0: ...
+
 @overload
 def square(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
@@ -814,6 +930,9 @@ def subtract(x, y, name=...) -> Any: ...
 
 # BEGIN: tensor_annotations annotations for tan(...)
 @overload
+def tan(x: Tensor0, name=...) -> Tensor0: ...
+
+@overload
 def tan(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
 @overload
@@ -830,6 +949,9 @@ def tan(x, name=...) -> Any: ...
 # END: tensor_annotations annotations for tan(...)
 
 # BEGIN: tensor_annotations annotations for tanh(...)
+@overload
+def tanh(x: Tensor0, name=...) -> Tensor0: ...
+
 @overload
 def tanh(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
 
