@@ -21,8 +21,6 @@
 from typing import Any, TypeVar, Tuple, overload
 from typing_extensions import Literal
 
-# from numbers import Number
-
 from tensor_annotations.axes import Axis
 from tensor_annotations.tensorflow import Shape, Shape1, Shape2, Shape3, Shape4
 from tensor_annotations.tensorflow import Tensor0, Tensor1, Tensor2, Tensor3, Tensor4
