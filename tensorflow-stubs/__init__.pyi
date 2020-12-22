@@ -911,9 +911,6 @@ def one_hot(indices, depth, on_value=..., off_value=..., axis=..., dtype=..., na
 
 # BEGIN: tensor_annotations annotations for zeros(...)
 @overload
-def ones(shape: Tuple[()], dtype=..., name=...) -> Tensor0: ...
-
-@overload
 def ones(shape: Shape1, dtype=..., name=...) -> Tensor1[Any]: ...
 
 @overload
@@ -924,6 +921,10 @@ def ones(shape: Shape3, dtype=..., name=...) -> Tensor3[Any, Any, Any]: ...
 
 @overload
 def ones(shape: Shape4, dtype=..., name=...) -> Tensor4[Any, Any, Any, Any]: ...
+
+# See note about Tensor0 in `zeros`
+@overload
+def ones(shape: Tuple[()], dtype=..., name=...) -> Tensor0: ...
 
 @overload
 def ones(shape, dtype=..., name=...) -> Any: ...
@@ -1707,9 +1708,6 @@ def while_loop(cond, body, loop_vars, shape_invariants=..., parallel_iterations=
 
 # BEGIN: tensor_annotations annotations for zeros(...)
 @overload
-def zeros(shape: Tuple[()], dtype=..., name=...) -> Tensor0: ...
-
-@overload
 def zeros(shape: Shape1, dtype=..., name=...) -> Tensor1[Any]: ...
 
 @overload
@@ -1720,6 +1718,12 @@ def zeros(shape: Shape3, dtype=..., name=...) -> Tensor3[Any, Any, Any]: ...
 
 @overload
 def zeros(shape: Shape4, dtype=..., name=...) -> Tensor4[Any, Any, Any, Any]: ...
+
+# Tensor0 is down here because otherwise it'd match shape e.g. Tuple[Any, Any]
+# https://github.com/google/pytype/issues/767
+# (e.g. `dim = tf.shape_as_list(x); tf.zeros((dim, dim))` would be Tensor0)
+@overload
+def zeros(shape: Tuple[()], dtype=..., name=...) -> Tensor0: ...
 
 @overload
 def zeros(shape, dtype=..., name=...) -> Any: ...

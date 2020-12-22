@@ -14,7 +14,7 @@
 # ==============================================================================
 """Tests for JAX stubs."""
 
-from typing import NewType
+from typing import Any, NewType
 
 from absl.testing import absltest
 import jax.numpy as jnp
@@ -74,15 +74,23 @@ class JAXStubTests(absltest.TestCase):
     self.assertEqual(inferred.e, expected)
     self.assertEqual(inferred.f, expected)
 
-  def testZerosOnes_ReturnsCustomType(self):
+  def testZerosOnes_ReturnsCorrectShape(self):
     with utils.SaveCodeAsString() as code_saver:
-      a = jnp.zeros((1,))  # pylint: disable=unused-variable
-      b = jnp.ones((1,))  # pylint: disable=unused-variable
+      a = jnp.zeros(())  # pylint: disable=unused-variable
+      b = jnp.ones(())  # pylint: disable=unused-variable
+      c = jnp.zeros((1,))  # pylint: disable=unused-variable
+      d = jnp.ones((1,))  # pylint: disable=unused-variable
+      e = jnp.zeros((1, 1))  # pylint: disable=unused-variable
+      f = jnp.ones((1, 1))  # pylint: disable=unused-variable
 
     inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
 
-    self.assertEqual(inferred.a, 'Array1')
-    self.assertEqual(inferred.b, 'Array1')
+    self.assertEqual(inferred.a, 'Array0')
+    self.assertEqual(inferred.b, 'Array0')
+    self.assertEqual(inferred.c, 'Array1')
+    self.assertEqual(inferred.d, 'Array1')
+    self.assertEqual(inferred.e, 'Array2')
+    self.assertEqual(inferred.f, 'Array2')
 
   def testSum_InferredMatchesActualShape(self):
     with utils.SaveCodeAsString() as code_saver:

@@ -550,10 +550,6 @@ def zeros(shape: L0, dtype=...) -> Array0: ...
 
 
 @overload
-def zeros(shape: Tuple[()], dtype=...) -> Array0: ...
-
-
-@overload
 def zeros(shape: L1, dtype=...) -> Array1[Any]: ...
 
 
@@ -577,16 +573,19 @@ def zeros(shape: L3, dtype=...) -> Array3[Any, Any, Any]: ...
 def zeros(shape: Shape3, dtype=...) -> Array3[Any, Any, Any]: ...
 
 
+# Array0 is down here because otherwise it'd match shape e.g. Tuple[Any, Any]
+# https://github.com/google/pytype/issues/767
+# (e.g. `dim = some_func_that_returns_any; zeros((dim, dim))` would be Array0)
+@overload
+def zeros(shape: Tuple[()], dtype=...) -> Array0: ...
+
+
 @overload
 def ones(shape: List, dtype=...) -> Any: ...
 
 
 @overload
 def ones(shape: L0, dtype=...) -> Array0: ...
-
-
-@overload
-def ones(shape: Tuple[()], dtype=...) -> Array0: ...
 
 
 @overload
@@ -611,6 +610,11 @@ def ones(shape: L3, dtype=...) -> Array3[Any, Any, Any]: ...
 
 @overload
 def ones(shape: Shape3, dtype=...) -> Array3[Any, Any, Any]: ...
+
+
+# See note about Array0 in `zeros`
+@overload
+def ones(shape: Tuple[()], dtype=...) -> Array0: ...
 
 
 # ---------- REDUCTION OPERATORS ----------

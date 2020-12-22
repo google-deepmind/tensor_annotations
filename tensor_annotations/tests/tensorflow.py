@@ -92,15 +92,23 @@ class TensorFlowStubTests(unittest.TestCase):
     self.assertEqual(inferred.d, expected)
     self.assertEqual(inferred.e, expected)
 
-  def testZerosOnes_ReturnsCustomType(self):
+  def testZerosOnes_ReturnsCorrectShape(self):
     with utils.SaveCodeAsString() as code_saver:
-      a = tf.zeros((1,))  # pylint: disable=unused-variable
-      b = tf.ones((1,))  # pylint: disable=unused-variable
+      a = tf.zeros(())  # pylint: disable=unused-variable
+      b = tf.ones(())  # pylint: disable=unused-variable
+      c = tf.zeros((1,))  # pylint: disable=unused-variable
+      d = tf.ones((1,))  # pylint: disable=unused-variable
+      e = tf.zeros((1, 1))  # pylint: disable=unused-variable
+      f = tf.ones((1, 1))  # pylint: disable=unused-variable
 
     inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
 
-    self.assertEqual(inferred.a, 'Tensor1')
-    self.assertEqual(inferred.b, 'Tensor1')
+    self.assertEqual(inferred.a, 'Tensor0')
+    self.assertEqual(inferred.b, 'Tensor0')
+    self.assertEqual(inferred.c, 'Tensor1')
+    self.assertEqual(inferred.d, 'Tensor1')
+    self.assertEqual(inferred.e, 'Tensor2')
+    self.assertEqual(inferred.f, 'Tensor2')
 
   def testSum_InferredMatchesActualShape(self):
     with utils.SaveCodeAsString() as code_saver:
