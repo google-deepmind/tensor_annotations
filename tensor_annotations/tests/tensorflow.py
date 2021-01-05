@@ -112,14 +112,17 @@ class TensorFlowStubTests(unittest.TestCase):
 
   def testSum_InferredMatchesActualShape(self):
     with utils.SaveCodeAsString() as code_saver:
-      x: Tensor2[A1, A2] = tf.zeros((1, 2))
-      y1 = tf.reduce_sum(x, axis=0)
-      y2 = tf.reduce_sum(x, axis=1)
+      x: Tensor1[A1] = tf.zeros((1,))
+      y: Tensor2[A1, A2] = tf.zeros((1, 2))
+      x0 = tf.reduce_sum(x, axis=0)
+      y0 = tf.reduce_sum(y, axis=0)
+      y1 = tf.reduce_sum(y, axis=1)
 
     inferred = utils.pytype_infer_shapes(_PREAMBLE + code_saver.code)
 
+    self.assertEqual(inferred.x0, x0.shape)
+    self.assertEqual(inferred.y0, y0.shape)
     self.assertEqual(inferred.y1, y1.shape)
-    self.assertEqual(inferred.y2, y2.shape)
 
   def testTensorAdd_ReturnsCustomType(self):
     with utils.SaveCodeAsString() as code_saver:
