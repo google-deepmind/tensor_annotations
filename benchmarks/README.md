@@ -14,4 +14,4 @@ a call to a TensorFlow library function.
 On a 12-core 3.7 GHz Xeon:
 
 * Without custom stubs: 78 seconds
-* With custom stubs: 110 seconds (+41%)
+* With custom stubs: 138 seconds (+77%)
