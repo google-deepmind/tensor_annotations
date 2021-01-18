@@ -18,6 +18,7 @@ A1 = TypeVar('A1', bound=Axis)
 A2 = TypeVar('A2', bound=Axis)
 A3 = TypeVar('A3', bound=Axis)
 A4 = TypeVar('A4', bound=Axis)
+A5 = TypeVar('A5', bound=Axis)
 
 Number = Union[int, float]
 
@@ -58,6 +59,8 @@ class Tensor0:
   def {{ func }}(self, other: Tensor3) -> Tensor3: ...
   @overload
   def {{ func }}(self, other: Tensor4) -> Tensor4: ...
+  @overload
+  def {{ func }}(self, other: Tensor5) -> Tensor5: ...
   {% endfor %}
   # END: Binary element-wise operators
 
@@ -195,4 +198,42 @@ class Tensor4(Generic[A1, A2, A3, A4]):
 
   # END: Binary element-wise operators
 
+
+class Tensor5(Generic[A1, A2, A3, A4, A5]):
+  def __getitem__(self, index) -> Any: ...
+  def __setitem__(self, index, value) -> Any: ...
+
+  # BEGIN: Unary operators
+  {% for func in unary_funcs %}
+  def {{ func }}(self) -> Tensor5[A1, A2, A3, A4, A5]: ...
+  {% endfor %}
+  # END: Unary operators
+
+  # BEGIN: Binary element-wise operators
+
+  {% for func in binary_elementwise_funcs %}
+
+  {# Broadcasting case 1: Broadcasting with scalars #}
+  @overload
+  def {{ func }}(self, other: Number) -> Tensor5[A1, A2, A3, A4, A5]: ...
+  @overload
+  def {{ func }}(self, other: Tensor0) -> Tensor5[A1, A2, A3, A4, A5]: ...
+
+  {# Broadcasting case 2: Broadcasting with a lesser rank #}
+  @overload
+  def {{ func }}(self, other: Tensor1[A5]) -> Tensor5[A1, A2, A3, A4, A5]: ...
+  @overload
+  def {{ func }}(self, other: Tensor2[A4, A5]) -> Tensor5[A1, A2, A3, A4, A5]: ...
+  @overload
+  def {{ func }}(self, other: Tensor3[A3, A4, A5]) -> Tensor5[A1, A2, A3, A4, A5]: ...
+  @overload
+  def {{ func }}(self, other: Tensor4[A2, A3, A4, A5]) -> Tensor5[A1, A2, A3, A4, A5]: ...
+
+  {# No broadcast #}
+  @overload
+  def {{ func }}(self, other: Tensor5[A1, A2, A3, A4, A5]) -> Tensor5[A1, A2, A3, A4, A5]: ...
+
+  {% endfor %}
+
+  # END: Binary element-wise operators
 # LINT.ThenChange(../tensorflow.pyi)
