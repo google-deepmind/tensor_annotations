@@ -20,6 +20,7 @@ A3 = TypeVar('A3', bound=Axis)
 A4 = TypeVar('A4', bound=Axis)
 A5 = TypeVar('A5', bound=Axis)
 A6 = TypeVar('A6', bound=Axis)
+A7 = TypeVar('A7', bound=Axis)
 
 Number = Union[int, float]
 
@@ -64,6 +65,8 @@ class Tensor0:
   def {{ func }}(self, other: Tensor5) -> Tensor5: ...
   @overload
   def {{ func }}(self, other: Tensor6) -> Tensor6: ...
+  @overload
+  def {{ func }}(self, other: Tensor7) -> Tensor7: ...
   {% endfor %}
   # END: Binary element-wise operators
 
@@ -276,6 +279,49 @@ class Tensor6(Generic[A1, A2, A3, A4, A5, A6]):
   {# No broadcast #}
   @overload
   def {{ func }}(self, other: Tensor6[A1, A2, A3, A4, A5, A6]) -> Tensor6[A1, A2, A3, A4, A5, A6]: ...
+
+  {% endfor %}
+
+  # END: Binary element-wise operators
+
+
+class Tensor7(Generic[A1, A2, A3, A4, A5, A6, A7]):
+  def __getitem__(self, index) -> Any: ...
+  def __setitem__(self, index, value) -> Any: ...
+
+  # BEGIN: Unary operators
+  {% for func in unary_funcs %}
+  def {{ func }}(self) -> Tensor7[A1, A2, A3, A4, A5, A6, A7]: ...
+  {% endfor %}
+  # END: Unary operators
+
+  # BEGIN: Binary element-wise operators
+
+  {% for func in binary_elementwise_funcs %}
+
+  {# Broadcasting case 1: Broadcasting with scalars #}
+  @overload
+  def {{ func }}(self, other: Number) -> Tensor7[A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def {{ func }}(self, other: Tensor0) -> Tensor7[A1, A2, A3, A4, A5, A6, A7]: ...
+
+  {# Broadcasting case 2: Broadcasting with a lesser rank #}
+  @overload
+  def {{ func }}(self, other: Tensor1[A7]) -> Tensor7[A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def {{ func }}(self, other: Tensor2[A6, A7]) -> Tensor7[A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def {{ func }}(self, other: Tensor3[A5, A6, A7]) -> Tensor7[A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def {{ func }}(self, other: Tensor4[A4, A5, A6, A7]) -> Tensor7[A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def {{ func }}(self, other: Tensor5[A3, A4, A5, A6, A7]) -> Tensor7[A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def {{ func }}(self, other: Tensor6[A2, A3, A4, A5, A6, A7]) -> Tensor7[A1, A2, A3, A4, A5, A6, A7]: ...
+
+  {# No broadcast #}
+  @overload
+  def {{ func }}(self, other: Tensor7[A1, A2, A3, A4, A5, A6, A7]) -> Tensor7[A1, A2, A3, A4, A5, A6, A7]: ...
 
   {% endfor %}
 
