@@ -12,12 +12,6 @@ from typing import Any, TypeVar, Tuple, Sequence, Generic, overload, Union
 
 from tensor_annotations.axes import Axis
 
-Shape = Sequence[int]
-Shape1 = Tuple[int]
-Shape2 = Tuple[int, int]
-Shape3 = Tuple[int, int, int]
-Shape4 = Tuple[int, int, int, int]
-
 A1 = TypeVar('A1', bound=Axis)
 A2 = TypeVar('A2', bound=Axis)
 A3 = TypeVar('A3', bound=Axis)
