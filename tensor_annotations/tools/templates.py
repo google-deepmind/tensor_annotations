@@ -59,11 +59,13 @@ def jax_array_type(n_axes: int) -> str:
   return f'Array{n_axes}[{axis_list(n_axes)}]'
 
 
-def transpose_axes(n_axes: int):
+# TODO: remove `reverse` argument
+def transpose_axes(n_axes: int, reverse: bool = False):
   """A generator that yields input and output axes of transpose.
 
   Args:
     n_axes: Rank of array whose possible transposes to consider.
+    reverse: TODO
 
   Yields:
     A `TransposeAxes` object for each possible transpose.
@@ -77,7 +79,9 @@ def transpose_axes(n_axes: int):
 
   # [A1, A2, ..., An]
   all_axes = list(range(1, n_axes + 1))
-  all_axes_str = (f'A{i}' for i in all_axes)
+  all_axes_str = [f'A{i}' for i in all_axes]
+  if reverse:
+    all_axes_str = reversed(all_axes_str)
   all_axes_str = ', '.join(all_axes_str)
   all_axes_str = '[' + all_axes_str + ']'
 
@@ -86,7 +90,10 @@ def transpose_axes(n_axes: int):
     transpose_axes_str = ', '.join(transpose_axes_str)
     transpose_axes_str = f'Tuple[{transpose_axes_str}]'
 
-    result_axes = (all_axes[i] for i in transpose_axes)
+    if reverse:
+      result_axes = (all_axes[n_axes-1-i] for i in transpose_axes)
+    else:
+      result_axes = (all_axes[i] for i in transpose_axes)
     if result_axes:
       result_axes_str = (f'A{i}' for i in result_axes)
       result_axes_str = ', '.join(result_axes_str)
@@ -100,11 +107,15 @@ def transpose_axes(n_axes: int):
                         result_axes=result_axes_str)
 
 
-def reduction_axes(n_axes: int):
+# TODO: Remove `reverse` and `single_reduction_axis_only`
+def reduction_axes(n_axes: int, reverse: bool = False,
+                   single_reduction_axis_only: bool = False):
   """A generator that yields input and output axes of reduction operations.
 
   Args:
     n_axes: Rank of array whose possible reductions to consider.
+    reverse: TODO
+    single_reduction_axis_only: TODO
 
   Yields:
     A `ReductionAxes` object for each possible reduction.
@@ -119,11 +130,16 @@ def reduction_axes(n_axes: int):
   assert n_axes >= 1
 
   # [A1, A2, ..., An]
-  all_axes_str = (f'A{i}' for i in range(1, n_axes + 1))
+  all_axes_str = [f'A{i}' for i in range(1, n_axes + 1)]
+  if reverse: all_axes_str = reversed(all_axes_str)
   all_axes_str = ', '.join(all_axes_str)
   all_axes_str = '[' + all_axes_str + ']'
 
-  for n_reduction_axes in range(1, n_axes + 1):
+  if single_reduction_axis_only:
+    n_reduction_axes_iter = [1]
+  else:
+    n_reduction_axes_iter = range(1, n_axes + 1)
+  for n_reduction_axes in n_reduction_axes_iter:
     for reduction_axes in itertools.permutations(range(n_axes),
                                                  n_reduction_axes):
       if len(reduction_axes) == 1:
@@ -137,7 +153,10 @@ def reduction_axes(n_axes: int):
       remaining_axes = sorted(tuple(remaining_axes))
       remaining_n_axes = len(remaining_axes)
       if remaining_axes:
-        remaining_axes_str = (f'A{i + 1}' for i in remaining_axes)
+        if reverse:
+          remaining_axes_str = (f'A{n_axes - i}' for i in remaining_axes)
+        else:
+          remaining_axes_str = (f'A{i + 1}' for i in remaining_axes)
         remaining_axes_str = ', '.join(remaining_axes_str)
         remaining_axes_str = '[' + remaining_axes_str + ']'
       else:
