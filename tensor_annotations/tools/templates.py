@@ -109,14 +109,15 @@ def reduction_axes(n_axes: int, single_reduction_axis_only: bool = False):
     single_reduction_axis_only: TODO
 
   Yields:
-    A `ReductionAxes` object for each possible reduction.
+    A `ReductionAxes` object for each possible reduction (where axes
+    increase in value - e.g. we don't consider `axes=(1, 0)` - to cut down
+    on the size of the stubs generated).
 
   For example, calculate_reduction_axes(2) would yield `ReductionAxes` objects
   encoding:
     Reduce shape [A1, A2] over axes    0 -> shape[A2]
                                        1 -> shape[A1]
                                     0, 1 -> shape[]
-                                    1, 0 -> shape[]
   """
   assert n_axes >= 1
 
@@ -132,6 +133,11 @@ def reduction_axes(n_axes: int, single_reduction_axis_only: bool = False):
   for n_reduction_axes in n_reduction_axes_iter:
     for reduction_axes in itertools.permutations(range(n_axes),
                                                  n_reduction_axes):
+      # Skip e.g. `axis=(1, 0)`.
+      if not all(reduction_axes[i] > reduction_axes[i-1]
+                 for i in range(1, len(reduction_axes))):
+        continue
+
       if len(reduction_axes) == 1:
         reduction_axes_str = f'L{reduction_axes[0]}'
       else:

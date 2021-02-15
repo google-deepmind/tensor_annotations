@@ -98,8 +98,7 @@ class JAXStubTests(absltest.TestCase):
       y1 = jnp.sum(x, axis=0)
       y2 = jnp.sum(x, axis=1)
       y3 = jnp.sum(x, axis=(0, 1))
-      y4 = jnp.sum(x, axis=(1, 0))
-      y5 = jnp.sum(x)
+      y4 = jnp.sum(x)
 
     inferred = utils.pytype_infer_shapes(_PREAMBLE + code_saver.code)
 
@@ -107,7 +106,6 @@ class JAXStubTests(absltest.TestCase):
     self.assertEqual(inferred.y2, y2.shape)
     self.assertEqual(inferred.y3, y3.shape)
     self.assertEqual(inferred.y4, y4.shape)
-    self.assertEqual(inferred.y5, y5.shape)
 
   def testSumKeepdimsTrue_ReturnsAny(self):
     # We haven't got around to making stubs for keepdims=True yet;

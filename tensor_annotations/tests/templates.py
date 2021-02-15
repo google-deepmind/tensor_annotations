@@ -118,13 +118,6 @@ class TemplateTests(unittest.TestCase):
                 remaining_n_axes=0,
                 remaining_axes=''
             ),
-            templates.ReductionAxes(
-                n_axes=2,
-                all_axes='[A1, A2]',
-                reduction_axes='Tuple[L1, L0]',
-                remaining_n_axes=0,
-                remaining_axes=''
-            ),
         ]
     )
 

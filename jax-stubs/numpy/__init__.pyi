@@ -710,14 +710,6 @@ def sum(
 ) -> Array0: ...
 
 
-@overload
-def sum(
-    a: Array2[A1, A2],
-    axis: Tuple[L1, L0],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
 # Fallback: `axis` not any of the above
 @overload
 def sum(
@@ -784,14 +776,6 @@ def sum(
 @overload
 def sum(
     a: Array3[A1, A2, A3],
-    axis: Tuple[L1, L0],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A3]: ...
-
-
-@overload
-def sum(
-    a: Array3[A1, A2, A3],
     axis: Tuple[L1, L2],
     out=..., keepdims=..., dtype=...
 ) -> Array1[A1]: ...
@@ -800,63 +784,7 @@ def sum(
 @overload
 def sum(
     a: Array3[A1, A2, A3],
-    axis: Tuple[L2, L0],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A2]: ...
-
-
-@overload
-def sum(
-    a: Array3[A1, A2, A3],
-    axis: Tuple[L2, L1],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A1]: ...
-
-
-@overload
-def sum(
-    a: Array3[A1, A2, A3],
     axis: Tuple[L0, L1, L2],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def sum(
-    a: Array3[A1, A2, A3],
-    axis: Tuple[L0, L2, L1],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def sum(
-    a: Array3[A1, A2, A3],
-    axis: Tuple[L1, L0, L2],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def sum(
-    a: Array3[A1, A2, A3],
-    axis: Tuple[L1, L2, L0],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def sum(
-    a: Array3[A1, A2, A3],
-    axis: Tuple[L2, L0, L1],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def sum(
-    a: Array3[A1, A2, A3],
-    axis: Tuple[L2, L1, L0],
     out=..., keepdims=..., dtype=...
 ) -> Array0: ...
 
@@ -943,14 +871,6 @@ def sum(
 @overload
 def sum(
     a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L1, L0],
-    out=..., keepdims=..., dtype=...
-) -> Array2[A3, A4]: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
     axis: Tuple[L1, L2],
     out=..., keepdims=..., dtype=...
 ) -> Array2[A1, A4]: ...
@@ -967,47 +887,7 @@ def sum(
 @overload
 def sum(
     a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L2, L0],
-    out=..., keepdims=..., dtype=...
-) -> Array2[A2, A4]: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L2, L1],
-    out=..., keepdims=..., dtype=...
-) -> Array2[A1, A4]: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
     axis: Tuple[L2, L3],
-    out=..., keepdims=..., dtype=...
-) -> Array2[A1, A2]: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L3, L0],
-    out=..., keepdims=..., dtype=...
-) -> Array2[A2, A3]: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L3, L1],
-    out=..., keepdims=..., dtype=...
-) -> Array2[A1, A3]: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L3, L2],
     out=..., keepdims=..., dtype=...
 ) -> Array2[A1, A2]: ...
 
@@ -1031,57 +911,9 @@ def sum(
 @overload
 def sum(
     a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L0, L2, L1],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A4]: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
     axis: Tuple[L0, L2, L3],
     out=..., keepdims=..., dtype=...
 ) -> Array1[A2]: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L0, L3, L1],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A3]: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L0, L3, L2],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A2]: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L1, L0, L2],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A4]: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L1, L0, L3],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A3]: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L1, L2, L0],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A4]: ...
 
 
 @overload
@@ -1095,303 +927,7 @@ def sum(
 @overload
 def sum(
     a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L1, L3, L0],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A3]: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L1, L3, L2],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A1]: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L2, L0, L1],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A4]: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L2, L0, L3],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A2]: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L2, L1, L0],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A4]: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L2, L1, L3],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A1]: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L2, L3, L0],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A2]: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L2, L3, L1],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A1]: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L3, L0, L1],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A3]: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L3, L0, L2],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A2]: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L3, L1, L0],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A3]: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L3, L1, L2],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A1]: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L3, L2, L0],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A2]: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L3, L2, L1],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A1]: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
     axis: Tuple[L0, L1, L2, L3],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L0, L1, L3, L2],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L0, L2, L1, L3],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L0, L2, L3, L1],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L0, L3, L1, L2],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L0, L3, L2, L1],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L1, L0, L2, L3],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L1, L0, L3, L2],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L1, L2, L0, L3],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L1, L2, L3, L0],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L1, L3, L0, L2],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L1, L3, L2, L0],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L2, L0, L1, L3],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L2, L0, L3, L1],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L2, L1, L0, L3],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L2, L1, L3, L0],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L2, L3, L0, L1],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L2, L3, L1, L0],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L3, L0, L1, L2],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L3, L0, L2, L1],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L3, L1, L0, L2],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L3, L1, L2, L0],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L3, L2, L0, L1],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def sum(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L3, L2, L1, L0],
     out=..., keepdims=..., dtype=...
 ) -> Array0: ...
 
@@ -1514,14 +1050,6 @@ def mean(
 ) -> Array0: ...
 
 
-@overload
-def mean(
-    a: Array2[A1, A2],
-    axis: Tuple[L1, L0],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
 # Fallback: `axis` not any of the above
 @overload
 def mean(
@@ -1588,14 +1116,6 @@ def mean(
 @overload
 def mean(
     a: Array3[A1, A2, A3],
-    axis: Tuple[L1, L0],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A3]: ...
-
-
-@overload
-def mean(
-    a: Array3[A1, A2, A3],
     axis: Tuple[L1, L2],
     out=..., keepdims=..., dtype=...
 ) -> Array1[A1]: ...
@@ -1604,63 +1124,7 @@ def mean(
 @overload
 def mean(
     a: Array3[A1, A2, A3],
-    axis: Tuple[L2, L0],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A2]: ...
-
-
-@overload
-def mean(
-    a: Array3[A1, A2, A3],
-    axis: Tuple[L2, L1],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A1]: ...
-
-
-@overload
-def mean(
-    a: Array3[A1, A2, A3],
     axis: Tuple[L0, L1, L2],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def mean(
-    a: Array3[A1, A2, A3],
-    axis: Tuple[L0, L2, L1],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def mean(
-    a: Array3[A1, A2, A3],
-    axis: Tuple[L1, L0, L2],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def mean(
-    a: Array3[A1, A2, A3],
-    axis: Tuple[L1, L2, L0],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def mean(
-    a: Array3[A1, A2, A3],
-    axis: Tuple[L2, L0, L1],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def mean(
-    a: Array3[A1, A2, A3],
-    axis: Tuple[L2, L1, L0],
     out=..., keepdims=..., dtype=...
 ) -> Array0: ...
 
@@ -1747,14 +1211,6 @@ def mean(
 @overload
 def mean(
     a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L1, L0],
-    out=..., keepdims=..., dtype=...
-) -> Array2[A3, A4]: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
     axis: Tuple[L1, L2],
     out=..., keepdims=..., dtype=...
 ) -> Array2[A1, A4]: ...
@@ -1771,47 +1227,7 @@ def mean(
 @overload
 def mean(
     a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L2, L0],
-    out=..., keepdims=..., dtype=...
-) -> Array2[A2, A4]: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L2, L1],
-    out=..., keepdims=..., dtype=...
-) -> Array2[A1, A4]: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
     axis: Tuple[L2, L3],
-    out=..., keepdims=..., dtype=...
-) -> Array2[A1, A2]: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L3, L0],
-    out=..., keepdims=..., dtype=...
-) -> Array2[A2, A3]: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L3, L1],
-    out=..., keepdims=..., dtype=...
-) -> Array2[A1, A3]: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L3, L2],
     out=..., keepdims=..., dtype=...
 ) -> Array2[A1, A2]: ...
 
@@ -1835,57 +1251,9 @@ def mean(
 @overload
 def mean(
     a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L0, L2, L1],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A4]: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
     axis: Tuple[L0, L2, L3],
     out=..., keepdims=..., dtype=...
 ) -> Array1[A2]: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L0, L3, L1],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A3]: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L0, L3, L2],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A2]: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L1, L0, L2],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A4]: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L1, L0, L3],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A3]: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L1, L2, L0],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A4]: ...
 
 
 @overload
@@ -1899,303 +1267,7 @@ def mean(
 @overload
 def mean(
     a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L1, L3, L0],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A3]: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L1, L3, L2],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A1]: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L2, L0, L1],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A4]: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L2, L0, L3],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A2]: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L2, L1, L0],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A4]: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L2, L1, L3],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A1]: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L2, L3, L0],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A2]: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L2, L3, L1],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A1]: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L3, L0, L1],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A3]: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L3, L0, L2],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A2]: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L3, L1, L0],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A3]: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L3, L1, L2],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A1]: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L3, L2, L0],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A2]: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L3, L2, L1],
-    out=..., keepdims=..., dtype=...
-) -> Array1[A1]: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
     axis: Tuple[L0, L1, L2, L3],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L0, L1, L3, L2],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L0, L2, L1, L3],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L0, L2, L3, L1],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L0, L3, L1, L2],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L0, L3, L2, L1],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L1, L0, L2, L3],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L1, L0, L3, L2],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L1, L2, L0, L3],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L1, L2, L3, L0],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L1, L3, L0, L2],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L1, L3, L2, L0],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L2, L0, L1, L3],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L2, L0, L3, L1],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L2, L1, L0, L3],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L2, L1, L3, L0],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L2, L3, L0, L1],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L2, L3, L1, L0],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L3, L0, L1, L2],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L3, L0, L2, L1],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L3, L1, L0, L2],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L3, L1, L2, L0],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L3, L2, L0, L1],
-    out=..., keepdims=..., dtype=...
-) -> Array0: ...
-
-
-@overload
-def mean(
-    a: Array4[A1, A2, A3, A4],
-    axis: Tuple[L3, L2, L1, L0],
     out=..., keepdims=..., dtype=...
 ) -> Array0: ...
 
