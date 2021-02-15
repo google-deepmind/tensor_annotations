@@ -100,14 +100,12 @@ def transpose_axes(n_axes: int):
                         result_axes=result_axes_str)
 
 
-# TODO: Remove `reverse` and `single_reduction_axis_only`
-def reduction_axes(n_axes: int, reverse: bool = False,
-                   single_reduction_axis_only: bool = False):
+# TODO: Remove `single_reduction_axis_only`
+def reduction_axes(n_axes: int, single_reduction_axis_only: bool = False):
   """A generator that yields input and output axes of reduction operations.
 
   Args:
     n_axes: Rank of array whose possible reductions to consider.
-    reverse: TODO
     single_reduction_axis_only: TODO
 
   Yields:
@@ -124,7 +122,6 @@ def reduction_axes(n_axes: int, reverse: bool = False,
 
   # [A1, A2, ..., An]
   all_axes_str = [f'A{i}' for i in range(1, n_axes + 1)]
-  if reverse: all_axes_str = reversed(all_axes_str)
   all_axes_str = ', '.join(all_axes_str)
   all_axes_str = '[' + all_axes_str + ']'
 
@@ -146,10 +143,7 @@ def reduction_axes(n_axes: int, reverse: bool = False,
       remaining_axes = sorted(tuple(remaining_axes))
       remaining_n_axes = len(remaining_axes)
       if remaining_axes:
-        if reverse:
-          remaining_axes_str = (f'A{n_axes - i}' for i in remaining_axes)
-        else:
-          remaining_axes_str = (f'A{i + 1}' for i in remaining_axes)
+        remaining_axes_str = (f'A{i + 1}' for i in remaining_axes)
         remaining_axes_str = ', '.join(remaining_axes_str)
         remaining_axes_str = '[' + remaining_axes_str + ']'
       else:
