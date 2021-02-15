@@ -59,13 +59,11 @@ def jax_array_type(n_axes: int) -> str:
   return f'Array{n_axes}[{axis_list(n_axes)}]'
 
 
-# TODO: remove `reverse` argument
-def transpose_axes(n_axes: int, reverse: bool = False):
+def transpose_axes(n_axes: int):
   """A generator that yields input and output axes of transpose.
 
   Args:
     n_axes: Rank of array whose possible transposes to consider.
-    reverse: TODO
 
   Yields:
     A `TransposeAxes` object for each possible transpose.
@@ -80,8 +78,6 @@ def transpose_axes(n_axes: int, reverse: bool = False):
   # [A1, A2, ..., An]
   all_axes = list(range(1, n_axes + 1))
   all_axes_str = [f'A{i}' for i in all_axes]
-  if reverse:
-    all_axes_str = reversed(all_axes_str)
   all_axes_str = ', '.join(all_axes_str)
   all_axes_str = '[' + all_axes_str + ']'
 
@@ -90,10 +86,7 @@ def transpose_axes(n_axes: int, reverse: bool = False):
     transpose_axes_str = ', '.join(transpose_axes_str)
     transpose_axes_str = f'Tuple[{transpose_axes_str}]'
 
-    if reverse:
-      result_axes = (all_axes[n_axes-1-i] for i in transpose_axes)
-    else:
-      result_axes = (all_axes[i] for i in transpose_axes)
+    result_axes = (all_axes[i] for i in transpose_axes)
     if result_axes:
       result_axes_str = (f'A{i}' for i in result_axes)
       result_axes_str = ', '.join(result_axes_str)
