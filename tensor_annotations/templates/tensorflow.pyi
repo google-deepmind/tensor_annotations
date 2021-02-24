@@ -114,6 +114,10 @@ def {{ func }}(input: Tensor4[A1, A2, A3, A4], dtype=..., name=...) -> Tensor4[A
 
 
 @overload
+def {{ func }}(input: Tensor5[A1, A2, A3, A4, A5], dtype=..., name=...) -> Tensor5[A1, A2, A3, A4, A5]: ...
+
+
+@overload
 def {{ func }}(input, dtype=..., name=...) -> Any: ...
 {% endfor %}
 

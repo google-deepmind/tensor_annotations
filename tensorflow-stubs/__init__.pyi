@@ -1024,6 +1024,9 @@ def ones_like(input: Tensor3[A1, A2, A3], dtype=..., name=...) -> Tensor3[A1, A2
 def ones_like(input: Tensor4[A1, A2, A3, A4], dtype=..., name=...) -> Tensor4[A1, A2, A3, A4]: ...
 
 @overload
+def ones_like(input: Tensor5[A1, A2, A3, A4, A5], dtype=..., name=...) -> Tensor5[A1, A2, A3, A4, A5]: ...
+
+@overload
 def ones_like(input, dtype=..., name=...) -> Any: ...
 # END: tensor_annotations annotations for ones_like(...)
 
@@ -2391,6 +2394,9 @@ def zeros_like(input: Tensor3[A1, A2, A3], dtype=..., name=...) -> Tensor3[A1, A
 
 @overload
 def zeros_like(input: Tensor4[A1, A2, A3, A4], dtype=..., name=...) -> Tensor4[A1, A2, A3, A4]: ...
+
+@overload
+def zeros_like(input: Tensor5[A1, A2, A3, A4, A5], dtype=..., name=...) -> Tensor5[A1, A2, A3, A4, A5]: ...
 
 @overload
 def zeros_like(input, dtype=..., name=...) -> Any: ...
