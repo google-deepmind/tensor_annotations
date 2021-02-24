@@ -25,13 +25,14 @@ from typing import Any, TypeVar, Tuple, overload
 from typing_extensions import Literal
 
 from tensor_annotations.axes import Axis
-from tensor_annotations.tensorflow import Tensor0, Tensor1, Tensor2, Tensor3, Tensor4
+from tensor_annotations.tensorflow import Tensor0, Tensor1, Tensor2, Tensor3, Tensor4, Tensor5
 
 
 A1 = TypeVar('A1', bound=Axis)
 A2 = TypeVar('A2', bound=Axis)
 A3 = TypeVar('A3', bound=Axis)
 A4 = TypeVar('A4', bound=Axis)
+A5 = TypeVar('A5', bound=Axis)
 
 TRUE = Literal[True]
 FALSE = Literal[False]
@@ -40,11 +41,13 @@ L0 = Literal[0]
 L1 = Literal[1]
 L2 = Literal[2]
 L3 = Literal[3]
+L4 = Literal[4]
 
 Shape1 = Tuple[int]
 Shape2 = Tuple[int, int]
 Shape3 = Tuple[int, int, int]
 Shape4 = Tuple[int, int, int, int]
+Shape5 = Tuple[int, int, int, int, int]
 # END: tensor_annotations annotations
 
 # END PREAMBLE
@@ -80,6 +83,11 @@ def {{ func }}(x: Tensor3[A1, A2, A3], name=...) -> Tensor3[A1, A2, A3]: ...
 @overload
 def {{ func }}(x: Tensor4[A1, A2, A3, A4], name=...) -> Tensor4[A1, A2, A3, A4]: ...
 
+
+@overload
+def {{ func }}(x: Tensor5[A1, A2, A3, A4, A5], name=...) -> Tensor5[A1, A2, A3, A4, A5]: ...
+
+
 @overload
 def {{ func }}(x, name=...) -> Any: ...
 
@@ -103,6 +111,7 @@ def {{ func }}(input: Tensor3[A1, A2, A3], dtype=..., name=...) -> Tensor3[A1, A
 
 @overload
 def {{ func }}(input: Tensor4[A1, A2, A3, A4], dtype=..., name=...) -> Tensor4[A1, A2, A3, A4]: ...
+
 
 @overload
 def {{ func }}(input, dtype=..., name=...) -> Any: ...
