@@ -100,13 +100,11 @@ def transpose_axes(n_axes: int):
                         result_axes=result_axes_str)
 
 
-# TODO: Remove `single_reduction_axis_only`
-def reduction_axes(n_axes: int, single_reduction_axis_only: bool = False):
+def reduction_axes(n_axes: int):
   """A generator that yields input and output axes of reduction operations.
 
   Args:
     n_axes: Rank of array whose possible reductions to consider.
-    single_reduction_axis_only: TODO
 
   Yields:
     A `ReductionAxes` object for each possible reduction (where axes
@@ -126,10 +124,7 @@ def reduction_axes(n_axes: int, single_reduction_axis_only: bool = False):
   all_axes_str = ', '.join(all_axes_str)
   all_axes_str = '[' + all_axes_str + ']'
 
-  if single_reduction_axis_only:
-    n_reduction_axes_iter = [1]
-  else:
-    n_reduction_axes_iter = range(1, n_axes + 1)
+  n_reduction_axes_iter = range(1, n_axes + 1)
   for n_reduction_axes in n_reduction_axes_iter:
     for reduction_axes in itertools.permutations(range(n_axes),
                                                  n_reduction_axes):

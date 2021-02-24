@@ -989,6 +989,10 @@ def reduce_all(input_tensor: Tensor2[A1, A2],
                axis: L1, name=...) -> Tensor1[A1]: ...
 
 @overload
+def reduce_all(input_tensor: Tensor2[A1, A2],
+               axis: Tuple[L0, L1], name=...) -> Tensor0: ...
+
+@overload
 def reduce_all(input_tensor: Tensor3[A1, A2, A3],
                axis: L0, name=...) -> Tensor2[A2, A3]: ...
 
@@ -999,6 +1003,22 @@ def reduce_all(input_tensor: Tensor3[A1, A2, A3],
 @overload
 def reduce_all(input_tensor: Tensor3[A1, A2, A3],
                axis: L2, name=...) -> Tensor2[A1, A2]: ...
+
+@overload
+def reduce_all(input_tensor: Tensor3[A1, A2, A3],
+               axis: Tuple[L0, L1], name=...) -> Tensor1[A3]: ...
+
+@overload
+def reduce_all(input_tensor: Tensor3[A1, A2, A3],
+               axis: Tuple[L0, L2], name=...) -> Tensor1[A2]: ...
+
+@overload
+def reduce_all(input_tensor: Tensor3[A1, A2, A3],
+               axis: Tuple[L1, L2], name=...) -> Tensor1[A1]: ...
+
+@overload
+def reduce_all(input_tensor: Tensor3[A1, A2, A3],
+               axis: Tuple[L0, L1, L2], name=...) -> Tensor0: ...
 
 @overload
 def reduce_all(input_tensor: Tensor4[A1, A2, A3, A4],
@@ -1015,6 +1035,50 @@ def reduce_all(input_tensor: Tensor4[A1, A2, A3, A4],
 @overload
 def reduce_all(input_tensor: Tensor4[A1, A2, A3, A4],
                axis: L3, name=...) -> Tensor3[A1, A2, A3]: ...
+
+@overload
+def reduce_all(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L1], name=...) -> Tensor2[A3, A4]: ...
+
+@overload
+def reduce_all(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L2], name=...) -> Tensor2[A2, A4]: ...
+
+@overload
+def reduce_all(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L3], name=...) -> Tensor2[A2, A3]: ...
+
+@overload
+def reduce_all(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L1, L2], name=...) -> Tensor2[A1, A4]: ...
+
+@overload
+def reduce_all(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L1, L3], name=...) -> Tensor2[A1, A3]: ...
+
+@overload
+def reduce_all(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L2, L3], name=...) -> Tensor2[A1, A2]: ...
+
+@overload
+def reduce_all(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L1, L2], name=...) -> Tensor1[A4]: ...
+
+@overload
+def reduce_all(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L1, L3], name=...) -> Tensor1[A3]: ...
+
+@overload
+def reduce_all(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L2, L3], name=...) -> Tensor1[A2]: ...
+
+@overload
+def reduce_all(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L1, L2, L3], name=...) -> Tensor1[A1]: ...
+
+@overload
+def reduce_all(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L1, L2, L3], name=...) -> Tensor0: ...
 
 @overload
 def reduce_all(input_tensor: Tensor1[A1],
@@ -1051,6 +1115,10 @@ def reduce_any(input_tensor: Tensor2[A1, A2],
                axis: L1, name=...) -> Tensor1[A1]: ...
 
 @overload
+def reduce_any(input_tensor: Tensor2[A1, A2],
+               axis: Tuple[L0, L1], name=...) -> Tensor0: ...
+
+@overload
 def reduce_any(input_tensor: Tensor3[A1, A2, A3],
                axis: L0, name=...) -> Tensor2[A2, A3]: ...
 
@@ -1061,6 +1129,22 @@ def reduce_any(input_tensor: Tensor3[A1, A2, A3],
 @overload
 def reduce_any(input_tensor: Tensor3[A1, A2, A3],
                axis: L2, name=...) -> Tensor2[A1, A2]: ...
+
+@overload
+def reduce_any(input_tensor: Tensor3[A1, A2, A3],
+               axis: Tuple[L0, L1], name=...) -> Tensor1[A3]: ...
+
+@overload
+def reduce_any(input_tensor: Tensor3[A1, A2, A3],
+               axis: Tuple[L0, L2], name=...) -> Tensor1[A2]: ...
+
+@overload
+def reduce_any(input_tensor: Tensor3[A1, A2, A3],
+               axis: Tuple[L1, L2], name=...) -> Tensor1[A1]: ...
+
+@overload
+def reduce_any(input_tensor: Tensor3[A1, A2, A3],
+               axis: Tuple[L0, L1, L2], name=...) -> Tensor0: ...
 
 @overload
 def reduce_any(input_tensor: Tensor4[A1, A2, A3, A4],
@@ -1077,6 +1161,50 @@ def reduce_any(input_tensor: Tensor4[A1, A2, A3, A4],
 @overload
 def reduce_any(input_tensor: Tensor4[A1, A2, A3, A4],
                axis: L3, name=...) -> Tensor3[A1, A2, A3]: ...
+
+@overload
+def reduce_any(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L1], name=...) -> Tensor2[A3, A4]: ...
+
+@overload
+def reduce_any(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L2], name=...) -> Tensor2[A2, A4]: ...
+
+@overload
+def reduce_any(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L3], name=...) -> Tensor2[A2, A3]: ...
+
+@overload
+def reduce_any(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L1, L2], name=...) -> Tensor2[A1, A4]: ...
+
+@overload
+def reduce_any(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L1, L3], name=...) -> Tensor2[A1, A3]: ...
+
+@overload
+def reduce_any(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L2, L3], name=...) -> Tensor2[A1, A2]: ...
+
+@overload
+def reduce_any(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L1, L2], name=...) -> Tensor1[A4]: ...
+
+@overload
+def reduce_any(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L1, L3], name=...) -> Tensor1[A3]: ...
+
+@overload
+def reduce_any(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L2, L3], name=...) -> Tensor1[A2]: ...
+
+@overload
+def reduce_any(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L1, L2, L3], name=...) -> Tensor1[A1]: ...
+
+@overload
+def reduce_any(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L1, L2, L3], name=...) -> Tensor0: ...
 
 @overload
 def reduce_any(input_tensor: Tensor1[A1],
@@ -1113,6 +1241,10 @@ def reduce_logsumexp(input_tensor: Tensor2[A1, A2],
                axis: L1, name=...) -> Tensor1[A1]: ...
 
 @overload
+def reduce_logsumexp(input_tensor: Tensor2[A1, A2],
+               axis: Tuple[L0, L1], name=...) -> Tensor0: ...
+
+@overload
 def reduce_logsumexp(input_tensor: Tensor3[A1, A2, A3],
                axis: L0, name=...) -> Tensor2[A2, A3]: ...
 
@@ -1123,6 +1255,22 @@ def reduce_logsumexp(input_tensor: Tensor3[A1, A2, A3],
 @overload
 def reduce_logsumexp(input_tensor: Tensor3[A1, A2, A3],
                axis: L2, name=...) -> Tensor2[A1, A2]: ...
+
+@overload
+def reduce_logsumexp(input_tensor: Tensor3[A1, A2, A3],
+               axis: Tuple[L0, L1], name=...) -> Tensor1[A3]: ...
+
+@overload
+def reduce_logsumexp(input_tensor: Tensor3[A1, A2, A3],
+               axis: Tuple[L0, L2], name=...) -> Tensor1[A2]: ...
+
+@overload
+def reduce_logsumexp(input_tensor: Tensor3[A1, A2, A3],
+               axis: Tuple[L1, L2], name=...) -> Tensor1[A1]: ...
+
+@overload
+def reduce_logsumexp(input_tensor: Tensor3[A1, A2, A3],
+               axis: Tuple[L0, L1, L2], name=...) -> Tensor0: ...
 
 @overload
 def reduce_logsumexp(input_tensor: Tensor4[A1, A2, A3, A4],
@@ -1139,6 +1287,50 @@ def reduce_logsumexp(input_tensor: Tensor4[A1, A2, A3, A4],
 @overload
 def reduce_logsumexp(input_tensor: Tensor4[A1, A2, A3, A4],
                axis: L3, name=...) -> Tensor3[A1, A2, A3]: ...
+
+@overload
+def reduce_logsumexp(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L1], name=...) -> Tensor2[A3, A4]: ...
+
+@overload
+def reduce_logsumexp(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L2], name=...) -> Tensor2[A2, A4]: ...
+
+@overload
+def reduce_logsumexp(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L3], name=...) -> Tensor2[A2, A3]: ...
+
+@overload
+def reduce_logsumexp(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L1, L2], name=...) -> Tensor2[A1, A4]: ...
+
+@overload
+def reduce_logsumexp(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L1, L3], name=...) -> Tensor2[A1, A3]: ...
+
+@overload
+def reduce_logsumexp(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L2, L3], name=...) -> Tensor2[A1, A2]: ...
+
+@overload
+def reduce_logsumexp(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L1, L2], name=...) -> Tensor1[A4]: ...
+
+@overload
+def reduce_logsumexp(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L1, L3], name=...) -> Tensor1[A3]: ...
+
+@overload
+def reduce_logsumexp(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L2, L3], name=...) -> Tensor1[A2]: ...
+
+@overload
+def reduce_logsumexp(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L1, L2, L3], name=...) -> Tensor1[A1]: ...
+
+@overload
+def reduce_logsumexp(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L1, L2, L3], name=...) -> Tensor0: ...
 
 @overload
 def reduce_logsumexp(input_tensor: Tensor1[A1],
@@ -1175,6 +1367,10 @@ def reduce_max(input_tensor: Tensor2[A1, A2],
                axis: L1, name=...) -> Tensor1[A1]: ...
 
 @overload
+def reduce_max(input_tensor: Tensor2[A1, A2],
+               axis: Tuple[L0, L1], name=...) -> Tensor0: ...
+
+@overload
 def reduce_max(input_tensor: Tensor3[A1, A2, A3],
                axis: L0, name=...) -> Tensor2[A2, A3]: ...
 
@@ -1185,6 +1381,22 @@ def reduce_max(input_tensor: Tensor3[A1, A2, A3],
 @overload
 def reduce_max(input_tensor: Tensor3[A1, A2, A3],
                axis: L2, name=...) -> Tensor2[A1, A2]: ...
+
+@overload
+def reduce_max(input_tensor: Tensor3[A1, A2, A3],
+               axis: Tuple[L0, L1], name=...) -> Tensor1[A3]: ...
+
+@overload
+def reduce_max(input_tensor: Tensor3[A1, A2, A3],
+               axis: Tuple[L0, L2], name=...) -> Tensor1[A2]: ...
+
+@overload
+def reduce_max(input_tensor: Tensor3[A1, A2, A3],
+               axis: Tuple[L1, L2], name=...) -> Tensor1[A1]: ...
+
+@overload
+def reduce_max(input_tensor: Tensor3[A1, A2, A3],
+               axis: Tuple[L0, L1, L2], name=...) -> Tensor0: ...
 
 @overload
 def reduce_max(input_tensor: Tensor4[A1, A2, A3, A4],
@@ -1201,6 +1413,50 @@ def reduce_max(input_tensor: Tensor4[A1, A2, A3, A4],
 @overload
 def reduce_max(input_tensor: Tensor4[A1, A2, A3, A4],
                axis: L3, name=...) -> Tensor3[A1, A2, A3]: ...
+
+@overload
+def reduce_max(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L1], name=...) -> Tensor2[A3, A4]: ...
+
+@overload
+def reduce_max(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L2], name=...) -> Tensor2[A2, A4]: ...
+
+@overload
+def reduce_max(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L3], name=...) -> Tensor2[A2, A3]: ...
+
+@overload
+def reduce_max(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L1, L2], name=...) -> Tensor2[A1, A4]: ...
+
+@overload
+def reduce_max(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L1, L3], name=...) -> Tensor2[A1, A3]: ...
+
+@overload
+def reduce_max(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L2, L3], name=...) -> Tensor2[A1, A2]: ...
+
+@overload
+def reduce_max(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L1, L2], name=...) -> Tensor1[A4]: ...
+
+@overload
+def reduce_max(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L1, L3], name=...) -> Tensor1[A3]: ...
+
+@overload
+def reduce_max(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L2, L3], name=...) -> Tensor1[A2]: ...
+
+@overload
+def reduce_max(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L1, L2, L3], name=...) -> Tensor1[A1]: ...
+
+@overload
+def reduce_max(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L1, L2, L3], name=...) -> Tensor0: ...
 
 @overload
 def reduce_max(input_tensor: Tensor1[A1],
@@ -1237,6 +1493,10 @@ def reduce_mean(input_tensor: Tensor2[A1, A2],
                axis: L1, name=...) -> Tensor1[A1]: ...
 
 @overload
+def reduce_mean(input_tensor: Tensor2[A1, A2],
+               axis: Tuple[L0, L1], name=...) -> Tensor0: ...
+
+@overload
 def reduce_mean(input_tensor: Tensor3[A1, A2, A3],
                axis: L0, name=...) -> Tensor2[A2, A3]: ...
 
@@ -1247,6 +1507,22 @@ def reduce_mean(input_tensor: Tensor3[A1, A2, A3],
 @overload
 def reduce_mean(input_tensor: Tensor3[A1, A2, A3],
                axis: L2, name=...) -> Tensor2[A1, A2]: ...
+
+@overload
+def reduce_mean(input_tensor: Tensor3[A1, A2, A3],
+               axis: Tuple[L0, L1], name=...) -> Tensor1[A3]: ...
+
+@overload
+def reduce_mean(input_tensor: Tensor3[A1, A2, A3],
+               axis: Tuple[L0, L2], name=...) -> Tensor1[A2]: ...
+
+@overload
+def reduce_mean(input_tensor: Tensor3[A1, A2, A3],
+               axis: Tuple[L1, L2], name=...) -> Tensor1[A1]: ...
+
+@overload
+def reduce_mean(input_tensor: Tensor3[A1, A2, A3],
+               axis: Tuple[L0, L1, L2], name=...) -> Tensor0: ...
 
 @overload
 def reduce_mean(input_tensor: Tensor4[A1, A2, A3, A4],
@@ -1263,6 +1539,50 @@ def reduce_mean(input_tensor: Tensor4[A1, A2, A3, A4],
 @overload
 def reduce_mean(input_tensor: Tensor4[A1, A2, A3, A4],
                axis: L3, name=...) -> Tensor3[A1, A2, A3]: ...
+
+@overload
+def reduce_mean(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L1], name=...) -> Tensor2[A3, A4]: ...
+
+@overload
+def reduce_mean(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L2], name=...) -> Tensor2[A2, A4]: ...
+
+@overload
+def reduce_mean(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L3], name=...) -> Tensor2[A2, A3]: ...
+
+@overload
+def reduce_mean(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L1, L2], name=...) -> Tensor2[A1, A4]: ...
+
+@overload
+def reduce_mean(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L1, L3], name=...) -> Tensor2[A1, A3]: ...
+
+@overload
+def reduce_mean(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L2, L3], name=...) -> Tensor2[A1, A2]: ...
+
+@overload
+def reduce_mean(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L1, L2], name=...) -> Tensor1[A4]: ...
+
+@overload
+def reduce_mean(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L1, L3], name=...) -> Tensor1[A3]: ...
+
+@overload
+def reduce_mean(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L2, L3], name=...) -> Tensor1[A2]: ...
+
+@overload
+def reduce_mean(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L1, L2, L3], name=...) -> Tensor1[A1]: ...
+
+@overload
+def reduce_mean(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L1, L2, L3], name=...) -> Tensor0: ...
 
 @overload
 def reduce_mean(input_tensor: Tensor1[A1],
@@ -1299,6 +1619,10 @@ def reduce_min(input_tensor: Tensor2[A1, A2],
                axis: L1, name=...) -> Tensor1[A1]: ...
 
 @overload
+def reduce_min(input_tensor: Tensor2[A1, A2],
+               axis: Tuple[L0, L1], name=...) -> Tensor0: ...
+
+@overload
 def reduce_min(input_tensor: Tensor3[A1, A2, A3],
                axis: L0, name=...) -> Tensor2[A2, A3]: ...
 
@@ -1309,6 +1633,22 @@ def reduce_min(input_tensor: Tensor3[A1, A2, A3],
 @overload
 def reduce_min(input_tensor: Tensor3[A1, A2, A3],
                axis: L2, name=...) -> Tensor2[A1, A2]: ...
+
+@overload
+def reduce_min(input_tensor: Tensor3[A1, A2, A3],
+               axis: Tuple[L0, L1], name=...) -> Tensor1[A3]: ...
+
+@overload
+def reduce_min(input_tensor: Tensor3[A1, A2, A3],
+               axis: Tuple[L0, L2], name=...) -> Tensor1[A2]: ...
+
+@overload
+def reduce_min(input_tensor: Tensor3[A1, A2, A3],
+               axis: Tuple[L1, L2], name=...) -> Tensor1[A1]: ...
+
+@overload
+def reduce_min(input_tensor: Tensor3[A1, A2, A3],
+               axis: Tuple[L0, L1, L2], name=...) -> Tensor0: ...
 
 @overload
 def reduce_min(input_tensor: Tensor4[A1, A2, A3, A4],
@@ -1325,6 +1665,50 @@ def reduce_min(input_tensor: Tensor4[A1, A2, A3, A4],
 @overload
 def reduce_min(input_tensor: Tensor4[A1, A2, A3, A4],
                axis: L3, name=...) -> Tensor3[A1, A2, A3]: ...
+
+@overload
+def reduce_min(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L1], name=...) -> Tensor2[A3, A4]: ...
+
+@overload
+def reduce_min(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L2], name=...) -> Tensor2[A2, A4]: ...
+
+@overload
+def reduce_min(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L3], name=...) -> Tensor2[A2, A3]: ...
+
+@overload
+def reduce_min(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L1, L2], name=...) -> Tensor2[A1, A4]: ...
+
+@overload
+def reduce_min(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L1, L3], name=...) -> Tensor2[A1, A3]: ...
+
+@overload
+def reduce_min(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L2, L3], name=...) -> Tensor2[A1, A2]: ...
+
+@overload
+def reduce_min(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L1, L2], name=...) -> Tensor1[A4]: ...
+
+@overload
+def reduce_min(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L1, L3], name=...) -> Tensor1[A3]: ...
+
+@overload
+def reduce_min(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L2, L3], name=...) -> Tensor1[A2]: ...
+
+@overload
+def reduce_min(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L1, L2, L3], name=...) -> Tensor1[A1]: ...
+
+@overload
+def reduce_min(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L1, L2, L3], name=...) -> Tensor0: ...
 
 @overload
 def reduce_min(input_tensor: Tensor1[A1],
@@ -1361,6 +1745,10 @@ def reduce_prod(input_tensor: Tensor2[A1, A2],
                axis: L1, name=...) -> Tensor1[A1]: ...
 
 @overload
+def reduce_prod(input_tensor: Tensor2[A1, A2],
+               axis: Tuple[L0, L1], name=...) -> Tensor0: ...
+
+@overload
 def reduce_prod(input_tensor: Tensor3[A1, A2, A3],
                axis: L0, name=...) -> Tensor2[A2, A3]: ...
 
@@ -1371,6 +1759,22 @@ def reduce_prod(input_tensor: Tensor3[A1, A2, A3],
 @overload
 def reduce_prod(input_tensor: Tensor3[A1, A2, A3],
                axis: L2, name=...) -> Tensor2[A1, A2]: ...
+
+@overload
+def reduce_prod(input_tensor: Tensor3[A1, A2, A3],
+               axis: Tuple[L0, L1], name=...) -> Tensor1[A3]: ...
+
+@overload
+def reduce_prod(input_tensor: Tensor3[A1, A2, A3],
+               axis: Tuple[L0, L2], name=...) -> Tensor1[A2]: ...
+
+@overload
+def reduce_prod(input_tensor: Tensor3[A1, A2, A3],
+               axis: Tuple[L1, L2], name=...) -> Tensor1[A1]: ...
+
+@overload
+def reduce_prod(input_tensor: Tensor3[A1, A2, A3],
+               axis: Tuple[L0, L1, L2], name=...) -> Tensor0: ...
 
 @overload
 def reduce_prod(input_tensor: Tensor4[A1, A2, A3, A4],
@@ -1387,6 +1791,50 @@ def reduce_prod(input_tensor: Tensor4[A1, A2, A3, A4],
 @overload
 def reduce_prod(input_tensor: Tensor4[A1, A2, A3, A4],
                axis: L3, name=...) -> Tensor3[A1, A2, A3]: ...
+
+@overload
+def reduce_prod(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L1], name=...) -> Tensor2[A3, A4]: ...
+
+@overload
+def reduce_prod(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L2], name=...) -> Tensor2[A2, A4]: ...
+
+@overload
+def reduce_prod(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L3], name=...) -> Tensor2[A2, A3]: ...
+
+@overload
+def reduce_prod(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L1, L2], name=...) -> Tensor2[A1, A4]: ...
+
+@overload
+def reduce_prod(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L1, L3], name=...) -> Tensor2[A1, A3]: ...
+
+@overload
+def reduce_prod(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L2, L3], name=...) -> Tensor2[A1, A2]: ...
+
+@overload
+def reduce_prod(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L1, L2], name=...) -> Tensor1[A4]: ...
+
+@overload
+def reduce_prod(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L1, L3], name=...) -> Tensor1[A3]: ...
+
+@overload
+def reduce_prod(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L2, L3], name=...) -> Tensor1[A2]: ...
+
+@overload
+def reduce_prod(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L1, L2, L3], name=...) -> Tensor1[A1]: ...
+
+@overload
+def reduce_prod(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L1, L2, L3], name=...) -> Tensor0: ...
 
 @overload
 def reduce_prod(input_tensor: Tensor1[A1],
@@ -1423,6 +1871,10 @@ def reduce_sum(input_tensor: Tensor2[A1, A2],
                axis: L1, name=...) -> Tensor1[A1]: ...
 
 @overload
+def reduce_sum(input_tensor: Tensor2[A1, A2],
+               axis: Tuple[L0, L1], name=...) -> Tensor0: ...
+
+@overload
 def reduce_sum(input_tensor: Tensor3[A1, A2, A3],
                axis: L0, name=...) -> Tensor2[A2, A3]: ...
 
@@ -1433,6 +1885,22 @@ def reduce_sum(input_tensor: Tensor3[A1, A2, A3],
 @overload
 def reduce_sum(input_tensor: Tensor3[A1, A2, A3],
                axis: L2, name=...) -> Tensor2[A1, A2]: ...
+
+@overload
+def reduce_sum(input_tensor: Tensor3[A1, A2, A3],
+               axis: Tuple[L0, L1], name=...) -> Tensor1[A3]: ...
+
+@overload
+def reduce_sum(input_tensor: Tensor3[A1, A2, A3],
+               axis: Tuple[L0, L2], name=...) -> Tensor1[A2]: ...
+
+@overload
+def reduce_sum(input_tensor: Tensor3[A1, A2, A3],
+               axis: Tuple[L1, L2], name=...) -> Tensor1[A1]: ...
+
+@overload
+def reduce_sum(input_tensor: Tensor3[A1, A2, A3],
+               axis: Tuple[L0, L1, L2], name=...) -> Tensor0: ...
 
 @overload
 def reduce_sum(input_tensor: Tensor4[A1, A2, A3, A4],
@@ -1449,6 +1917,50 @@ def reduce_sum(input_tensor: Tensor4[A1, A2, A3, A4],
 @overload
 def reduce_sum(input_tensor: Tensor4[A1, A2, A3, A4],
                axis: L3, name=...) -> Tensor3[A1, A2, A3]: ...
+
+@overload
+def reduce_sum(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L1], name=...) -> Tensor2[A3, A4]: ...
+
+@overload
+def reduce_sum(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L2], name=...) -> Tensor2[A2, A4]: ...
+
+@overload
+def reduce_sum(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L3], name=...) -> Tensor2[A2, A3]: ...
+
+@overload
+def reduce_sum(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L1, L2], name=...) -> Tensor2[A1, A4]: ...
+
+@overload
+def reduce_sum(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L1, L3], name=...) -> Tensor2[A1, A3]: ...
+
+@overload
+def reduce_sum(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L2, L3], name=...) -> Tensor2[A1, A2]: ...
+
+@overload
+def reduce_sum(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L1, L2], name=...) -> Tensor1[A4]: ...
+
+@overload
+def reduce_sum(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L1, L3], name=...) -> Tensor1[A3]: ...
+
+@overload
+def reduce_sum(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L2, L3], name=...) -> Tensor1[A2]: ...
+
+@overload
+def reduce_sum(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L1, L2, L3], name=...) -> Tensor1[A1]: ...
+
+@overload
+def reduce_sum(input_tensor: Tensor4[A1, A2, A3, A4],
+               axis: Tuple[L0, L1, L2, L3], name=...) -> Tensor0: ...
 
 @overload
 def reduce_sum(input_tensor: Tensor1[A1],
