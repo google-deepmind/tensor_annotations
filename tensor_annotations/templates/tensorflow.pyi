@@ -197,7 +197,7 @@ def ones(shape, dtype=..., name=...) -> Any: ...
 
 # axis specified
 
-{% for n_axes in range(1, 5) %}
+{% for n_axes in range(1, 6) %}
 {% for axes in reduction_axes(n_axes) %}
 
 @overload
@@ -209,7 +209,7 @@ def {{ op }}(input_tensor: Tensor{{ axes.n_axes }}{{ axes.all_axes }},
 
 # axis unspecified, keepdims=True
 
-{% for n_axes in range(1, 5) %}
+{% for n_axes in range(1, 6) %}
 {% set all_axes = get_axis_list(n_axes, reverse=True) %}
 
 @overload
