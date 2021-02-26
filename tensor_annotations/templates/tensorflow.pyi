@@ -143,6 +143,10 @@ def round(x: Tensor4[A1, A2, A3, A4], name=...) -> Tensor4[A1, A2, A3, A4]: ...
 
 
 @overload
+def round(x: Tensor5[A1, A2, A3, A4, A5], name=...) -> Tensor5[A1, A2, A3, A4, A5]: ...
+
+
+@overload
 def round(x, name=...) -> Any: ...
 
 # ---------- ZEROS, ONES ----------
