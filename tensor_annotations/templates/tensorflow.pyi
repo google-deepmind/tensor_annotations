@@ -154,7 +154,7 @@ def round(x, name=...) -> Any: ...
 # Can't type these properly when shape is specified as a list. :(
 # But if shape is specified as an int or a tuple, we're good! :)
 
-{% for i in range(1, 5) %}
+{% for i in range(1, 6) %}
 {% set n_any = (['Any'] * i)|join(', ') %}
 
 @overload
@@ -173,7 +173,7 @@ def zeros(shape: Tuple[()], dtype=..., name=...) -> Tensor0: ...
 def zeros(shape, dtype=..., name=...) -> Any: ...
 
 
-{% for i in range(1, 5) %}
+{% for i in range(1, 6) %}
 {% set n_any = (['Any'] * i)|join(', ') %}
 
 @overload
