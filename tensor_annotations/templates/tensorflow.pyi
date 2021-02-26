@@ -227,7 +227,7 @@ def {{ op }}(input_tensor, axis=..., keepdims=..., name=...) -> Any: ...
 
 #### `perm` unspecified
 
-{% for n_axes in range(2, 5) %}
+{% for n_axes in range(2, 6) %}
 {# axes = 'A1, A2, A3' #}
 {% set axes = get_axis_list(n_axes) %}
 {# reverse_axes = 'A3, A2, A1' #}
@@ -240,7 +240,7 @@ def transpose(a: Tensor{{ n_axes }}[{{ axes }}], name=...) -> Tensor{{ n_axes }}
 
 #### `perm` specified
 
-{% for n_axes in range(2, 4) %}
+{% for n_axes in range(2, 6) %}
 {% for axes in transpose_axes(n_axes) %}
 
 @overload

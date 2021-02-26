@@ -3339,6 +3339,9 @@ def transpose(a: Tensor3[A1, A2, A3], name=...) -> Tensor3[A3, A2, A1]: ...
 def transpose(a: Tensor4[A1, A2, A3, A4], name=...) -> Tensor4[A4, A3, A2, A1]: ...
 
 @overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], name=...) -> Tensor5[A5, A4, A3, A2, A1]: ...
+
+@overload
 def transpose(a: Tensor2[A1, A2], perm: Tuple[L0, L1],
               name=...) -> Tensor2[A1, A2]: ...
 
@@ -3369,6 +3372,582 @@ def transpose(a: Tensor3[A1, A2, A3], perm: Tuple[L2, L0, L1],
 @overload
 def transpose(a: Tensor3[A1, A2, A3], perm: Tuple[L2, L1, L0],
               name=...) -> Tensor3[A3, A2, A1]: ...
+
+@overload
+def transpose(a: Tensor4[A1, A2, A3, A4], perm: Tuple[L0, L1, L2, L3],
+              name=...) -> Tensor4[A1, A2, A3, A4]: ...
+
+@overload
+def transpose(a: Tensor4[A1, A2, A3, A4], perm: Tuple[L0, L1, L3, L2],
+              name=...) -> Tensor4[A1, A2, A4, A3]: ...
+
+@overload
+def transpose(a: Tensor4[A1, A2, A3, A4], perm: Tuple[L0, L2, L1, L3],
+              name=...) -> Tensor4[A1, A3, A2, A4]: ...
+
+@overload
+def transpose(a: Tensor4[A1, A2, A3, A4], perm: Tuple[L0, L2, L3, L1],
+              name=...) -> Tensor4[A1, A3, A4, A2]: ...
+
+@overload
+def transpose(a: Tensor4[A1, A2, A3, A4], perm: Tuple[L0, L3, L1, L2],
+              name=...) -> Tensor4[A1, A4, A2, A3]: ...
+
+@overload
+def transpose(a: Tensor4[A1, A2, A3, A4], perm: Tuple[L0, L3, L2, L1],
+              name=...) -> Tensor4[A1, A4, A3, A2]: ...
+
+@overload
+def transpose(a: Tensor4[A1, A2, A3, A4], perm: Tuple[L1, L0, L2, L3],
+              name=...) -> Tensor4[A2, A1, A3, A4]: ...
+
+@overload
+def transpose(a: Tensor4[A1, A2, A3, A4], perm: Tuple[L1, L0, L3, L2],
+              name=...) -> Tensor4[A2, A1, A4, A3]: ...
+
+@overload
+def transpose(a: Tensor4[A1, A2, A3, A4], perm: Tuple[L1, L2, L0, L3],
+              name=...) -> Tensor4[A2, A3, A1, A4]: ...
+
+@overload
+def transpose(a: Tensor4[A1, A2, A3, A4], perm: Tuple[L1, L2, L3, L0],
+              name=...) -> Tensor4[A2, A3, A4, A1]: ...
+
+@overload
+def transpose(a: Tensor4[A1, A2, A3, A4], perm: Tuple[L1, L3, L0, L2],
+              name=...) -> Tensor4[A2, A4, A1, A3]: ...
+
+@overload
+def transpose(a: Tensor4[A1, A2, A3, A4], perm: Tuple[L1, L3, L2, L0],
+              name=...) -> Tensor4[A2, A4, A3, A1]: ...
+
+@overload
+def transpose(a: Tensor4[A1, A2, A3, A4], perm: Tuple[L2, L0, L1, L3],
+              name=...) -> Tensor4[A3, A1, A2, A4]: ...
+
+@overload
+def transpose(a: Tensor4[A1, A2, A3, A4], perm: Tuple[L2, L0, L3, L1],
+              name=...) -> Tensor4[A3, A1, A4, A2]: ...
+
+@overload
+def transpose(a: Tensor4[A1, A2, A3, A4], perm: Tuple[L2, L1, L0, L3],
+              name=...) -> Tensor4[A3, A2, A1, A4]: ...
+
+@overload
+def transpose(a: Tensor4[A1, A2, A3, A4], perm: Tuple[L2, L1, L3, L0],
+              name=...) -> Tensor4[A3, A2, A4, A1]: ...
+
+@overload
+def transpose(a: Tensor4[A1, A2, A3, A4], perm: Tuple[L2, L3, L0, L1],
+              name=...) -> Tensor4[A3, A4, A1, A2]: ...
+
+@overload
+def transpose(a: Tensor4[A1, A2, A3, A4], perm: Tuple[L2, L3, L1, L0],
+              name=...) -> Tensor4[A3, A4, A2, A1]: ...
+
+@overload
+def transpose(a: Tensor4[A1, A2, A3, A4], perm: Tuple[L3, L0, L1, L2],
+              name=...) -> Tensor4[A4, A1, A2, A3]: ...
+
+@overload
+def transpose(a: Tensor4[A1, A2, A3, A4], perm: Tuple[L3, L0, L2, L1],
+              name=...) -> Tensor4[A4, A1, A3, A2]: ...
+
+@overload
+def transpose(a: Tensor4[A1, A2, A3, A4], perm: Tuple[L3, L1, L0, L2],
+              name=...) -> Tensor4[A4, A2, A1, A3]: ...
+
+@overload
+def transpose(a: Tensor4[A1, A2, A3, A4], perm: Tuple[L3, L1, L2, L0],
+              name=...) -> Tensor4[A4, A2, A3, A1]: ...
+
+@overload
+def transpose(a: Tensor4[A1, A2, A3, A4], perm: Tuple[L3, L2, L0, L1],
+              name=...) -> Tensor4[A4, A3, A1, A2]: ...
+
+@overload
+def transpose(a: Tensor4[A1, A2, A3, A4], perm: Tuple[L3, L2, L1, L0],
+              name=...) -> Tensor4[A4, A3, A2, A1]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L0, L1, L2, L3, L4],
+              name=...) -> Tensor5[A1, A2, A3, A4, A5]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L0, L1, L2, L4, L3],
+              name=...) -> Tensor5[A1, A2, A3, A5, A4]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L0, L1, L3, L2, L4],
+              name=...) -> Tensor5[A1, A2, A4, A3, A5]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L0, L1, L3, L4, L2],
+              name=...) -> Tensor5[A1, A2, A4, A5, A3]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L0, L1, L4, L2, L3],
+              name=...) -> Tensor5[A1, A2, A5, A3, A4]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L0, L1, L4, L3, L2],
+              name=...) -> Tensor5[A1, A2, A5, A4, A3]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L0, L2, L1, L3, L4],
+              name=...) -> Tensor5[A1, A3, A2, A4, A5]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L0, L2, L1, L4, L3],
+              name=...) -> Tensor5[A1, A3, A2, A5, A4]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L0, L2, L3, L1, L4],
+              name=...) -> Tensor5[A1, A3, A4, A2, A5]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L0, L2, L3, L4, L1],
+              name=...) -> Tensor5[A1, A3, A4, A5, A2]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L0, L2, L4, L1, L3],
+              name=...) -> Tensor5[A1, A3, A5, A2, A4]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L0, L2, L4, L3, L1],
+              name=...) -> Tensor5[A1, A3, A5, A4, A2]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L0, L3, L1, L2, L4],
+              name=...) -> Tensor5[A1, A4, A2, A3, A5]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L0, L3, L1, L4, L2],
+              name=...) -> Tensor5[A1, A4, A2, A5, A3]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L0, L3, L2, L1, L4],
+              name=...) -> Tensor5[A1, A4, A3, A2, A5]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L0, L3, L2, L4, L1],
+              name=...) -> Tensor5[A1, A4, A3, A5, A2]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L0, L3, L4, L1, L2],
+              name=...) -> Tensor5[A1, A4, A5, A2, A3]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L0, L3, L4, L2, L1],
+              name=...) -> Tensor5[A1, A4, A5, A3, A2]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L0, L4, L1, L2, L3],
+              name=...) -> Tensor5[A1, A5, A2, A3, A4]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L0, L4, L1, L3, L2],
+              name=...) -> Tensor5[A1, A5, A2, A4, A3]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L0, L4, L2, L1, L3],
+              name=...) -> Tensor5[A1, A5, A3, A2, A4]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L0, L4, L2, L3, L1],
+              name=...) -> Tensor5[A1, A5, A3, A4, A2]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L0, L4, L3, L1, L2],
+              name=...) -> Tensor5[A1, A5, A4, A2, A3]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L0, L4, L3, L2, L1],
+              name=...) -> Tensor5[A1, A5, A4, A3, A2]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L1, L0, L2, L3, L4],
+              name=...) -> Tensor5[A2, A1, A3, A4, A5]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L1, L0, L2, L4, L3],
+              name=...) -> Tensor5[A2, A1, A3, A5, A4]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L1, L0, L3, L2, L4],
+              name=...) -> Tensor5[A2, A1, A4, A3, A5]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L1, L0, L3, L4, L2],
+              name=...) -> Tensor5[A2, A1, A4, A5, A3]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L1, L0, L4, L2, L3],
+              name=...) -> Tensor5[A2, A1, A5, A3, A4]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L1, L0, L4, L3, L2],
+              name=...) -> Tensor5[A2, A1, A5, A4, A3]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L1, L2, L0, L3, L4],
+              name=...) -> Tensor5[A2, A3, A1, A4, A5]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L1, L2, L0, L4, L3],
+              name=...) -> Tensor5[A2, A3, A1, A5, A4]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L1, L2, L3, L0, L4],
+              name=...) -> Tensor5[A2, A3, A4, A1, A5]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L1, L2, L3, L4, L0],
+              name=...) -> Tensor5[A2, A3, A4, A5, A1]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L1, L2, L4, L0, L3],
+              name=...) -> Tensor5[A2, A3, A5, A1, A4]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L1, L2, L4, L3, L0],
+              name=...) -> Tensor5[A2, A3, A5, A4, A1]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L1, L3, L0, L2, L4],
+              name=...) -> Tensor5[A2, A4, A1, A3, A5]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L1, L3, L0, L4, L2],
+              name=...) -> Tensor5[A2, A4, A1, A5, A3]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L1, L3, L2, L0, L4],
+              name=...) -> Tensor5[A2, A4, A3, A1, A5]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L1, L3, L2, L4, L0],
+              name=...) -> Tensor5[A2, A4, A3, A5, A1]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L1, L3, L4, L0, L2],
+              name=...) -> Tensor5[A2, A4, A5, A1, A3]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L1, L3, L4, L2, L0],
+              name=...) -> Tensor5[A2, A4, A5, A3, A1]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L1, L4, L0, L2, L3],
+              name=...) -> Tensor5[A2, A5, A1, A3, A4]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L1, L4, L0, L3, L2],
+              name=...) -> Tensor5[A2, A5, A1, A4, A3]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L1, L4, L2, L0, L3],
+              name=...) -> Tensor5[A2, A5, A3, A1, A4]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L1, L4, L2, L3, L0],
+              name=...) -> Tensor5[A2, A5, A3, A4, A1]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L1, L4, L3, L0, L2],
+              name=...) -> Tensor5[A2, A5, A4, A1, A3]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L1, L4, L3, L2, L0],
+              name=...) -> Tensor5[A2, A5, A4, A3, A1]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L2, L0, L1, L3, L4],
+              name=...) -> Tensor5[A3, A1, A2, A4, A5]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L2, L0, L1, L4, L3],
+              name=...) -> Tensor5[A3, A1, A2, A5, A4]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L2, L0, L3, L1, L4],
+              name=...) -> Tensor5[A3, A1, A4, A2, A5]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L2, L0, L3, L4, L1],
+              name=...) -> Tensor5[A3, A1, A4, A5, A2]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L2, L0, L4, L1, L3],
+              name=...) -> Tensor5[A3, A1, A5, A2, A4]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L2, L0, L4, L3, L1],
+              name=...) -> Tensor5[A3, A1, A5, A4, A2]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L2, L1, L0, L3, L4],
+              name=...) -> Tensor5[A3, A2, A1, A4, A5]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L2, L1, L0, L4, L3],
+              name=...) -> Tensor5[A3, A2, A1, A5, A4]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L2, L1, L3, L0, L4],
+              name=...) -> Tensor5[A3, A2, A4, A1, A5]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L2, L1, L3, L4, L0],
+              name=...) -> Tensor5[A3, A2, A4, A5, A1]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L2, L1, L4, L0, L3],
+              name=...) -> Tensor5[A3, A2, A5, A1, A4]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L2, L1, L4, L3, L0],
+              name=...) -> Tensor5[A3, A2, A5, A4, A1]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L2, L3, L0, L1, L4],
+              name=...) -> Tensor5[A3, A4, A1, A2, A5]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L2, L3, L0, L4, L1],
+              name=...) -> Tensor5[A3, A4, A1, A5, A2]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L2, L3, L1, L0, L4],
+              name=...) -> Tensor5[A3, A4, A2, A1, A5]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L2, L3, L1, L4, L0],
+              name=...) -> Tensor5[A3, A4, A2, A5, A1]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L2, L3, L4, L0, L1],
+              name=...) -> Tensor5[A3, A4, A5, A1, A2]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L2, L3, L4, L1, L0],
+              name=...) -> Tensor5[A3, A4, A5, A2, A1]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L2, L4, L0, L1, L3],
+              name=...) -> Tensor5[A3, A5, A1, A2, A4]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L2, L4, L0, L3, L1],
+              name=...) -> Tensor5[A3, A5, A1, A4, A2]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L2, L4, L1, L0, L3],
+              name=...) -> Tensor5[A3, A5, A2, A1, A4]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L2, L4, L1, L3, L0],
+              name=...) -> Tensor5[A3, A5, A2, A4, A1]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L2, L4, L3, L0, L1],
+              name=...) -> Tensor5[A3, A5, A4, A1, A2]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L2, L4, L3, L1, L0],
+              name=...) -> Tensor5[A3, A5, A4, A2, A1]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L3, L0, L1, L2, L4],
+              name=...) -> Tensor5[A4, A1, A2, A3, A5]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L3, L0, L1, L4, L2],
+              name=...) -> Tensor5[A4, A1, A2, A5, A3]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L3, L0, L2, L1, L4],
+              name=...) -> Tensor5[A4, A1, A3, A2, A5]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L3, L0, L2, L4, L1],
+              name=...) -> Tensor5[A4, A1, A3, A5, A2]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L3, L0, L4, L1, L2],
+              name=...) -> Tensor5[A4, A1, A5, A2, A3]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L3, L0, L4, L2, L1],
+              name=...) -> Tensor5[A4, A1, A5, A3, A2]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L3, L1, L0, L2, L4],
+              name=...) -> Tensor5[A4, A2, A1, A3, A5]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L3, L1, L0, L4, L2],
+              name=...) -> Tensor5[A4, A2, A1, A5, A3]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L3, L1, L2, L0, L4],
+              name=...) -> Tensor5[A4, A2, A3, A1, A5]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L3, L1, L2, L4, L0],
+              name=...) -> Tensor5[A4, A2, A3, A5, A1]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L3, L1, L4, L0, L2],
+              name=...) -> Tensor5[A4, A2, A5, A1, A3]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L3, L1, L4, L2, L0],
+              name=...) -> Tensor5[A4, A2, A5, A3, A1]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L3, L2, L0, L1, L4],
+              name=...) -> Tensor5[A4, A3, A1, A2, A5]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L3, L2, L0, L4, L1],
+              name=...) -> Tensor5[A4, A3, A1, A5, A2]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L3, L2, L1, L0, L4],
+              name=...) -> Tensor5[A4, A3, A2, A1, A5]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L3, L2, L1, L4, L0],
+              name=...) -> Tensor5[A4, A3, A2, A5, A1]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L3, L2, L4, L0, L1],
+              name=...) -> Tensor5[A4, A3, A5, A1, A2]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L3, L2, L4, L1, L0],
+              name=...) -> Tensor5[A4, A3, A5, A2, A1]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L3, L4, L0, L1, L2],
+              name=...) -> Tensor5[A4, A5, A1, A2, A3]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L3, L4, L0, L2, L1],
+              name=...) -> Tensor5[A4, A5, A1, A3, A2]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L3, L4, L1, L0, L2],
+              name=...) -> Tensor5[A4, A5, A2, A1, A3]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L3, L4, L1, L2, L0],
+              name=...) -> Tensor5[A4, A5, A2, A3, A1]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L3, L4, L2, L0, L1],
+              name=...) -> Tensor5[A4, A5, A3, A1, A2]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L3, L4, L2, L1, L0],
+              name=...) -> Tensor5[A4, A5, A3, A2, A1]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L4, L0, L1, L2, L3],
+              name=...) -> Tensor5[A5, A1, A2, A3, A4]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L4, L0, L1, L3, L2],
+              name=...) -> Tensor5[A5, A1, A2, A4, A3]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L4, L0, L2, L1, L3],
+              name=...) -> Tensor5[A5, A1, A3, A2, A4]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L4, L0, L2, L3, L1],
+              name=...) -> Tensor5[A5, A1, A3, A4, A2]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L4, L0, L3, L1, L2],
+              name=...) -> Tensor5[A5, A1, A4, A2, A3]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L4, L0, L3, L2, L1],
+              name=...) -> Tensor5[A5, A1, A4, A3, A2]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L4, L1, L0, L2, L3],
+              name=...) -> Tensor5[A5, A2, A1, A3, A4]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L4, L1, L0, L3, L2],
+              name=...) -> Tensor5[A5, A2, A1, A4, A3]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L4, L1, L2, L0, L3],
+              name=...) -> Tensor5[A5, A2, A3, A1, A4]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L4, L1, L2, L3, L0],
+              name=...) -> Tensor5[A5, A2, A3, A4, A1]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L4, L1, L3, L0, L2],
+              name=...) -> Tensor5[A5, A2, A4, A1, A3]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L4, L1, L3, L2, L0],
+              name=...) -> Tensor5[A5, A2, A4, A3, A1]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L4, L2, L0, L1, L3],
+              name=...) -> Tensor5[A5, A3, A1, A2, A4]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L4, L2, L0, L3, L1],
+              name=...) -> Tensor5[A5, A3, A1, A4, A2]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L4, L2, L1, L0, L3],
+              name=...) -> Tensor5[A5, A3, A2, A1, A4]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L4, L2, L1, L3, L0],
+              name=...) -> Tensor5[A5, A3, A2, A4, A1]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L4, L2, L3, L0, L1],
+              name=...) -> Tensor5[A5, A3, A4, A1, A2]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L4, L2, L3, L1, L0],
+              name=...) -> Tensor5[A5, A3, A4, A2, A1]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L4, L3, L0, L1, L2],
+              name=...) -> Tensor5[A5, A4, A1, A2, A3]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L4, L3, L0, L2, L1],
+              name=...) -> Tensor5[A5, A4, A1, A3, A2]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L4, L3, L1, L0, L2],
+              name=...) -> Tensor5[A5, A4, A2, A1, A3]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L4, L3, L1, L2, L0],
+              name=...) -> Tensor5[A5, A4, A2, A3, A1]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L4, L3, L2, L0, L1],
+              name=...) -> Tensor5[A5, A4, A3, A1, A2]: ...
+
+@overload
+def transpose(a: Tensor5[A1, A2, A3, A4, A5], perm: Tuple[L4, L3, L2, L1, L0],
+              name=...) -> Tensor5[A5, A4, A3, A2, A1]: ...
 
 @overload
 def transpose(a, perm=..., conjugate=..., name=...) -> Any: ...
