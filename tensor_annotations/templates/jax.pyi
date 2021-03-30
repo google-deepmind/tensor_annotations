@@ -43,6 +43,7 @@ L0 = Literal[0]
 L1 = Literal[1]
 L2 = Literal[2]
 L3 = Literal[3]
+L4 = Literal[4]
 
 
 # ---------- UNARY OPERATORS ----------
@@ -137,7 +138,7 @@ def zeros(shape: List, dtype=...) -> Any: ...
 def zeros(shape: L0, dtype=...) -> Array0: ...
 
 
-{% for i in range(1, 4) %}
+{% for i in range(1, 5) %}
 {% set n_any = (['Any'] * i)|join(', ') %}
 
 @overload
@@ -164,7 +165,7 @@ def ones(shape: List, dtype=...) -> Any: ...
 def ones(shape: L0, dtype=...) -> Array0: ...
 
 
-{% for i in range(1, 4) %}
+{% for i in range(1, 5) %}
 {% set n_any = (['Any'] * i)|join(', ') %}
 
 @overload

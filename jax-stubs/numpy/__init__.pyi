@@ -43,6 +43,7 @@ L0 = Literal[0]
 L1 = Literal[1]
 L2 = Literal[2]
 L3 = Literal[3]
+L4 = Literal[4]
 
 
 # ---------- UNARY OPERATORS ----------
@@ -485,8 +486,7 @@ def zeros_like(x: Array3[A1, A2, A3], dtype=...) -> Array3[A1, A2, A3]: ...
 
 
 @overload
-def zeros_like(x: Array4[A1, A2, A3, A4], dtype=...) -> Array4[
-  A1, A2, A3, A4]: ...
+def zeros_like(x: Array4[A1, A2, A3, A4], dtype=...) -> Array4[A1, A2, A3, A4]: ...
 
 
 @overload
@@ -506,8 +506,7 @@ def ones_like(x: Array3[A1, A2, A3], dtype=...) -> Array3[A1, A2, A3]: ...
 
 
 @overload
-def ones_like(x: Array4[A1, A2, A3, A4], dtype=...) -> Array4[
-  A1, A2, A3, A4]: ...
+def ones_like(x: Array4[A1, A2, A3, A4], dtype=...) -> Array4[A1, A2, A3, A4]: ...
 
 
 @overload
@@ -527,8 +526,7 @@ def round(x: Array3[A1, A2, A3], decimals=...) -> Array3[A1, A2, A3]: ...
 
 
 @overload
-def round(x: Array4[A1, A2, A3, A4], decimals=...) -> Array4[
-  A1, A2, A3, A4]: ...
+def round(x: Array4[A1, A2, A3, A4], decimals=...) -> Array4[A1, A2, A3, A4]: ...
 
 
 # I what even why would you
@@ -573,6 +571,14 @@ def zeros(shape: L3, dtype=...) -> Array3[Any, Any, Any]: ...
 def zeros(shape: Shape3, dtype=...) -> Array3[Any, Any, Any]: ...
 
 
+@overload
+def zeros(shape: L4, dtype=...) -> Array4[Any, Any, Any, Any]: ...
+
+
+@overload
+def zeros(shape: Shape4, dtype=...) -> Array4[Any, Any, Any, Any]: ...
+
+
 # Array0 is down here because otherwise it'd match shape e.g. Tuple[Any, Any]
 # https://github.com/google/pytype/issues/767
 # (e.g. `dim = some_func_that_returns_any; zeros((dim, dim))` would be Array0)
@@ -610,6 +616,14 @@ def ones(shape: L3, dtype=...) -> Array3[Any, Any, Any]: ...
 
 @overload
 def ones(shape: Shape3, dtype=...) -> Array3[Any, Any, Any]: ...
+
+
+@overload
+def ones(shape: L4, dtype=...) -> Array4[Any, Any, Any, Any]: ...
+
+
+@overload
+def ones(shape: Shape4, dtype=...) -> Array4[Any, Any, Any, Any]: ...
 
 
 # See note about Array0 in `zeros`
