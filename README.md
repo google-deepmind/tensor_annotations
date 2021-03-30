@@ -369,6 +369,9 @@ Other tools for checking tensor shapes include:
   designed specifically for detecting TensorFlow shape errors
 * [tsanley](https://github.com/ofnote/tsanley), which uses string annotations
   combined with runtime verification
+* [PyContracts](https://github.com/AndreaCensi/contracts), a general-purpose
+  library for specifying constraints on function arguments that has special
+  support for NumPy
 * [Shape Guard](https://github.com/Qwlouse/shapeguard), another runtime
   verification tool using concise helper methods
 * [swift-tfp](https://github.com/google-research/swift-tfp), a static analyzer
