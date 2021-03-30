@@ -26,11 +26,26 @@ _TYPES_TO_CHECK = [
 ]
 
 
+def _is_tensor_type(t):
+  if not hasattr(t, '__origin__'):
+    # It's not a generic type, so can't be one of the types we care about.
+    return False
+  # If arg_type is Tensor1[Height], then t.__origin__ == Tensor1.
+  if not any(t.__origin__ is tensor_type
+             for tensor_type in _TYPES_TO_CHECK):
+    return False
+  return True
+
+
 def verify_runtime_args_and_return_ranks(func):
   """Decorator that verifies ranks of arguments and return are correct.
 
   For example, if an argument `x` is annotated as having type
   `Tensor2[Height, Width]`, we verify that `len(x.shape) == 2`.
+
+  Note that nested argument and return types are not verified.
+  For example, if the return type is `Tuple[int, Tensor2[Height, Width]]`,
+  we give up and do no checks.
 
   Args:
     func: The function to decorate.
@@ -43,9 +58,10 @@ def verify_runtime_args_and_return_ranks(func):
   """
 
   def wrapper(*args, **kwargs):
+    sig: inspect.Signature = inspect.signature(func)
+
     # ===== Verify args. =====
 
-    sig: inspect.Signature = inspect.signature(func)
     bound_arguments: inspect.BoundArguments = sig.bind(*args, **kwargs)
     # Do some args have default values, but the arg was not specified?
     # If so, set the args to their default values.
@@ -60,11 +76,7 @@ def verify_runtime_args_and_return_ranks(func):
       arg_value = arg_value_by_name[arg_name]
 
       arg_type = arg_signature.annotation
-      if not hasattr(arg_type, '__origin__'):
-        # It's not a generic type, so can't be one of the types we care about.
-        continue
-      # If arg_type is Tensor1[Height], then arg_type.__origin__ == Tensor1.
-      if not any(arg_type.__origin__ is t for t in _TYPES_TO_CHECK):
+      if not _is_tensor_type(arg_type):
         continue
 
       if not hasattr(arg_value, 'shape'):
@@ -93,10 +105,33 @@ def verify_runtime_args_and_return_ranks(func):
 
     # ===== Call function. =====
 
-    func_returns = func(*args, **kwargs)
+    func_return_value = func(*args, **kwargs)
 
-    # TODO: Verify return.
+    # ===== Verify return. =====
 
-    return func_returns
+    return_type = sig.return_annotation
+    if not _is_tensor_type(return_type):
+      return func_return_value
+
+    if not hasattr(func_return_value, 'shape'):
+      message = textwrap.dedent(f"""\
+      Function '{func.__name__}': return has type annotation '{return_type}'
+      but actual return type is '{type(func_return_value).__name__}'
+      """)
+      message_one_line = message.replace('\n', ' ')
+      raise ValueError(message_one_line)
+
+    annotated_rank = len(return_type.__args__)
+    actual_rank = len(func_return_value.shape)
+    if annotated_rank != actual_rank:
+      message = textwrap.dedent(f"""\
+      Function '{func.__name__}': return has type annotation '{return_type}'
+      with rank {annotated_rank}, but actual shape is
+      '{func_return_value.shape}' with rank {actual_rank}
+      """)
+      message_one_line = message.replace('\n', ' ')
+      raise ValueError(message_one_line)
+
+    return func_return_value
 
   return wrapper

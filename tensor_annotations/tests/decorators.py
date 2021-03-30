@@ -11,7 +11,7 @@ from tensor_annotations.tensorflow import Tensor2
 import tensorflow as tf
 
 
-class DecoratorTests(unittest.TestCase):
+class DecoratorsArgsTests(unittest.TestCase):
 
   # ===== Tests for correct args. =====
 
@@ -135,6 +135,46 @@ class DecoratorTests(unittest.TestCase):
       pass
     with self.assertRaises(TypeError):
       foo(x=None)  # pylint: disable=unexpected-keyword-arg
+
+
+class DecoratorsReturnTests(unittest.TestCase):
+
+  # ===== Cases which should *not* raise an exception. =====
+
+  def test_return_value_is_preserved(self):
+    @decorators.verify_runtime_args_and_return_ranks
+    def foo():
+      return 42
+    self.assertEqual(foo(), 42)
+
+  def test_correct_return_does_not_raise_exception(self):
+    @decorators.verify_runtime_args_and_return_ranks
+    def foo() -> Tensor2[Height, Width]:
+      return tf.zeros([3, 5])
+    foo()
+
+  def test_non_tensor_annotation_does_not_raise_exception(self):
+    @decorators.verify_runtime_args_and_return_ranks
+    def foo() -> None:
+      # This is incorrect, but it's not our job to catch it.
+      return tf.zeros([3])
+    foo()
+
+  # ===== Cases which *should* raise an exception. =====
+
+  def test_incorrect_return_raises_exception(self):
+    @decorators.verify_runtime_args_and_return_ranks
+    def foo() -> Tensor2[Height, Width]:
+      return tf.zeros([3])
+    with self.assertRaises(ValueError):
+      foo()
+
+  def test_non_tensor_return_value_raises_exception(self):
+    @decorators.verify_runtime_args_and_return_ranks
+    def foo() -> Tensor2[Height, Width]:
+      return None
+    with self.assertRaises(ValueError):
+      foo()
 
 
 if __name__ == '__main__':
