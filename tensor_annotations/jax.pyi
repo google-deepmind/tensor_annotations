@@ -33,6 +33,8 @@ class Array0:
 
   def __setitem__(self, index, value) -> Any: ...
 
+  shape: Tuple[()]
+
   # BEGIN: Unary operators
 
   def __abs__(self) -> Array0: ...
@@ -218,6 +220,8 @@ class Array1(Generic[A1]):
 
   def __setitem__(self, index, value) -> Any: ...
 
+  shape: Tuple[int]
+
   # BEGIN: Unary operators
 
   def __abs__(self) -> Array1[A1]: ...
@@ -336,6 +340,8 @@ class Array2(Generic[A1, A2]):
   def __getitem__(self, index) -> Any: ...
 
   def __setitem__(self, index, value) -> Any: ...
+
+  shape: Tuple[int, int]
 
   # BEGIN: Unary operators
 
@@ -488,6 +494,8 @@ class Array3(Generic[A1, A2, A3]):
   def __getitem__(self, index) -> Any: ...
 
   def __setitem__(self, index, value) -> Any: ...
+
+  shape: Tuple[int, int, int]
 
   # BEGIN: Unary operators
 
@@ -673,6 +681,8 @@ class Array4(Generic[A1, A2, A3, A4]):
   def __getitem__(self, index) -> Any: ...
 
   def __setitem__(self, index, value) -> Any: ...
+
+  shape: Tuple[int, int, int, int]
 
   # BEGIN: Unary operators
 

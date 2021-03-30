@@ -39,6 +39,7 @@ Number = Union[int, float]
 class Array0:
   def __getitem__(self, index) -> Any: ...
   def __setitem__(self, index, value) -> Any: ...
+  shape: Tuple[()]
 
   # BEGIN: Unary operators
   {% for func in unary_funcs %}
@@ -65,6 +66,7 @@ class Array0:
 class Array1(Generic[A1]):
   def __getitem__(self, index) -> Any: ...
   def __setitem__(self, index, value) -> Any: ...
+  shape: Tuple[int]
 
   # BEGIN: Unary operators
   {% for func in unary_funcs %}
@@ -94,6 +96,7 @@ class Array1(Generic[A1]):
 class Array2(Generic[A1, A2]):
   def __getitem__(self, index) -> Any: ...
   def __setitem__(self, index, value) -> Any: ...
+  shape: Tuple[int, int]
 
   # BEGIN: Unary operators
   {% for func in unary_funcs %}
@@ -127,6 +130,7 @@ class Array2(Generic[A1, A2]):
 class Array3(Generic[A1, A2, A3]):
   def __getitem__(self, index) -> Any: ...
   def __setitem__(self, index, value) -> Any: ...
+  shape: Tuple[int, int, int]
 
   # BEGIN: Unary operators
   {% for func in unary_funcs %}
@@ -162,6 +166,7 @@ class Array3(Generic[A1, A2, A3]):
 class Array4(Generic[A1, A2, A3, A4]):
   def __getitem__(self, index) -> Any: ...
   def __setitem__(self, index, value) -> Any: ...
+  shape: Tuple[int, int, int, int]
 
   # BEGIN: Unary operators
   {% for func in unary_funcs %}
