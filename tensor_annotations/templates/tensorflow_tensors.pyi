@@ -11,6 +11,7 @@ To regenerate, run the following from the tensor_annotations directory:
 
 from typing import Any, TypeVar, Tuple, Sequence, Generic, overload, Union
 
+import tensorflow as tf
 from tensor_annotations.axes import Axis
 
 
@@ -43,6 +44,7 @@ Number = Union[int, float]
 class Tensor0:
   def __getitem__(self, index) -> Any: ...
   def __setitem__(self, index, value) -> Any: ...
+  shape: tf.TensorShape
 
   # BEGIN: Unary operators
   {% for func in unary_funcs %}
@@ -77,6 +79,7 @@ class Tensor0:
 class Tensor1(Generic[A1]):
   def __getitem__(self, index) -> Any: ...
   def __setitem__(self, index, value) -> Any: ...
+  shape: tf.TensorShape
 
   # BEGIN: Unary operators
   {% for func in unary_funcs %}
@@ -106,6 +109,7 @@ class Tensor1(Generic[A1]):
 class Tensor2(Generic[A1, A2]):
   def __getitem__(self, index) -> Any: ...
   def __setitem__(self, index, value) -> Any: ...
+  shape: tf.TensorShape
 
   # BEGIN: Unary operators
   {% for func in unary_funcs %}
@@ -139,6 +143,7 @@ class Tensor2(Generic[A1, A2]):
 class Tensor3(Generic[A1, A2, A3]):
   def __getitem__(self, index) -> Any: ...
   def __setitem__(self, index, value) -> Any: ...
+  shape: tf.TensorShape
 
   # BEGIN: Unary operators
   {% for func in unary_funcs %}
@@ -174,6 +179,7 @@ class Tensor3(Generic[A1, A2, A3]):
 class Tensor4(Generic[A1, A2, A3, A4]):
   def __getitem__(self, index) -> Any: ...
   def __setitem__(self, index, value) -> Any: ...
+  shape: tf.TensorShape
 
   # BEGIN: Unary operators
   {% for func in unary_funcs %}
@@ -211,6 +217,7 @@ class Tensor4(Generic[A1, A2, A3, A4]):
 class Tensor5(Generic[A1, A2, A3, A4, A5]):
   def __getitem__(self, index) -> Any: ...
   def __setitem__(self, index, value) -> Any: ...
+  shape: tf.TensorShape
 
   # BEGIN: Unary operators
   {% for func in unary_funcs %}
@@ -250,6 +257,7 @@ class Tensor5(Generic[A1, A2, A3, A4, A5]):
 class Tensor6(Generic[A1, A2, A3, A4, A5, A6]):
   def __getitem__(self, index) -> Any: ...
   def __setitem__(self, index, value) -> Any: ...
+  shape: tf.TensorShape
 
   # BEGIN: Unary operators
   {% for func in unary_funcs %}
@@ -291,6 +299,7 @@ class Tensor6(Generic[A1, A2, A3, A4, A5, A6]):
 class Tensor7(Generic[A1, A2, A3, A4, A5, A6, A7]):
   def __getitem__(self, index) -> Any: ...
   def __setitem__(self, index, value) -> Any: ...
+  shape: tf.TensorShape
 
   # BEGIN: Unary operators
   {% for func in unary_funcs %}
@@ -334,6 +343,7 @@ class Tensor7(Generic[A1, A2, A3, A4, A5, A6, A7]):
 class Tensor8(Generic[A1, A2, A3, A4, A5, A6, A7, A8]):
   def __getitem__(self, index) -> Any: ...
   def __setitem__(self, index, value) -> Any: ...
+  shape: tf.TensorShape
 
   # BEGIN: Unary operators
   {% for func in unary_funcs %}

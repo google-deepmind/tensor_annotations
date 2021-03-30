@@ -198,6 +198,30 @@ class TensorFlowStubTests(unittest.TestCase):
     self.assertEqual(y3.shape, inferred.y3)
     self.assertEqual(y4.shape, inferred.y4)
 
+  def testShapeAttribute_HasTypeTensorShape(self):
+    with utils.SaveCodeAsString() as code_saver:
+      x0 = tf.zeros(())
+      x1 = tf.zeros((1,))
+      x2 = tf.zeros((1, 2))
+      x3 = tf.zeros((1, 2, 3))
+      x4 = tf.zeros((1, 2, 3, 4))
+      x5 = tf.zeros((1, 2, 3, 4, 5))
+      x0_shape = x0.shape   # pylint: disable=unused-variable
+      x1_shape = x1.shape   # pylint: disable=unused-variable
+      x2_shape = x2.shape   # pylint: disable=unused-variable
+      x3_shape = x3.shape   # pylint: disable=unused-variable
+      x4_shape = x4.shape   # pylint: disable=unused-variable
+      x5_shape = x5.shape   # pylint: disable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    self.assertEqual('tensorflow.TensorShape', inferred.x0_shape)
+    self.assertEqual('tensorflow.TensorShape', inferred.x1_shape)
+    self.assertEqual('tensorflow.TensorShape', inferred.x2_shape)
+    self.assertEqual('tensorflow.TensorShape', inferred.x3_shape)
+    self.assertEqual('tensorflow.TensorShape', inferred.x4_shape)
+    self.assertEqual('tensorflow.TensorShape', inferred.x5_shape)
+
 
 if __name__ == '__main__':
   unittest.main()
