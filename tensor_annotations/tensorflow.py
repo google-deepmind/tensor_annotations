@@ -38,253 +38,74 @@ A7 = TypeVar('A7', bound=axes.Axis)
 A8 = TypeVar('A8', bound=axes.Axis)
 
 
-class Tensor0:
+class _TensorBase:
+  """Base class for TensorN classes containing common methods and attributes."""
+
+  def __new__(cls, *args, **kwargs):
+    raise TypeError('tensor_annotations tensors should not be instantiated')
+
+  # These are necessary so that type checkers know we have these methods.
+  __abs__: Any
+  __add__: Any
+  __add__: Any
+  __floordiv__: Any
+  __ge__: Any
+  __gt__: Any
+  __le__: Any
+  __lt__: Any
+  __mul__: Any
+  __neg__: Any
+  __neg__: Any
+  __pos__: Any
+  __pow__: Any
+  __rmul__: Any
+  __sub__: Any
+  __truediv__: Any
+  shape: Any
+
+
+class Tensor0(_TensorBase):
   """A scalar - produced by e.g. tf.reduce_sum(tf.zeros((2, 3)))."""
-
-  def __new__(cls, *args, **kwargs):
-    raise TypeError('tensor_annotations tensors should not be instantiated')
-
-  # These are necessary so that type checkers know we have these methods.
-  __abs__: Any
-  __add__: Any
-  __add__: Any
-  __floordiv__: Any
-  __ge__: Any
-  __gt__: Any
-  __le__: Any
-  __lt__: Any
-  __mul__: Any
-  __neg__: Any
-  __neg__: Any
-  __pos__: Any
-  __pow__: Any
-  __rmul__: Any
-  __sub__: Any
-  __truediv__: Any
-  shape: Any
+  pass
 
 
-class Tensor1(Generic[A1]):
+class Tensor1(Generic[A1], _TensorBase):
   """A tensor of rank 1."""
-
-  def __new__(cls, *args, **kwargs):
-    raise TypeError('tensor_annotations tensors should not be instantiated')
-
-  # These are necessary so that type checkers know we have these methods.
-  __abs__: Any
-  __add__: Any
-  __add__: Any
-  __floordiv__: Any
-  __getitem__: Any
-  __setitem__: Any
-  __ge__: Any
-  __gt__: Any
-  __le__: Any
-  __lt__: Any
-  __mul__: Any
-  __neg__: Any
-  __neg__: Any
-  __pos__: Any
-  __pow__: Any
-  __rmul__: Any
-  __sub__: Any
-  __truediv__: Any
-  shape: Any
+  pass
 
 
-class Tensor2(Generic[A2, A1]):
+class Tensor2(Generic[A2, A1], _TensorBase):
   """A tensor of rank 2."""
-
-  def __new__(cls, *args, **kwargs):
-    raise TypeError('tensor_annotations tensors should not be instantiated')
-
-  # These are necessary so that type checkers know we have these methods.
-  __abs__: Any
-  __add__: Any
-  __add__: Any
-  __floordiv__: Any
-  __getitem__: Any
-  __setitem__: Any
-  __ge__: Any
-  __gt__: Any
-  __le__: Any
-  __lt__: Any
-  __mul__: Any
-  __neg__: Any
-  __neg__: Any
-  __pos__: Any
-  __pow__: Any
-  __rmul__: Any
-  __sub__: Any
-  __truediv__: Any
-  shape: Any
+  pass
 
 
-class Tensor3(Generic[A3, A2, A1]):
+class Tensor3(Generic[A3, A2, A1], _TensorBase):
   """A tensor of rank 3."""
-
-  def __new__(cls, *args, **kwargs):
-    raise TypeError('tensor_annotations tensors should not be instantiated')
-
-  # These are necessary so that type checkers know we have these methods.
-  __abs__: Any
-  __add__: Any
-  __add__: Any
-  __floordiv__: Any
-  __getitem__: Any
-  __setitem__: Any
-  __ge__: Any
-  __gt__: Any
-  __le__: Any
-  __lt__: Any
-  __mul__: Any
-  __neg__: Any
-  __neg__: Any
-  __pos__: Any
-  __pow__: Any
-  __rmul__: Any
-  __sub__: Any
-  __truediv__: Any
-  shape: Any
+  pass
 
 
-class Tensor4(Generic[A4, A3, A2, A1]):
+class Tensor4(Generic[A4, A3, A2, A1], _TensorBase):
   """A tensor of rank 4."""
-
-  def __new__(cls, *args, **kwargs):
-    raise TypeError('tensor_annotations tensors should not be instantiated')
-
-  # These are necessary so that type checkers know we have these methods.
-  __abs__: Any
-  __add__: Any
-  __add__: Any
-  __floordiv__: Any
-  __getitem__: Any
-  __setitem__: Any
-  __ge__: Any
-  __gt__: Any
-  __le__: Any
-  __lt__: Any
-  __mul__: Any
-  __neg__: Any
-  __neg__: Any
-  __pos__: Any
-  __pow__: Any
-  __rmul__: Any
-  __sub__: Any
-  __truediv__: Any
-  shape: Any
+  pass
 
 
-class Tensor5(Generic[A5, A4, A3, A2, A1]):
+class Tensor5(Generic[A5, A4, A3, A2, A1], _TensorBase):
   """A tensor of rank 5."""
-
-  def __new__(cls, *args, **kwargs):
-    raise TypeError('tensor_annotations tensors should not be instantiated')
-
-  # These are necessary so that type checkers know we have these methods.
-  __abs__: Any
-  __add__: Any
-  __add__: Any
-  __floordiv__: Any
-  __getitem__: Any
-  __setitem__: Any
-  __ge__: Any
-  __gt__: Any
-  __le__: Any
-  __lt__: Any
-  __mul__: Any
-  __neg__: Any
-  __neg__: Any
-  __pos__: Any
-  __pow__: Any
-  __rmul__: Any
-  __sub__: Any
-  __truediv__: Any
-  shape: Any
+  pass
 
 
-class Tensor6(Generic[A6, A5, A4, A3, A2, A1]):
+class Tensor6(Generic[A6, A5, A4, A3, A2, A1], _TensorBase):
   """A tensor of rank 6."""
-
-  def __new__(cls, *args, **kwargs):
-    raise TypeError('tensor_annotations tensors should not be instantiated')
-
-  # These are necessary so that type checkers know we have these methods.
-  __abs__: Any
-  __add__: Any
-  __add__: Any
-  __floordiv__: Any
-  __getitem__: Any
-  __setitem__: Any
-  __ge__: Any
-  __gt__: Any
-  __le__: Any
-  __lt__: Any
-  __mul__: Any
-  __neg__: Any
-  __neg__: Any
-  __pos__: Any
-  __pow__: Any
-  __rmul__: Any
-  __sub__: Any
-  __truediv__: Any
-  shape: Any
+  pass
 
 
-class Tensor7(Generic[A7, A6, A5, A4, A3, A2, A1]):
+class Tensor7(Generic[A7, A6, A5, A4, A3, A2, A1], _TensorBase):
   """A tensor of rank 7."""
-
-  def __new__(cls, *args, **kwargs):
-    raise TypeError('tensor_annotations tensors should not be instantiated')
-
-  # These are necessary so that type checkers know we have these methods.
-  __abs__: Any
-  __add__: Any
-  __add__: Any
-  __floordiv__: Any
-  __getitem__: Any
-  __setitem__: Any
-  __ge__: Any
-  __gt__: Any
-  __le__: Any
-  __lt__: Any
-  __mul__: Any
-  __neg__: Any
-  __neg__: Any
-  __pos__: Any
-  __pow__: Any
-  __rmul__: Any
-  __sub__: Any
-  __truediv__: Any
-  shape: Any
+  pass
 
 
-class Tensor8(Generic[A8, A7, A6, A5, A4, A3, A2, A1]):
+class Tensor8(Generic[A8, A7, A6, A5, A4, A3, A2, A1], _TensorBase):
   """A tensor of rank 7."""
-
-  def __new__(cls, *args, **kwargs):
-    raise TypeError('tensor_annotations tensors should not be instantiated')
-
-  # These are necessary so that type checkers know we have these methods.
-  __abs__: Any
-  __add__: Any
-  __add__: Any
-  __floordiv__: Any
-  __getitem__: Any
-  __setitem__: Any
-  __ge__: Any
-  __gt__: Any
-  __le__: Any
-  __lt__: Any
-  __mul__: Any
-  __neg__: Any
-  __neg__: Any
-  __pos__: Any
-  __pow__: Any
-  __rmul__: Any
-  __sub__: Any
-  __truediv__: Any
-  shape: Any
+  pass
 
 # LINT.ThenChange(tensorflow.pyi)
