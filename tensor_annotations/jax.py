@@ -34,151 +34,56 @@ A3 = TypeVar('A3', bound=axes.Axis)
 A4 = TypeVar('A4', bound=axes.Axis)
 
 
-class Array0:
+class _ArrayBase:
+  """Base class for ArrayN classes containing common methods and attributes."""
+
+  def __new__(cls, *args, **kwargs):
+    raise TypeError('tensor_annotations tensors should not be instantiated')
+
+  # These are necessary so that type checkers know we have these methods.
+  __abs__: Any
+  __add__: Any
+  __add__: Any
+  __floordiv__: Any
+  __ge__: Any
+  __gt__: Any
+  __le__: Any
+  __lt__: Any
+  __mul__: Any
+  __neg__: Any
+  __neg__: Any
+  __pos__: Any
+  __pow__: Any
+  __rmul__: Any
+  __sub__: Any
+  __truediv__: Any
+  shape: Any
+  type: Any
+  reshape: Any
+
+
+class Array0(_ArrayBase):
   """A scalar - produced by e.g. jnp.sum(jnp.zeros((2, 3)))."""
-
-  def __new__(cls, *args, **kwargs):
-    raise TypeError('tensor_annotations tensors should not be instantiated')
-
-  # These are necessary so that type checkers know we have these methods.
-  __abs__: Any
-  __add__: Any
-  __add__: Any
-  __floordiv__: Any
-  __ge__: Any
-  __gt__: Any
-  __le__: Any
-  __lt__: Any
-  __mul__: Any
-  __neg__: Any
-  __neg__: Any
-  __pos__: Any
-  __pow__: Any
-  __rmul__: Any
-  __sub__: Any
-  __truediv__: Any
-  shape: Any
-  type: Any
-  reshape: Any
+  pass
 
 
-class Array1(Generic[A1]):
+class Array1(Generic[A1], _ArrayBase):
   """A tensor of rank 1."""
-
-  def __new__(cls, *args, **kwargs):
-    raise TypeError('tensor_annotations tensors should not be instantiated')
-
-  # These are necessary so that type checkers know we have these methods.
-  __abs__: Any
-  __add__: Any
-  __add__: Any
-  __floordiv__: Any
-  __getitem__: Any
-  __setitem__: Any
-  __ge__: Any
-  __gt__: Any
-  __le__: Any
-  __lt__: Any
-  __mul__: Any
-  __neg__: Any
-  __neg__: Any
-  __pos__: Any
-  __pow__: Any
-  __rmul__: Any
-  __sub__: Any
-  __truediv__: Any
-  shape: Any
-  type: Any
-  reshape: Any
+  pass
 
 
-class Array2(Generic[A1, A2]):
+class Array2(Generic[A1, A2], _ArrayBase):
   """A tensor of rank 2."""
-
-  def __new__(cls, *args, **kwargs):
-    raise TypeError('tensor_annotations tensors should not be instantiated')
-
-  # These are necessary so that type checkers know we have these methods.
-  __abs__: Any
-  __add__: Any
-  __add__: Any
-  __floordiv__: Any
-  __getitem__: Any
-  __setitem__: Any
-  __ge__: Any
-  __gt__: Any
-  __le__: Any
-  __lt__: Any
-  __mul__: Any
-  __neg__: Any
-  __neg__: Any
-  __pos__: Any
-  __pow__: Any
-  __rmul__: Any
-  __sub__: Any
-  __truediv__: Any
-  shape: Any
-  type: Any
-  reshape: Any
+  pass
 
 
-class Array3(Generic[A1, A2, A3]):
+class Array3(Generic[A1, A2, A3], _ArrayBase):
   """A tensor of rank 3."""
-
-  def __new__(cls, *args, **kwargs):
-    raise TypeError('tensor_annotations tensors should not be instantiated')
-
-  # These are necessary so that type checkers know we have these methods.
-  __abs__: Any
-  __add__: Any
-  __add__: Any
-  __floordiv__: Any
-  __getitem__: Any
-  __setitem__: Any
-  __ge__: Any
-  __gt__: Any
-  __le__: Any
-  __lt__: Any
-  __mul__: Any
-  __neg__: Any
-  __neg__: Any
-  __pos__: Any
-  __pow__: Any
-  __rmul__: Any
-  __sub__: Any
-  __truediv__: Any
-  shape: Any
-  type: Any
-  reshape: Any
+  pass
 
 
-class Array4(Generic[A1, A2, A3, A4]):
+class Array4(Generic[A1, A2, A3, A4], _ArrayBase):
   """A tensor of rank 4."""
-
-  def __new__(cls, *args, **kwargs):
-    raise TypeError('tensor_annotations tensors should not be instantiated')
-
-  # These are necessary so that type checkers know we have these methods.
-  __abs__: Any
-  __add__: Any
-  __add__: Any
-  __floordiv__: Any
-  __getitem__: Any
-  __setitem__: Any
-  __ge__: Any
-  __gt__: Any
-  __le__: Any
-  __lt__: Any
-  __mul__: Any
-  __neg__: Any
-  __neg__: Any
-  __pos__: Any
-  __pow__: Any
-  __rmul__: Any
-  __sub__: Any
-  __truediv__: Any
-  shape: Any
-  type: Any
-  reshape: Any
+  pass
 
 # LINT.ThenChange(jax.pyi)
