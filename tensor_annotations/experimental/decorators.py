@@ -37,7 +37,7 @@ def _is_tensor_type(t):
   return True
 
 
-def verify_runtime_args_and_return_ranks(func):
+def verify_runtime_ranks_of_args_and_return(func):
   """Decorator that verifies ranks of arguments and return are correct.
 
   For example, if an argument `x` is annotated as having type
