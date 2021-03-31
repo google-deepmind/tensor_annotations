@@ -33,9 +33,6 @@ A2 = TypeVar('A2', bound=axes.Axis)
 A3 = TypeVar('A3', bound=axes.Axis)
 A4 = TypeVar('A4', bound=axes.Axis)
 
-# Necessary to silence warnings about arrayN not being a valid name.
-# pylint: disable=invalid-name
-
 
 class Array0:
   """A scalar - produced by e.g. jnp.sum(jnp.zeros((2, 3)))."""
