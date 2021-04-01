@@ -1,6 +1,6 @@
 """Tests for experimental/decorators.py."""
 
-from typing import List
+from typing import Dict, List, NamedTuple, Tuple
 import unittest
 
 from tensor_annotations.axes import Height
@@ -175,6 +175,118 @@ class DecoratorsReturnTests(unittest.TestCase):
       return None
     with self.assertRaises(ValueError):
       foo()
+
+
+class DecoratorsTreeTests(unittest.TestCase):
+
+  def test_convert_tuple_type_is_correct(self):
+    tree_type = Tuple[int, str]
+    type_tree = decorators._tree_type_to_type_tree(tree_type)
+    self.assertEqual(type_tree, (int, str))
+
+  def test_convert_nested_tuple_type_is_correct(self):
+    tree_type = Tuple[int, Tuple[float, str]]
+    type_tree = decorators._tree_type_to_type_tree(tree_type)
+    self.assertEqual(type_tree, (int, (float, str)))
+
+  def test_convert_double_nested_tuple_type_is_correct(self):
+    tree_type = Tuple[int, Tuple[float, Tuple[str]]]
+    type_tree = decorators._tree_type_to_type_tree(tree_type)
+    self.assertEqual(type_tree, (int, (float, (str,))))
+
+  def test_convert_empty_tuple_type_is_correct(self):
+    tree_type = Tuple[()]
+    type_tree = decorators._tree_type_to_type_tree(tree_type)
+    self.assertEqual(type_tree, ())
+
+  def test_convert_unparameterised_tuple_remains_unparameterised(self):
+    tree_type = Tuple[str, Tuple]
+    type_tree = decorators._tree_type_to_type_tree(tree_type)
+    self.assertEqual(type_tree, (str, Tuple))
+
+  def test_convert_dict_type_is_correct(self):
+    tree_type = Dict[str, int]
+    type_tree = decorators._tree_type_to_type_tree(tree_type)
+    self.assertEqual(type_tree, {str: int})
+
+  def test_convert_nested_dict_type_is_correct(self):
+    tree_type = Dict[str, Dict[int, float]]
+    type_tree = decorators._tree_type_to_type_tree(tree_type)
+    self.assertEqual(type_tree, {str: {int: float}})
+
+  def test_convert_double_nested_dict_type_is_correct(self):
+    tree_type = Dict[str, Dict[bool, Dict[int, float]]]
+    type_tree = decorators._tree_type_to_type_tree(tree_type)
+    self.assertEqual(type_tree, {str: {bool: {int: float}}})
+
+  def test_convert_unparameterised_dict_remains_unparameterised(self):
+    tree_type = Tuple[Dict]
+    type_tree = decorators._tree_type_to_type_tree(tree_type)
+    self.assertEqual(type_tree, (Dict,))
+
+  def test_convert_named_tuple_type_is_correct(self):
+    class T(NamedTuple):
+      a: Tuple[int]
+      b: Dict[str, bool]
+    type_tree = decorators._tree_type_to_type_tree(T)
+    self.assertEqual(type_tree, T(a=(int,), b={str: bool}))
+
+  def test_convert_nested_named_tuple_type_is_correct(self):
+    class T1(NamedTuple):
+      a: Tuple[int]
+    class T2(NamedTuple):
+      b: T1
+    type_tree = decorators._tree_type_to_type_tree(T2)
+    self.assertEqual(
+        type_tree,
+        T2(
+            b=T1(
+                a=(int,),
+            ),
+        ),
+    )
+
+  def test_convert_double_nested_named_tuple_type_is_correct(self):
+    class T1(NamedTuple):
+      a: Tuple[int]
+    class T2(NamedTuple):
+      b: T1
+    class T3(NamedTuple):
+      c: T2
+    type_tree = decorators._tree_type_to_type_tree(T3)
+    self.assertEqual(
+        type_tree,
+        T3(
+            c=T2(
+                b=T1(
+                    a=(int,),
+                )
+            ),
+        ),
+    )
+
+  def test_convert_mixed_type_is_correct(self):
+    class Trajectory(NamedTuple):
+      actions: Dict[str, Tuple[float]]
+      observations: Dict[str, Tuple[float]]
+
+    class TrajectoriesAndParameters(NamedTuple):
+      trajectories: Tuple[Trajectory]
+      parameters: Tuple[float]
+
+    type_tree = decorators._tree_type_to_type_tree(TrajectoriesAndParameters)
+    self.assertEqual(
+        type_tree,
+        TrajectoriesAndParameters(
+            trajectories=(
+                Trajectory(
+                    actions={str: (float,)},
+                    observations={str: (float,)},
+                ),
+            ),
+            parameters=(float,),
+        )
+    )
 
 
 if __name__ == '__main__':

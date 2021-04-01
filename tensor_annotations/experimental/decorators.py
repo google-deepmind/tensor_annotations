@@ -1,12 +1,14 @@
 """Decorators for confirming shapes are correct at runtime."""
 
+import copy
 import functools
 import inspect
 import textwrap
-from typing import Any, Dict, Mapping
+from typing import Any, Dict, Mapping, Tuple
 
 import tensor_annotations.jax as tjax
 import tensor_annotations.tensorflow as ttf
+import tree
 
 
 # TODO: Replace this with something easier to maintain.
@@ -138,3 +140,88 @@ def _verify_runtime_args_and_return_ranks(func, *args, **kwargs):
     raise ValueError(message_one_line)
 
   return func_return_value
+
+
+def _is_typed_namedtuple(x):
+  return hasattr(x, '_fields') and hasattr(x, '_field_types')
+
+
+def _tree_type_to_type_tree(tree_type: Any) -> Any:
+  """Converts a tree-like type to a tree of the component types.
+
+  Examples:
+
+    T = Tuple[int, str]
+    tree_type_to_type_tree(T) == (int, str)
+
+    T2 = Dict[str, Tuple[float]]
+    tree_type_to_type_tree(T2) == {str: (float,)}
+
+    T3 = List[bool]
+    tree_type_to_type_tree(T3) == [bool]
+
+    class T3(NamedTuple):
+      obses: Tuple[np.ndarray]
+      actions: Tuple[np.ndarray]
+    tree_type_to_type_tree(T3) == T3(obses=(np.ndarray,), actions=(np.ndarray,))
+
+  If any of the items in the tree is unparameterised, it is not converted:
+
+    T = Tuple[List, str]
+    tree_type_to_type_tree(T) == (List, str)
+
+  Args:
+    tree_type: The tree-like type to convert.
+  Returns:
+    A tree of the component types.
+  """
+  def convert_tuple(x):
+    if not inspect.isclass(x) or not issubclass(x, Tuple):
+      return x
+    try:
+      # If x is Tuple[int, str, float], x.__args__ will be (int, str, float).
+      args = x.__args__
+    except AttributeError:
+      return x
+    if args is None:
+      # Unparameterised Tuple.
+      return x
+    if args == ((),):
+      # Tuple[()]
+      return ()
+    return args
+
+  def convert_dict(x):
+    if not inspect.isclass(x) or not issubclass(x, Dict):
+      return x
+    # Unnparameterised Dict.
+    if x.__args__ is None:
+      return x
+    # If x is Dict[str, int], then x.__args__ should be (str, int).
+    key_type, value_type = x.__args__
+    return {key_type: value_type}
+
+  def convert_named_tuple(x):
+    if not inspect.isclass(x) or not _is_typed_namedtuple(x):
+      return x
+    args = dict(x._field_types)  # pylint: disable=protected-access
+    return x(**args)
+
+  type_tree = tree_type
+  # Right now, `type_tree` doesn't even look like a tree.
+  # So first, we have to try and convert the top-level type to a tree,
+  # e.g. Tuple[Tuple[int]] -> (Tuple[int],)
+  for f in (convert_tuple, convert_dict, convert_named_tuple):
+    type_tree = f(type_tree)
+
+  # Now we just have to keep converting elements of the tree until all
+  # elements have been converted.
+  prev_type_tree = copy.deepcopy(type_tree)
+  while True:
+    for f in (convert_tuple, convert_dict, convert_named_tuple):
+      type_tree = tree.map_structure(f, type_tree)
+    if type_tree == prev_type_tree:
+      break
+    prev_type_tree = type_tree
+
+  return type_tree
