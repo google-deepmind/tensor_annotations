@@ -60,7 +60,7 @@ Shape5 = Tuple[int, int, int, int, int]
                       'floor', 'is_finite', 'is_inf', 'is_nan', 'lbeta',
                       'lgamma', 'log', 'log1p', 'logical_not', 'log_sigmoid',
                       'ndtri', 'negative', 'reciprocal', 'reciprocal_no_nan',
-                      'rint', 'rsqrt', 'sigmoid', 'sign', 'sin', 'sinh',
+                      'rint', 'round', 'rsqrt', 'sigmoid', 'sign', 'sin', 'sinh',
                       'softplus', 'softsign', 'sqrt', 'square', 'tan', 'tanh'] %}
 {% for func in unary_funcs %}
 
@@ -121,33 +121,6 @@ def {{ func }}(input: Tensor5[A1, A2, A3, A4, A5], dtype=..., name=...) -> Tenso
 def {{ func }}(input, dtype=..., name=...) -> Any: ...
 {% endfor %}
 
-
-@overload
-def round(x: Tensor0, name=...) -> Tensor0: ...
-
-
-@overload
-def round(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
-
-
-@overload
-def round(x: Tensor2[A1, A2], name=...) -> Tensor2[A1, A2]: ...
-
-
-@overload
-def round(x: Tensor3[A1, A2, A3], name=...) -> Tensor3[A1, A2, A3]: ...
-
-
-@overload
-def round(x: Tensor4[A1, A2, A3, A4], name=...) -> Tensor4[A1, A2, A3, A4]: ...
-
-
-@overload
-def round(x: Tensor5[A1, A2, A3, A4, A5], name=...) -> Tensor5[A1, A2, A3, A4, A5]: ...
-
-
-@overload
-def round(x, name=...) -> Any: ...
 
 # ---------- ZEROS, ONES ----------
 
