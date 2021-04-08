@@ -14,6 +14,7 @@
 # ==============================================================================
 """Test helpers."""
 
+import importlib
 import inspect
 import os
 import pathlib
@@ -59,13 +60,17 @@ def run_pytype(code: str, check: bool) -> subprocess.CompletedProcess:  # pylint
 
 def _link_stubs(tensor_annotations_dir: pathlib.Path, stubs_dir: pathlib.Path):
   """Link JAX/TensorFlow stubs to a place where pytype can find them."""
-  stubs_src_dir = tensor_annotations_dir / 'library_stubs'
+  google_internal = False
+  if not google_internal:
+    jax_module = importlib.import_module('jax-stubs')
+    jax_stubs_dir = pathlib.Path(jax_module.__path__[0])
+    tf_module = importlib.import_module('tensorflow-stubs')
+    tf_stubs_dir = pathlib.Path(tf_module.__path__[0])
+
   for source, target in [
       # Library functions, e.g. tf.reduce_sum.
-      (stubs_src_dir / 'third_party' / 'py' / 'jax',
-       stubs_dir / 'jax'),
-      (stubs_src_dir / 'third_party' / 'py' / 'tensorflow',
-       stubs_dir / 'tensorflow'),
+      (jax_stubs_dir, stubs_dir / 'jax'),
+      (tf_stubs_dir, stubs_dir / 'tensorflow'),
       # Tensor functions, e.g. Tensor.__add__.
       (tensor_annotations_dir / 'jax.pyi',
        stubs_dir / 'tensor_annotations' / 'jax.pyi'),
