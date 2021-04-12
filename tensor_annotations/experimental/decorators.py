@@ -33,9 +33,9 @@ def _is_tensor_type(t):
   if not hasattr(t, '__origin__'):
     # It's not a generic type, so can't be one of the types we care about.
     return False
-  # If arg_type is Tensor1[Height], then t.__origin__ == Tensor1.
-  if not any(t.__origin__ is tensor_type
-             for tensor_type in _TYPES_TO_CHECK):
+  # If t is Tensor1[Height], then t.__origin__ == Tensor1.
+  if not any(t.__origin__ is generic_type
+             for generic_type in _TYPES_TO_CHECK):
     return False
   return True
 
