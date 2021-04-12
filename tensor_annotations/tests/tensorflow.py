@@ -222,6 +222,14 @@ class TensorFlowStubTests(unittest.TestCase):
     self.assertEqual('tensorflow.TensorShape', inferred.x4_shape)
     self.assertEqual('tensorflow.TensorShape', inferred.x5_shape)
 
+  def testShapeAttribute_HasLen(self):
+    with utils.SaveCodeAsString() as code_saver:
+      x = tf.zeros((1,))
+      rank = len(x.shape)  # pylint: disable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+    self.assertEqual('int', inferred.rank)
+
 
 if __name__ == '__main__':
   unittest.main()
