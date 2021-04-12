@@ -54,7 +54,7 @@ def verify_runtime_ranks_of_args_and_return(func):
     func: The function to decorate.
 
   Raises:
-    ValueError: If rank of return type or any argument is incorrect.
+    TypeError: If rank of return type or any argument is incorrect.
 
   Returns:
     Decorated function.
@@ -93,7 +93,7 @@ def _verify_runtime_args_and_return_ranks(func, *args, **kwargs):
       '{type(arg_value).__name__}'.
       """)
       message_one_line = message.replace('\n', ' ')
-      raise ValueError(message_one_line)
+      raise TypeError(message_one_line)
 
     # If arg_type is Tensor2[Height, Width],
     # then arg_type.__args__ == (Height, Width).
@@ -108,7 +108,7 @@ def _verify_runtime_args_and_return_ranks(func, *args, **kwargs):
       but actual shape is '{arg_value.shape}' with rank {actual_arg_rank}
       """)
       message_one_line = message.replace('\n', ' ')
-      raise ValueError(message_one_line)
+      raise TypeError(message_one_line)
 
   # ===== Call function. =====
 
@@ -126,7 +126,7 @@ def _verify_runtime_args_and_return_ranks(func, *args, **kwargs):
     but actual return type is '{type(func_return_value).__name__}'
     """)
     message_one_line = message.replace('\n', ' ')
-    raise ValueError(message_one_line)
+    raise TypeError(message_one_line)
 
   annotated_rank = len(return_type.__args__)
   actual_rank = len(func_return_value.shape)
@@ -137,7 +137,7 @@ def _verify_runtime_args_and_return_ranks(func, *args, **kwargs):
     '{func_return_value.shape}' with rank {actual_rank}
     """)
     message_one_line = message.replace('\n', ' ')
-    raise ValueError(message_one_line)
+    raise TypeError(message_one_line)
 
   return func_return_value
 

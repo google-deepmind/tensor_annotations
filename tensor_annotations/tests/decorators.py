@@ -70,20 +70,20 @@ class DecoratorsArgsTests(unittest.TestCase):
     @decorators.verify_runtime_ranks_of_args_and_return
     def foo(x: Tensor2[Height, Width]):  # pylint: disable=unused-argument
       pass
-    with self.assertRaises(ValueError):
+    with self.assertRaises(TypeError):
       foo(tf.zeros([3]))
-    with self.assertRaises(ValueError):
+    with self.assertRaises(TypeError):
       foo(x=tf.zeros([3]))
 
   def test_incorrect_second_arg_raises_exception(self):
     @decorators.verify_runtime_ranks_of_args_and_return
     def foo(x, y: Tensor2[Height, Width]):  # pylint: disable=unused-argument
       pass
-    with self.assertRaises(ValueError):
+    with self.assertRaises(TypeError):
       foo(None, tf.zeros([3]))
-    with self.assertRaises(ValueError):
+    with self.assertRaises(TypeError):
       foo(x=None, y=tf.zeros([3]))
-    with self.assertRaises(ValueError):
+    with self.assertRaises(TypeError):
       foo(None, y=tf.zeros([3]))
 
   def test_incorrect_default_arg_raises_exception(self):
@@ -92,7 +92,7 @@ class DecoratorsArgsTests(unittest.TestCase):
         x: Tensor2[Height, Width] = tf.zeros([3]),  # pylint: disable=unused-argument
     ):
       pass
-    with self.assertRaises(ValueError):
+    with self.assertRaises(TypeError):
       foo()
 
   def test_incorrect_overridden_default_arg_raises_exception(self):
@@ -101,16 +101,16 @@ class DecoratorsArgsTests(unittest.TestCase):
         x: Tensor2[Height, Width] = tf.zeros([3, 5]),  # pylint: disable=unused-argument
     ):
       pass
-    with self.assertRaises(ValueError):
+    with self.assertRaises(TypeError):
       foo(tf.zeros([3]))
-    with self.assertRaises(ValueError):
+    with self.assertRaises(TypeError):
       foo(x=tf.zeros([3]))
 
   def test_non_tensor_arg_raises_exception(self):
     @decorators.verify_runtime_ranks_of_args_and_return
     def foo(x: Tensor2[Height, Width]):  # pylint: disable=unused-argument
       pass
-    with self.assertRaises(ValueError):
+    with self.assertRaises(TypeError):
       foo(None)
 
   # ==== Make sure 'normal' errors still behave as expected. =====
@@ -166,14 +166,14 @@ class DecoratorsReturnTests(unittest.TestCase):
     @decorators.verify_runtime_ranks_of_args_and_return
     def foo() -> Tensor2[Height, Width]:
       return tf.zeros([3])
-    with self.assertRaises(ValueError):
+    with self.assertRaises(TypeError):
       foo()
 
   def test_non_tensor_return_value_raises_exception(self):
     @decorators.verify_runtime_ranks_of_args_and_return
     def foo() -> Tensor2[Height, Width]:
       return None
-    with self.assertRaises(ValueError):
+    with self.assertRaises(TypeError):
       foo()
 
 
