@@ -20,6 +20,7 @@ A3 = TypeVar('A3', bound=Axis)
 A4 = TypeVar('A4', bound=Axis)
 A5 = TypeVar('A5', bound=Axis)
 A6 = TypeVar('A6', bound=Axis)
+A7 = TypeVar('A7', bound=Axis)
 
 Number = Union[int, float]
 
@@ -279,6 +280,50 @@ class Array6(Generic[A1, A2, A3, A4, A5, A6]):
   {# No broadcast #}
   @overload
   def {{ func }}(self, other: Array6[A1, A2, A3, A4, A5, A6]) -> Array6[A1, A2, A3, A4, A5, A6]: ...
+
+  {% endfor %}
+
+  # END: Binary element-wise operators
+
+
+class Array7(Generic[A1, A2, A3, A4, A5, A6, A7]):
+  def __getitem__(self, index) -> Any: ...
+  def __setitem__(self, index, value) -> Any: ...
+  shape: Tuple[int, int, int, int]
+
+  # BEGIN: Unary operators
+  {% for func in unary_funcs %}
+  def {{ func }}(self) -> Array7[A1, A2, A3, A4, A5, A6, A7]: ...
+  {% endfor %}
+  # END: Unary operators
+
+  # BEGIN: Binary element-wise operators
+
+  {% for func in binary_elementwise_funcs %}
+
+  {# Broadcasting case 1: Broadcasting with scalars #}
+  @overload
+  def {{ func }}(self, other: Number) -> Array7[A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def {{ func }}(self, other: Array0) -> Array7[A1, A2, A3, A4, A5, A6, A7]: ...
+
+  {# Broadcasting case 2: Broadcasting with a lesser rank #}
+  @overload
+  def {{ func }}(self, other: Array1[A7]) -> Array7[A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def {{ func }}(self, other: Array2[A6, A7]) -> Array7[A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def {{ func }}(self, other: Array3[A5, A6, A7]) -> Array7[A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def {{ func }}(self, other: Array4[A4, A5, A6, A7]) -> Array7[A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def {{ func }}(self, other: Array5[A3, A4, A5, A6, A7]) -> Array7[A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def {{ func }}(self, other: Array6[A2, A3, A4, A5, A6, A7]) -> Array7[A1, A2, A3, A4, A5, A6, A7]: ...
+
+  {# No broadcast #}
+  @overload
+  def {{ func }}(self, other: Array7[A1, A2, A3, A4, A5, A6, A7]) -> Array7[A1, A2, A3, A4, A5, A6, A7]: ...
 
   {% endfor %}
 

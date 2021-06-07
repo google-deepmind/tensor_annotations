@@ -34,6 +34,7 @@ A3 = TypeVar('A3', bound=axes.Axis)
 A4 = TypeVar('A4', bound=axes.Axis)
 A5 = TypeVar('A5', bound=axes.Axis)
 A6 = TypeVar('A6', bound=axes.Axis)
+A7 = TypeVar('A7', bound=axes.Axis)
 
 
 class _ArrayBase:
@@ -95,6 +96,11 @@ class Array5(Generic[A1, A2, A3, A4, A5], _ArrayBase):
 
 
 class Array6(Generic[A1, A2, A3, A4, A5, A6], _ArrayBase):
+  """A tensor of rank 4."""
+  pass
+
+
+class Array7(Generic[A1, A2, A3, A4, A5, A6, A7], _ArrayBase):
   """A tensor of rank 4."""
   pass
 
