@@ -74,37 +74,37 @@ class Tensor1(Generic[A1], _TensorBase):
   pass
 
 
-class Tensor2(Generic[A2, A1], _TensorBase):
+class Tensor2(Generic[A1, A2], _TensorBase):
   """A tensor of rank 2."""
   pass
 
 
-class Tensor3(Generic[A3, A2, A1], _TensorBase):
+class Tensor3(Generic[A1, A2, A3], _TensorBase):
   """A tensor of rank 3."""
   pass
 
 
-class Tensor4(Generic[A4, A3, A2, A1], _TensorBase):
+class Tensor4(Generic[A1, A2, A3, A4], _TensorBase):
   """A tensor of rank 4."""
   pass
 
 
-class Tensor5(Generic[A5, A4, A3, A2, A1], _TensorBase):
+class Tensor5(Generic[A1, A2, A3, A4, A5], _TensorBase):
   """A tensor of rank 5."""
   pass
 
 
-class Tensor6(Generic[A6, A5, A4, A3, A2, A1], _TensorBase):
+class Tensor6(Generic[A1, A2, A3, A4, A5, A6], _TensorBase):
   """A tensor of rank 6."""
   pass
 
 
-class Tensor7(Generic[A7, A6, A5, A4, A3, A2, A1], _TensorBase):
+class Tensor7(Generic[A1, A2, A3, A4, A5, A6, A7], _TensorBase):
   """A tensor of rank 7."""
   pass
 
 
-class Tensor8(Generic[A8, A7, A6, A5, A4, A3, A2, A1], _TensorBase):
+class Tensor8(Generic[A1, A2, A3, A4, A5, A6, A7, A8], _TensorBase):
   """A tensor of rank 8."""
   pass
 
