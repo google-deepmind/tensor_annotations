@@ -19,6 +19,7 @@ A2 = TypeVar('A2', bound=Axis)
 A3 = TypeVar('A3', bound=Axis)
 A4 = TypeVar('A4', bound=Axis)
 A5 = TypeVar('A5', bound=Axis)
+A6 = TypeVar('A6', bound=Axis)
 
 Number = Union[int, float]
 
@@ -236,6 +237,48 @@ class Array5(Generic[A1, A2, A3, A4, A5]):
   {# No broadcast #}
   @overload
   def {{ func }}(self, other: Array5[A1, A2, A3, A4, A5]) -> Array5[A1, A2, A3, A4, A5]: ...
+
+  {% endfor %}
+
+  # END: Binary element-wise operators
+
+
+class Array6(Generic[A1, A2, A3, A4, A5, A6]):
+  def __getitem__(self, index) -> Any: ...
+  def __setitem__(self, index, value) -> Any: ...
+  shape: Tuple[int, int, int, int]
+
+  # BEGIN: Unary operators
+  {% for func in unary_funcs %}
+  def {{ func }}(self) -> Array6[A1, A2, A3, A4, A5, A6]: ...
+  {% endfor %}
+  # END: Unary operators
+
+  # BEGIN: Binary element-wise operators
+
+  {% for func in binary_elementwise_funcs %}
+
+  {# Broadcasting case 1: Broadcasting with scalars #}
+  @overload
+  def {{ func }}(self, other: Number) -> Array6[A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def {{ func }}(self, other: Array0) -> Array6[A1, A2, A3, A4, A5, A6]: ...
+
+  {# Broadcasting case 2: Broadcasting with a lesser rank #}
+  @overload
+  def {{ func }}(self, other: Array1[A6]) -> Array6[A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def {{ func }}(self, other: Array2[A5, A6]) -> Array6[A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def {{ func }}(self, other: Array3[A4, A5, A6]) -> Array6[A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def {{ func }}(self, other: Array4[A3, A4, A5, A6]) -> Array6[A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def {{ func }}(self, other: Array5[A2, A3, A4, A5, A6]) -> Array6[A1, A2, A3, A4, A5, A6]: ...
+
+  {# No broadcast #}
+  @overload
+  def {{ func }}(self, other: Array6[A1, A2, A3, A4, A5, A6]) -> Array6[A1, A2, A3, A4, A5, A6]: ...
 
   {% endfor %}
 
