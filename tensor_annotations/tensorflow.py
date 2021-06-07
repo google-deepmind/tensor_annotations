@@ -105,7 +105,7 @@ class Tensor7(Generic[A7, A6, A5, A4, A3, A2, A1], _TensorBase):
 
 
 class Tensor8(Generic[A8, A7, A6, A5, A4, A3, A2, A1], _TensorBase):
-  """A tensor of rank 7."""
+  """A tensor of rank 8."""
   pass
 
 # LINT.ThenChange(tensorflow.pyi)
