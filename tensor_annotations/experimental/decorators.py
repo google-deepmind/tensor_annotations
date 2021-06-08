@@ -4,6 +4,7 @@ import copy
 import functools
 import inspect
 import textwrap
+import typing
 from typing import Any, Dict, Mapping, Tuple
 
 import tensor_annotations.jax as tjax
@@ -142,8 +143,27 @@ def _verify_runtime_args_and_return_ranks(func, *args, **kwargs):
   return func_return_value
 
 
+def _is_typed_tuple(x):
+  return (
+      hasattr(x, '__origin__')
+      # `Tuple` for e.g. Python 3.6, `tuple` for e.g. Python 3.9.
+      and x.__origin__ in (Tuple, tuple)
+  )
+
+
+def _is_typed_dict(x):
+  return (
+      hasattr(x, '__origin__')
+      # `Dict` for e.g. Python 3.6, `dict` for e.g. Python 3.9.
+      and x.__origin__ in (Dict, dict)
+  )
+
+
 def _is_typed_namedtuple(x):
-  return hasattr(x, '_fields') and hasattr(x, '_field_types')
+  return hasattr(x, '_fields') and (
+      hasattr(x, '_field_types')  # Python 3.6
+      or hasattr(x, '__annotations__')  # Python 3.9
+  )
 
 
 def _tree_type_to_type_tree(tree_type: Any) -> Any:
@@ -176,35 +196,46 @@ def _tree_type_to_type_tree(tree_type: Any) -> Any:
     A tree of the component types.
   """
   def convert_tuple(x):
-    if not inspect.isclass(x) or not issubclass(x, Tuple):
+    if not _is_typed_tuple(x):
       return x
-    try:
-      # If x is Tuple[int, str, float], x.__args__ will be (int, str, float).
-      args = x.__args__
-    except AttributeError:
+    # Check for unparameterised Tuple.
+    if (
+        not hasattr(x, '__args__') or  # Python 3.9
+        x.__args__ is None or  # Python 3.6
+        not x.__args__  # Python 3.7
+    ):
       return x
-    if args is None:
-      # Unparameterised Tuple.
-      return x
+    # If x is Tuple[int, str, float], x.__args__ will be (int, str, float).
+    args = x.__args__
+    # Check for Tuple[()].
     if args == ((),):
-      # Tuple[()]
       return ()
     return args
 
   def convert_dict(x):
-    if not inspect.isclass(x) or not issubclass(x, Dict):
+    if not _is_typed_dict(x):
       return x
-    # Unnparameterised Dict.
-    if x.__args__ is None:
+    # Check for unparameterised Dict.
+    if (
+        not hasattr(x, '__args__') or  # Python 3.9
+        x.__args__ is None or  # Python 3.6
+        # Python 3.7
+        x.__args__ == (typing.KT, typing.VT)  # pytype: disable=module-attr
+    ):
       return x
     # If x is Dict[str, int], then x.__args__ should be (str, int).
     key_type, value_type = x.__args__
     return {key_type: value_type}
 
   def convert_named_tuple(x):
-    if not inspect.isclass(x) or not _is_typed_namedtuple(x):
+    if not _is_typed_namedtuple(x):
       return x
-    args = dict(x._field_types)  # pylint: disable=protected-access
+    try:
+      # Python 3.6/3.7
+      args = dict(x._field_types)  # pylint: disable=protected-access
+    except AttributeError:
+      # Python 3.9
+      args = x.__annotations__
     return x(**args)
 
   type_tree = tree_type
