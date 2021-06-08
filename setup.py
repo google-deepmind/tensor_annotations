@@ -37,7 +37,11 @@ setuptools.setup(
                  'libraries. Includes type stubs for TensorFlow and JAX '
                  'describing how library functions change shapes.'),
     # Copybara takes care of moving files to 'tensor_annotations/'
-    packages=['tensor_annotations', 'tensor_annotations/tests'],
+    packages=[
+        'tensor_annotations',
+        'tensor_annotations/experimental',
+        'tensor_annotations/tests',
+    ],
     package_data={'tensor_annotations': stub_files + ['py.typed']},
     include_package_data=True,
     extras_require={'dev': [
