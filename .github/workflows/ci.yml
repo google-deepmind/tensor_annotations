@@ -1,0 +1,14 @@
+on: [push]
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: pip3 install tensorflow jax[cpu] pytype
+      - run: pip3 install .
+      - run: cd tensorflow-stubs && pip3 install .
+      - run: cd jax-stubs && pip3 install .
+      - run: python -m tensor_annotations.tests.pytype
+      - run: python -m tensor_annotations.tests.templates
+      - run: python -m tensor_annotations.tests.tensorflow
+      - run: python -m tensor_annotations.tests.jax
