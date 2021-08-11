@@ -30,12 +30,18 @@ stub_files = [
     for path in stub_files
 ]
 
+with open('README.md', 'r') as f:
+    long_description = f.read()
+
 setuptools.setup(
     name='tensor_annotations',
     version='1.0',
     description=('Enables annotations of tensor shapes in numerical computing '
                  'libraries. Includes type stubs for TensorFlow and JAX '
                  'describing how library functions change shapes.'),
+    long_description=long_description,
+    long_description_content_type='text/markdown',
+    url='https://github.com/deepmind/tensor_annotations',
     # Copybara takes care of moving files to 'tensor_annotations/'
     packages=[
         'tensor_annotations',
@@ -43,7 +49,6 @@ setuptools.setup(
         'tensor_annotations/tests',
     ],
     package_data={'tensor_annotations': stub_files + ['py.typed']},
-    include_package_data=True,
     extras_require={'dev': [
         'absl-py',
         'pytype',
