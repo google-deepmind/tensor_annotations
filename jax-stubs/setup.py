@@ -25,24 +25,14 @@ import setuptools
 
 # Note: Copybara takes care of moving files to 'jax-stubs/'.
 
-# We want to install stubs under a package `jax-stubs`, but I haven't
-# figured out how to do that unless the stubs are in a subfolder `jax-stubs`.
-# So we rearrange things a bit in a temporary directory.
-setup_dir = pathlib.Path(__file__).absolute().parent
-with tempfile.TemporaryDirectory() as tmp_dir:
-  tmp_dir = pathlib.Path(tmp_dir)
-  stubs_dir = tmp_dir / 'jax-stubs'
-  (stubs_dir / 'numpy').mkdir(parents=True)
-  shutil.copy(setup_dir / '__init__.pyi', stubs_dir)
-  shutil.copy(setup_dir / 'numpy' / '__init__.pyi', stubs_dir / 'numpy')
-
-  os.chdir(tmp_dir)
-
-  setuptools.setup(
-      name='jax-stubs',
-      version='1.0',
-      description=('Type stubs for JAX.'),
-      packages=['jax-stubs'],
-      package_data={'jax-stubs': ['__init__.pyi', 'numpy/__init__.pyi']},
-      include_package_data=True,
-  )
+setuptools.setup(
+  name='tensor-annotations-jax-stubs',
+  version='1.0',
+  description='Shape-aware type stubs for JAX.',
+  long_description='Shape-aware types stubs for JAX. See the `tensor-annotations` package.',
+  long_description_content_type='text/markdown',
+  url='https://github.com/deepmind/tensor_annotations',
+  packages=['jax-stubs'],
+  package_data={'jax-stubs': ['*.pyi', '*/*.pyi']},
+  install_requires=['tensor-annotations'],
+)

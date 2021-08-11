@@ -25,24 +25,14 @@ import setuptools
 
 # Note: Copybara takes care of moving files to 'tensorflow-stubs/'.
 
-# We want to install stubs under a package `tensorflow-stubs`, but I haven't
-# figured out how to do that unless the stubs are in a subfolder
-# `tensorflow-stubs`. So we rearrange things a bit in a temporary directory.
-setup_dir = pathlib.Path(__file__).absolute().parent
-with tempfile.TemporaryDirectory() as tmp_dir:
-  tmp_dir = pathlib.Path(tmp_dir)
-  stubs_dir = tmp_dir / 'tensorflow-stubs'
-  (stubs_dir / 'math').mkdir(parents=True)
-  shutil.copy(setup_dir / '__init__.pyi', stubs_dir)
-  shutil.copy(setup_dir / 'math' / '__init__.pyi', stubs_dir / 'math')
-
-  os.chdir(tmp_dir)
-
-  setuptools.setup(
-      name='tensorflow-stubs',
-      version='1.0',
-      description=('Type stubs for TensorFlow.'),
-      packages=['tensorflow-stubs'],
-      package_data={'tensorflow-stubs': ['__init__.pyi', 'math/__init__.pyi']},
-      include_package_data=True,
-  )
+setuptools.setup(
+  name='tensor-annotations-tensorflow-stubs',
+  version='1.0',
+  description='Shape-aware type stubs for TensorFlow.',
+  long_description='Shape-aware type stubs for TensorFlow. See the `tensor-annotations` package.',
+  long_description_content_type='text/markdown',
+  url='https://github.com/deepmind/tensor_annotations',
+  packages=['tensorflow-stubs'],
+  package_data={'tensorflow-stubs': ['*.pyi', '*/*.pyi']},
+  install_requires=['tensor-annotations'],
+)
