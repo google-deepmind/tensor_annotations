@@ -27,7 +27,7 @@ import setuptools
 
 setuptools.setup(
   name='tensor-annotations-tensorflow-stubs',
-  version='1.0',
+  version='1.0.0',
   description='Shape-aware type stubs for TensorFlow.',
   long_description='Shape-aware type stubs for TensorFlow. See the `tensor-annotations` package.',
   long_description_content_type='text/markdown',
