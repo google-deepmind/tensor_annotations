@@ -194,6 +194,8 @@ def _tree_type_to_type_tree(tree_type: Any) -> Any:
     tree_type: The tree-like type to convert.
   Returns:
     A tree of the component types.
+  Raises:
+    ValueError: If `tree_type` isn't a tree-like type.
   """
   def convert_tuple(x):
     if not _is_typed_tuple(x):
@@ -238,21 +240,23 @@ def _tree_type_to_type_tree(tree_type: Any) -> Any:
       args = x.__annotations__
     return x(**args)
 
-  type_tree = tree_type
+  tree_of_types = tree_type
   # Right now, `type_tree` doesn't even look like a tree.
   # So first, we have to try and convert the top-level type to a tree,
   # e.g. Tuple[Tuple[int]] -> (Tuple[int],)
   for f in (convert_tuple, convert_dict, convert_named_tuple):
-    type_tree = f(type_tree)
+    tree_of_types = f(tree_of_types)
+  if tree_of_types == tree_type:
+    raise ValueError('tree_type does not appear to be a tree-like type')
 
   # Now we just have to keep converting elements of the tree until all
   # elements have been converted.
-  prev_type_tree = copy.deepcopy(type_tree)
+  prev_type_tree = copy.deepcopy(tree_of_types)
   while True:
     for f in (convert_tuple, convert_dict, convert_named_tuple):
-      type_tree = tree.map_structure(f, type_tree)
-    if type_tree == prev_type_tree:
+      tree_of_types = tree.map_structure(f, tree_of_types)
+    if tree_of_types == prev_type_tree:
       break
-    prev_type_tree = type_tree
+    prev_type_tree = tree_of_types
 
-  return type_tree
+  return tree_of_types
