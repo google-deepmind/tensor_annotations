@@ -41,7 +41,7 @@ def _is_tensor_type(t):
   return True
 
 
-def verify_runtime_ranks_of_args_and_return(func):
+def verify_runtime_ranks_of_args_and_return(func=None, *, check_trees=False):
   """Decorator that verifies ranks of arguments and return are correct.
 
   For example, if an argument `x` is annotated as having type
@@ -53,6 +53,10 @@ def verify_runtime_ranks_of_args_and_return(func):
 
   Args:
     func: The function to decorate.
+    check_trees: Whether to recursively check tree-like types. If `True`, we'll
+      recurse through tree elements, and check any node that has a `.shape`
+      attribute. We support trees composed of dictionaries, tuples, and
+      named tuples.
 
   Raises:
     TypeError: If rank of return type or any argument is incorrect.
@@ -61,11 +65,31 @@ def verify_runtime_ranks_of_args_and_return(func):
     Decorated function.
   """
 
-  return functools.partial(_verify_runtime_args_and_return_ranks, func)
+  if func is not None:
+    # Decorator used with no arguments.
+    return functools.partial(_verify_runtime_args_and_return_ranks,
+                             func, check_trees)
+  else:
+    # Decorator used with `check_trees` set explicitly.
+    def decorator(func):
+      return functools.partial(_verify_runtime_args_and_return_ranks,
+                               func, check_trees)
+    return decorator
 
 
-def _verify_runtime_args_and_return_ranks(func, *args, **kwargs):
-  """Main implementation of verify_runtime_args_and_return_ranks."""
+def _verify_runtime_args_and_return_ranks(func, _check_trees, *args, **kwargs):  # pylint: disable=invalid-name
+  """Main implementation of verify_runtime_args_and_return_ranks.
+
+  Args:
+    func: The function to decorate.
+    _check_trees: Whether to check tree-like types. (Underscored to prevent
+      name collisions with other arguments in `args` and `kwargs`.)
+    *args: Positional arguments to `func`.
+    **kwargs: Keyword arguments to `func`.
+
+  Returns:
+    The return value of `func`.
+  """
   sig: inspect.Signature = inspect.signature(func)
 
   # ===== Verify args. =====
@@ -84,32 +108,11 @@ def _verify_runtime_args_and_return_ranks(func, *args, **kwargs):
     arg_value = arg_value_by_name[arg_name]
 
     arg_type = arg_signature.annotation
-    if not _is_tensor_type(arg_type):
-      continue
-
-    if not hasattr(arg_value, 'shape'):
-      message = textwrap.dedent(f"""\
-      Function '{func.__name__}': argument '{arg_name}' has type
-      annotation '{arg_type}', but actual type is
-      '{type(arg_value).__name__}'.
-      """)
-      message_one_line = message.replace('\n', ' ')
-      raise TypeError(message_one_line)
-
-    # If arg_type is Tensor2[Height, Width],
-    # then arg_type.__args__ == (Height, Width).
-    annotated_arg_rank = len(arg_type.__args__)
-    actual_arg_rank = len(arg_value.shape)
-
-    if annotated_arg_rank != actual_arg_rank:
-      arg_name = arg_signature.name
-      message = textwrap.dedent(f"""\
-      Function '{func.__name__}': argument '{arg_name}' has type
-      annotation '{arg_type}' with rank {annotated_arg_rank},
-      but actual shape is '{arg_value.shape}' with rank {actual_arg_rank}
-      """)
-      message_one_line = message.replace('\n', ' ')
-      raise TypeError(message_one_line)
+    if _is_tensor_type(arg_type):
+      _check_non_tree(func.__name__, arg_name, arg_value, arg_type)
+    elif _is_tree_type(arg_type):
+      type_tree = _tree_type_to_type_tree(arg_type)
+      _check_tree(func.__name__, arg_name, arg_value, type_tree)
 
   # ===== Call function. =====
 
@@ -164,6 +167,52 @@ def _is_typed_namedtuple(x):
       hasattr(x, '_field_types')  # Python 3.6
       or hasattr(x, '__annotations__')  # Python 3.9
   )
+
+
+def _is_tree_type(x):
+  return _is_typed_tuple(x) or _is_typed_dict(x) or _is_typed_namedtuple(x)
+
+
+def _check_non_tree(
+    func_name: str,
+    arg_name: str,
+    arg_value: Any,
+    arg_type: Any,
+):
+  """Checks a non-tree argument.
+
+  Args:
+    func_name: The name of the function whose argument we're checking.
+    arg_name: The name of the argument we're checking.
+    arg_value: The value of the argument.
+    arg_type: The annotated type of the argument.
+
+  Raises:
+    TypeError: If the type or rank of `value_tree_subtree` is not what it's
+      supposed to be, according to the type from `type_tree`.
+  """
+  if not hasattr(arg_value, 'shape'):
+    message = textwrap.dedent(f"""\
+    Function '{func_name}': argument '{arg_name}' has type
+    annotation '{arg_type}', but actual type is
+    '{type(arg_value).__name__}'.
+    """)
+    message_one_line = message.replace('\n', ' ')
+    raise TypeError(message_one_line)
+
+  # If arg_type is Tensor2[Height, Width],
+  # then arg_type.__args__ == (Height, Width).
+  annotated_arg_rank = len(arg_type.__args__)
+  actual_arg_rank = len(arg_value.shape)
+
+  if annotated_arg_rank != actual_arg_rank:
+    message = textwrap.dedent(f"""\
+    Function '{func_name}': argument '{arg_name}' has type
+    annotation '{arg_type}' with rank {annotated_arg_rank},
+    but actual shape is '{arg_value.shape}' with rank {actual_arg_rank}
+    """)
+    message_one_line = message.replace('\n', ' ')
+    raise TypeError(message_one_line)
 
 
 def _tree_type_to_type_tree(tree_type: Any) -> Any:
@@ -260,3 +309,12 @@ def _tree_type_to_type_tree(tree_type: Any) -> Any:
     prev_type_tree = tree_of_types
 
   return tree_of_types
+
+
+def _check_tree(
+    func_name: str,
+    arg_name: str,
+    value_tree,
+    type_tree,
+):
+  pass
