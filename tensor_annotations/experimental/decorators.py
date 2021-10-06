@@ -41,7 +41,7 @@ def _is_tensor_type(t):
   return True
 
 
-def verify_runtime_ranks_of_args_and_return(func=None, *, check_trees=False):
+def verify_runtime_ranks_of_return_and_args(func=None, *, check_trees=False):
   """Decorator that verifies ranks of arguments and return are correct.
 
   For example, if an argument `x` is annotated as having type
@@ -67,18 +67,20 @@ def verify_runtime_ranks_of_args_and_return(func=None, *, check_trees=False):
 
   if func is not None:
     # Decorator used with no arguments.
-    return functools.partial(_verify_runtime_args_and_return_ranks,
+    return functools.partial(_verify_runtime_ranks_of_return_and_args,
                              func, check_trees)
   else:
     # Decorator used with `check_trees` set explicitly.
     def decorator(func):
-      return functools.partial(_verify_runtime_args_and_return_ranks,
+      return functools.partial(_verify_runtime_ranks_of_return_and_args,
                                func, check_trees)
     return decorator
 
 
-def _verify_runtime_args_and_return_ranks(func, _check_trees, *args, **kwargs):  # pylint: disable=invalid-name
-  """Main implementation of verify_runtime_args_and_return_ranks.
+def _verify_runtime_ranks_of_return_and_args(  # pylint: disable=invalid-name
+    func, _check_trees, *args, **kwargs
+):
+  """Main implementation of verify_runtime_ranks_of_return_and_args.
 
   Args:
     func: The function to decorate.
