@@ -1,8 +1,10 @@
 """Tests for experimental/decorators.py."""
 
+import textwrap
 from typing import Dict, List, NamedTuple, Tuple
 import unittest
 
+from tensor_annotations.axes import Batch
 from tensor_annotations.axes import Height
 from tensor_annotations.axes import Width
 from tensor_annotations.experimental import decorators
@@ -135,6 +137,49 @@ class DecoratorsArgsTests(unittest.TestCase):
       pass
     with self.assertRaises(TypeError):
       foo(x=None)  # pylint: disable=unexpected-keyword-arg
+
+
+class DecoratorsCheckTreesTests(unittest.TestCase):
+
+  # Tests for correct args.
+
+  def test_correct_tree_arg_does_not_raise_exception(self):
+    class Trajectory(NamedTuple):
+      observations: Dict[str, Tensor1[Batch]]
+
+    @decorators.verify_runtime_ranks_of_args_and_return(check_trees=True)
+    def foo(
+        a: Tensor1[Batch],
+        b: Trajectory,
+        c: int,  # Distractor arg
+    ):  # pylint: disable=unused-argument
+      pass
+
+    foo(
+        # Note that the actual batch size differs in these two examples,
+        # but the ranks are the same, so it should be fine.
+        tf.zeros((1,)),
+        Trajectory(observations={'foo': tf.zeros((2,))}),
+        2,
+    )
+
+  # Tests for incorrect args.
+
+  def test_incorrect_tree_arg_raises_exception(self):
+    class Trajectory(NamedTuple):
+      observations: Dict[str, Tensor1[Batch]]
+
+    @decorators.verify_runtime_ranks_of_args_and_return(check_trees=True)
+    def foo(t: Trajectory):  # pylint: disable=unused-argument
+      pass
+
+    msg = textwrap.dedent("""\
+    Function 'foo': argument 't.observations['foo']' has type annotation
+    'tensor_annotations.tensorflow.Tensor1[tensor_annotations.axes.Batch]'
+    with rank 1, but actual shape is '(2, 3)' with rank 2
+    """).strip().replace('\n', ' ')
+    with self.assertRaises(TypeError, msg=msg):
+      foo(Trajectory(observations={'foo': tf.zeros((2, 3))}))
 
 
 class DecoratorsReturnTests(unittest.TestCase):

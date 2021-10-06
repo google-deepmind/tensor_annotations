@@ -5,7 +5,7 @@ import functools
 import inspect
 import textwrap
 import typing
-from typing import Any, Dict, Mapping, Tuple
+from typing import Any, Dict, Mapping, Tuple, Union
 
 import tensor_annotations.jax as tjax
 import tensor_annotations.tensorflow as ttf
@@ -317,4 +317,98 @@ def _check_tree(
     value_tree,
     type_tree,
 ):
-  pass
+  """Checks ranks in a tree-like argument.
+
+  Arguments:
+    func_name: The name of the function whose argument we're checking.
+    arg_name: The name of the argument we're checking.
+    value_tree: The value of the argument.
+    type_tree: The types of `value_tree`.
+  """
+  tree.traverse_with_path(
+      functools.partial(_check_tree_traverse, func_name, arg_name, type_tree),
+      value_tree,
+  )
+
+
+def _check_tree_traverse(
+    func_name: str,
+    arg_name: str,
+    type_tree,
+    path: Tuple[Union[int, str]],
+    value_tree_subtree,
+):
+  """Visits a node of `value_tree`, checking the type from `type_tree`.
+
+  Called from `_check_tree`.
+
+  Args:
+    func_name: The name of the function whose argument we're checking.
+    arg_name: The name of the argument we're checking.
+    type_tree: The types of `value_tree`.
+    path: A sequence of the branch keys we had to take to get to where we are.
+      For example, if `value_tree` is {'a': (10, 11)}, and if we're at the
+      10, then `path` would be ('a', 0).
+    value_tree_subtree: The subtree of `value_tree` rooted at the current
+      position.
+
+  Raises:
+    ValueError: If something goes wrong while trying to find the expected type
+      of the current node in `type_tree`.
+    TypeError: If the type or rank of `value_tree_subtree` is not what it's
+      supposed to be, according to the type from `type_tree`.
+  """
+
+  # ===== Step 1: Find the type of this node in `type_tree`. =====
+
+  type_tree_node = type_tree
+  path_str = ''
+  for path_element in path:
+    if isinstance(type_tree_node, Dict):
+      if len(type_tree_node) != 1:
+        raise ValueError('Expected type tree type_tree_node to be of form '
+                         '{key_type: value_type}, but is actually '
+                         + str(type_tree_node))
+      # If `value_tree` is `{'a': 0}`, then `type_tree` will be `{str: int}`.
+      path_str += f"['{path_element}']"
+      type_tree_node = next(iter(type_tree_node.values()))
+    elif _is_typed_namedtuple(type_tree_node):
+      path_str += f'.{path_element}'
+      type_tree_node = getattr(type_tree_node, path_element)
+    elif isinstance(type_tree_node, Tuple):
+      path_str += f'[{path_element}]'
+      type_tree_node = type_tree_node[path_element]
+    else:
+      raise ValueError('Not sure how to descend into type tree node '
+                       f"'{type_tree_node}'")
+  type_tree_subtree = type_tree_node
+
+  # ===== Step 2: Check the rank. =====
+
+  if not _is_tensor_type(type_tree_subtree):
+    return
+  value = value_tree_subtree
+  expected_type = type_tree_subtree
+
+  if not hasattr(value, 'shape'):
+    message = textwrap.dedent(f"""\
+    Function '{func_name}': argument '{arg_name}{path_str}' has type
+    annotation '{expected_type}', but actual type is
+    '{type(value).__name__}'.
+    """).strip()
+    message_one_line = message.replace('\n', ' ')
+    raise TypeError(message_one_line)
+
+  # If arg_type is Tensor2[Height, Width],
+  # then arg_type.__args__ == (Height, Width).
+  expected_rank = len(expected_type.__args__)
+  actual_rank = len(value.shape)
+
+  if expected_rank != actual_rank:
+    message = textwrap.dedent(f"""\
+    Function '{func_name}': argument '{arg_name}{path_str}' has type
+    annotation '{expected_type}' with rank {expected_rank},
+    but actual shape is '{value.shape}' with rank {actual_rank}
+    """).strip()
+    message_one_line = message.replace('\n', ' ')
+    raise TypeError(message_one_line)
