@@ -210,23 +210,7 @@ operators are also supported for rank 0 (scalar) tensors.
 
 #### TensorFlow
 
-**Unary operators**: `tf.abs`, `tf.acos`, `tf.acosh`, `tf.asin`, `tf.asinh`,
-`tf.atanh`, `tf.cos`, `tf.cosh`, `tf.exp`, `tf.floor`, `tf.logical_not`,
-`tf.negative`, `tf.round`, `tf.sigmoid`, `tf.sign`, `tf.sin`, `tf.sinh`,
-`tf.sqrt`, `tf.square`, `tf.tan`, `tf.tanh`, `tf.math.erf`, `tf.math.erfc`,
-`tf.math.erfinv`, `tf.math.expm1`, `tf.math.is_finite`, `tf.math.is_inf`,
-`tf.math.is_nan`, `tf.math.lbeta`, `tf.math.lgamma`, `tf.math.log`,
-`tf.math.log1p`, `tf.math.log_sigmoid`, `tf.math.ndtri`, `tf.math.reciprocal`,
-`tf.math.reciprocal_no_nan`, `tf.math.rint`, `tf.math.rsqrt`,
-`tf.math.softplus`,`tf.math.softsign`
-
-**Tensor creation**: `tf.ones`, `tf.ones_like`, `tf.zeros`, `tf.zeros_like`
-
-**Axis manipulation**: `tf.reduce_all`, `tf.reduce_any`, `tf.reduce_logsumexp`,
-`tf.reduce_max`, `tf.reduce_mean`, `tf.reduce_min`, `tf.reduce_prod`,
-`tf.reduce_sum`, `tf.transpose` (up to rank 3). Yet to be typed: multi-axis reductions
-(we support `reduce(x, axis=0)`, but not `reduce(x, axis=(0, 1))`),
-`keepdims=True`
+See [Coverage](docs/coverage.md).
 
 **Tensor unary operators**: For tensor `x`: `abs(x)`, `-x`, `+x`
 
