@@ -49,6 +49,7 @@ setuptools.setup(
         'tensor_annotations/tests',
     ],
     package_data={'tensor_annotations': stub_files + ['py.typed']},
+    install_requires=['dm-tree'],
     extras_require={'dev': [
         'absl-py',
         'pytype',
