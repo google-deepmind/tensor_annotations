@@ -96,15 +96,15 @@ TensorAnnotatations requires Python 3.8 or above, due to the use of
 To install custom tensor types:
 
 ```bash
-pip install git+https://github.com/deepmind/tensor_annotations
+pip install tensor_annotations
 ```
 
 Then, depending on whether you use JAX or TensorFlow:
 
 ```bash
-pip install 'git+https://github.com/deepmind/tensor_annotations#egg=jax-stubs&subdirectory=jax-stubs'
+pip install tensor_annotations_jax_stubs
 # and/or
-pip install 'git+https://github.com/deepmind/tensor_annotations#egg=tensorflow-stubs&subdirectory=tensorflow-stubs'
+pip install tensor_annotations_tensorflow_stubs
 ```
 
 If you use pytype, you'll also need to take a few extra steps to let
