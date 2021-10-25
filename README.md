@@ -220,16 +220,7 @@ b`, `a ** b`, `a < b`, `a > b`, `a <= b`, `a >= b`, `a * b`. Yet to be typed:
 
 #### JAX
 
-**Unary operators**: `jnp.abs`, `jnp.acos`, `jnp.acosh`, `jnp.asin`,
-`jnp.asinh`, `jnp.atan`, `jnp.atanh`, `jnp.cos`, `jnp.cosh`, `jnp.exp`,
-`jnp.floor`, `jnp.logical_not`, `jnp.negative`, `jnp.round`, `jnp.sigmoid`,
-`jnp.sign`, `jnp.sin`, `jnp.sinh`, `jnp.sqrt`, `jnp.square`, `jnp.tan`,
-`jnp.tanh`, `jnp.sqrt`
-
-**Tensor creation**: `jnp.ones`, `jnp.ones_like`, `jnp.zeros`, `jnp.zeros_like`
-
-**Axis manipulation**: `jnp.sum`, `jnp.mean` `jnp.transpose`. Yet to be typed:
-`keepdims=True`
+See [Coverage](docs/coverage.md).
 
 **Tensor unary operators**: For tensor `x`, `abs(x)`, `-x`, `+x`
 
