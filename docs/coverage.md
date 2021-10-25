@@ -8,7 +8,7 @@ Note that for TensorFlow, although we don't provide *shape-aware* stubs for
 functions marked ❌, we do provide normal stubs, so autocomplete etc should still
 work.
 
-Functions in the main module namespace (e.g. `tf.foo`, but not `tf.math.foo`):
+### `tensorflow`
 
 a-g                                  | g-r                                           | r-z
 ------------------------------------ | --------------------------------------------- | ---
@@ -64,3 +64,51 @@ a-g                                  | g-r                                      
 ❌&nbsp;&nbsp;foldl                   | ❌&nbsp;&nbsp;reverse                          | ✅&nbsp;&nbsp;zeros
 ❌&nbsp;&nbsp;foldr                   | ❌&nbsp;&nbsp;reverse_sequence                 | ✅&nbsp;&nbsp;zeros_like
 ❌&nbsp;&nbsp;gather                  | ❌&nbsp;&nbsp;roll                             |
+
+### `tensorflow.math`
+
+a-g                               | g-r                                 | r-z
+--------------------------------- | ----------------------------------- | ---
+✅&nbsp;&nbsp;abs                  | ❌&nbsp;&nbsp;greater_equal          | ❌&nbsp;&nbsp;reduce_max
+❌&nbsp;&nbsp;accumulate_n         | ❌&nbsp;&nbsp;igamma                 | ❌&nbsp;&nbsp;reduce_mean
+✅&nbsp;&nbsp;acos                 | ❌&nbsp;&nbsp;igammac                | ❌&nbsp;&nbsp;reduce_min
+✅&nbsp;&nbsp;acosh                | ❌&nbsp;&nbsp;imag                   | ❌&nbsp;&nbsp;reduce_prod
+❌&nbsp;&nbsp;add                  | ❌&nbsp;&nbsp;in_top_k               | ❌&nbsp;&nbsp;reduce_std
+❌&nbsp;&nbsp;add_n                | ❌&nbsp;&nbsp;invert_permutation     | ❌&nbsp;&nbsp;reduce_sum
+❌&nbsp;&nbsp;angle                | ✅&nbsp;&nbsp;is_finite              | ❌&nbsp;&nbsp;reduce_variance
+❌&nbsp;&nbsp;argmax               | ✅&nbsp;&nbsp;is_inf                 | ✅&nbsp;&nbsp;rint
+❌&nbsp;&nbsp;argmin               | ✅&nbsp;&nbsp;is_nan                 | ✅&nbsp;&nbsp;round
+✅&nbsp;&nbsp;asin                 | ❌&nbsp;&nbsp;is_non_decreasing      | ✅&nbsp;&nbsp;rsqrt
+✅&nbsp;&nbsp;asinh                | ❌&nbsp;&nbsp;is_strictly_increasing | ❌&nbsp;&nbsp;scalar_mul
+✅&nbsp;&nbsp;atan                 | ❌&nbsp;&nbsp;l2_normalize           | ❌&nbsp;&nbsp;segment_max
+❌&nbsp;&nbsp;atan2                | ✅&nbsp;&nbsp;lbeta                  | ❌&nbsp;&nbsp;segment_mean
+✅&nbsp;&nbsp;atanh                | ❌&nbsp;&nbsp;less                   | ❌&nbsp;&nbsp;segment_min
+❌&nbsp;&nbsp;bessel_i0            | ❌&nbsp;&nbsp;less_equal             | ❌&nbsp;&nbsp;segment_prod
+❌&nbsp;&nbsp;bessel_i0e           | ✅&nbsp;&nbsp;lgamma                 | ❌&nbsp;&nbsp;segment_sum
+❌&nbsp;&nbsp;bessel_i1            | ✅&nbsp;&nbsp;log                    | ✅&nbsp;&nbsp;sigmoid
+❌&nbsp;&nbsp;bessel_i1e           | ✅&nbsp;&nbsp;log1p                  | ✅&nbsp;&nbsp;sign
+❌&nbsp;&nbsp;betainc              | ✅&nbsp;&nbsp;log_sigmoid            | ✅&nbsp;&nbsp;sin
+❌&nbsp;&nbsp;bincount             | ❌&nbsp;&nbsp;log_softmax            | ✅&nbsp;&nbsp;sinh
+❌&nbsp;&nbsp;ceil                 | ❌&nbsp;&nbsp;logical_and            | ❌&nbsp;&nbsp;sobol_sample
+❌&nbsp;&nbsp;confusion_matrix     | ✅&nbsp;&nbsp;logical_not            | ❌&nbsp;&nbsp;softmax
+❌&nbsp;&nbsp;conj                 | ❌&nbsp;&nbsp;logical_or             | ✅&nbsp;&nbsp;softplus
+✅&nbsp;&nbsp;cos                  | ❌&nbsp;&nbsp;logical_xor            | ✅&nbsp;&nbsp;softsign
+✅&nbsp;&nbsp;cosh                 | ❌&nbsp;&nbsp;maximum                | ✅&nbsp;&nbsp;sqrt
+❌&nbsp;&nbsp;count_nonzero        | ❌&nbsp;&nbsp;minimum                | ✅&nbsp;&nbsp;square
+❌&nbsp;&nbsp;cumprod              | ❌&nbsp;&nbsp;mod                    | ❌&nbsp;&nbsp;squared_difference
+❌&nbsp;&nbsp;cumsum               | ❌&nbsp;&nbsp;multiply               | ❌&nbsp;&nbsp;subtract
+❌&nbsp;&nbsp;cumulative_logsumexp | ❌&nbsp;&nbsp;multiply_no_nan        | ✅&nbsp;&nbsp;tan
+❌&nbsp;&nbsp;digamma              | ✅&nbsp;&nbsp;ndtri                  | ✅&nbsp;&nbsp;tanh
+❌&nbsp;&nbsp;divide               | ✅&nbsp;&nbsp;negative               | ❌&nbsp;&nbsp;top_k
+❌&nbsp;&nbsp;divide_no_nan        | ❌&nbsp;&nbsp;nextafter              | ❌&nbsp;&nbsp;truediv
+❌&nbsp;&nbsp;equal                | ❌&nbsp;&nbsp;not_equal              | ❌&nbsp;&nbsp;unsorted_segment_max
+✅&nbsp;&nbsp;erf                  | ❌&nbsp;&nbsp;polygamma              | ❌&nbsp;&nbsp;unsorted_segment_mean
+✅&nbsp;&nbsp;erfc                 | ❌&nbsp;&nbsp;polyval                | ❌&nbsp;&nbsp;unsorted_segment_min
+❌&nbsp;&nbsp;erfcinv              | ❌&nbsp;&nbsp;pow                    | ❌&nbsp;&nbsp;unsorted_segment_prod
+✅&nbsp;&nbsp;erfinv               | ❌&nbsp;&nbsp;real                   | ❌&nbsp;&nbsp;unsorted_segment_sqrt_n
+✅&nbsp;&nbsp;exp                  | ✅&nbsp;&nbsp;reciprocal             | ❌&nbsp;&nbsp;unsorted_segment_sum
+✅&nbsp;&nbsp;expm1                | ✅&nbsp;&nbsp;reciprocal_no_nan      | ❌&nbsp;&nbsp;xdivy
+✅&nbsp;&nbsp;floor                | ❌&nbsp;&nbsp;reduce_all             | ❌&nbsp;&nbsp;xlog1py
+❌&nbsp;&nbsp;floordiv             | ❌&nbsp;&nbsp;reduce_any             | ❌&nbsp;&nbsp;xlogy
+❌&nbsp;&nbsp;floormod             | ❌&nbsp;&nbsp;reduce_euclidean_norm  | ❌&nbsp;&nbsp;zero_fraction
+❌&nbsp;&nbsp;greater              | ❌&nbsp;&nbsp;reduce_logsumexp       | ❌&nbsp;&nbsp;zeta
