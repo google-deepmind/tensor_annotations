@@ -4,9 +4,9 @@ This page documents which functions we provide shape-aware stubs for.
 
 ## TensorFlow
 
-Note that for TensorFlow, although we don't provide _shape-aware_ stubs for
-functions marked ❌, we do provide normal stubs, so autocomplete etc should
-still work.
+Note that for TensorFlow, although we don't provide *shape-aware* stubs for
+functions marked ❌, we do provide normal stubs, so autocomplete etc should still
+work.
 
 Functions in the main module namespace (e.g. `tf.foo`, but not `tf.math.foo`):
 
