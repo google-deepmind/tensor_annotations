@@ -10,6 +10,7 @@ To regenerate, run the following from the tensor_annotations directory:
 
 from typing import Any, TypeVar, Tuple, Sequence, Generic, overload, Union
 
+import numpy as np
 import tensorflow as tf
 from tensor_annotations.axes import Axis
 
@@ -38,6 +39,8 @@ class Tensor0:
   def __getitem__(self, index) -> Any: ...
 
   def __setitem__(self, index, value) -> Any: ...
+
+  def numpy(self) -> Any: ...  # Returns a scalar value, *not* an ndarray.
 
   shape: tf.TensorShape
   dtype: Any
@@ -359,6 +362,8 @@ class Tensor1(Generic[A1]):
 
   def __setitem__(self, index, value) -> Any: ...
 
+  def numpy(self) -> np.ndarray: ...
+
   shape: tf.TensorShape
   dtype: Any
 
@@ -480,6 +485,8 @@ class Tensor2(Generic[A1, A2]):
   def __getitem__(self, index) -> Any: ...
 
   def __setitem__(self, index, value) -> Any: ...
+
+  def numpy(self) -> np.ndarray: ...
 
   shape: tf.TensorShape
   dtype: Any
@@ -635,6 +642,8 @@ class Tensor3(Generic[A1, A2, A3]):
   def __getitem__(self, index) -> Any: ...
 
   def __setitem__(self, index, value) -> Any: ...
+
+  def numpy(self) -> np.ndarray: ...
 
   shape: tf.TensorShape
   dtype: Any
@@ -823,6 +832,8 @@ class Tensor4(Generic[A1, A2, A3, A4]):
   def __getitem__(self, index) -> Any: ...
 
   def __setitem__(self, index, value) -> Any: ...
+
+  def numpy(self) -> np.ndarray: ...
 
   shape: tf.TensorShape
   dtype: Any
@@ -1042,6 +1053,8 @@ class Tensor5(Generic[A1, A2, A3, A4, A5]):
   def __getitem__(self, index) -> Any: ...
 
   def __setitem__(self, index, value) -> Any: ...
+
+  def numpy(self) -> np.ndarray: ...
 
   shape: tf.TensorShape
   dtype: Any
@@ -1296,6 +1309,8 @@ class Tensor6(Generic[A1, A2, A3, A4, A5, A6]):
   def __getitem__(self, index) -> Any: ...
 
   def __setitem__(self, index, value) -> Any: ...
+
+  def numpy(self) -> np.ndarray: ...
 
   shape: tf.TensorShape
   dtype: Any
@@ -1583,6 +1598,8 @@ class Tensor7(Generic[A1, A2, A3, A4, A5, A6, A7]):
   def __getitem__(self, index) -> Any: ...
 
   def __setitem__(self, index, value) -> Any: ...
+
+  def numpy(self) -> np.ndarray: ...
 
   shape: tf.TensorShape
   dtype: Any
@@ -1903,6 +1920,8 @@ class Tensor8(Generic[A1, A2, A3, A4, A5, A6, A7, A8]):
   def __getitem__(self, index) -> Any: ...
 
   def __setitem__(self, index, value) -> Any: ...
+
+  def numpy(self) -> np.ndarray: ...
 
   shape: tf.TensorShape
   dtype: Any

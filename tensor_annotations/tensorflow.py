@@ -64,6 +64,9 @@ class _TensorBase:
   shape: Any
   dtype: Any
 
+  def numpy(self) -> Any:
+    pass
+
 
 class Tensor0(_TensorBase):
   """A scalar - produced by e.g. tf.reduce_sum(tf.zeros((2, 3)))."""
