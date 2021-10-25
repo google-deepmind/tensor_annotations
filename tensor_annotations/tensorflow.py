@@ -62,6 +62,7 @@ class _TensorBase:
   __sub__: Any
   __truediv__: Any
   shape: Any
+  dtype: Any
 
 
 class Tensor0(_TensorBase):

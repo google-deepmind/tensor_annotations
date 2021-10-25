@@ -40,6 +40,7 @@ class Tensor0:
   def __setitem__(self, index, value) -> Any: ...
 
   shape: tf.TensorShape
+  dtype: Any
 
   # BEGIN: Unary operators
 
@@ -359,6 +360,7 @@ class Tensor1(Generic[A1]):
   def __setitem__(self, index, value) -> Any: ...
 
   shape: tf.TensorShape
+  dtype: Any
 
   # BEGIN: Unary operators
 
@@ -480,6 +482,7 @@ class Tensor2(Generic[A1, A2]):
   def __setitem__(self, index, value) -> Any: ...
 
   shape: tf.TensorShape
+  dtype: Any
 
   # BEGIN: Unary operators
 
@@ -634,6 +637,7 @@ class Tensor3(Generic[A1, A2, A3]):
   def __setitem__(self, index, value) -> Any: ...
 
   shape: tf.TensorShape
+  dtype: Any
 
   # BEGIN: Unary operators
 
@@ -821,6 +825,7 @@ class Tensor4(Generic[A1, A2, A3, A4]):
   def __setitem__(self, index, value) -> Any: ...
 
   shape: tf.TensorShape
+  dtype: Any
 
   # BEGIN: Unary operators
 
@@ -1039,6 +1044,7 @@ class Tensor5(Generic[A1, A2, A3, A4, A5]):
   def __setitem__(self, index, value) -> Any: ...
 
   shape: tf.TensorShape
+  dtype: Any
 
   # BEGIN: Unary operators
 
@@ -1292,6 +1298,7 @@ class Tensor6(Generic[A1, A2, A3, A4, A5, A6]):
   def __setitem__(self, index, value) -> Any: ...
 
   shape: tf.TensorShape
+  dtype: Any
 
   # BEGIN: Unary operators
 
@@ -1578,6 +1585,7 @@ class Tensor7(Generic[A1, A2, A3, A4, A5, A6, A7]):
   def __setitem__(self, index, value) -> Any: ...
 
   shape: tf.TensorShape
+  dtype: Any
 
   # BEGIN: Unary operators
 
@@ -1897,6 +1905,7 @@ class Tensor8(Generic[A1, A2, A3, A4, A5, A6, A7, A8]):
   def __setitem__(self, index, value) -> Any: ...
 
   shape: tf.TensorShape
+  dtype: Any
 
   # BEGIN: Unary operators
 
