@@ -25,14 +25,13 @@ from typing import overload, Any, List, Literal, Tuple, TypeVar
 from tensor_annotations.jax import Array0, Array1, Array2, Array3, Array4
 from tensor_annotations.axes import Axis
 
+
 A1 = TypeVar('A1', bound=Axis)
 A2 = TypeVar('A2', bound=Axis)
 A3 = TypeVar('A3', bound=Axis)
 A4 = TypeVar('A4', bound=Axis)
 
-
 class ndarray: ...
-
 
 Shape1 = Tuple[int]
 Shape2 = Tuple[int, int]
@@ -47,6 +46,8 @@ L4 = Literal[4]
 
 
 # ---------- UNARY OPERATORS ----------
+
+
 
 
 @overload
@@ -69,6 +70,7 @@ def abs(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
 def abs(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
 
 
+
 @overload
 def acos(x: Array0) -> Array0: ...
 
@@ -87,6 +89,7 @@ def acos(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
 
 @overload
 def acos(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
+
 
 
 @overload
@@ -109,6 +112,7 @@ def acosh(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
 def acosh(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
 
 
+
 @overload
 def asin(x: Array0) -> Array0: ...
 
@@ -127,6 +131,7 @@ def asin(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
 
 @overload
 def asin(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
+
 
 
 @overload
@@ -149,6 +154,7 @@ def asinh(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
 def asinh(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
 
 
+
 @overload
 def atan(x: Array0) -> Array0: ...
 
@@ -167,6 +173,7 @@ def atan(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
 
 @overload
 def atan(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
+
 
 
 @overload
@@ -189,6 +196,7 @@ def atanh(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
 def atanh(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
 
 
+
 @overload
 def cos(x: Array0) -> Array0: ...
 
@@ -207,6 +215,7 @@ def cos(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
 
 @overload
 def cos(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
+
 
 
 @overload
@@ -229,6 +238,7 @@ def cosh(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
 def cosh(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
 
 
+
 @overload
 def exp(x: Array0) -> Array0: ...
 
@@ -247,6 +257,7 @@ def exp(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
 
 @overload
 def exp(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
+
 
 
 @overload
@@ -269,6 +280,7 @@ def floor(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
 def floor(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
 
 
+
 @overload
 def logical_not(x: Array0) -> Array0: ...
 
@@ -287,6 +299,7 @@ def logical_not(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
 
 @overload
 def logical_not(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
+
 
 
 @overload
@@ -309,6 +322,7 @@ def negative(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
 def negative(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
 
 
+
 @overload
 def sigmoid(x: Array0) -> Array0: ...
 
@@ -327,6 +341,7 @@ def sigmoid(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
 
 @overload
 def sigmoid(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
+
 
 
 @overload
@@ -349,6 +364,7 @@ def sign(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
 def sign(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
 
 
+
 @overload
 def sin(x: Array0) -> Array0: ...
 
@@ -367,6 +383,7 @@ def sin(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
 
 @overload
 def sin(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
+
 
 
 @overload
@@ -389,6 +406,7 @@ def sinh(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
 def sinh(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
 
 
+
 @overload
 def sqrt(x: Array0) -> Array0: ...
 
@@ -407,6 +425,7 @@ def sqrt(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
 
 @overload
 def sqrt(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
+
 
 
 @overload
@@ -429,6 +448,7 @@ def square(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
 def square(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
 
 
+
 @overload
 def tan(x: Array0) -> Array0: ...
 
@@ -447,6 +467,7 @@ def tan(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
 
 @overload
 def tan(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
+
 
 
 @overload
@@ -469,6 +490,11 @@ def tanh(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
 def tanh(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
 
 
+
+
+
+
+
 @overload
 def zeros_like(x: Array0, dtype=...) -> Array0: ...
 
@@ -489,6 +515,7 @@ def zeros_like(x: Array3[A1, A2, A3], dtype=...) -> Array3[A1, A2, A3]: ...
 def zeros_like(x: Array4[A1, A2, A3, A4], dtype=...) -> Array4[A1, A2, A3, A4]: ...
 
 
+
 @overload
 def ones_like(x: Array0, dtype=...) -> Array0: ...
 
@@ -507,6 +534,8 @@ def ones_like(x: Array3[A1, A2, A3], dtype=...) -> Array3[A1, A2, A3]: ...
 
 @overload
 def ones_like(x: Array4[A1, A2, A3, A4], dtype=...) -> Array4[A1, A2, A3, A4]: ...
+
+
 
 
 @overload
@@ -533,7 +562,6 @@ def round(x: Array4[A1, A2, A3, A4], decimals=...) -> Array4[A1, A2, A3, A4]: ..
 @overload
 def sqrt(x: float) -> float: ...
 
-
 # ---------- ZEROS, ONES ----------
 
 # Can't type these properly when shape is specified as a list. :(
@@ -547,12 +575,17 @@ def zeros(shape: List, dtype=...) -> Any: ...
 def zeros(shape: L0, dtype=...) -> Array0: ...
 
 
+
+
+
 @overload
 def zeros(shape: L1, dtype=...) -> Array1[Any]: ...
 
 
 @overload
 def zeros(shape: Shape1, dtype=...) -> Array1[Any]: ...
+
+
 
 
 @overload
@@ -563,6 +596,8 @@ def zeros(shape: L2, dtype=...) -> Array2[Any, Any]: ...
 def zeros(shape: Shape2, dtype=...) -> Array2[Any, Any]: ...
 
 
+
+
 @overload
 def zeros(shape: L3, dtype=...) -> Array3[Any, Any, Any]: ...
 
@@ -571,12 +606,15 @@ def zeros(shape: L3, dtype=...) -> Array3[Any, Any, Any]: ...
 def zeros(shape: Shape3, dtype=...) -> Array3[Any, Any, Any]: ...
 
 
+
+
 @overload
 def zeros(shape: L4, dtype=...) -> Array4[Any, Any, Any, Any]: ...
 
 
 @overload
 def zeros(shape: Shape4, dtype=...) -> Array4[Any, Any, Any, Any]: ...
+
 
 
 # Array0 is down here because otherwise it'd match shape e.g. Tuple[Any, Any]
@@ -594,12 +632,17 @@ def ones(shape: List, dtype=...) -> Any: ...
 def ones(shape: L0, dtype=...) -> Array0: ...
 
 
+
+
+
 @overload
 def ones(shape: L1, dtype=...) -> Array1[Any]: ...
 
 
 @overload
 def ones(shape: Shape1, dtype=...) -> Array1[Any]: ...
+
+
 
 
 @overload
@@ -610,12 +653,16 @@ def ones(shape: L2, dtype=...) -> Array2[Any, Any]: ...
 def ones(shape: Shape2, dtype=...) -> Array2[Any, Any]: ...
 
 
+
+
 @overload
 def ones(shape: L3, dtype=...) -> Array3[Any, Any, Any]: ...
 
 
 @overload
 def ones(shape: Shape3, dtype=...) -> Array3[Any, Any, Any]: ...
+
+
 
 
 @overload
@@ -626,12 +673,14 @@ def ones(shape: L4, dtype=...) -> Array4[Any, Any, Any, Any]: ...
 def ones(shape: Shape4, dtype=...) -> Array4[Any, Any, Any, Any]: ...
 
 
+
 # See note about Array0 in `zeros`
 @overload
 def ones(shape: Tuple[()], dtype=...) -> Array0: ...
 
 
 # ---------- REDUCTION OPERATORS ----------
+
 
 
 ## keepdims = True: yet be to be typed
@@ -660,13 +709,14 @@ def sum(
     dtype=...
 ) -> Any: ...
 
-
 ## keepdims = False or unspecified
+
 
 
 ### n_axes = 1
 
 #### `axis` specified
+
 
 
 @overload
@@ -677,14 +727,14 @@ def sum(
 ) -> Array0: ...
 
 
+
 # Fallback: `axis` not any of the above
 @overload
 def sum(
     a: Array1[Any],
-    axis: Literal[Any],
+    axis: Any,
     out=..., keepdims=..., dtype=...
 ) -> Any: ...
-
 
 #### `axis` unspecified
 
@@ -695,9 +745,11 @@ def sum(
 ) -> Array0: ...
 
 
+
 ### n_axes = 2
 
 #### `axis` specified
+
 
 
 @overload
@@ -708,12 +760,14 @@ def sum(
 ) -> Array1[A2]: ...
 
 
+
 @overload
 def sum(
     a: Array2[A1, A2],
     axis: L1,
     out=..., keepdims=..., dtype=...
 ) -> Array1[A1]: ...
+
 
 
 @overload
@@ -724,14 +778,14 @@ def sum(
 ) -> Array0: ...
 
 
+
 # Fallback: `axis` not any of the above
 @overload
 def sum(
     a: Array2[Any, Any],
-    axis: Literal[Any],
+    axis: Any,
     out=..., keepdims=..., dtype=...
 ) -> Any: ...
-
 
 #### `axis` unspecified
 
@@ -742,9 +796,11 @@ def sum(
 ) -> Array0: ...
 
 
+
 ### n_axes = 3
 
 #### `axis` specified
+
 
 
 @overload
@@ -755,12 +811,14 @@ def sum(
 ) -> Array2[A2, A3]: ...
 
 
+
 @overload
 def sum(
     a: Array3[A1, A2, A3],
     axis: L1,
     out=..., keepdims=..., dtype=...
 ) -> Array2[A1, A3]: ...
+
 
 
 @overload
@@ -771,12 +829,14 @@ def sum(
 ) -> Array2[A1, A2]: ...
 
 
+
 @overload
 def sum(
     a: Array3[A1, A2, A3],
     axis: Tuple[L0, L1],
     out=..., keepdims=..., dtype=...
 ) -> Array1[A3]: ...
+
 
 
 @overload
@@ -787,12 +847,14 @@ def sum(
 ) -> Array1[A2]: ...
 
 
+
 @overload
 def sum(
     a: Array3[A1, A2, A3],
     axis: Tuple[L1, L2],
     out=..., keepdims=..., dtype=...
 ) -> Array1[A1]: ...
+
 
 
 @overload
@@ -803,14 +865,14 @@ def sum(
 ) -> Array0: ...
 
 
+
 # Fallback: `axis` not any of the above
 @overload
 def sum(
     a: Array3[Any, Any, Any],
-    axis: Literal[Any],
+    axis: Any,
     out=..., keepdims=..., dtype=...
 ) -> Any: ...
-
 
 #### `axis` unspecified
 
@@ -821,9 +883,11 @@ def sum(
 ) -> Array0: ...
 
 
+
 ### n_axes = 4
 
 #### `axis` specified
+
 
 
 @overload
@@ -834,12 +898,14 @@ def sum(
 ) -> Array3[A2, A3, A4]: ...
 
 
+
 @overload
 def sum(
     a: Array4[A1, A2, A3, A4],
     axis: L1,
     out=..., keepdims=..., dtype=...
 ) -> Array3[A1, A3, A4]: ...
+
 
 
 @overload
@@ -850,12 +916,14 @@ def sum(
 ) -> Array3[A1, A2, A4]: ...
 
 
+
 @overload
 def sum(
     a: Array4[A1, A2, A3, A4],
     axis: L3,
     out=..., keepdims=..., dtype=...
 ) -> Array3[A1, A2, A3]: ...
+
 
 
 @overload
@@ -866,12 +934,14 @@ def sum(
 ) -> Array2[A3, A4]: ...
 
 
+
 @overload
 def sum(
     a: Array4[A1, A2, A3, A4],
     axis: Tuple[L0, L2],
     out=..., keepdims=..., dtype=...
 ) -> Array2[A2, A4]: ...
+
 
 
 @overload
@@ -882,12 +952,14 @@ def sum(
 ) -> Array2[A2, A3]: ...
 
 
+
 @overload
 def sum(
     a: Array4[A1, A2, A3, A4],
     axis: Tuple[L1, L2],
     out=..., keepdims=..., dtype=...
 ) -> Array2[A1, A4]: ...
+
 
 
 @overload
@@ -898,12 +970,14 @@ def sum(
 ) -> Array2[A1, A3]: ...
 
 
+
 @overload
 def sum(
     a: Array4[A1, A2, A3, A4],
     axis: Tuple[L2, L3],
     out=..., keepdims=..., dtype=...
 ) -> Array2[A1, A2]: ...
+
 
 
 @overload
@@ -914,12 +988,14 @@ def sum(
 ) -> Array1[A4]: ...
 
 
+
 @overload
 def sum(
     a: Array4[A1, A2, A3, A4],
     axis: Tuple[L0, L1, L3],
     out=..., keepdims=..., dtype=...
 ) -> Array1[A3]: ...
+
 
 
 @overload
@@ -930,12 +1006,14 @@ def sum(
 ) -> Array1[A2]: ...
 
 
+
 @overload
 def sum(
     a: Array4[A1, A2, A3, A4],
     axis: Tuple[L1, L2, L3],
     out=..., keepdims=..., dtype=...
 ) -> Array1[A1]: ...
+
 
 
 @overload
@@ -946,14 +1024,14 @@ def sum(
 ) -> Array0: ...
 
 
+
 # Fallback: `axis` not any of the above
 @overload
 def sum(
     a: Array4[Any, Any, Any, Any],
-    axis: Literal[Any],
+    axis: Any,
     out=..., keepdims=..., dtype=...
 ) -> Any: ...
-
 
 #### `axis` unspecified
 
@@ -964,6 +1042,7 @@ def sum(
 ) -> Array0: ...
 
 
+
 ### Some weird argument like a list of arrays
 
 @overload
@@ -972,6 +1051,7 @@ def sum(
     axis=...,
     out=..., keepdims=..., dtype=...
 ) -> Any: ...
+
 
 
 ## keepdims = True: yet be to be typed
@@ -1000,13 +1080,14 @@ def mean(
     dtype=...
 ) -> Any: ...
 
-
 ## keepdims = False or unspecified
+
 
 
 ### n_axes = 1
 
 #### `axis` specified
+
 
 
 @overload
@@ -1017,14 +1098,14 @@ def mean(
 ) -> Array0: ...
 
 
+
 # Fallback: `axis` not any of the above
 @overload
 def mean(
     a: Array1[Any],
-    axis: Literal[Any],
+    axis: Any,
     out=..., keepdims=..., dtype=...
 ) -> Any: ...
-
 
 #### `axis` unspecified
 
@@ -1035,9 +1116,11 @@ def mean(
 ) -> Array0: ...
 
 
+
 ### n_axes = 2
 
 #### `axis` specified
+
 
 
 @overload
@@ -1048,12 +1131,14 @@ def mean(
 ) -> Array1[A2]: ...
 
 
+
 @overload
 def mean(
     a: Array2[A1, A2],
     axis: L1,
     out=..., keepdims=..., dtype=...
 ) -> Array1[A1]: ...
+
 
 
 @overload
@@ -1064,14 +1149,14 @@ def mean(
 ) -> Array0: ...
 
 
+
 # Fallback: `axis` not any of the above
 @overload
 def mean(
     a: Array2[Any, Any],
-    axis: Literal[Any],
+    axis: Any,
     out=..., keepdims=..., dtype=...
 ) -> Any: ...
-
 
 #### `axis` unspecified
 
@@ -1082,9 +1167,11 @@ def mean(
 ) -> Array0: ...
 
 
+
 ### n_axes = 3
 
 #### `axis` specified
+
 
 
 @overload
@@ -1095,12 +1182,14 @@ def mean(
 ) -> Array2[A2, A3]: ...
 
 
+
 @overload
 def mean(
     a: Array3[A1, A2, A3],
     axis: L1,
     out=..., keepdims=..., dtype=...
 ) -> Array2[A1, A3]: ...
+
 
 
 @overload
@@ -1111,12 +1200,14 @@ def mean(
 ) -> Array2[A1, A2]: ...
 
 
+
 @overload
 def mean(
     a: Array3[A1, A2, A3],
     axis: Tuple[L0, L1],
     out=..., keepdims=..., dtype=...
 ) -> Array1[A3]: ...
+
 
 
 @overload
@@ -1127,12 +1218,14 @@ def mean(
 ) -> Array1[A2]: ...
 
 
+
 @overload
 def mean(
     a: Array3[A1, A2, A3],
     axis: Tuple[L1, L2],
     out=..., keepdims=..., dtype=...
 ) -> Array1[A1]: ...
+
 
 
 @overload
@@ -1143,14 +1236,14 @@ def mean(
 ) -> Array0: ...
 
 
+
 # Fallback: `axis` not any of the above
 @overload
 def mean(
     a: Array3[Any, Any, Any],
-    axis: Literal[Any],
+    axis: Any,
     out=..., keepdims=..., dtype=...
 ) -> Any: ...
-
 
 #### `axis` unspecified
 
@@ -1161,9 +1254,11 @@ def mean(
 ) -> Array0: ...
 
 
+
 ### n_axes = 4
 
 #### `axis` specified
+
 
 
 @overload
@@ -1174,12 +1269,14 @@ def mean(
 ) -> Array3[A2, A3, A4]: ...
 
 
+
 @overload
 def mean(
     a: Array4[A1, A2, A3, A4],
     axis: L1,
     out=..., keepdims=..., dtype=...
 ) -> Array3[A1, A3, A4]: ...
+
 
 
 @overload
@@ -1190,12 +1287,14 @@ def mean(
 ) -> Array3[A1, A2, A4]: ...
 
 
+
 @overload
 def mean(
     a: Array4[A1, A2, A3, A4],
     axis: L3,
     out=..., keepdims=..., dtype=...
 ) -> Array3[A1, A2, A3]: ...
+
 
 
 @overload
@@ -1206,12 +1305,14 @@ def mean(
 ) -> Array2[A3, A4]: ...
 
 
+
 @overload
 def mean(
     a: Array4[A1, A2, A3, A4],
     axis: Tuple[L0, L2],
     out=..., keepdims=..., dtype=...
 ) -> Array2[A2, A4]: ...
+
 
 
 @overload
@@ -1222,12 +1323,14 @@ def mean(
 ) -> Array2[A2, A3]: ...
 
 
+
 @overload
 def mean(
     a: Array4[A1, A2, A3, A4],
     axis: Tuple[L1, L2],
     out=..., keepdims=..., dtype=...
 ) -> Array2[A1, A4]: ...
+
 
 
 @overload
@@ -1238,12 +1341,14 @@ def mean(
 ) -> Array2[A1, A3]: ...
 
 
+
 @overload
 def mean(
     a: Array4[A1, A2, A3, A4],
     axis: Tuple[L2, L3],
     out=..., keepdims=..., dtype=...
 ) -> Array2[A1, A2]: ...
+
 
 
 @overload
@@ -1254,12 +1359,14 @@ def mean(
 ) -> Array1[A4]: ...
 
 
+
 @overload
 def mean(
     a: Array4[A1, A2, A3, A4],
     axis: Tuple[L0, L1, L3],
     out=..., keepdims=..., dtype=...
 ) -> Array1[A3]: ...
+
 
 
 @overload
@@ -1270,12 +1377,14 @@ def mean(
 ) -> Array1[A2]: ...
 
 
+
 @overload
 def mean(
     a: Array4[A1, A2, A3, A4],
     axis: Tuple[L1, L2, L3],
     out=..., keepdims=..., dtype=...
 ) -> Array1[A1]: ...
+
 
 
 @overload
@@ -1286,14 +1395,14 @@ def mean(
 ) -> Array0: ...
 
 
+
 # Fallback: `axis` not any of the above
 @overload
 def mean(
     a: Array4[Any, Any, Any, Any],
-    axis: Literal[Any],
+    axis: Any,
     out=..., keepdims=..., dtype=...
 ) -> Any: ...
-
 
 #### `axis` unspecified
 
@@ -1302,6 +1411,7 @@ def mean(
     a: Array4[Any, Any, Any, Any],
     out=..., keepdims=..., dtype=...
 ) -> Array0: ...
+
 
 
 ### Some weird argument like a list of arrays
@@ -1314,12 +1424,15 @@ def mean(
 ) -> Any: ...
 
 
+
 # ---------- TRANSPOSE ----------
+
 
 
 ### n_axes = 1
 
 #### `axes` specified
+
 
 
 @overload
@@ -1329,7 +1442,12 @@ def transpose(
 ) -> Array1[A1]: ...
 
 
+
 #### `axes` unspecified
+
+
+
+
 
 
 @overload
@@ -1338,9 +1456,11 @@ def transpose(
 ) -> Array1[A1]: ...
 
 
+
 ### n_axes = 2
 
 #### `axes` specified
+
 
 
 @overload
@@ -1350,6 +1470,7 @@ def transpose(
 ) -> Array2[A1, A2]: ...
 
 
+
 @overload
 def transpose(
     a: Array2[A1, A2],
@@ -1357,7 +1478,12 @@ def transpose(
 ) -> Array2[A2, A1]: ...
 
 
+
 #### `axes` unspecified
+
+
+
+
 
 
 @overload
@@ -1366,9 +1492,11 @@ def transpose(
 ) -> Array2[A2, A1]: ...
 
 
+
 ### n_axes = 3
 
 #### `axes` specified
+
 
 
 @overload
@@ -1378,11 +1506,13 @@ def transpose(
 ) -> Array3[A1, A2, A3]: ...
 
 
+
 @overload
 def transpose(
     a: Array3[A1, A2, A3],
     axes: Tuple[L0, L2, L1]
 ) -> Array3[A1, A3, A2]: ...
+
 
 
 @overload
@@ -1392,11 +1522,13 @@ def transpose(
 ) -> Array3[A2, A1, A3]: ...
 
 
+
 @overload
 def transpose(
     a: Array3[A1, A2, A3],
     axes: Tuple[L1, L2, L0]
 ) -> Array3[A2, A3, A1]: ...
+
 
 
 @overload
@@ -1406,6 +1538,7 @@ def transpose(
 ) -> Array3[A3, A1, A2]: ...
 
 
+
 @overload
 def transpose(
     a: Array3[A1, A2, A3],
@@ -1413,7 +1546,12 @@ def transpose(
 ) -> Array3[A3, A2, A1]: ...
 
 
+
 #### `axes` unspecified
+
+
+
+
 
 
 @overload
@@ -1422,9 +1560,11 @@ def transpose(
 ) -> Array3[A3, A2, A1]: ...
 
 
+
 ### n_axes = 4
 
 #### `axes` specified
+
 
 
 @overload
@@ -1434,11 +1574,13 @@ def transpose(
 ) -> Array4[A1, A2, A3, A4]: ...
 
 
+
 @overload
 def transpose(
     a: Array4[A1, A2, A3, A4],
     axes: Tuple[L0, L1, L3, L2]
 ) -> Array4[A1, A2, A4, A3]: ...
+
 
 
 @overload
@@ -1448,11 +1590,13 @@ def transpose(
 ) -> Array4[A1, A3, A2, A4]: ...
 
 
+
 @overload
 def transpose(
     a: Array4[A1, A2, A3, A4],
     axes: Tuple[L0, L2, L3, L1]
 ) -> Array4[A1, A3, A4, A2]: ...
+
 
 
 @overload
@@ -1462,11 +1606,13 @@ def transpose(
 ) -> Array4[A1, A4, A2, A3]: ...
 
 
+
 @overload
 def transpose(
     a: Array4[A1, A2, A3, A4],
     axes: Tuple[L0, L3, L2, L1]
 ) -> Array4[A1, A4, A3, A2]: ...
+
 
 
 @overload
@@ -1476,11 +1622,13 @@ def transpose(
 ) -> Array4[A2, A1, A3, A4]: ...
 
 
+
 @overload
 def transpose(
     a: Array4[A1, A2, A3, A4],
     axes: Tuple[L1, L0, L3, L2]
 ) -> Array4[A2, A1, A4, A3]: ...
+
 
 
 @overload
@@ -1490,11 +1638,13 @@ def transpose(
 ) -> Array4[A2, A3, A1, A4]: ...
 
 
+
 @overload
 def transpose(
     a: Array4[A1, A2, A3, A4],
     axes: Tuple[L1, L2, L3, L0]
 ) -> Array4[A2, A3, A4, A1]: ...
+
 
 
 @overload
@@ -1504,11 +1654,13 @@ def transpose(
 ) -> Array4[A2, A4, A1, A3]: ...
 
 
+
 @overload
 def transpose(
     a: Array4[A1, A2, A3, A4],
     axes: Tuple[L1, L3, L2, L0]
 ) -> Array4[A2, A4, A3, A1]: ...
+
 
 
 @overload
@@ -1518,11 +1670,13 @@ def transpose(
 ) -> Array4[A3, A1, A2, A4]: ...
 
 
+
 @overload
 def transpose(
     a: Array4[A1, A2, A3, A4],
     axes: Tuple[L2, L0, L3, L1]
 ) -> Array4[A3, A1, A4, A2]: ...
+
 
 
 @overload
@@ -1532,11 +1686,13 @@ def transpose(
 ) -> Array4[A3, A2, A1, A4]: ...
 
 
+
 @overload
 def transpose(
     a: Array4[A1, A2, A3, A4],
     axes: Tuple[L2, L1, L3, L0]
 ) -> Array4[A3, A2, A4, A1]: ...
+
 
 
 @overload
@@ -1546,11 +1702,13 @@ def transpose(
 ) -> Array4[A3, A4, A1, A2]: ...
 
 
+
 @overload
 def transpose(
     a: Array4[A1, A2, A3, A4],
     axes: Tuple[L2, L3, L1, L0]
 ) -> Array4[A3, A4, A2, A1]: ...
+
 
 
 @overload
@@ -1560,11 +1718,13 @@ def transpose(
 ) -> Array4[A4, A1, A2, A3]: ...
 
 
+
 @overload
 def transpose(
     a: Array4[A1, A2, A3, A4],
     axes: Tuple[L3, L0, L2, L1]
 ) -> Array4[A4, A1, A3, A2]: ...
+
 
 
 @overload
@@ -1574,11 +1734,13 @@ def transpose(
 ) -> Array4[A4, A2, A1, A3]: ...
 
 
+
 @overload
 def transpose(
     a: Array4[A1, A2, A3, A4],
     axes: Tuple[L3, L1, L2, L0]
 ) -> Array4[A4, A2, A3, A1]: ...
+
 
 
 @overload
@@ -1588,6 +1750,7 @@ def transpose(
 ) -> Array4[A4, A3, A1, A2]: ...
 
 
+
 @overload
 def transpose(
     a: Array4[A1, A2, A3, A4],
@@ -1595,13 +1758,19 @@ def transpose(
 ) -> Array4[A4, A3, A2, A1]: ...
 
 
+
 #### `axes` unspecified
+
+
+
+
 
 
 @overload
 def transpose(
     a: Array4[A1, A2, A3, A4]
 ) -> Array4[A4, A3, A2, A1]: ...
+
 
 
 # ---------- EVERYTHING ELSE: UNTYPED ----------
@@ -1743,6 +1912,8 @@ bool_: Any
 
 broadcast_arrays: Any
 
+broadcast_shapes: Any
+
 broadcast_to: Any
 
 busday_count: Any
@@ -1750,6 +1921,8 @@ busday_count: Any
 busday_offset: Any
 
 byte_bounds: Any
+
+c_: Any
 
 can_cast: Any
 
@@ -1951,11 +2124,9 @@ full: Any
 
 full_like: Any
 
-function: Any
-
-fv: Any
-
 gcd: Any
+
+generic: Any
 
 genfromtxt: Any
 
@@ -2011,6 +2182,8 @@ imag: Any
 
 in1d: Any
 
+index_exp: Any
+
 indices: Any
 
 inexact: Any
@@ -2033,8 +2206,6 @@ int8: Any
 
 int_: Any
 
-int_asbuffer: Any
-
 integer: Any
 
 interp: Any
@@ -2042,10 +2213,6 @@ interp: Any
 intersect1d: Any
 
 invert: Any
-
-ipmt: Any
-
-irr: Any
 
 is_busday: Any
 
@@ -2092,8 +2259,6 @@ ix_: Any
 kaiser: Any
 
 kron: Any
-
-lax_numpy: Any
 
 lcm: Any
 
@@ -2159,6 +2324,8 @@ median: Any
 
 meshgrid: Any
 
+mgrid: Any
+
 min: Any
 
 min_scalar_type: Any
@@ -2166,8 +2333,6 @@ min_scalar_type: Any
 minimum: Any
 
 mintypecode: Any
-
-mirr: Any
 
 mod: Any
 
@@ -2225,19 +2390,13 @@ nonzero: Any
 
 not_equal: Any
 
-nper: Any
-
-npv: Any
-
 number: Any
-
-numpy_version: Any
 
 obj2sctype: Any
 
 object_: Any
 
-operator_name: Any
+ogrid: Any
 
 outer: Any
 
@@ -2254,8 +2413,6 @@ pi: Any
 piecewise: Any
 
 place: Any
-
-pmt: Any
 
 poly: Any
 
@@ -2279,8 +2436,6 @@ positive: Any
 
 power: Any
 
-ppmt: Any
-
 printoptions: Any
 
 prod: Any
@@ -2297,17 +2452,13 @@ put_along_axis: Any
 
 putmask: Any
 
-pv: Any
-
 quantile: Any
+
+r_: Any
 
 rad2deg: Any
 
 radians: Any
-
-rank: Any
-
-rate: Any
 
 ravel: Any
 
@@ -2350,6 +2501,8 @@ rot90: Any
 round_: Any
 
 row_stack: Any
+
+s_: Any
 
 safe_eval: Any
 
@@ -2457,6 +2610,8 @@ trunc: Any
 
 typename: Any
 
+uint: Any
+
 uint16: Any
 
 uint32: Any
@@ -2492,3 +2647,4 @@ vstack: Any
 where: Any
 
 who: Any
+

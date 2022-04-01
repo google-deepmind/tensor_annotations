@@ -235,7 +235,7 @@ def {{ op }}(
 @overload
 def {{ op }}(
     a: Array{{ n_axes }}[{{ (['Any'] * n_axes)|join(', ') }}],
-    axis: Literal[Any],
+    axis: Any,
     out=..., keepdims=..., dtype=...
 ) -> Any: ...
 
@@ -299,4 +299,3 @@ def transpose(
 {% endfor %}
 
 # LINT.ThenChange(../library_stubs/third_party/py/jax/numpy/__init__.pyi)
-
