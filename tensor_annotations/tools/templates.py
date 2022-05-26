@@ -79,7 +79,6 @@ def transpose_axes(n_axes: int):
   all_axes = list(range(1, n_axes + 1))
   all_axes_str = [f'A{i}' for i in all_axes]
   all_axes_str = ', '.join(all_axes_str)
-  all_axes_str = '[' + all_axes_str + ']'
 
   for transpose_axes in itertools.permutations(range(n_axes)):
     transpose_axes_str = (f'L{i}' for i in transpose_axes)
@@ -90,7 +89,6 @@ def transpose_axes(n_axes: int):
     if result_axes:
       result_axes_str = (f'A{i}' for i in result_axes)
       result_axes_str = ', '.join(result_axes_str)
-      result_axes_str = '[' + result_axes_str + ']'
     else:
       result_axes_str = ''
 
@@ -122,7 +120,6 @@ def reduction_axes(n_axes: int):
   # [A1, A2, ..., An]
   all_axes_str = [f'A{i}' for i in range(1, n_axes + 1)]
   all_axes_str = ', '.join(all_axes_str)
-  all_axes_str = '[' + all_axes_str + ']'
 
   n_reduction_axes_iter = range(1, n_axes + 1)
   for n_reduction_axes in n_reduction_axes_iter:
@@ -146,7 +143,6 @@ def reduction_axes(n_axes: int):
       if remaining_axes:
         remaining_axes_str = (f'A{i + 1}' for i in remaining_axes)
         remaining_axes_str = ', '.join(remaining_axes_str)
-        remaining_axes_str = '[' + remaining_axes_str + ']'
       else:
         remaining_axes_str = ''
 

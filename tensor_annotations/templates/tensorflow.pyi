@@ -33,6 +33,7 @@ A2 = TypeVar('A2', bound=Axis)
 A3 = TypeVar('A3', bound=Axis)
 A4 = TypeVar('A4', bound=Axis)
 A5 = TypeVar('A5', bound=Axis)
+DT = TypeVar('DT')
 
 TRUE = Literal[True]
 FALSE = Literal[False]
@@ -65,27 +66,27 @@ Shape5 = Tuple[int, int, int, int, int]
 {% for func in unary_funcs %}
 
 @overload
-def {{ func }}(x: Tensor0, name=...) -> Tensor0: ...
+def {{ func }}(x: Tensor0[DT], name=...) -> Tensor0[DT]: ...
 
 
 @overload
-def {{ func }}(x: Tensor1[A1], name=...) -> Tensor1[A1]: ...
+def {{ func }}(x: Tensor1[DT, A1], name=...) -> Tensor1[DT, A1]: ...
 
 
 @overload
-def {{ func }}(x: Tensor2[A1, A2], name=...) -> Tensor2[A1, A2]: ...
+def {{ func }}(x: Tensor2[DT, A1, A2], name=...) -> Tensor2[DT, A1, A2]: ...
 
 
 @overload
-def {{ func }}(x: Tensor3[A1, A2, A3], name=...) -> Tensor3[A1, A2, A3]: ...
+def {{ func }}(x: Tensor3[DT, A1, A2, A3], name=...) -> Tensor3[DT, A1, A2, A3]: ...
 
 
 @overload
-def {{ func }}(x: Tensor4[A1, A2, A3, A4], name=...) -> Tensor4[A1, A2, A3, A4]: ...
+def {{ func }}(x: Tensor4[DT, A1, A2, A3, A4], name=...) -> Tensor4[DT, A1, A2, A3, A4]: ...
 
 
 @overload
-def {{ func }}(x: Tensor5[A1, A2, A3, A4, A5], name=...) -> Tensor5[A1, A2, A3, A4, A5]: ...
+def {{ func }}(x: Tensor5[DT, A1, A2, A3, A4, A5], name=...) -> Tensor5[DT, A1, A2, A3, A4, A5]: ...
 
 
 @overload
@@ -98,23 +99,23 @@ def {{ func }}(x, name=...) -> Any: ...
 {% for func in dtype_unary_funcs %}
 
 @overload
-def {{ func }}(input: Tensor1[A1], dtype=..., name=...) -> Tensor1[A1]: ...
+def {{ func }}(input: Tensor1[DT, A1], dtype=..., name=...) -> Tensor1[DT, A1]: ...
 
 
 @overload
-def {{ func }}(input: Tensor2[A1, A2], dtype=..., name=...) -> Tensor2[A1, A2]: ...
+def {{ func }}(input: Tensor2[DT, A1, A2], dtype=..., name=...) -> Tensor2[DT, A1, A2]: ...
 
 
 @overload
-def {{ func }}(input: Tensor3[A1, A2, A3], dtype=..., name=...) -> Tensor3[A1, A2, A3]: ...
+def {{ func }}(input: Tensor3[DT, A1, A2, A3], dtype=..., name=...) -> Tensor3[DT, A1, A2, A3]: ...
 
 
 @overload
-def {{ func }}(input: Tensor4[A1, A2, A3, A4], dtype=..., name=...) -> Tensor4[A1, A2, A3, A4]: ...
+def {{ func }}(input: Tensor4[DT, A1, A2, A3, A4], dtype=..., name=...) -> Tensor4[DT, A1, A2, A3, A4]: ...
 
 
 @overload
-def {{ func }}(input: Tensor5[A1, A2, A3, A4, A5], dtype=..., name=...) -> Tensor5[A1, A2, A3, A4, A5]: ...
+def {{ func }}(input: Tensor5[DT, A1, A2, A3, A4, A5], dtype=..., name=...) -> Tensor5[DT, A1, A2, A3, A4, A5]: ...
 
 
 @overload
@@ -131,7 +132,7 @@ def {{ func }}(input, dtype=..., name=...) -> Any: ...
 {% set n_any = (['Any'] * i)|join(', ') %}
 
 @overload
-def zeros(shape: Shape{{ i }}, dtype=..., name=...) -> Tensor{{ i }}[{{ n_any }}]: ...
+def zeros(shape: Shape{{ i }}, dtype=..., name=...) -> Tensor{{ i }}[Any, {{ n_any }}]: ...
 
 {% endfor %}
 
@@ -141,7 +142,6 @@ def zeros(shape: Shape{{ i }}, dtype=..., name=...) -> Tensor{{ i }}[{{ n_any }}
 @overload
 def zeros(shape: Tuple[()], dtype=..., name=...) -> Tensor0: ...
 
-
 @overload
 def zeros(shape, dtype=..., name=...) -> Any: ...
 
@@ -150,14 +150,13 @@ def zeros(shape, dtype=..., name=...) -> Any: ...
 {% set n_any = (['Any'] * i)|join(', ') %}
 
 @overload
-def ones(shape: Shape{{ i }}, dtype=..., name=...) -> Tensor{{ i }}[{{ n_any }}]: ...
+def ones(shape: Shape{{ i }}, dtype=..., name=...) -> Tensor{{ i }}[Any, {{ n_any }}]: ...
 
 {% endfor %}
 
 # See note about Tensor0 in `zeros`
 @overload
-def ones(shape: Tuple[()], dtype=..., name=...) -> Tensor0: ...
-
+def ones(shape: Tuple[()], dtype=..., name=...) -> Tensor0[Any]: ...
 
 @overload
 def ones(shape, dtype=..., name=...) -> Any: ...
@@ -174,8 +173,8 @@ def ones(shape, dtype=..., name=...) -> Any: ...
 {% for axes in reduction_axes(n_axes) %}
 
 @overload
-def {{ op }}(input_tensor: Tensor{{ axes.n_axes }}{{ axes.all_axes }},
-               axis: {{ axes.reduction_axes }}, name=...) -> Tensor{{ axes.remaining_n_axes }}{{ axes.remaining_axes }}: ...
+def {{ op }}(input_tensor: Tensor{{ axes.n_axes }}[DT, {{ axes.all_axes }}],
+               axis: {{ axes.reduction_axes }}, name=...) -> Tensor{{ axes.remaining_n_axes }}[DT, {{ axes.remaining_axes }}]: ...
 
 {% endfor %}
 {% endfor %}
@@ -186,8 +185,8 @@ def {{ op }}(input_tensor: Tensor{{ axes.n_axes }}{{ axes.all_axes }},
 {% set all_axes = get_axis_list(n_axes, reverse=True) %}
 
 @overload
-def {{ op }}(input_tensor: Tensor{{ n_axes }}[{{ all_axes }}],
-               axis=..., keepdims: TRUE = ..., name=...) -> Tensor{{ n_axes }}[{{ all_axes }}]: ...
+def {{ op }}(input_tensor: Tensor{{ n_axes }}[DT, {{ all_axes }}],
+               axis=..., keepdims: TRUE = ..., name=...) -> Tensor{{ n_axes }}[DT, {{ all_axes }}]: ...
 
 {% endfor %}
 
@@ -207,7 +206,7 @@ def {{ op }}(input_tensor, axis=..., keepdims=..., name=...) -> Any: ...
 {% set reverse_axes = get_axis_list(n_axes, reverse=True) %}
 
 @overload
-def transpose(a: Tensor{{ n_axes }}[{{ axes }}], name=...) -> Tensor{{ n_axes }}[{{ reverse_axes }}]: ...
+def transpose(a: Tensor{{ n_axes }}[DT, {{ axes }}], name=...) -> Tensor{{ n_axes }}[DT, {{ reverse_axes }}]: ...
 
 {% endfor %}
 
@@ -217,8 +216,8 @@ def transpose(a: Tensor{{ n_axes }}[{{ axes }}], name=...) -> Tensor{{ n_axes }}
 {% for axes in transpose_axes(n_axes) %}
 
 @overload
-def transpose(a: Tensor{{ n_axes }}{{ axes.all_axes }}, perm: {{ axes.transpose_axes }},
-              name=...) -> Tensor{{ n_axes }}{{ axes.result_axes }}: ...
+def transpose(a: Tensor{{ n_axes }}[DT, {{ axes.all_axes }}], perm: {{ axes.transpose_axes }},
+              name=...) -> Tensor{{ n_axes }}[DT, {{ axes.result_axes }}]: ...
 
 {% endfor %}
 {% endfor %}
@@ -230,41 +229,41 @@ def transpose(a, perm=..., conjugate=..., name=...) -> Any: ...
 
 @overload
 def matmul(
-    a: Tensor2[A1, A2],
-    b: Tensor2[A2, A3],
+    a: Tensor2[DT, A1, A2],
+    b: Tensor2[DT, A2, A3],
     name=...,
-) -> Tensor2[A1, A3]: ...
+) -> Tensor2[DT, A1, A3]: ...
 
 @overload
 def matmul(
-    a: Tensor2[A1, A2],
-    b: Tensor2[A1, A3],
+    a: Tensor2[DT, A1, A2],
+    b: Tensor2[DT, A1, A3],
     transpose_a: TRUE,
     name=...
-) -> Tensor2[A2, A3]: ...
+) -> Tensor2[DT, A2, A3]: ...
 
 @overload
 def matmul(
-    a: Tensor2[A1, A2],
-    b: Tensor2[A3, A2],
+    a: Tensor2[DT, A1, A2],
+    b: Tensor2[DT, A3, A2],
     transpose_b: TRUE,
     name=...
-) -> Tensor2[A1, A3]: ...
+) -> Tensor2[DT, A1, A3]: ...
 
 @overload
 def matmul(
-    a: Tensor3[A1, A2, A3],
-    b: Tensor2[A3, A4],
+    a: Tensor3[DT, A1, A2, A3],
+    b: Tensor2[DT, A3, A4],
     name=...
-) -> Tensor3[A1, A2, A4]: ...
+) -> Tensor3[DT, A1, A2, A4]: ...
 
 @overload
 def matmul(
-    a: Tensor3[A1, A2, A3],
-    b: Tensor2[A4, A3],
+    a: Tensor3[DT, A1, A2, A3],
+    b: Tensor2[DT, A4, A3],
     transpose_b: TRUE,
     name=...
-) -> Tensor3[A4, A2, A3]: ...
+) -> Tensor3[DT, A4, A2, A3]: ...
 
 @overload
 def matmul(
