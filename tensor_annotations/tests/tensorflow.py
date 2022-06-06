@@ -42,6 +42,7 @@ A2 = NewType('A2', axes.Axis)
 
 
 class TensorFlowStubTests(unittest.TestCase):
+  """Tests for TensorFlow type stubs using pytype."""
 
   def testTranspose_InferredMatchesActualShapeShape(self):
     with utils.SaveCodeAsString() as code_saver:
@@ -53,6 +54,7 @@ class TensorFlowStubTests(unittest.TestCase):
     self.assertEqual(inferred.y, y.shape)
 
   def testUnaryOperator_ReturnCustomType(self):
+    """Tests that operators like `tf.sin` return tensor_annotations types."""
     with utils.SaveCodeAsString() as code_saver:
       x: Tensor1[A1] = tf.zeros((1,))
       # Let's just test a representative subset.
@@ -74,6 +76,7 @@ class TensorFlowStubTests(unittest.TestCase):
     self.assertEqual(inferred.f, expected)
 
   def testMathUnaryOperator_ReturnCustomType(self):
+    """Tests that operators like `tf.math.sin` return the correct types."""
     with utils.SaveCodeAsString() as code_saver:
       x: Tensor1[A1] = tf.zeros((1,))
       # Let's just test a representative subset.
@@ -93,6 +96,7 @@ class TensorFlowStubTests(unittest.TestCase):
     self.assertEqual(inferred.e, expected)
 
   def testZerosOnes_ReturnsCorrectShape(self):
+    """Tests that e.g. `tf.zeros` returns the correct types."""
     with utils.SaveCodeAsString() as code_saver:
       a = tf.zeros(())  # pylint: disable=unused-variable
       b = tf.ones(())  # pylint: disable=unused-variable
@@ -111,6 +115,7 @@ class TensorFlowStubTests(unittest.TestCase):
     self.assertEqual(inferred.f, 'Tensor2')
 
   def testSum_InferredMatchesActualShape(self):
+    """Tests that `tf.reduce_sum` returns the correct types."""
     with utils.SaveCodeAsString() as code_saver:
       x: Tensor1[A1] = tf.zeros((1,))
       y: Tensor2[A1, A2] = tf.zeros((1, 2))
@@ -136,6 +141,7 @@ class TensorFlowStubTests(unittest.TestCase):
     self.assertEqual(inferred.b, 'Tensor1[A1]')
 
   def testTensorUnaryOp_ReturnsCorrectTypeAndShape(self):
+    """Tests that e.g. `-x` has the correct type."""
     with utils.SaveCodeAsString() as code_saver:
       x1: Tensor0 = tf.zeros(())
       y1 = abs(x1)  # pylint: disable=unused-variable
@@ -152,6 +158,7 @@ class TensorFlowStubTests(unittest.TestCase):
     self.assertEqual('Tensor1[A1]', inferred.y4)
 
   def testBinaryOpWithScalar_InferredMatchesActualShape(self):
+    """Tests that e.g. `x + 1` has the correct type."""
     with utils.SaveCodeAsString() as code_saver:
       x: Tensor2[A1, A2] = tf.zeros((1, 2))
       y1 = x + 1.0
@@ -167,6 +174,7 @@ class TensorFlowStubTests(unittest.TestCase):
     self.assertEqual(y4.shape, inferred.y4)
 
   def testBinaryOpWithBroadcast_InferredMatchesActualShape(self):
+    """Tests the result of e.g. adding two tensors with different shapes."""
     with utils.SaveCodeAsString() as code_saver:
       a: Tensor2[A1, A2] = tf.zeros((1, 2))
       b: Tensor1[A2] = tf.zeros((2,))
@@ -183,6 +191,7 @@ class TensorFlowStubTests(unittest.TestCase):
     self.assertEqual(y4.shape, inferred.y4)
 
   def testBinaryOpWithSameShape_InferredMatchesActualShape(self):
+    """Tests the result of e.g. adding two tensors with the same shape."""
     with utils.SaveCodeAsString() as code_saver:
       a: Tensor2[A1, A2] = tf.zeros((1, 2))
       b: Tensor2[A1, A2] = tf.zeros((1, 2))
@@ -199,6 +208,7 @@ class TensorFlowStubTests(unittest.TestCase):
     self.assertEqual(y4.shape, inferred.y4)
 
   def testShapeAttribute_HasTypeTensorShape(self):
+    """Tests that `x.shape` is a tensorflow.TensorShape."""
     with utils.SaveCodeAsString() as code_saver:
       x0 = tf.zeros(())
       x1 = tf.zeros((1,))
