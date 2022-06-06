@@ -33,6 +33,9 @@ A2 = TypeVar('A2', bound=Axis)
 A3 = TypeVar('A3', bound=Axis)
 A4 = TypeVar('A4', bound=Axis)
 A5 = TypeVar('A5', bound=Axis)
+# This alias makes the meaning clearer in code.
+# Unfortunately, it still shows up as 'Any' in pytype output.
+AnyDType = Any
 DT = TypeVar('DT')
 
 TRUE = Literal[True]
@@ -99,23 +102,23 @@ def {{ func }}(x, name=...) -> Any: ...
 {% for func in dtype_unary_funcs %}
 
 @overload
-def {{ func }}(input: Tensor1[DT, A1], dtype=..., name=...) -> Tensor1[DT, A1]: ...
+def {{ func }}(input: Tensor1[AnyDType, A1], dtype=..., name=...) -> Tensor1[AnyDType, A1]: ...
 
 
 @overload
-def {{ func }}(input: Tensor2[DT, A1, A2], dtype=..., name=...) -> Tensor2[DT, A1, A2]: ...
+def {{ func }}(input: Tensor2[AnyDType, A1, A2], dtype=..., name=...) -> Tensor2[AnyDType, A1, A2]: ...
 
 
 @overload
-def {{ func }}(input: Tensor3[DT, A1, A2, A3], dtype=..., name=...) -> Tensor3[DT, A1, A2, A3]: ...
+def {{ func }}(input: Tensor3[AnyDType, A1, A2, A3], dtype=..., name=...) -> Tensor3[AnyDType, A1, A2, A3]: ...
 
 
 @overload
-def {{ func }}(input: Tensor4[DT, A1, A2, A3, A4], dtype=..., name=...) -> Tensor4[DT, A1, A2, A3, A4]: ...
+def {{ func }}(input: Tensor4[AnyDType, A1, A2, A3, A4], dtype=..., name=...) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
 
 
 @overload
-def {{ func }}(input: Tensor5[DT, A1, A2, A3, A4, A5], dtype=..., name=...) -> Tensor5[DT, A1, A2, A3, A4, A5]: ...
+def {{ func }}(input: Tensor5[AnyDType, A1, A2, A3, A4, A5], dtype=..., name=...) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
 
 
 @overload
@@ -132,7 +135,7 @@ def {{ func }}(input, dtype=..., name=...) -> Any: ...
 {% set n_any = (['Any'] * i)|join(', ') %}
 
 @overload
-def zeros(shape: Shape{{ i }}, dtype=..., name=...) -> Tensor{{ i }}[Any, {{ n_any }}]: ...
+def zeros(shape: Shape{{ i }}, dtype=..., name=...) -> Tensor{{ i }}[AnyDType, {{ n_any }}]: ...
 
 {% endfor %}
 
@@ -140,26 +143,26 @@ def zeros(shape: Shape{{ i }}, dtype=..., name=...) -> Tensor{{ i }}[Any, {{ n_a
 # https://github.com/google/pytype/issues/767
 # (e.g. `dim = tf.shape_as_list(x); tf.zeros((dim, dim))` would be Tensor0)
 @overload
-def zeros(shape: Tuple[()], dtype=..., name=...) -> Tensor0: ...
+def zeros(shape: Tuple[()], dtype=..., name=...) -> Tensor0[AnyDType]: ...
 
 @overload
-def zeros(shape, dtype=..., name=...) -> Any: ...
+def zeros(shape, dtype=..., name=...) -> AnyDType: ...
 
 
 {% for i in range(1, 6) %}
 {% set n_any = (['Any'] * i)|join(', ') %}
 
 @overload
-def ones(shape: Shape{{ i }}, dtype=..., name=...) -> Tensor{{ i }}[Any, {{ n_any }}]: ...
+def ones(shape: Shape{{ i }}, dtype=..., name=...) -> Tensor{{ i }}[AnyDType, {{ n_any }}]: ...
 
 {% endfor %}
 
 # See note about Tensor0 in `zeros`
 @overload
-def ones(shape: Tuple[()], dtype=..., name=...) -> Tensor0[Any]: ...
+def ones(shape: Tuple[()], dtype=..., name=...) -> Tensor0[AnyDType]: ...
 
 @overload
-def ones(shape, dtype=..., name=...) -> Any: ...
+def ones(shape, dtype=..., name=...) -> AnyDType: ...
 
 
 # ---------- REDUCTION OPERATORS ----------
@@ -229,41 +232,41 @@ def transpose(a, perm=..., conjugate=..., name=...) -> Any: ...
 
 @overload
 def matmul(
-    a: Tensor2[DT, A1, A2],
-    b: Tensor2[DT, A2, A3],
+    a: Tensor2[AnyDType, A1, A2],
+    b: Tensor2[AnyDType, A2, A3],
     name=...,
-) -> Tensor2[DT, A1, A3]: ...
+) -> Tensor2[AnyDType, A1, A3]: ...
 
 @overload
 def matmul(
-    a: Tensor2[DT, A1, A2],
-    b: Tensor2[DT, A1, A3],
+    a: Tensor2[AnyDType, A1, A2],
+    b: Tensor2[AnyDType, A1, A3],
     transpose_a: TRUE,
     name=...
-) -> Tensor2[DT, A2, A3]: ...
+) -> Tensor2[AnyDType, A2, A3]: ...
 
 @overload
 def matmul(
-    a: Tensor2[DT, A1, A2],
-    b: Tensor2[DT, A3, A2],
+    a: Tensor2[AnyDType, A1, A2],
+    b: Tensor2[AnyDType, A3, A2],
     transpose_b: TRUE,
     name=...
-) -> Tensor2[DT, A1, A3]: ...
+) -> Tensor2[AnyDType, A1, A3]: ...
 
 @overload
 def matmul(
-    a: Tensor3[DT, A1, A2, A3],
-    b: Tensor2[DT, A3, A4],
+    a: Tensor3[AnyDType, A1, A2, A3],
+    b: Tensor2[AnyDType, A3, A4],
     name=...
-) -> Tensor3[DT, A1, A2, A4]: ...
+) -> Tensor3[AnyDType, A1, A2, A4]: ...
 
 @overload
 def matmul(
-    a: Tensor3[DT, A1, A2, A3],
-    b: Tensor2[DT, A4, A3],
+    a: Tensor3[AnyDType, A1, A2, A3],
+    b: Tensor2[AnyDType, A4, A3],
     transpose_b: TRUE,
     name=...
-) -> Tensor3[DT, A4, A2, A3]: ...
+) -> Tensor3[AnyDType, A4, A2, A3]: ...
 
 @overload
 def matmul(
