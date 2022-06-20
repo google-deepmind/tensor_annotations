@@ -208,18 +208,21 @@ def _parse_mypy_output(var_names: List[str],
   return types.SimpleNamespace(**types_dict)
 
 
-def pytype_infer_shapes(code: str) -> types.SimpleNamespace:
+def pytype_infer_shapes(
+    code: str,
+    expect_dtype: bool = False,
+) -> types.SimpleNamespace:
   # pylint: disable=g-doc-args,g-doc-return-or-yield,g-doc-exception
-  """Runs pytype on `code`, returning inferred shape of each variable.
+  """Runs pytype on `code`, returning inferred shape of array/tensor variables.
 
   Note that shapes are inferred based on the axis labels: axis label 'A1' is
   assumed to represent a dimension of size 1, 'A2' a dimension of size 2, and so
-  on. For example, we assume that a tensor of type Tensor2[A1, A2] has shape
-  (1, 2).
+  on. For example, we assume that a tensor of type Tensor2[int8, A1, A2] has
+  shape (1, 2).
 
   For example, if `code` is
-    x: tf.Tensor2[A3, A5] = tf.zeros((3, 5))
-    y = tf.transpose(x)  # tf.Tensor2[A5, A3]
+    x: tf.Tensor2[float32, A3, A5] = tf.zeros((3, 5))
+    y = tf.transpose(x)  # tf.Tensor2[float32, A5, A3]
   we return a SimpleNamespace `a` such that
     a.x = (3, 5)
     a.y = (5, 3)
@@ -230,6 +233,12 @@ def pytype_infer_shapes(code: str) -> types.SimpleNamespace:
   are correct.
 
   See `pytype_infer_types` for more info.
+
+  Args:
+    code: The code to run pytype on.
+    expect_dtype: Whether to expect a DType as the first type argument to the
+      generic. This is a temporary flag used for gradually adding support for
+      DTypes, and will be removed in the future.
   """
   types_namespace = pytype_infer_types(code)
 
@@ -237,18 +246,24 @@ def pytype_infer_shapes(code: str) -> types.SimpleNamespace:
   var_names = [d for d in dir(types_namespace)
                if not d.startswith('_')]
   for var in var_names:
-    t = getattr(types_namespace, var)
-    if t.endswith('Array0') or t.endswith('Tensor0'):
-      shape = ()
-    elif t == 'Any':
+    var_type = getattr(types_namespace, var)
+    if var_type == 'Any':
       shape = 'Any'
+    elif 'Array' not in var_type and 'Tensor' not in var_type:
+      continue
+    elif var_type.endswith('Array0') or var_type.endswith('Tensor0'):
+      shape = ()
     else:
-      match = re.search(r'\[(.*)\]', t)
+      match = re.search(r'\[(.*)\]', var_type)
       if match is None:
-        # Could have been e.g. a float.
-        continue
+        raise ValueError(f"Couldn't parse type '{var_type}'")
       axis_types = match.group(1)  # e.g. 'A1, A2'
-      shape_str_list = axis_types.replace('A', '').split(', ')
+      axis_types_list = axis_types.split(', ')
+      if expect_dtype:
+        unused_dtype, *shape_types = axis_types_list
+      else:
+        shape_types = axis_types_list
+      shape_str_list = [t.replace('A', '') for t in shape_types]
       shape = tuple(int(s) for s in shape_str_list)
     shapes_dict[var] = shape
 

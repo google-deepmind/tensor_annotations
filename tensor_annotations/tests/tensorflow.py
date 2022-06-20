@@ -14,8 +14,10 @@
 # ==============================================================================
 """Tests for TensorFlow stubs."""
 
-from typing import NewType
+import functools
+from typing import Any, NewType
 import unittest
+
 from tensor_annotations import axes
 from tensor_annotations.tensorflow import Tensor0
 from tensor_annotations.tensorflow import Tensor1
@@ -30,7 +32,7 @@ A2 = NewType('A2', axes.Axis)
 # It's less than ideal that we have to repeat imports etc. here for pytype, but
 # this seems like the best balance between readability and complexity.
 _PREAMBLE = """
-from typing import NewType
+from typing import Any, NewType
 
 import tensorflow as tf
 from tensor_annotations import axes
@@ -40,23 +42,28 @@ A1 = NewType('A1', axes.Axis)
 A2 = NewType('A2', axes.Axis)
 """
 
+_pytype_infer_shapes = functools.partial(
+    utils.pytype_infer_shapes,
+    expect_dtype=True,
+)
+
 
 class TensorFlowStubTests(unittest.TestCase):
   """Tests for TensorFlow type stubs using pytype."""
 
   def testTranspose_InferredMatchesActualShapeShape(self):
     with utils.SaveCodeAsString() as code_saver:
-      x: Tensor2[A1, A2] = tf.zeros((1, 2))
+      x: Tensor2[Any, A1, A2] = tf.zeros((1, 2))
       y = tf.transpose(x)
 
-    inferred = utils.pytype_infer_shapes(_PREAMBLE + code_saver.code)
+    inferred = _pytype_infer_shapes(_PREAMBLE + code_saver.code)
 
     self.assertEqual(inferred.y, y.shape)
 
   def testUnaryOperator_ReturnCustomType(self):
     """Tests that operators like `tf.sin` return tensor_annotations types."""
     with utils.SaveCodeAsString() as code_saver:
-      x: Tensor1[A1] = tf.zeros((1,))
+      x: Tensor1[Any, A1] = tf.zeros((1,))
       # Let's just test a representative subset.
       a = tf.abs(x)  # pylint: disable=unused-variable
       b = tf.sin(x)  # pylint: disable=unused-variable
@@ -67,7 +74,8 @@ class TensorFlowStubTests(unittest.TestCase):
 
     inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
 
-    expected = 'Tensor1[A1]'
+    # Any is printed as Any in pytype output.
+    expected = 'Tensor1[Any, A1]'
     self.assertEqual(inferred.a, expected)
     self.assertEqual(inferred.b, expected)
     self.assertEqual(inferred.c, expected)
@@ -78,7 +86,7 @@ class TensorFlowStubTests(unittest.TestCase):
   def testMathUnaryOperator_ReturnCustomType(self):
     """Tests that operators like `tf.math.sin` return the correct types."""
     with utils.SaveCodeAsString() as code_saver:
-      x: Tensor1[A1] = tf.zeros((1,))
+      x: Tensor1[Any, A1] = tf.zeros((1,))
       # Let's just test a representative subset.
       a = tf.math.abs(x)  # pylint: disable=unused-variable
       b = tf.math.sin(x)  # pylint: disable=unused-variable
@@ -88,7 +96,8 @@ class TensorFlowStubTests(unittest.TestCase):
 
     inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
 
-    expected = 'Tensor1[A1]'
+    # Any is printed as Any in pytype output.
+    expected = 'Tensor1[Any, A1]'
     self.assertEqual(inferred.a, expected)
     self.assertEqual(inferred.b, expected)
     self.assertEqual(inferred.c, expected)
@@ -117,13 +126,13 @@ class TensorFlowStubTests(unittest.TestCase):
   def testSum_InferredMatchesActualShape(self):
     """Tests that `tf.reduce_sum` returns the correct types."""
     with utils.SaveCodeAsString() as code_saver:
-      x: Tensor1[A1] = tf.zeros((1,))
-      y: Tensor2[A1, A2] = tf.zeros((1, 2))
+      x: Tensor1[Any, A1] = tf.zeros((1,))
+      y: Tensor2[Any, A1, A2] = tf.zeros((1, 2))
       x0 = tf.reduce_sum(x, axis=0)
       y0 = tf.reduce_sum(y, axis=0)
       y1 = tf.reduce_sum(y, axis=1)
 
-    inferred = utils.pytype_infer_shapes(_PREAMBLE + code_saver.code)
+    inferred = _pytype_infer_shapes(_PREAMBLE + code_saver.code)
 
     self.assertEqual(inferred.x0, x0.shape)
     self.assertEqual(inferred.y0, y0.shape)
@@ -131,14 +140,15 @@ class TensorFlowStubTests(unittest.TestCase):
 
   def testTensorAdd_ReturnsCustomType(self):
     with utils.SaveCodeAsString() as code_saver:
-      x: Tensor1[A1] = tf.zeros((1,))
+      x: Tensor1[Any, A1] = tf.zeros((1,))
       a = x + 1  # pylint: disable=unused-variable
       b = x + x  # pylint: disable=unused-variable
 
     inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
 
-    self.assertEqual(inferred.a, 'Tensor1[A1]')
-    self.assertEqual(inferred.b, 'Tensor1[A1]')
+    # Any is printed as Any in pytype output.
+    self.assertEqual(inferred.a, 'Tensor1[Any, A1]')
+    self.assertEqual(inferred.b, 'Tensor1[Any, A1]')
 
   def testTensorUnaryOp_ReturnsCorrectTypeAndShape(self):
     """Tests that e.g. `-x` has the correct type."""
@@ -146,7 +156,7 @@ class TensorFlowStubTests(unittest.TestCase):
       x1: Tensor0 = tf.zeros(())
       y1 = abs(x1)  # pylint: disable=unused-variable
       y2 = -x1  # pylint: disable=unused-variable
-      x2: Tensor1[A1] = tf.zeros((1,))
+      x2: Tensor1[int, A1] = tf.zeros((1,))
       y3 = abs(x2)  # pylint: disable=unused-variable
       y4 = -x2  # pylint: disable=unused-variable
 
@@ -154,19 +164,20 @@ class TensorFlowStubTests(unittest.TestCase):
 
     self.assertEqual('Tensor0', inferred.y1)
     self.assertEqual('Tensor0', inferred.y2)
-    self.assertEqual('Tensor1[A1]', inferred.y3)
-    self.assertEqual('Tensor1[A1]', inferred.y4)
+    # Any is printed as Any in pytype output.
+    self.assertEqual('Tensor1[int, A1]', inferred.y3)
+    self.assertEqual('Tensor1[int, A1]', inferred.y4)
 
   def testBinaryOpWithScalar_InferredMatchesActualShape(self):
     """Tests that e.g. `x + 1` has the correct type."""
     with utils.SaveCodeAsString() as code_saver:
-      x: Tensor2[A1, A2] = tf.zeros((1, 2))
+      x: Tensor2[Any, A1, A2] = tf.zeros((1, 2))
       y1 = x + 1.0
       y2 = x - 1.0
       y3 = x / 1.0
       y4 = x * 1.0
 
-    inferred = utils.pytype_infer_shapes(_PREAMBLE + code_saver.code)
+    inferred = _pytype_infer_shapes(_PREAMBLE + code_saver.code)
 
     self.assertEqual(y1.shape, inferred.y1)
     self.assertEqual(y2.shape, inferred.y2)
@@ -176,14 +187,14 @@ class TensorFlowStubTests(unittest.TestCase):
   def testBinaryOpWithBroadcast_InferredMatchesActualShape(self):
     """Tests the result of e.g. adding two tensors with different shapes."""
     with utils.SaveCodeAsString() as code_saver:
-      a: Tensor2[A1, A2] = tf.zeros((1, 2))
-      b: Tensor1[A2] = tf.zeros((2,))
+      a: Tensor2[Any, A1, A2] = tf.zeros((1, 2))
+      b: Tensor1[Any, A2] = tf.zeros((2,))
       y1 = a + b
       y2 = a - b
       y3 = a / b
       y4 = a * b
 
-    inferred = utils.pytype_infer_shapes(_PREAMBLE + code_saver.code)
+    inferred = _pytype_infer_shapes(_PREAMBLE + code_saver.code)
 
     self.assertEqual(y1.shape, inferred.y1)
     self.assertEqual(y2.shape, inferred.y2)
@@ -193,14 +204,14 @@ class TensorFlowStubTests(unittest.TestCase):
   def testBinaryOpWithSameShape_InferredMatchesActualShape(self):
     """Tests the result of e.g. adding two tensors with the same shape."""
     with utils.SaveCodeAsString() as code_saver:
-      a: Tensor2[A1, A2] = tf.zeros((1, 2))
-      b: Tensor2[A1, A2] = tf.zeros((1, 2))
+      a: Tensor2[Any, A1, A2] = tf.zeros((1, 2))
+      b: Tensor2[Any, A1, A2] = tf.zeros((1, 2))
       y1 = a + b
       y2 = a - b
       y3 = a / b
       y4 = a * b
 
-    inferred = utils.pytype_infer_shapes(_PREAMBLE + code_saver.code)
+    inferred = _pytype_infer_shapes(_PREAMBLE + code_saver.code)
 
     self.assertEqual(y1.shape, inferred.y1)
     self.assertEqual(y2.shape, inferred.y2)
