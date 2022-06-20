@@ -19,6 +19,7 @@ from typing import Any, NewType
 import unittest
 
 from tensor_annotations import axes
+from tensor_annotations.tensorflow import int16
 from tensor_annotations.tensorflow import Tensor0
 from tensor_annotations.tensorflow import Tensor1
 from tensor_annotations.tensorflow import Tensor2
@@ -36,6 +37,7 @@ from typing import Any, NewType
 
 import tensorflow as tf
 from tensor_annotations import axes
+from tensor_annotations.tensorflow import int16
 from tensor_annotations.tensorflow import Tensor0, Tensor1, Tensor2
 
 A1 = NewType('A1', axes.Axis)
@@ -153,20 +155,20 @@ class TensorFlowStubTests(unittest.TestCase):
   def testTensorUnaryOp_ReturnsCorrectTypeAndShape(self):
     """Tests that e.g. `-x` has the correct type."""
     with utils.SaveCodeAsString() as code_saver:
-      x1: Tensor0 = tf.zeros(())
+      x1: Tensor0[int16] = tf.zeros(())
       y1 = abs(x1)  # pylint: disable=unused-variable
       y2 = -x1  # pylint: disable=unused-variable
-      x2: Tensor1[int, A1] = tf.zeros((1,))
+      x2: Tensor1[int16, A1] = tf.zeros((1,))
       y3 = abs(x2)  # pylint: disable=unused-variable
       y4 = -x2  # pylint: disable=unused-variable
 
     inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
 
-    self.assertEqual('Tensor0', inferred.y1)
-    self.assertEqual('Tensor0', inferred.y2)
+    self.assertEqual('Tensor0[int16]', inferred.y1)
+    self.assertEqual('Tensor0[int16]', inferred.y2)
     # Any is printed as Any in pytype output.
-    self.assertEqual('Tensor1[int, A1]', inferred.y3)
-    self.assertEqual('Tensor1[int, A1]', inferred.y4)
+    self.assertEqual('Tensor1[int16, A1]', inferred.y3)
+    self.assertEqual('Tensor1[int16, A1]', inferred.y4)
 
   def testBinaryOpWithScalar_InferredMatchesActualShape(self):
     """Tests that e.g. `x + 1` has the correct type."""
