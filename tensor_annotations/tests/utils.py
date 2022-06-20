@@ -144,6 +144,7 @@ def pytype_infer_types(code: str) -> types.SimpleNamespace:
   """
   # This may contain duplicates, but that's fine.
   var_names = re.findall(r'^([^: ]*).*=', code, re.MULTILINE)
+  var_names = [vn.strip() for vn in var_names]  # Remove any newline prefixes
   for var in var_names:
     code += f'\nreveal_type({var})'
 

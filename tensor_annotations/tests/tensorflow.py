@@ -15,11 +15,15 @@
 """Tests for TensorFlow stubs."""
 
 import functools
-from typing import NewType
+from typing import Any, NewType
 
 from absl.testing import absltest  # For sharded test support
 from tensor_annotations import axes
+from tensor_annotations.tensorflow import AnyDType
+from tensor_annotations.tensorflow import float32
+from tensor_annotations.tensorflow import float64
 from tensor_annotations.tensorflow import int16
+from tensor_annotations.tensorflow import int8
 from tensor_annotations.tensorflow import Tensor0
 from tensor_annotations.tensorflow import Tensor1
 from tensor_annotations.tensorflow import Tensor2
@@ -37,7 +41,8 @@ from typing import Any, NewType
 
 import tensorflow as tf
 from tensor_annotations import axes
-from tensor_annotations.tensorflow import int16
+from tensor_annotations.tensorflow import AnyDType
+from tensor_annotations.tensorflow import float32, float64, int8, int16
 from tensor_annotations.tensorflow import Tensor0, Tensor1, Tensor2
 
 A1 = NewType('A1', axes.Axis)
@@ -50,8 +55,8 @@ _pytype_infer_shapes = functools.partial(
 )
 
 
-class TensorFlowStubTests(absltest.TestCase):
-  """Tests for TensorFlow type stubs using pytype."""
+class TensorFlowShapeTests(absltest.TestCase):
+  """Tests for shapes inferred from TensorFlow type stubs using pytype."""
 
   def testTranspose_InferredMatchesActualShapeShape(self):
     with utils.SaveCodeAsString() as code_saver:
@@ -252,6 +257,235 @@ class TensorFlowStubTests(absltest.TestCase):
 
     inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
     self.assertEqual('int', inferred.rank)
+
+
+class TensorFlowDtypeTests(absltest.TestCase):
+  """Tests for data types inferred from TensorFlow type stubs using pytype."""
+
+  def testTranspose_ReturnsSameDtypeAsInput(self):
+    """Tests that tf.transpose() doesn't change the dtype."""
+    with utils.SaveCodeAsString() as code_saver:
+      x8: Tensor2[int8, A1, A1] = tf.constant([[0]], dtype=tf.int8)
+      x16: Tensor2[int16, A1, A1] = tf.constant([[0]], dtype=tf.int16)
+      y8 = tf.transpose(x8)  # pylint: disable=unused-variable
+      y16 = tf.transpose(x16)  # pylint: disable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    self.assertEqual(inferred.y8, 'Tensor2[int8, A1, A1]')
+    self.assertEqual(inferred.y16, 'Tensor2[int16, A1, A1]')
+
+  def testUnaryFunctions_ReturnSameDtypeAsInput(self):
+    """Tests that functions like `tf.sin` don't change the dtype."""
+    with utils.SaveCodeAsString() as code_saver:
+      x32: Tensor1[float32, A1] = tf.constant([0.0], dtype=tf.float32)
+      x64: Tensor1[float64, A1] = tf.constant([0.0], dtype=tf.float64)
+      # Let's just test a representative subset.
+      a32 = tf.abs(x32)  # pylint: disable=unused-variable
+      a64 = tf.abs(x64)  # pylint: disable=unused-variable
+      b32 = tf.sin(x32)  # pylint: disable=unused-variable
+      b64 = tf.sin(x64)  # pylint: disable=unused-variable
+      c32 = tf.floor(x32)  # pylint: disable=unused-variable
+      c64 = tf.floor(x64)  # pylint: disable=unused-variable
+      d32 = tf.round(x32)  # pylint: disable=unused-variable
+      d64 = tf.round(x64)  # pylint: disable=unused-variable
+      e32 = tf.sign(x32)  # pylint: disable=unused-variable
+      e64 = tf.sign(x64)  # pylint: disable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    self.assertEqual(inferred.a32, 'Tensor1[float32, A1]')
+    self.assertEqual(inferred.a64, 'Tensor1[float64, A1]')
+    self.assertEqual(inferred.b32, 'Tensor1[float32, A1]')
+    self.assertEqual(inferred.b64, 'Tensor1[float64, A1]')
+    self.assertEqual(inferred.c32, 'Tensor1[float32, A1]')
+    self.assertEqual(inferred.c64, 'Tensor1[float64, A1]')
+    self.assertEqual(inferred.d32, 'Tensor1[float32, A1]')
+    self.assertEqual(inferred.d64, 'Tensor1[float64, A1]')
+    self.assertEqual(inferred.e32, 'Tensor1[float32, A1]')
+    self.assertEqual(inferred.e64, 'Tensor1[float64, A1]')
+
+  def testMathUnaryFunctions_ReturnSameDtypeAsInput(self):
+    """Tests that functions like `tf.math.sin` don't change the dtype."""
+    with utils.SaveCodeAsString() as code_saver:
+      x32: Tensor1[float32, A1] = tf.constant([0.0], dtype=tf.float32)
+      x64: Tensor1[float64, A1] = tf.constant([0.0], dtype=tf.float64)
+      # Let's just test a representative subset.
+      a32 = tf.math.abs(x32)  # pylint: disable=unused-variable
+      a64 = tf.math.abs(x64)  # pylint: disable=unused-variable
+      b32 = tf.math.sin(x32)  # pylint: disable=unused-variable
+      b64 = tf.math.sin(x64)  # pylint: disable=unused-variable
+      c32 = tf.math.floor(x32)  # pylint: disable=unused-variable
+      c64 = tf.math.floor(x64)  # pylint: disable=unused-variable
+      d32 = tf.math.round(x32)  # pylint: disable=unused-variable
+      d64 = tf.math.round(x64)  # pylint: disable=unused-variable
+      e32 = tf.math.sign(x32)  # pylint: disable=unused-variable
+      e64 = tf.math.sign(x64)  # pylint: disable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    self.assertEqual(inferred.a32, 'Tensor1[float32, A1]')
+    self.assertEqual(inferred.a64, 'Tensor1[float64, A1]')
+    self.assertEqual(inferred.b32, 'Tensor1[float32, A1]')
+    self.assertEqual(inferred.b64, 'Tensor1[float64, A1]')
+    self.assertEqual(inferred.c32, 'Tensor1[float32, A1]')
+    self.assertEqual(inferred.c64, 'Tensor1[float64, A1]')
+    self.assertEqual(inferred.d32, 'Tensor1[float32, A1]')
+    self.assertEqual(inferred.d64, 'Tensor1[float64, A1]')
+    self.assertEqual(inferred.e32, 'Tensor1[float32, A1]')
+    self.assertEqual(inferred.e64, 'Tensor1[float64, A1]')
+
+  def testZerosOnes_ReturnsAnyDType(self):
+    """Tests that tf.zeros and tf.ones returns AnyDType."""
+    with utils.SaveCodeAsString() as code_saver:
+      a = tf.zeros(())  # pylint: disable=unused-variable
+      b = tf.ones(())  # pylint: disable=unused-variable
+      ref0: Tensor0[AnyDType] = tf.constant(0)  # pylint: disable=unused-variable
+
+      c = tf.zeros((1,))  # pylint: disable=unused-variable
+      d = tf.ones((1,))  # pylint: disable=unused-variable
+      ref1: Tensor1[AnyDType, Any] = tf.constant([0])  # pylint: disable=unused-variable
+
+      e = tf.zeros((1, 1))  # pylint: disable=unused-variable
+      f = tf.ones((1, 1))  # pylint: disable=unused-variable
+      ref2: Tensor2[AnyDType, Any, Any] = tf.constant([[0]])  # pylint: disable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    # We can't compare explicitly to e.g. Tensor0[AnyDType], because AnyDType
+    # is currently aliased to Any, and if all the type arguments are Any,
+    # pytype doesn't print the type arguments at all.
+    self.assertEqual(inferred.a, inferred.ref0)
+    self.assertEqual(inferred.b, inferred.ref0)
+    self.assertEqual(inferred.c, inferred.ref1)
+    self.assertEqual(inferred.d, inferred.ref1)
+    self.assertEqual(inferred.e, inferred.ref2)
+    self.assertEqual(inferred.f, inferred.ref2)
+
+  def testSum_ReturnsSameDtypeAsInput(self):
+    """Tests that tf.reduce_sum() doesn't change the dtype."""
+    with utils.SaveCodeAsString() as code_saver:
+      x32: Tensor1[float32, A1] = tf.constant([0.0], dtype=tf.float32)  # pylint: disable=unused-variable
+      x64: Tensor1[float64, A1] = tf.constant([0.0], dtype=tf.float64)  # pylint: disable=unused-variable
+      y32: Tensor2[float32, A1, A1] = tf.constant([[0.0]], dtype=tf.float32)  # pylint: disable=unused-variable
+      y64: Tensor2[float64, A1, A1] = tf.constant([[0.0]], dtype=tf.float64)  # pylint: disable=unused-variable
+      xsum32 = tf.reduce_sum(x32, axis=0)  # pylint: disable=unused-variable
+      xsum64 = tf.reduce_sum(x64, axis=0)  # pylint: disable=unused-variable
+      ysum32 = tf.reduce_sum(y32, axis=0)  # pylint: disable=unused-variable
+      ysum64 = tf.reduce_sum(y64, axis=0)  # pylint: disable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    self.assertEqual(inferred.xsum32, 'Tensor0[float32]')
+    self.assertEqual(inferred.xsum64, 'Tensor0[float64]')
+    self.assertEqual(inferred.ysum32, 'Tensor1[float32, A1]')
+    self.assertEqual(inferred.ysum64, 'Tensor1[float64, A1]')
+
+  def testTensorAdd_ReturnsAnyDType(self):
+    """Tests that e.g. `x + 1` has dtype AnyDType."""
+    with utils.SaveCodeAsString() as code_saver:
+      x: Tensor1[int8, A1] = tf.constant([[0]])
+      a = x + 1  # pylint: disable=unused-variable
+      b = x + x  # pylint: disable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    # AnyDType is printed as Any in pytype output.
+    self.assertEqual(inferred.a, 'Tensor1[Any, A1]')
+    self.assertEqual(inferred.b, 'Tensor1[Any, A1]')
+
+  def testTensorUnaryOp_ReturnsSameDTypeAsInput(self):
+    """Tests that e.g. `-x` has the same dtype as `x`."""
+    with utils.SaveCodeAsString() as code_saver:
+      a8: Tensor0[int8] = tf.constant([[0]], dtype=tf.int8)
+      b8 = abs(a8)  # pylint: disable=unused-variable
+      c8 = -a8  # pylint: disable=unused-variable
+
+      a16: Tensor0[int16] = tf.constant([[0]], dtype=tf.int16)
+      b16 = abs(a16)  # pylint: disable=unused-variable
+      c16 = -a16  # pylint: disable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    self.assertEqual(inferred.b8, 'Tensor0[int8]')
+    self.assertEqual(inferred.c8, 'Tensor0[int8]')
+    self.assertEqual(inferred.b16, 'Tensor0[int16]')
+    self.assertEqual(inferred.c16, 'Tensor0[int16]')
+
+  def testBinaryOpWithScalar_ReturnsAnyDType(self):
+    """Tests that e.g. `x + 1` has dtype AnyDType."""
+    with utils.SaveCodeAsString() as code_saver:
+      x: Tensor1[int8, A1] = tf.constant([0], dtype=tf.int8)
+      y1 = x + 1  # pylint: disable=unused-variable
+      y2 = x - 1  # pylint: disable=unused-variable
+      y3 = x / 1  # pylint: disable=unused-variable
+      y4 = x * 1  # pylint: disable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    # pytype displays AnyDType as Any.
+    self.assertEqual(inferred.y1, 'Tensor1[Any, A1]')
+    self.assertEqual(inferred.y2, 'Tensor1[Any, A1]')
+    self.assertEqual(inferred.y3, 'Tensor1[Any, A1]')
+    self.assertEqual(inferred.y4, 'Tensor1[Any, A1]')
+
+  def testBinaryOpWithArray_ReturnsAnyDType(self):
+    """Tests that e.g. adding two arrays results in dtype AnyDType."""
+    with utils.SaveCodeAsString() as code_saver:
+      a: Tensor1[int8, A1] = tf.constant([0], dtype=tf.int8)
+      b: Tensor1[int8, A1] = tf.constant([0], dtype=tf.int8)
+      y1 = a + b  # pylint: disable=unused-variable
+      y2 = a - b  # pylint: disable=unused-variable
+      y3 = a / b  # pylint: disable=unused-variable
+      y4 = a * b  # pylint: disable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    # pytype displays AnyDType as Any.
+    self.assertEqual(inferred.y1, 'Tensor1[Any, A1]')
+    self.assertEqual(inferred.y2, 'Tensor1[Any, A1]')
+    self.assertEqual(inferred.y3, 'Tensor1[Any, A1]')
+    self.assertEqual(inferred.y4, 'Tensor1[Any, A1]')
+
+  def testFunctionWithInt8Argument_AcceptsInt8Value(self):
+    """Tests whether a function will accept a value with the right dtype."""
+    with utils.SaveCodeAsString() as code_saver:
+      def foo(_: Tensor0[int8]):
+        pass
+      x: Tensor0[int8] = tf.constant([0], dtype=tf.int8)
+      foo(x)
+
+    utils.assert_pytype_succeeds(_PREAMBLE + code_saver.code)
+
+  def testFunctionWithInt8Argument_RejectsInt16Value(self):
+    """Tests whether a function will reject a value with the wrong dtype."""
+    with utils.SaveCodeAsString() as code_saver:
+      def foo(_: Tensor0[int8]):
+        pass
+      x: Tensor0[int16] = tf.constant([0], dtype=tf.int16)
+      foo(x)
+
+    utils.assert_pytype_fails(_PREAMBLE + code_saver.code)
+
+  def testFunctionWithAnyDTypeArgument_AcceptsInt8Value(self):
+    """Tests whether AnyDType makes a function argument compatible with all."""
+    with utils.SaveCodeAsString() as code_saver:
+      def foo(_: Tensor0[AnyDType]):
+        pass
+      x: Tensor0[int8] = tf.constant([0], dtype=tf.int8)
+      foo(x)
+
+    utils.assert_pytype_succeeds(_PREAMBLE + code_saver.code)
+
+  def testFunctionWithInt8Argument_AcceptsAnyDTypeValue(self):
+    """Tests whether AnyDType is compatible with an arbitrary argument dtype."""
+    with utils.SaveCodeAsString() as code_saver:
+      def foo(_: Tensor0[int8]):
+        pass
+      x: Tensor0[AnyDType] = tf.constant([0])
+      foo(x)
+
+    utils.assert_pytype_succeeds(_PREAMBLE + code_saver.code)
 
 
 if __name__ == '__main__':
