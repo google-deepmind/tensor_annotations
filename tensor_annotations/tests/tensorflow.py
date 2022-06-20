@@ -15,9 +15,9 @@
 """Tests for TensorFlow stubs."""
 
 import functools
-from typing import Any, NewType
-import unittest
+from typing import NewType
 
+from absl.testing import absltest  # For sharded test support
 from tensor_annotations import axes
 from tensor_annotations.tensorflow import int16
 from tensor_annotations.tensorflow import Tensor0
@@ -50,7 +50,7 @@ _pytype_infer_shapes = functools.partial(
 )
 
 
-class TensorFlowStubTests(unittest.TestCase):
+class TensorFlowStubTests(absltest.TestCase):
   """Tests for TensorFlow type stubs using pytype."""
 
   def testTranspose_InferredMatchesActualShapeShape(self):
@@ -255,4 +255,4 @@ class TensorFlowStubTests(unittest.TestCase):
 
 
 if __name__ == '__main__':
-  unittest.main()
+  absltest.main()
