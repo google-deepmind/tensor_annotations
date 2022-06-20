@@ -15,10 +15,12 @@
 """Tests for TensorFlow stubs."""
 
 import functools
-from typing import Any, NewType
+from typing import Any, NewType, TypeVar
 
 from absl.testing import absltest  # For sharded test support
 from tensor_annotations import axes
+from tensor_annotations.axes import Batch
+from tensor_annotations.axes import Time
 from tensor_annotations.tensorflow import AnyDType
 from tensor_annotations.tensorflow import float32
 from tensor_annotations.tensorflow import float64
@@ -33,20 +35,23 @@ import tensorflow as tf
 
 A1 = NewType('A1', axes.Axis)
 A2 = NewType('A2', axes.Axis)
+AxisTypeVar = TypeVar('AxisTypeVar')
 
 # It's less than ideal that we have to repeat imports etc. here for pytype, but
 # this seems like the best balance between readability and complexity.
 _PREAMBLE = """
-from typing import Any, NewType
+from typing import Any, NewType, TypeVar
 
 import tensorflow as tf
 from tensor_annotations import axes
+from tensor_annotations.axes import Batch, Time
 from tensor_annotations.tensorflow import AnyDType
 from tensor_annotations.tensorflow import float32, float64, int8, int16
 from tensor_annotations.tensorflow import Tensor0, Tensor1, Tensor2
 
 A1 = NewType('A1', axes.Axis)
 A2 = NewType('A2', axes.Axis)
+AxisTypeVar = TypeVar('AxisTypeVar')
 """
 
 _pytype_infer_shapes = functools.partial(
@@ -487,6 +492,53 @@ class TensorFlowDtypeTests(absltest.TestCase):
 
     utils.assert_pytype_succeeds(_PREAMBLE + code_saver.code)
 
+
+class TensorFlowAnyDtypeAliasTests(absltest.TestCase):
+  """Tests for backwards-compatible aliases that don't use DTypes."""
+
+  def testInt8Batch_AcceptsAnyDTypeBatch(self):
+    """Is Tensor1AnyDType[Batch] compatible with Tensor1[int8, Batch]?"""
+    with utils.SaveCodeAsString() as code_saver:
+      Tensor1AnyDType = Tensor1[AnyDType, AxisTypeVar]  # pylint: disable=invalid-name
+      def foo(_: Tensor1[int8, Batch]):
+        pass
+      x: Tensor1AnyDType[Batch] = tf.constant([[0]])
+      foo(x)
+
+    utils.assert_pytype_succeeds(_PREAMBLE + code_saver.code)
+
+  def testInt8Batch_RejectsAnyDTypeTime(self):
+    """Is Tensor1AnyDType[Time] compatible with Tensor1[int8, Batch]?"""
+    with utils.SaveCodeAsString() as code_saver:
+      Tensor1AnyDType = Tensor1[AnyDType, AxisTypeVar]  # pylint: disable=invalid-name
+      def foo(_: Tensor1[int8, Batch]):
+        pass
+      x: Tensor1AnyDType[Time] = tf.constant([[0]])
+      foo(x)
+
+    utils.assert_pytype_fails(_PREAMBLE + code_saver.code)
+
+  def testAnyDTypeBatch_AcceptsUint8Batch(self):
+    """Is Tensor1[int8, Batch] compatible with Tensor1AnyDType[Batch]?"""
+    with utils.SaveCodeAsString() as code_saver:
+      Tensor1AnyDType = Tensor1[AnyDType, AxisTypeVar]  # pylint: disable=invalid-name
+      def foo(_: Tensor1AnyDType[Batch]):
+        pass
+      x: Tensor1[int8, Batch] = tf.constant([[0]])
+      foo(x)
+
+    utils.assert_pytype_succeeds(_PREAMBLE + code_saver.code)
+
+  def testAnyDTypeBatch_RejectsUint8Time(self):
+    """Is Tensor1[int8, Time] compatible with Tensor1AnyDType[Batch]?"""
+    with utils.SaveCodeAsString() as code_saver:
+      Tensor1AnyDType = Tensor1[AnyDType, AxisTypeVar]  # pylint: disable=invalid-name
+      def foo(_: Tensor1AnyDType[Batch]):
+        pass
+      x: Tensor1[int8, Time] = tf.constant([[0]])
+      foo(x)
+
+    utils.assert_pytype_fails(_PREAMBLE + code_saver.code)
 
 if __name__ == '__main__':
   absltest.main()
