@@ -148,9 +148,6 @@ def pytype_infer_types(code: str) -> types.SimpleNamespace:
     code += f'\nreveal_type({var})'
 
   process = run_pytype(code, check=False)
-  # If the test fails, make sure we can see why
-  print(process.stdout.decode())
-  print(process.stderr.decode())
 
   # We look at both stdout and stderr because pytype behaves differently
   # depending on whether we run the Google-internal version or the normal
