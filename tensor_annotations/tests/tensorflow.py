@@ -21,6 +21,7 @@ from absl.testing import absltest  # For sharded test support
 from tensor_annotations import axes
 from tensor_annotations.axes import Batch
 from tensor_annotations.axes import Time
+import tensor_annotations.tensorflow as ttf
 from tensor_annotations.tensorflow import AnyDType
 from tensor_annotations.tensorflow import float32
 from tensor_annotations.tensorflow import float64
@@ -45,6 +46,7 @@ from typing import Any, NewType, TypeVar
 import tensorflow as tf
 from tensor_annotations import axes
 from tensor_annotations.axes import Batch, Time
+import tensor_annotations.tensorflow as ttf
 from tensor_annotations.tensorflow import AnyDType
 from tensor_annotations.tensorflow import float32, float64, int8, int16
 from tensor_annotations.tensorflow import Tensor0, Tensor1, Tensor2
@@ -488,6 +490,16 @@ class TensorFlowDtypeTests(absltest.TestCase):
       def foo(_: Tensor0[int8]):
         pass
       x: Tensor0[AnyDType] = tf.constant([0])
+      foo(x)
+
+    utils.assert_pytype_succeeds(_PREAMBLE + code_saver.code)
+
+  def testFunctionWithBoolArgument_AcceptsBoolValue(self):
+    """No problems with using 'bool' as a dtype name, right?"""
+    with utils.SaveCodeAsString() as code_saver:
+      def foo(_: Tensor0[ttf.bool]):
+        pass
+      x: Tensor0[ttf.bool] = tf.constant(False)
       foo(x)
 
     utils.assert_pytype_succeeds(_PREAMBLE + code_saver.code)

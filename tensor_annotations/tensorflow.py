@@ -57,6 +57,13 @@ class float64(DType): pass
 class complex64(DType): pass
 class complex128(DType): pass
 class bfloat16(DType): pass
+# Yup, these two definitely are native dtypes in TensorFlow:
+# https://www.tensorflow.org/api_docs/python/tf/dtypes
+class string(DType): pass
+# TensorFlow's boolean dtype is definitely just 'bool'.
+# It's a little annoying that has the same name as the Python keyword,
+# but let's stick with TensorFlow's naming.
+class bool(DType): pass  # pylint: disable=redefined-builtin
 # pylint: enable=invalid-name, multiple-statements,g-wrong-blank-lines
 
 # We want to have an `AnyDType` type that behaves like `Any` but for DTypes.
