@@ -1072,7 +1072,7 @@ def recompute_grad(f) -> Any: ...
 # BEGIN: tensor_annotations annotations for reduce_all(...)
 @overload
 def reduce_all(input_tensor: Tensor1[DT, A1],
-               axis: L0, name=...) -> Tensor0[DT, ]: ...
+               axis: L0, name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_all(input_tensor: Tensor2[DT, A1, A2],
@@ -1084,7 +1084,7 @@ def reduce_all(input_tensor: Tensor2[DT, A1, A2],
 
 @overload
 def reduce_all(input_tensor: Tensor2[DT, A1, A2],
-               axis: Tuple[L0, L1], name=...) -> Tensor0[DT, ]: ...
+               axis: Tuple[L0, L1], name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_all(input_tensor: Tensor3[DT, A1, A2, A3],
@@ -1112,7 +1112,7 @@ def reduce_all(input_tensor: Tensor3[DT, A1, A2, A3],
 
 @overload
 def reduce_all(input_tensor: Tensor3[DT, A1, A2, A3],
-               axis: Tuple[L0, L1, L2], name=...) -> Tensor0[DT, ]: ...
+               axis: Tuple[L0, L1, L2], name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_all(input_tensor: Tensor4[DT, A1, A2, A3, A4],
@@ -1172,7 +1172,7 @@ def reduce_all(input_tensor: Tensor4[DT, A1, A2, A3, A4],
 
 @overload
 def reduce_all(input_tensor: Tensor4[DT, A1, A2, A3, A4],
-               axis: Tuple[L0, L1, L2, L3], name=...) -> Tensor0[DT, ]: ...
+               axis: Tuple[L0, L1, L2, L3], name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_all(input_tensor: Tensor5[DT, A1, A2, A3, A4, A5],
@@ -1296,7 +1296,7 @@ def reduce_all(input_tensor: Tensor5[DT, A1, A2, A3, A4, A5],
 
 @overload
 def reduce_all(input_tensor: Tensor5[DT, A1, A2, A3, A4, A5],
-               axis: Tuple[L0, L1, L2, L3, L4], name=...) -> Tensor0[DT, ]: ...
+               axis: Tuple[L0, L1, L2, L3, L4], name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_all(input_tensor: Tensor1[DT, A1],
@@ -1326,7 +1326,7 @@ def reduce_all(input_tensor, axis=..., keepdims=..., name=...) -> Any: ...
 # BEGIN: tensor_annotations annotations for reduce_any(...)
 @overload
 def reduce_any(input_tensor: Tensor1[DT, A1],
-               axis: L0, name=...) -> Tensor0[DT, ]: ...
+               axis: L0, name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_any(input_tensor: Tensor2[DT, A1, A2],
@@ -1338,7 +1338,7 @@ def reduce_any(input_tensor: Tensor2[DT, A1, A2],
 
 @overload
 def reduce_any(input_tensor: Tensor2[DT, A1, A2],
-               axis: Tuple[L0, L1], name=...) -> Tensor0[DT, ]: ...
+               axis: Tuple[L0, L1], name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_any(input_tensor: Tensor3[DT, A1, A2, A3],
@@ -1366,7 +1366,7 @@ def reduce_any(input_tensor: Tensor3[DT, A1, A2, A3],
 
 @overload
 def reduce_any(input_tensor: Tensor3[DT, A1, A2, A3],
-               axis: Tuple[L0, L1, L2], name=...) -> Tensor0[DT, ]: ...
+               axis: Tuple[L0, L1, L2], name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_any(input_tensor: Tensor4[DT, A1, A2, A3, A4],
@@ -1426,7 +1426,7 @@ def reduce_any(input_tensor: Tensor4[DT, A1, A2, A3, A4],
 
 @overload
 def reduce_any(input_tensor: Tensor4[DT, A1, A2, A3, A4],
-               axis: Tuple[L0, L1, L2, L3], name=...) -> Tensor0[DT, ]: ...
+               axis: Tuple[L0, L1, L2, L3], name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_any(input_tensor: Tensor5[DT, A1, A2, A3, A4, A5],
@@ -1550,7 +1550,7 @@ def reduce_any(input_tensor: Tensor5[DT, A1, A2, A3, A4, A5],
 
 @overload
 def reduce_any(input_tensor: Tensor5[DT, A1, A2, A3, A4, A5],
-               axis: Tuple[L0, L1, L2, L3, L4], name=...) -> Tensor0[DT, ]: ...
+               axis: Tuple[L0, L1, L2, L3, L4], name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_any(input_tensor: Tensor1[DT, A1],
@@ -1580,7 +1580,7 @@ def reduce_any(input_tensor, axis=..., keepdims=..., name=...) -> Any: ...
 # BEGIN: tensor_annotations annotations for reduce_logsumexp(...)
 @overload
 def reduce_logsumexp(input_tensor: Tensor1[DT, A1],
-               axis: L0, name=...) -> Tensor0[DT, ]: ...
+               axis: L0, name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_logsumexp(input_tensor: Tensor2[DT, A1, A2],
@@ -1592,7 +1592,7 @@ def reduce_logsumexp(input_tensor: Tensor2[DT, A1, A2],
 
 @overload
 def reduce_logsumexp(input_tensor: Tensor2[DT, A1, A2],
-               axis: Tuple[L0, L1], name=...) -> Tensor0[DT, ]: ...
+               axis: Tuple[L0, L1], name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_logsumexp(input_tensor: Tensor3[DT, A1, A2, A3],
@@ -1620,7 +1620,7 @@ def reduce_logsumexp(input_tensor: Tensor3[DT, A1, A2, A3],
 
 @overload
 def reduce_logsumexp(input_tensor: Tensor3[DT, A1, A2, A3],
-               axis: Tuple[L0, L1, L2], name=...) -> Tensor0[DT, ]: ...
+               axis: Tuple[L0, L1, L2], name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_logsumexp(input_tensor: Tensor4[DT, A1, A2, A3, A4],
@@ -1680,7 +1680,7 @@ def reduce_logsumexp(input_tensor: Tensor4[DT, A1, A2, A3, A4],
 
 @overload
 def reduce_logsumexp(input_tensor: Tensor4[DT, A1, A2, A3, A4],
-               axis: Tuple[L0, L1, L2, L3], name=...) -> Tensor0[DT, ]: ...
+               axis: Tuple[L0, L1, L2, L3], name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_logsumexp(input_tensor: Tensor5[DT, A1, A2, A3, A4, A5],
@@ -1804,7 +1804,7 @@ def reduce_logsumexp(input_tensor: Tensor5[DT, A1, A2, A3, A4, A5],
 
 @overload
 def reduce_logsumexp(input_tensor: Tensor5[DT, A1, A2, A3, A4, A5],
-               axis: Tuple[L0, L1, L2, L3, L4], name=...) -> Tensor0[DT, ]: ...
+               axis: Tuple[L0, L1, L2, L3, L4], name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_logsumexp(input_tensor: Tensor1[DT, A1],
@@ -1834,7 +1834,7 @@ def reduce_logsumexp(input_tensor, axis=..., keepdims=..., name=...) -> Any: ...
 # BEGIN: tensor_annotations annotations for reduce_max(...)
 @overload
 def reduce_max(input_tensor: Tensor1[DT, A1],
-               axis: L0, name=...) -> Tensor0[DT, ]: ...
+               axis: L0, name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_max(input_tensor: Tensor2[DT, A1, A2],
@@ -1846,7 +1846,7 @@ def reduce_max(input_tensor: Tensor2[DT, A1, A2],
 
 @overload
 def reduce_max(input_tensor: Tensor2[DT, A1, A2],
-               axis: Tuple[L0, L1], name=...) -> Tensor0[DT, ]: ...
+               axis: Tuple[L0, L1], name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_max(input_tensor: Tensor3[DT, A1, A2, A3],
@@ -1874,7 +1874,7 @@ def reduce_max(input_tensor: Tensor3[DT, A1, A2, A3],
 
 @overload
 def reduce_max(input_tensor: Tensor3[DT, A1, A2, A3],
-               axis: Tuple[L0, L1, L2], name=...) -> Tensor0[DT, ]: ...
+               axis: Tuple[L0, L1, L2], name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_max(input_tensor: Tensor4[DT, A1, A2, A3, A4],
@@ -1934,7 +1934,7 @@ def reduce_max(input_tensor: Tensor4[DT, A1, A2, A3, A4],
 
 @overload
 def reduce_max(input_tensor: Tensor4[DT, A1, A2, A3, A4],
-               axis: Tuple[L0, L1, L2, L3], name=...) -> Tensor0[DT, ]: ...
+               axis: Tuple[L0, L1, L2, L3], name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_max(input_tensor: Tensor5[DT, A1, A2, A3, A4, A5],
@@ -2058,7 +2058,7 @@ def reduce_max(input_tensor: Tensor5[DT, A1, A2, A3, A4, A5],
 
 @overload
 def reduce_max(input_tensor: Tensor5[DT, A1, A2, A3, A4, A5],
-               axis: Tuple[L0, L1, L2, L3, L4], name=...) -> Tensor0[DT, ]: ...
+               axis: Tuple[L0, L1, L2, L3, L4], name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_max(input_tensor: Tensor1[DT, A1],
@@ -2088,7 +2088,7 @@ def reduce_max(input_tensor, axis=..., keepdims=..., name=...) -> Any: ...
 # BEGIN: tensor_annotations annotations for reduce_mean(...)
 @overload
 def reduce_mean(input_tensor: Tensor1[DT, A1],
-               axis: L0, name=...) -> Tensor0[DT, ]: ...
+               axis: L0, name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_mean(input_tensor: Tensor2[DT, A1, A2],
@@ -2100,7 +2100,7 @@ def reduce_mean(input_tensor: Tensor2[DT, A1, A2],
 
 @overload
 def reduce_mean(input_tensor: Tensor2[DT, A1, A2],
-               axis: Tuple[L0, L1], name=...) -> Tensor0[DT, ]: ...
+               axis: Tuple[L0, L1], name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_mean(input_tensor: Tensor3[DT, A1, A2, A3],
@@ -2128,7 +2128,7 @@ def reduce_mean(input_tensor: Tensor3[DT, A1, A2, A3],
 
 @overload
 def reduce_mean(input_tensor: Tensor3[DT, A1, A2, A3],
-               axis: Tuple[L0, L1, L2], name=...) -> Tensor0[DT, ]: ...
+               axis: Tuple[L0, L1, L2], name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_mean(input_tensor: Tensor4[DT, A1, A2, A3, A4],
@@ -2188,7 +2188,7 @@ def reduce_mean(input_tensor: Tensor4[DT, A1, A2, A3, A4],
 
 @overload
 def reduce_mean(input_tensor: Tensor4[DT, A1, A2, A3, A4],
-               axis: Tuple[L0, L1, L2, L3], name=...) -> Tensor0[DT, ]: ...
+               axis: Tuple[L0, L1, L2, L3], name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_mean(input_tensor: Tensor5[DT, A1, A2, A3, A4, A5],
@@ -2312,7 +2312,7 @@ def reduce_mean(input_tensor: Tensor5[DT, A1, A2, A3, A4, A5],
 
 @overload
 def reduce_mean(input_tensor: Tensor5[DT, A1, A2, A3, A4, A5],
-               axis: Tuple[L0, L1, L2, L3, L4], name=...) -> Tensor0[DT, ]: ...
+               axis: Tuple[L0, L1, L2, L3, L4], name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_mean(input_tensor: Tensor1[DT, A1],
@@ -2342,7 +2342,7 @@ def reduce_mean(input_tensor, axis=..., keepdims=..., name=...) -> Any: ...
 # BEGIN: tensor_annotations annotations for reduce_min(...)
 @overload
 def reduce_min(input_tensor: Tensor1[DT, A1],
-               axis: L0, name=...) -> Tensor0[DT, ]: ...
+               axis: L0, name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_min(input_tensor: Tensor2[DT, A1, A2],
@@ -2354,7 +2354,7 @@ def reduce_min(input_tensor: Tensor2[DT, A1, A2],
 
 @overload
 def reduce_min(input_tensor: Tensor2[DT, A1, A2],
-               axis: Tuple[L0, L1], name=...) -> Tensor0[DT, ]: ...
+               axis: Tuple[L0, L1], name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_min(input_tensor: Tensor3[DT, A1, A2, A3],
@@ -2382,7 +2382,7 @@ def reduce_min(input_tensor: Tensor3[DT, A1, A2, A3],
 
 @overload
 def reduce_min(input_tensor: Tensor3[DT, A1, A2, A3],
-               axis: Tuple[L0, L1, L2], name=...) -> Tensor0[DT, ]: ...
+               axis: Tuple[L0, L1, L2], name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_min(input_tensor: Tensor4[DT, A1, A2, A3, A4],
@@ -2442,7 +2442,7 @@ def reduce_min(input_tensor: Tensor4[DT, A1, A2, A3, A4],
 
 @overload
 def reduce_min(input_tensor: Tensor4[DT, A1, A2, A3, A4],
-               axis: Tuple[L0, L1, L2, L3], name=...) -> Tensor0[DT, ]: ...
+               axis: Tuple[L0, L1, L2, L3], name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_min(input_tensor: Tensor5[DT, A1, A2, A3, A4, A5],
@@ -2566,7 +2566,7 @@ def reduce_min(input_tensor: Tensor5[DT, A1, A2, A3, A4, A5],
 
 @overload
 def reduce_min(input_tensor: Tensor5[DT, A1, A2, A3, A4, A5],
-               axis: Tuple[L0, L1, L2, L3, L4], name=...) -> Tensor0[DT, ]: ...
+               axis: Tuple[L0, L1, L2, L3, L4], name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_min(input_tensor: Tensor1[DT, A1],
@@ -2596,7 +2596,7 @@ def reduce_min(input_tensor, axis=..., keepdims=..., name=...) -> Any: ...
 # BEGIN: tensor_annotations annotations for reduce_prod(...)
 @overload
 def reduce_prod(input_tensor: Tensor1[DT, A1],
-               axis: L0, name=...) -> Tensor0[DT, ]: ...
+               axis: L0, name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_prod(input_tensor: Tensor2[DT, A1, A2],
@@ -2608,7 +2608,7 @@ def reduce_prod(input_tensor: Tensor2[DT, A1, A2],
 
 @overload
 def reduce_prod(input_tensor: Tensor2[DT, A1, A2],
-               axis: Tuple[L0, L1], name=...) -> Tensor0[DT, ]: ...
+               axis: Tuple[L0, L1], name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_prod(input_tensor: Tensor3[DT, A1, A2, A3],
@@ -2636,7 +2636,7 @@ def reduce_prod(input_tensor: Tensor3[DT, A1, A2, A3],
 
 @overload
 def reduce_prod(input_tensor: Tensor3[DT, A1, A2, A3],
-               axis: Tuple[L0, L1, L2], name=...) -> Tensor0[DT, ]: ...
+               axis: Tuple[L0, L1, L2], name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_prod(input_tensor: Tensor4[DT, A1, A2, A3, A4],
@@ -2696,7 +2696,7 @@ def reduce_prod(input_tensor: Tensor4[DT, A1, A2, A3, A4],
 
 @overload
 def reduce_prod(input_tensor: Tensor4[DT, A1, A2, A3, A4],
-               axis: Tuple[L0, L1, L2, L3], name=...) -> Tensor0[DT, ]: ...
+               axis: Tuple[L0, L1, L2, L3], name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_prod(input_tensor: Tensor5[DT, A1, A2, A3, A4, A5],
@@ -2820,7 +2820,7 @@ def reduce_prod(input_tensor: Tensor5[DT, A1, A2, A3, A4, A5],
 
 @overload
 def reduce_prod(input_tensor: Tensor5[DT, A1, A2, A3, A4, A5],
-               axis: Tuple[L0, L1, L2, L3, L4], name=...) -> Tensor0[DT, ]: ...
+               axis: Tuple[L0, L1, L2, L3, L4], name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_prod(input_tensor: Tensor1[DT, A1],
@@ -2850,7 +2850,7 @@ def reduce_prod(input_tensor, axis=..., keepdims=..., name=...) -> Any: ...
 # BEGIN: tensor_annotations annotations for reduce_sum(...)
 @overload
 def reduce_sum(input_tensor: Tensor1[DT, A1],
-               axis: L0, name=...) -> Tensor0[DT, ]: ...
+               axis: L0, name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_sum(input_tensor: Tensor2[DT, A1, A2],
@@ -2862,7 +2862,7 @@ def reduce_sum(input_tensor: Tensor2[DT, A1, A2],
 
 @overload
 def reduce_sum(input_tensor: Tensor2[DT, A1, A2],
-               axis: Tuple[L0, L1], name=...) -> Tensor0[DT, ]: ...
+               axis: Tuple[L0, L1], name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_sum(input_tensor: Tensor3[DT, A1, A2, A3],
@@ -2890,7 +2890,7 @@ def reduce_sum(input_tensor: Tensor3[DT, A1, A2, A3],
 
 @overload
 def reduce_sum(input_tensor: Tensor3[DT, A1, A2, A3],
-               axis: Tuple[L0, L1, L2], name=...) -> Tensor0[DT, ]: ...
+               axis: Tuple[L0, L1, L2], name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_sum(input_tensor: Tensor4[DT, A1, A2, A3, A4],
@@ -2950,7 +2950,7 @@ def reduce_sum(input_tensor: Tensor4[DT, A1, A2, A3, A4],
 
 @overload
 def reduce_sum(input_tensor: Tensor4[DT, A1, A2, A3, A4],
-               axis: Tuple[L0, L1, L2, L3], name=...) -> Tensor0[DT, ]: ...
+               axis: Tuple[L0, L1, L2, L3], name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_sum(input_tensor: Tensor5[DT, A1, A2, A3, A4, A5],
@@ -3074,7 +3074,7 @@ def reduce_sum(input_tensor: Tensor5[DT, A1, A2, A3, A4, A5],
 
 @overload
 def reduce_sum(input_tensor: Tensor5[DT, A1, A2, A3, A4, A5],
-               axis: Tuple[L0, L1, L2, L3, L4], name=...) -> Tensor0[DT, ]: ...
+               axis: Tuple[L0, L1, L2, L3, L4], name=...) -> Tensor0[DT]: ...
 
 @overload
 def reduce_sum(input_tensor: Tensor1[DT, A1],

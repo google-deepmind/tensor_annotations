@@ -102,14 +102,14 @@ class TemplateTests(unittest.TestCase):
                 all_axes='A1, A2',
                 reduction_axes='L0',
                 remaining_n_axes=1,
-                remaining_axes='A2'
+                remaining_axes=', A2'
             ),
             templates.ReductionAxes(
                 n_axes=2,
                 all_axes='A1, A2',
                 reduction_axes='L1',
                 remaining_n_axes=1,
-                remaining_axes='A1'
+                remaining_axes=', A1'
             ),
             templates.ReductionAxes(
                 n_axes=2,

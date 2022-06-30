@@ -143,6 +143,7 @@ def reduction_axes(n_axes: int):
       if remaining_axes:
         remaining_axes_str = (f'A{i + 1}' for i in remaining_axes)
         remaining_axes_str = ', '.join(remaining_axes_str)
+        remaining_axes_str = ', ' + remaining_axes_str
       else:
         remaining_axes_str = ''
 
