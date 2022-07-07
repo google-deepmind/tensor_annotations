@@ -145,12 +145,14 @@ class TensorFlowShapeTests(absltest.TestCase):
       x0 = tf.reduce_sum(x, axis=0)
       y0 = tf.reduce_sum(y, axis=0)
       y1 = tf.reduce_sum(y, axis=1)
+      yn1 = tf.reduce_sum(y, axis=-1)
 
     inferred = _pytype_infer_shapes(_PREAMBLE + code_saver.code)
 
     self.assertEqual(inferred.x0, x0.shape)
     self.assertEqual(inferred.y0, y0.shape)
     self.assertEqual(inferred.y1, y1.shape)
+    self.assertEqual(inferred.yn1, yn1.shape)
 
   def testTensorAdd_ReturnsCustomType(self):
     with utils.SaveCodeAsString() as code_saver:

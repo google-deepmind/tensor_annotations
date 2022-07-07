@@ -41,6 +41,7 @@ DT = TypeVar('DT')
 TRUE = Literal[True]
 FALSE = Literal[False]
 
+LN1 = Literal[-1]
 L0 = Literal[0]
 L1 = Literal[1]
 L2 = Literal[2]

@@ -113,9 +113,11 @@ def reduction_axes(n_axes: int):
   encoding:
     Reduce shape [A1, A2] over axes    0 -> shape[A2]
                                        1 -> shape[A1]
+                                      -1 -> shape[A1]
                                     0, 1 -> shape[]
   """
   assert n_axes >= 1
+  final_axis = n_axes - 1
 
   # [A1, A2, ..., An]
   all_axes_str = [f'A{i}' for i in range(1, n_axes + 1)]
@@ -123,21 +125,34 @@ def reduction_axes(n_axes: int):
 
   n_reduction_axes_iter = range(1, n_axes + 1)
   for n_reduction_axes in n_reduction_axes_iter:
-    for reduction_axes in itertools.permutations(range(n_axes),
-                                                 n_reduction_axes):
-      # Skip e.g. `axis=(1, 0)`.
-      if not all(reduction_axes[i] > reduction_axes[i-1]
-                 for i in range(1, len(reduction_axes))):
-        continue
 
-      if len(reduction_axes) == 1:
-        reduction_axes_str = f'L{reduction_axes[0]}'
-      else:
-        reduction_axes_str = (f'L{i}' for i in reduction_axes)
-        reduction_axes_str = ', '.join(reduction_axes_str)
+    # First, make a list of all possible permutations of reduction axes.
+    reduction_axes_list = []
+    for reduction_axes_combo in itertools.combinations(
+        range(n_axes),
+        n_reduction_axes
+    ):
+      # Thanks to `combinations`, `reduction_axes_combo` is already sorted.
+      reduction_axes_list.append(reduction_axes_combo)
+      # Also consider permutations where we refer to the final axis as '-1'.
+      if final_axis in reduction_axes_combo:
+        reduction_axes_list.append((*reduction_axes_combo[:-1], -1))
+
+    # Second, for each permutation of reduction axes, yield a ReductionAxes.
+    for reduction_axes in reduction_axes_list:
+      reduction_axes_str = (
+          f'L{i}' if i != -1 else 'LN1'
+          for i in reduction_axes
+      )
+      reduction_axes_str = ', '.join(reduction_axes_str)
+      if len(reduction_axes) != 1:
         reduction_axes_str = f'Tuple[{reduction_axes_str}]'
 
-      remaining_axes = set(range(n_axes)) - set(reduction_axes)
+      concrete_reduction_axes = [
+          (n_axes - 1) if axis == -1 else axis
+          for axis in reduction_axes
+      ]
+      remaining_axes = set(range(n_axes)) - set(concrete_reduction_axes)
       remaining_axes = sorted(tuple(remaining_axes))
       remaining_n_axes = len(remaining_axes)
       if remaining_axes:
