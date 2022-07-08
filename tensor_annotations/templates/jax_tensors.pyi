@@ -375,4 +375,15 @@ class Array8(Generic[A1, A2, A3, A4, A5, A6, A7, A8]):
   {% endfor %}
 
   # END: Binary element-wise operators
+
+
+Array0AnyDType = Array0
+Array1AnyDType = Array1
+Array2AnyDType = Array2
+Array3AnyDType = Array3
+Array4AnyDType = Array4
+Array5AnyDType = Array5
+Array6AnyDType = Array6
+Array7AnyDType = Array7
+Array8AnyDType = Array8
 # LINT.ThenChange(../jax.pyi)
