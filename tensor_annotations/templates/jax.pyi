@@ -23,6 +23,7 @@ To regenerate, run the following from the tensor_annotations directory:
 
 from typing import overload, Any, List, Literal, Tuple, TypeVar
 
+import tensor_annotations.jax as tjax
 from tensor_annotations.jax import Array0, Array1, Array2, Array3, Array4
 from tensor_annotations.axes import Axis
 
@@ -31,6 +32,9 @@ A1 = TypeVar('A1', bound=Axis)
 A2 = TypeVar('A2', bound=Axis)
 A3 = TypeVar('A3', bound=Axis)
 A4 = TypeVar('A4', bound=Axis)
+
+AnyDType = Any
+DT = TypeVar('DT', bound=tjax.DType)
 
 class ndarray: ...
 
@@ -44,6 +48,7 @@ L1 = Literal[1]
 L2 = Literal[2]
 L3 = Literal[3]
 L4 = Literal[4]
+LN1 = Literal[-1]
 
 
 # ---------- UNARY OPERATORS ----------
@@ -55,23 +60,23 @@ L4 = Literal[4]
 {% for func in unary_funcs %}
 
 @overload
-def {{ func }}(x: Array0) -> Array0: ...
+def {{ func }}(x: Array0[DT]) -> Array0[DT]: ...
 
 
 @overload
-def {{ func }}(x: Array1[A1]) -> Array1[A1]: ...
+def {{ func }}(x: Array1[DT, A1]) -> Array1[DT, A1]: ...
 
 
 @overload
-def {{ func }}(x: Array2[A1, A2]) -> Array2[A1, A2]: ...
+def {{ func }}(x: Array2[DT, A1, A2]) -> Array2[DT, A1, A2]: ...
 
 
 @overload
-def {{ func }}(x: Array3[A1, A2, A3]) -> Array3[A1, A2, A3]: ...
+def {{ func }}(x: Array3[DT, A1, A2, A3]) -> Array3[DT, A1, A2, A3]: ...
 
 
 @overload
-def {{ func }}(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
+def {{ func }}(x: Array4[DT, A1, A2, A3, A4]) -> Array4[DT, A1, A2, A3, A4]: ...
 
 {% endfor %}
 
@@ -80,45 +85,45 @@ def {{ func }}(x: Array4[A1, A2, A3, A4]) -> Array4[A1, A2, A3, A4]: ...
 {% for func in dtype_unary_funcs %}
 
 @overload
-def {{ func }}(x: Array0, dtype=...) -> Array0: ...
+def {{ func }}(x: Array0[DT], dtype=...) -> Array0[DT]: ...
 
 
 @overload
-def {{ func }}(x: Array1[A1], dtype=...) -> Array1[A1]: ...
+def {{ func }}(x: Array1[DT, A1], dtype=...) -> Array1[DT, A1]: ...
 
 
 @overload
-def {{ func }}(x: Array2[A1, A2], dtype=...) -> Array2[A1, A2]: ...
+def {{ func }}(x: Array2[DT, A1, A2], dtype=...) -> Array2[DT, A1, A2]: ...
 
 
 @overload
-def {{ func }}(x: Array3[A1, A2, A3], dtype=...) -> Array3[A1, A2, A3]: ...
+def {{ func }}(x: Array3[DT, A1, A2, A3], dtype=...) -> Array3[DT, A1, A2, A3]: ...
 
 
 @overload
-def {{ func }}(x: Array4[A1, A2, A3, A4], dtype=...) -> Array4[A1, A2, A3, A4]: ...
+def {{ func }}(x: Array4[DT, A1, A2, A3, A4], dtype=...) -> Array4[DT, A1, A2, A3, A4]: ...
 
 {% endfor %}
 
 
 @overload
-def round(x: Array0, decimals=...) -> Array0: ...
+def round(x: Array0[DT], decimals=...) -> Array0[DT]: ...
 
 
 @overload
-def round(x: Array1[A1], decimals=...) -> Array1[A1]: ...
+def round(x: Array1[DT, A1], decimals=...) -> Array1[DT, A1]: ...
 
 
 @overload
-def round(x: Array2[A1, A2], decimals=...) -> Array2[A1, A2]: ...
+def round(x: Array2[DT, A1, A2], decimals=...) -> Array2[DT, A1, A2]: ...
 
 
 @overload
-def round(x: Array3[A1, A2, A3], decimals=...) -> Array3[A1, A2, A3]: ...
+def round(x: Array3[DT, A1, A2, A3], decimals=...) -> Array3[DT, A1, A2, A3]: ...
 
 
 @overload
-def round(x: Array4[A1, A2, A3, A4], decimals=...) -> Array4[A1, A2, A3, A4]: ...
+def round(x: Array4[DT, A1, A2, A3, A4], decimals=...) -> Array4[DT, A1, A2, A3, A4]: ...
 
 
 # I what even why would you
@@ -135,26 +140,26 @@ def zeros(shape: List, dtype=...) -> Any: ...
 
 
 @overload
-def zeros(shape: L0, dtype=...) -> Array0: ...
+def zeros(shape: L0, dtype=...) -> Array0[AnyDType]: ...
 
 
 {% for i in range(1, 5) %}
 {% set n_any = (['Any'] * i)|join(', ') %}
 
 @overload
-def zeros(shape: L{{ i }}, dtype=...) -> Array{{ i }}[{{ n_any }}]: ...
+def zeros(shape: L{{ i }}, dtype=...) -> Array{{ i }}[AnyDType, {{ n_any }}]: ...
 
 
 @overload
-def zeros(shape: Shape{{ i }}, dtype=...) -> Array{{ i }}[{{ n_any }}]: ...
+def zeros(shape: Shape{{ i }}, dtype=...) -> Array{{ i }}[AnyDType, {{ n_any }}]: ...
 
 {% endfor %}
 
-# Array0 is down here because otherwise it'd match shape e.g. Tuple[Any, Any]
+# Array0[DT] is down here because otherwise it'd match shape e.g. Tuple[DT, Any, Any]
 # https://github.com/google/pytype/issues/767
-# (e.g. `dim = some_func_that_returns_any; zeros((dim, dim))` would be Array0)
+# (e.g. `dim = some_func_that_returns_any; zeros((dim, dim))` would be Array0[DT])
 @overload
-def zeros(shape: Tuple[()], dtype=...) -> Array0: ...
+def zeros(shape: Tuple[()], dtype=...) -> Array0[AnyDType]: ...
 
 
 @overload
@@ -162,24 +167,24 @@ def ones(shape: List, dtype=...) -> Any: ...
 
 
 @overload
-def ones(shape: L0, dtype=...) -> Array0: ...
+def ones(shape: L0, dtype=...) -> Array0[AnyDType]: ...
 
 
 {% for i in range(1, 5) %}
 {% set n_any = (['Any'] * i)|join(', ') %}
 
 @overload
-def ones(shape: L{{ i }}, dtype=...) -> Array{{ i }}[{{ n_any }}]: ...
+def ones(shape: L{{ i }}, dtype=...) -> Array{{ i }}[AnyDType, {{ n_any }}]: ...
 
 
 @overload
-def ones(shape: Shape{{ i }}, dtype=...) -> Array{{ i }}[{{ n_any }}]: ...
+def ones(shape: Shape{{ i }}, dtype=...) -> Array{{ i }}[AnyDType, {{ n_any }}]: ...
 
 {% endfor %}
 
-# See note about Array0 in `zeros`
+# See note about Array0[DT] in `zeros`
 @overload
-def ones(shape: Tuple[()], dtype=...) -> Array0: ...
+def ones(shape: Tuple[()], dtype=...) -> Array0[AnyDType]: ...
 
 
 # ---------- REDUCTION OPERATORS ----------
@@ -224,17 +229,17 @@ def {{ op }}(
 
 @overload
 def {{ op }}(
-    a: Array{{ axes.n_axes }}{{ axes.all_axes }},
+    a: Array{{ axes.n_axes }}[DT, {{ axes.all_axes }}],
     axis: {{ axes.reduction_axes }},
     out=..., keepdims=..., dtype=...
-) -> Array{{ axes.remaining_n_axes }}{{ axes.remaining_axes }}: ...
+) -> Array{{ axes.remaining_n_axes }}[DT{{ axes.remaining_axes }}]: ...
 
 {% endfor %}
 
 # Fallback: `axis` not any of the above
 @overload
 def {{ op }}(
-    a: Array{{ n_axes }}[{{ (['Any'] * n_axes)|join(', ') }}],
+    a: Array{{ n_axes }}[DT, {{ (['Any'] * n_axes)|join(', ') }}],
     axis: Any,
     out=..., keepdims=..., dtype=...
 ) -> Any: ...
@@ -243,9 +248,9 @@ def {{ op }}(
 
 @overload
 def {{ op }}(
-    a: Array{{ n_axes }}[{{ (['Any'] * n_axes)|join(', ') }}],
+    a: Array{{ n_axes }}[DT, {{ (['Any'] * n_axes)|join(', ') }}],
     out=..., keepdims=..., dtype=...
-) -> Array0: ...
+) -> Array0[DT]: ...
 
 {% endfor %}
 
@@ -272,9 +277,9 @@ def {{ op }}(
 
 @overload
 def transpose(
-    a: Array{{ n_axes }}{{ axes.all_axes }},
+    a: Array{{ n_axes }}[DT, {{ axes.all_axes }}],
     axes: {{ axes.transpose_axes }}
-) -> Array{{ n_axes }}{{ axes.result_axes }}: ...
+) -> Array{{ n_axes }}[DT, {{ axes.result_axes }}]: ...
 
 {% endfor %}
 
@@ -287,8 +292,8 @@ def transpose(
 
 @overload
 def transpose(
-    a: Array{{ n_axes }}[{{ axes }}]
-) -> Array{{ n_axes }}[{{ reverse_axes }}]: ...
+    a: Array{{ n_axes }}[DT, {{ axes }}]
+) -> Array{{ n_axes }}[DT, {{ reverse_axes }}]: ...
 
 {% endfor %}
 

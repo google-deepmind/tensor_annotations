@@ -14,7 +14,6 @@
 # ==============================================================================
 """Tests for TensorFlow stubs."""
 
-import functools
 from typing import Any, NewType, TypeVar
 
 from absl.testing import absltest  # For sharded test support
@@ -56,11 +55,6 @@ A2 = NewType('A2', axes.Axis)
 AxisTypeVar = TypeVar('AxisTypeVar')
 """
 
-_pytype_infer_shapes = functools.partial(
-    utils.pytype_infer_shapes,
-    expect_dtype=True,
-)
-
 
 class TensorFlowShapeTests(absltest.TestCase):
   """Tests for shapes inferred from TensorFlow type stubs using pytype."""
@@ -70,7 +64,7 @@ class TensorFlowShapeTests(absltest.TestCase):
       x: Tensor2[Any, A1, A2] = tf.zeros((1, 2))
       y = tf.transpose(x)
 
-    inferred = _pytype_infer_shapes(_PREAMBLE + code_saver.code)
+    inferred = utils.pytype_infer_shapes(_PREAMBLE + code_saver.code)
 
     self.assertEqual(inferred.y, y.shape)
 
@@ -147,7 +141,7 @@ class TensorFlowShapeTests(absltest.TestCase):
       y1 = tf.reduce_sum(y, axis=1)
       yn1 = tf.reduce_sum(y, axis=-1)
 
-    inferred = _pytype_infer_shapes(_PREAMBLE + code_saver.code)
+    inferred = utils.pytype_infer_shapes(_PREAMBLE + code_saver.code)
 
     self.assertEqual(inferred.x0, x0.shape)
     self.assertEqual(inferred.y0, y0.shape)
@@ -193,7 +187,7 @@ class TensorFlowShapeTests(absltest.TestCase):
       y3 = x / 1.0
       y4 = x * 1.0
 
-    inferred = _pytype_infer_shapes(_PREAMBLE + code_saver.code)
+    inferred = utils.pytype_infer_shapes(_PREAMBLE + code_saver.code)
 
     self.assertEqual(y1.shape, inferred.y1)
     self.assertEqual(y2.shape, inferred.y2)
@@ -210,7 +204,7 @@ class TensorFlowShapeTests(absltest.TestCase):
       y3 = a / b
       y4 = a * b
 
-    inferred = _pytype_infer_shapes(_PREAMBLE + code_saver.code)
+    inferred = utils.pytype_infer_shapes(_PREAMBLE + code_saver.code)
 
     self.assertEqual(y1.shape, inferred.y1)
     self.assertEqual(y2.shape, inferred.y2)
@@ -227,7 +221,7 @@ class TensorFlowShapeTests(absltest.TestCase):
       y3 = a / b
       y4 = a * b
 
-    inferred = _pytype_infer_shapes(_PREAMBLE + code_saver.code)
+    inferred = utils.pytype_infer_shapes(_PREAMBLE + code_saver.code)
 
     self.assertEqual(y1.shape, inferred.y1)
     self.assertEqual(y2.shape, inferred.y2)

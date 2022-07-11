@@ -208,7 +208,6 @@ def _parse_mypy_output(var_names: List[str],
 
 def pytype_infer_shapes(
     code: str,
-    expect_dtype: bool = False,
 ) -> types.SimpleNamespace:
   # pylint: disable=g-doc-args,g-doc-return-or-yield,g-doc-exception
   """Runs pytype on `code`, returning inferred shape of array/tensor variables.
@@ -257,10 +256,7 @@ def pytype_infer_shapes(
         raise ValueError(f"Couldn't parse type '{var_type}'")
       axis_types = match.group(1)  # e.g. 'A1, A2'
       axis_types_list = axis_types.split(', ')
-      if expect_dtype:
-        unused_dtype, *shape_types = axis_types_list
-      else:
-        shape_types = axis_types_list
+      unused_dtype, *shape_types = axis_types_list
       shape_str_list = [t.replace('A', '') for t in shape_types]
       shape = tuple(int(s) for s in shape_str_list)
     shapes_dict[var] = shape
