@@ -41,6 +41,7 @@ AxisTypeVar = TypeVar('AxisTypeVar')
 _PREAMBLE = """
 from typing import Any, NewType, TypeVar
 
+import jax
 import jax.numpy as jnp
 from tensor_annotations import axes
 from tensor_annotations.axes import Batch, Time
@@ -54,6 +55,22 @@ AxisTypeVar = TypeVar('AxisTypeVar')
 
 
 class JAXStubTests(absltest.TestCase):
+  """Tests for jax.* stubs."""
+
+  def test_custom_stubs_are_used_for_jax(self):
+    """Tests whether eg a syntax error in jax.pyi prevents stubs being used."""
+    # _sentinel is a member that exists with a specific type in our stubs but
+    # not in the JAX library code itself (and would therefore normally be
+    # seen as `Any` by pytype).
+    code = _PREAMBLE + 's = jax._sentinel'
+
+    inferred = utils.pytype_infer_types(code)
+
+    self.assertEqual(inferred.s, 'int')
+
+
+class JAXNumpyStubTests(absltest.TestCase):
+  """Tests for jax.numpy.* stubs."""
 
   def testTranspose_InferredShapeMatchesActualShape(self):
     with utils.SaveCodeAsString() as code_saver:

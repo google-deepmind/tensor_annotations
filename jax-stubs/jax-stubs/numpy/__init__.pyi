@@ -12,9 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==============================================================================
-"""JAX stubs.
+"""Stubs for jax.numpy.*
 
-NOTE: This file is generated from templates/jax.pyi.
+NOTE: This file is generated from templates/jax_numpy.pyi.
 
 To regenerate, run the following from the tensor_annotations directory:
    tools/render_jax_library_template.py
@@ -2380,6 +2380,8 @@ format_float_positional: Any
 format_float_scientific: Any
 
 frexp: Any
+
+from_dlpack: Any
 
 frombuffer: Any
 
