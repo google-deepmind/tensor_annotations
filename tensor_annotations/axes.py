@@ -21,6 +21,8 @@ type. We therefore provide this file as the canonical reference for axis types
 that are likely to be used widely.
 """
 
+from typing import NewType
+
 
 class Axis:
   """Base type for axis annotations.
@@ -30,34 +32,10 @@ class Axis:
   pass
 
 
-# These could be more compactly specified with typing.NewType,
-# but pytype doesn't currently support NewType in stubs:
-# https://github.com/google/pytype/issues/597
-
-
-class Batch(Axis):
-  pass
-
-
-class Channels(Axis):
-  pass
-
-
-class Features(Axis):
-  pass
-
-
-class Time(Axis):
-  pass
-
-
-class Height(Axis):
-  pass
-
-
-class Width(Axis):
-  pass
-
-
-class Depth(Axis):
-  pass
+Batch = NewType('Batch', Axis)
+Channels = NewType('Channels', Axis)
+Features = NewType('Features', Axis)
+Time = NewType('Time', Axis)
+Height = NewType('Height', Axis)
+Width = NewType('Width', Axis)
+Depth = NewType('Depth', Axis)
