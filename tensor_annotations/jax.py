@@ -92,21 +92,21 @@ class Array4(Generic[A1, A2, A3, A4], _ArrayBase):
 
 
 class Array5(Generic[A1, A2, A3, A4, A5], _ArrayBase):
-  """A tensor of rank 4."""
+  """A tensor of rank 5."""
   pass
 
 
 class Array6(Generic[A1, A2, A3, A4, A5, A6], _ArrayBase):
-  """A tensor of rank 4."""
+  """A tensor of rank 6."""
   pass
 
 
 class Array7(Generic[A1, A2, A3, A4, A5, A6, A7], _ArrayBase):
-  """A tensor of rank 4."""
+  """A tensor of rank 7."""
   pass
 
 
 class Array8(Generic[A1, A2, A3, A4, A5, A6, A7, A8], _ArrayBase):
-  """A tensor of rank 4."""
+  """A tensor of rank 8."""
   pass
 # LINT.ThenChange(jax.pyi)
