@@ -1,15 +1,15 @@
 # TensorAnnotations
 
-TensorAnnotations is an experimental library enabling annotation of semantic
-tensor shape information using type annotations - for example:
+TensorAnnotations is an experimental library enabling annotation of data-type
+and semantic shape information using type annotations - for example:
 ```python
-def calculate_loss(frames: Array4[Time, Batch, Height, Width]):
+def calculate_loss(frames: Array4[uint8, Time, Batch, Height, Width]):
   ...
 ```
 
-This annotation states that the dimensions of `frames` are time-like,
-batch-like, etc. (while saying nothing about the actual _values_ - e.g. the
-actual batch size).
+This annotation states that the data-type of `frames` is `uint8`, and that the
+dimensions are time-like, batch-like, etc. (while saying nothing about the
+actual _values_ - e.g. the actual batch size).
 
 Why? Two reasons:
 
@@ -39,13 +39,14 @@ import tensorflow as tf
 from tensor_annotations import axes
 import tensor_annotations.tensorflow as ttf
 
+uint8 = ttf.uint8
 Batch, Time = axes.Batch, axes.Time
 
-def sample_batch() -> ttf.Tensor2[Time, Batch]:
+def sample_batch() -> ttf.Tensor2[uint8, Time, Batch]:
   return tf.zeros((3, 5))
 
-def train_batch(batch: ttf.Tensor2[Batch, Time]):
-  m: ttf.Tensor1[Batch] = tf.reduce_max(batch, axis=1)
+def train_batch(batch: ttf.Tensor2[uint8, Batch, Time]):
+  m: ttf.Tensor1[uint8, Batch] = tf.reduce_max(batch, axis=1)
   # Do something useful
 
 def main():
@@ -65,8 +66,8 @@ pytype:
 
 ```
 File "example.py", line 10: Function train_batch was called with the wrong arguments [wrong-arg-types]
-         Expected: (batch: Tensor2[Batch, Time])
-  Actually passed: (batch: Tensor2[Time, Batch])
+         Expected: (batch: Tensor2[uint8, Batch, Time])
+  Actually passed: (batch: Tensor2[uint8, Time, Batch])
 ```
 
 Similarly, changing the the call to `reduce_max` from `axis=1` to `axis=0`
@@ -74,8 +75,8 @@ results in:
 
 ```
 File "example.py", line 15: Type annotation for m does not match type of assignment [annotation-type-mismatch]
-  Annotation: Tensor1[Batch]
-  Assignment: Tensor1[Time]
+  Annotation: Tensor1[uint8, Batch]
+  Assignment: Tensor1[uint8, Time]
 ```
 
 (These messages were shortened for readability. The actual errors will be more
@@ -169,6 +170,22 @@ generics, similar to `List[int]`. (Different classes are needed for each rank
 because Python currently does not support variadic generics, but we're working
 on it.)
 
+### Data types
+
+TensorAnnotations also provides its own data-type types:
+
+```python
+# JAX
+from tensor_annotations.jax import uint8, float32  # Etc
+
+# TensorFlow
+from tensor_annotations.tensorflow import uint8, float32  # Etc
+```
+
+This is because, for various reasons, the native data-type types like
+`tf.uint8` and `jnp.uint8` are unsuitable for use in type annotations. See
+`tensorflow.py` and `jax.py` for more information.
+
 ### Axis labels
 
 Axis labels are used to indicate the semantic meaning of each dimension in a
@@ -199,10 +216,10 @@ L64 = typing.NewType('L64', axes.Axis)
 ### Stubs
 
 By default, TensorFlow and JAX are not aware of our annotations. For example, if
-you have a tensor `x: Array2[Time, Batch]` and you call `jnp.sum(x, axis=0)`,
-you won't get a `Array1[Batch]`, you'll just get an `Any`. We therefore provide
-a set of custom type annotations for TensorFlow and JAX packaged in 'stub'
-(`.pyi`) files.
+you have a tensor `x: Array2[uint8, Time, Batch]` and you call
+`jnp.sum(x, axis=0)`, you won't get a `Array1[uint8, Batch]`, you'll just get an
+`Any`. We therefore provide a set of custom type annotations for TensorFlow and
+JAX packaged in 'stub' (`.pyi`) files.
 
 Our stubs currently cover the following parts of the API. All operations are
 supported for rank 1, 2, 3 and 4 tensors, unless otherwise noted. Unary
@@ -243,14 +260,14 @@ code, you can cast to TensorAnnotations classes with `typing.cast`:
 ```python
 from typing import cast
 
-x = cast(tjax.Array2[Batch, Time], x)
+x = cast(tjax.Array2[uint8, Batch, Time], x)
 ```
 
 Note that this is only a hint to the type checker - at runtime, it's a no-op. An
 alternative syntax emphasising this fact is:
 
 ```python
-x: tjax.Array2[Batch, Time] = x  # type: ignore
+x: tjax.Array2[uint8, Batch, Time] = x  # type: ignore
 ```
 
 ## Gotchas
@@ -264,7 +281,7 @@ length of the shape argument. This only works with tuples, and not with lists:
 ```python
 a = tf.zeros((10, 10))  # Correctly infers type Tensor2[Any, Any]
 
-b: ttf.Tensor2[Time, Batch] = get_batch()
+b: ttf.Tensor2[uint8, Time, Batch] = get_batch()
 c = tf.transpose(b, perm=(0, 1))  # Tracks and infers the axes-types of b
 ```
 
@@ -273,7 +290,7 @@ while
 ```python
 a = tf.zeros([10, 10])  # Returns Any
 
-b: ttf.Tensor2[Time, Batch] = get_batch()
+b: ttf.Tensor2[uint8, Time, Batch] = get_batch()
 c = tf.transpose(b, perm=[0, 1]))  # Does not track permutations and returns Any
 ```
 
@@ -290,8 +307,8 @@ anything about the actual shape value either. The following will _not_ raise an
 error:
 
 ```python
-x: tjax.Array1[Batch] = jnp.zeros((3,))
-y: tjax.Array1[Batch] = jnp.zeros((5,))
+x: tjax.Array1[uint8, Batch] = jnp.zeros((3,))
+y: tjax.Array1[uint8, Batch] = jnp.zeros((5,))
 ```
 
 Note that _this is by design_! Shape symbols such as `Batch` are _not_

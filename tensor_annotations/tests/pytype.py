@@ -23,7 +23,7 @@ from tensor_annotations.tests import utils
 _PREAMBLE = """
 from typing import NewType
 
-from tensor_annotations.jax import Array2
+from tensor_annotations.jax import Array2, int8
 from tensor_annotations import axes
 
 A1 = NewType('A1', axes.Axis)
@@ -35,9 +35,9 @@ class PytypeTests(unittest.TestCase):
 
   def testSimpleCorrectExample_PassesPytype(self):
     code = """
-      def foo(x: Array2[A1, A2]):
+      def foo(x: Array2[int8, A1, A2]):
         pass
-      x: Array2[A1, A2] = Array2()
+      x: Array2[int8, A1, A2] = Array2()
       foo(x)
     """
     code = _PREAMBLE + textwrap.dedent(code)
@@ -45,9 +45,9 @@ class PytypeTests(unittest.TestCase):
 
   def testSimpleIncorrectExample_FailsPytype(self):
     code = """
-      def foo(x: Array2[A1, A2]):
+      def foo(x: Array2[int8, A1, A2]):
         pass
-      x: Array2[A2, A1] = Array2()
+      x: Array2[int8, A2, A1] = Array2()
       foo(x)
     """
     code = _PREAMBLE + textwrap.dedent(code)
