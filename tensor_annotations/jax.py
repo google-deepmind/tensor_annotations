@@ -147,22 +147,22 @@ class Array4(Generic[DT, A1, A2, A3, A4], _ArrayBase):
 
 
 class Array5(Generic[DT, A1, A2, A3, A4, A5], _ArrayBase):
-  """A tensor of rank 5."""
+  """A tensor of rank 4."""
   pass
 
 
 class Array6(Generic[DT, A1, A2, A3, A4, A5, A6], _ArrayBase):
-  """A tensor of rank 6."""
+  """A tensor of rank 4."""
   pass
 
 
 class Array7(Generic[DT, A1, A2, A3, A4, A5, A6, A7], _ArrayBase):
-  """A tensor of rank 7."""
+  """A tensor of rank 4."""
   pass
 
 
 class Array8(Generic[DT, A1, A2, A3, A4, A5, A6, A7, A8], _ArrayBase):
-  """A tensor of rank 8."""
+  """A tensor of rank 4."""
   pass
 
 
