@@ -45,7 +45,6 @@ setuptools.setup(
     # Copybara takes care of moving files to 'tensor_annotations/'
     packages=[
         'tensor_annotations',
-        'tensor_annotations/experimental',
         'tensor_annotations/tests',
     ],
     package_data={'tensor_annotations': stub_files + ['py.typed']},
