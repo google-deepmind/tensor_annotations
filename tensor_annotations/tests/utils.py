@@ -285,11 +285,23 @@ class SaveCodeAsString:
     return self
 
   def __exit__(self, *_):
-    self._frame_where_exited = inspect.stack()[1]
     with open(self._frame_where_entered.filename, 'r') as f:
       lines = f.readlines()
-    start = self._frame_where_entered.lineno
-    end = self._frame_where_exited.lineno
-    lines = lines[start:end]
+    start_line_num = self._frame_where_entered.lineno - 1
+    start_line = lines[start_line_num]
+    start_indentation = len(start_line) - len(start_line.lstrip())
+
+    for line_num, line in enumerate(
+        lines[start_line_num + 1:],
+        start=start_line_num + 1,
+    ):
+      if not line.strip():
+        continue
+      line_indentation = len(line) - len(line.lstrip())
+      if line_indentation <= start_indentation:
+        break
+    end_line_num = line_num
+
+    lines = lines[start_line_num + 1:end_line_num]
     self.code = ''.join(lines).rstrip()
     self.code = textwrap.dedent(self.code)
