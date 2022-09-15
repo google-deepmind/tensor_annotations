@@ -120,17 +120,17 @@ git clone https://github.com/python/typeshed "$HOME/typeshed"
 Next, symlink the stubs into your copy of typeshed:
 
 ```bash
-site_packages=$(python -m site --user-site)
+site_packages=$(python3 -m site --user-site)
 # Custom tensor classes
-mkdir "$HOME/typeshed/third_party/3/tensor_annotations"
-ln -s "$site_packages/tensor_annotations/__init__.py" "$HOME/typeshed/third_party/3/tensor_annotations/__init__.pyi"
-ln -s "$site_packages/tensor_annotations/jax.pyi" "$HOME/typeshed/third_party/3/tensor_annotations/jax.pyi"
-ln -s "$site_packages/tensor_annotations/tensorflow.pyi" "$HOME/typeshed/third_party/3/tensor_annotations/tensorflow.pyi"
-ln -s "$site_packages/tensor_annotations/axes.py" "$HOME/typeshed/third_party/3/tensor_annotations/axes.pyi"
+mkdir -p "$HOME"/typeshed/stubs/{tensor_annotations/tensor_annotations,tensorflow,jax}
+ln -s "$site_packages/tensor_annotations/__init__.py" "$HOME/typeshed/stubs/tensor_annotations/tensor_annotations/__init__.pyi"
+ln -s "$site_packages/tensor_annotations/jax.pyi" "$HOME/typeshed/stubs/tensor_annotations/tensor_annotations/jax.pyi"
+ln -s "$site_packages/tensor_annotations/tensorflow.pyi" "$HOME/typeshed/stubs/tensor_annotations/tensor_annotations/tensorflow.pyi"
+ln -s "$site_packages/tensor_annotations/axes.py" "$HOME/typeshed/stubs/tensor_annotations/tensor_annotations/axes.pyi"
 # TensorFlow
-ln -s "$site_packages/tensorflow-stubs" "$HOME/typeshed/third_party/3/tensorflow"
+ln -s "$site_packages/tensorflow-stubs" "$HOME/typeshed/stubs/tensorflow/tensorflow"
 # JAX
-ln -s "$site_packages/jax-stubs" "$HOME/typeshed/third_party/3/jax"
+ln -s "$site_packages/jax-stubs" "$HOME/typeshed/stubs/jax/jax"
 ```
 
 ## General usage
