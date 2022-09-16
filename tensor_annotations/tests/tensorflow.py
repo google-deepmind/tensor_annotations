@@ -35,6 +35,7 @@ import tensorflow as tf
 
 A1 = NewType('A1', axes.Axis)
 A2 = NewType('A2', axes.Axis)
+A3 = NewType('A3', axes.Axis)
 AxisTypeVar = TypeVar('AxisTypeVar')
 
 # It's less than ideal that we have to repeat imports etc. here for pytype, but
@@ -52,6 +53,7 @@ from tensor_annotations.tensorflow import Tensor0, Tensor1, Tensor2
 
 A1 = NewType('A1', axes.Axis)
 A2 = NewType('A2', axes.Axis)
+A3 = NewType('A3', axes.Axis)
 AxisTypeVar = TypeVar('AxisTypeVar')
 """
 
@@ -148,7 +150,19 @@ class TensorFlowShapeTests(absltest.TestCase):
     self.assertEqual(inferred.y1, y1.shape)
     self.assertEqual(inferred.yn1, yn1.shape)
 
+  def testMatmul_InferredMatchesActualShape(self):
+    """Tests that `x @ y` returns the correct types."""
+    with utils.SaveCodeAsString() as code_saver:
+      x: Tensor2[Any, A1, A2] = tf.zeros((1, 2))
+      y: Tensor2[Any, A2, A3] = tf.zeros((2, 3))
+      xy = x @ y
+
+    inferred = utils.pytype_infer_shapes(_PREAMBLE + code_saver.code)
+
+    self.assertEqual(inferred.xy, xy.shape)
+
   def testTensorAdd_ReturnsCustomType(self):
+    """Tests that addition returns the correct types."""
     with utils.SaveCodeAsString() as code_saver:
       x: Tensor1[Any, A1] = tf.zeros((1,))
       a = x + 1  # pylint: disable=unused-variable

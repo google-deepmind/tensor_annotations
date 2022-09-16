@@ -96,6 +96,7 @@ class Array0(Generic[DT]):
   def __getitem__(self, index) -> Any: ...
   def __setitem__(self, index, value) -> Any: ...
   shape: Tuple[()]
+  T: Array0[DT]
 
   # BEGIN: Unary operators
   {% for func in unary_funcs %}
@@ -123,6 +124,8 @@ class Array1(Generic[DT, A1]):
   def __getitem__(self, index) -> Any: ...
   def __setitem__(self, index, value) -> Any: ...
   shape: Tuple[int]
+  T: Array1[DT, A1]
+  def __len__(self) -> int: ...
 
   # BEGIN: Unary operators
   {% for func in unary_funcs %}
@@ -148,11 +151,39 @@ class Array1(Generic[DT, A1]):
 
   # END: Binary element-wise operators
 
+  # BEGIN: The `@` operator
+  @overload
+  def __matmul__(self, other: Array1[AnyDType, A1]) -> Array0[AnyDType]: ...
+
+  @overload
+  def __matmul__(self, other: Array2[AnyDType, A1, A2]) -> Array1[AnyDType, A2]: ...
+
+  @overload
+  def __matmul__(self, other: Array3[AnyDType, A3, A1, A2]) -> Array2[AnyDType, A3, A2]: ...
+
+  @overload
+  def __matmul__(self, other: Array4[AnyDType, A3, A4, A1, A2]) -> Array3[AnyDType, A3, A4, A2]: ...
+
+  @overload
+  def __rmatmul__(self, other: Array1[AnyDType, A1]) -> Array0[AnyDType]: ...
+
+  @overload
+  def __rmatmul__(self, other: Array2[AnyDType, A2, A1]) -> Array1[AnyDType, A2]: ...
+
+  @overload
+  def __rmatmul__(self, other: Array3[AnyDType, A3, A2, A1]) -> Array2[AnyDType, A3, A2]: ...
+
+  @overload
+  def __rmatmul__(self, other: Array4[AnyDType, A3, A4, A2, A1]) -> Array3[AnyDType, A3, A4, A2]: ...
+  # END: The `@` operator
+
 
 class Array2(Generic[DT, A1, A2]):
   def __getitem__(self, index) -> Any: ...
   def __setitem__(self, index, value) -> Any: ...
   shape: Tuple[int, int]
+  T: Array2[DT, A2, A1]
+  def __len__(self) -> int: ...
 
   # BEGIN: Unary operators
   {% for func in unary_funcs %}
@@ -182,11 +213,39 @@ class Array2(Generic[DT, A1, A2]):
 
   # END: Binary element-wise operators
 
+  # BEGIN: The `@` operator
+  @overload
+  def __matmul__(self, other: Array1[AnyDType, A2]) -> Array1[AnyDType, A1]: ...
+
+  @overload
+  def __matmul__(self, other: Array2[AnyDType, A2, A3]) -> Array2[AnyDType, A1, A3]: ...
+
+  @overload
+  def __matmul__(self, other: Array3[AnyDType, A4, A2, A3]) -> Array3[AnyDType, A4, A1, A3]: ...
+
+  @overload
+  def __matmul__(self, other: Array4[AnyDType, A4, A5, A2, A3]) -> Array4[AnyDType, A4, A5, A1, A3]: ...
+
+  @overload
+  def __rmatmul__(self, other: Array1[AnyDType, A1]) -> Array1[AnyDType, A2]: ...
+
+  @overload
+  def __rmatmul__(self, other: Array2[AnyDType, A3, A1]) -> Array2[AnyDType, A3, A2]: ...
+
+  @overload
+  def __rmatmul__(self, other: Array3[AnyDType, A3, A4, A1]) -> Array3[AnyDType, A3, A4, A2]: ...
+
+  @overload
+  def __rmatmul__(self, other: Array4[AnyDType, A3, A4, A5, A1]) -> Array4[AnyDType, A3, A4, A5, A2]: ...
+  # END: The `@` operator
+
 
 class Array3(Generic[DT, A1, A2, A3]):
   def __getitem__(self, index) -> Any: ...
   def __setitem__(self, index, value) -> Any: ...
   shape: Tuple[int, int, int]
+  T: Array3[DT, A3, A2, A1]
+  def __len__(self) -> int: ...
 
   # BEGIN: Unary operators
   {% for func in unary_funcs %}
@@ -218,11 +277,39 @@ class Array3(Generic[DT, A1, A2, A3]):
 
   # END: Binary element-wise operators
 
+  # BEGIN: The `@` operator
+  @overload
+  def __matmul__(self, other: Array1[AnyDType, A3]) -> Array2[AnyDType, A1, A2]: ...
+
+  @overload
+  def __matmul__(self, other: Array2[AnyDType, A3, A4]) -> Array3[AnyDType, A1, A2, A4]: ...
+
+  @overload
+  def __matmul__(self, other: Array3[AnyDType, A1, A3, A4]) -> Array3[AnyDType, A1, A2, A4]: ...
+
+  @overload
+  def __matmul__(self, other: Array4[AnyDType, A5, A1, A3, A4]) -> Array4[AnyDType, A5, A1, A2, A4]: ...
+
+  @overload
+  def __rmatmul__(self, other: Array1[AnyDType, A2]) -> Array2[AnyDType, A1, A3]: ...
+
+  @overload
+  def __rmatmul__(self, other: Array2[AnyDType, A4, A2]) -> Array3[AnyDType, A1, A4, A3]: ...
+
+  @overload
+  def __rmatmul__(self, other: Array3[AnyDType, A1, A4, A2]) -> Array3[AnyDType, A1, A4, A3]: ...
+
+  @overload
+  def __rmatmul__(self, other: Array4[AnyDType, A5, A1, A4, A2]) -> Array4[AnyDType, A5, A1, A4, A3]: ...
+  # END: The `@` operator
+
 
 class Array4(Generic[DT, A1, A2, A3, A4]):
   def __getitem__(self, index) -> Any: ...
   def __setitem__(self, index, value) -> Any: ...
   shape: Tuple[int, int, int, int]
+  T: Array4[DT, A4, A3, A2, A1]
+  def __len__(self) -> int: ...
 
   # BEGIN: Unary operators
   {% for func in unary_funcs %}
@@ -256,11 +343,39 @@ class Array4(Generic[DT, A1, A2, A3, A4]):
 
   # END: Binary element-wise operators
 
+  # BEGIN: The `@` operator
+  @overload
+  def __matmul__(self, other: Array1[AnyDType, A4]) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  @overload
+  def __matmul__(self, other: Array2[AnyDType, A4, A5]) -> Array4[AnyDType, A1, A2, A3, A5]: ...
+
+  @overload
+  def __matmul__(self, other: Array3[AnyDType, A2, A4, A5]) -> Array4[AnyDType, A1, A2, A3, A5]: ...
+
+  @overload
+  def __matmul__(self, other: Array4[AnyDType, A1, A2, A4, A5]) -> Array4[AnyDType, A1, A2, A3, A5]: ...
+
+  @overload
+  def __rmatmul__(self, other: Array1[AnyDType, A3]) -> Array3[AnyDType, A1, A2, A4]: ...
+
+  @overload
+  def __rmatmul__(self, other: Array2[AnyDType, A5, A3]) -> Array4[AnyDType, A1, A2, A5, A4]: ...
+
+  @overload
+  def __rmatmul__(self, other: Array3[AnyDType, A2, A5, A3]) -> Array4[AnyDType, A1, A2, A5, A4]: ...
+
+  @overload
+  def __rmatmul__(self, other: Array4[AnyDType, A1, A2, A5, A3]) -> Array4[AnyDType, A1, A2, A5, A4]: ...
+  # END: The `@` operator
+
 
 class Array5(Generic[DT, A1, A2, A3, A4, A5]):
   def __getitem__(self, index) -> Any: ...
   def __setitem__(self, index, value) -> Any: ...
   shape: Tuple[int, int, int, int]
+  T: Array5[DT, A5, A4, A3, A2, A1]
+  def __len__(self) -> int: ...
 
   # BEGIN: Unary operators
   {% for func in unary_funcs %}
@@ -301,6 +416,8 @@ class Array6(Generic[DT, A1, A2, A3, A4, A5, A6]):
   def __getitem__(self, index) -> Any: ...
   def __setitem__(self, index, value) -> Any: ...
   shape: Tuple[int, int, int, int]
+  T: Array6[DT, A6, A5, A4, A3, A2, A1]
+  def __len__(self) -> int: ...
 
   # BEGIN: Unary operators
   {% for func in unary_funcs %}
@@ -343,6 +460,8 @@ class Array7(Generic[DT, A1, A2, A3, A4, A5, A6, A7]):
   def __getitem__(self, index) -> Any: ...
   def __setitem__(self, index, value) -> Any: ...
   shape: Tuple[int, int, int, int]
+  T: Array7[DT, A7, A6, A5, A4, A3, A2, A1]
+  def __len__(self) -> int: ...
 
   # BEGIN: Unary operators
   {% for func in unary_funcs %}
@@ -387,6 +506,8 @@ class Array8(Generic[DT, A1, A2, A3, A4, A5, A6, A7, A8]):
   def __getitem__(self, index) -> Any: ...
   def __setitem__(self, index, value) -> Any: ...
   shape: Tuple[int, int, int, int]
+  T: Array8[DT, A8, A7, A6, A5, A4, A3, A2, A1]
+  def __len__(self) -> int: ...
 
   # BEGIN: Unary operators
   {% for func in unary_funcs %}

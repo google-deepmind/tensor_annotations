@@ -14,6 +14,7 @@ import numpy as np
 import tensorflow as tf
 from tensor_annotations.axes import Axis
 
+
 A1 = TypeVar('A1', bound=Axis)
 A2 = TypeVar('A2', bound=Axis)
 A3 = TypeVar('A3', bound=Axis)
@@ -89,6 +90,10 @@ DT = TypeVar('DT', bound=DType)
 Number = Union[int, float]
 
 
+
+
+
+
 # A quick refresher on broadcasting rules:
 # 1. Tensor[A, B] + scalar = Tensor[A, B]
 # 2. Otherwise, start with trailing dimension of each tensor and work
@@ -99,2246 +104,2316 @@ Number = Union[int, float]
 
 class Tensor0(Generic[DT]):
   def __getitem__(self, index) -> Any: ...
-
   def __setitem__(self, index, value) -> Any: ...
-
   def numpy(self) -> Any: ...  # Returns a scalar value, *not* an ndarray.
-
   shape: tf.TensorShape
   dtype: tf.DType
 
   # BEGIN: Unary operators
-
+  
   def __abs__(self) -> Tensor0[DT]: ...
-
+  
   def __neg__(self) -> Tensor0[DT]: ...
-
+  
   def __pos__(self) -> Tensor0[DT]: ...
-
+  
   # END: Unary operators
 
   # BEGIN: Binary element-wise operators
-
+  
   @overload
   def __add__(self, other: Tensor0[AnyDType]) -> Tensor0[AnyDType]: ...
-
   @overload
   def __add__(self, other: Tensor1[AnyDType, A1]) -> Tensor1[AnyDType, A1]: ...
-
   @overload
   def __add__(self, other: Tensor2[AnyDType, A1, A2]) -> Tensor2[AnyDType, A1, A2]: ...
-
   @overload
   def __add__(self, other: Tensor3[AnyDType, A1, A2, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
-
   @overload
   def __add__(self, other: Tensor4[AnyDType, A1, A2, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __add__(self, other: Tensor5[AnyDType, A1, A2, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __add__(self, other: Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __add__(self, other: Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __add__(self, other: Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
+  
   @overload
   def __sub__(self, other: Tensor0[AnyDType]) -> Tensor0[AnyDType]: ...
-
   @overload
   def __sub__(self, other: Tensor1[AnyDType, A1]) -> Tensor1[AnyDType, A1]: ...
-
   @overload
   def __sub__(self, other: Tensor2[AnyDType, A1, A2]) -> Tensor2[AnyDType, A1, A2]: ...
-
   @overload
   def __sub__(self, other: Tensor3[AnyDType, A1, A2, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
-
   @overload
   def __sub__(self, other: Tensor4[AnyDType, A1, A2, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __sub__(self, other: Tensor5[AnyDType, A1, A2, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __sub__(self, other: Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __sub__(self, other: Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __sub__(self, other: Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
+  
   @overload
   def __floordiv__(self, other: Tensor0[AnyDType]) -> Tensor0[AnyDType]: ...
-
   @overload
   def __floordiv__(self, other: Tensor1[AnyDType, A1]) -> Tensor1[AnyDType, A1]: ...
-
   @overload
   def __floordiv__(self, other: Tensor2[AnyDType, A1, A2]) -> Tensor2[AnyDType, A1, A2]: ...
-
   @overload
   def __floordiv__(self, other: Tensor3[AnyDType, A1, A2, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
-
   @overload
   def __floordiv__(self, other: Tensor4[AnyDType, A1, A2, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __floordiv__(self, other: Tensor5[AnyDType, A1, A2, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __floordiv__(self, other: Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
-  def __floordiv__(self,
-      other: Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
+  def __floordiv__(self, other: Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
   @overload
-  def __floordiv__(self,
-      other: Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
+  def __floordiv__(self, other: Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  
   @overload
   def __truediv__(self, other: Tensor0[AnyDType]) -> Tensor0[AnyDType]: ...
-
   @overload
   def __truediv__(self, other: Tensor1[AnyDType, A1]) -> Tensor1[AnyDType, A1]: ...
-
   @overload
   def __truediv__(self, other: Tensor2[AnyDType, A1, A2]) -> Tensor2[AnyDType, A1, A2]: ...
-
   @overload
   def __truediv__(self, other: Tensor3[AnyDType, A1, A2, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
-
   @overload
   def __truediv__(self, other: Tensor4[AnyDType, A1, A2, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __truediv__(self, other: Tensor5[AnyDType, A1, A2, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __truediv__(self, other: Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __truediv__(self, other: Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
-  def __truediv__(self,
-      other: Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
+  def __truediv__(self, other: Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  
   @overload
   def __pow__(self, other: Tensor0[AnyDType]) -> Tensor0[AnyDType]: ...
-
   @overload
   def __pow__(self, other: Tensor1[AnyDType, A1]) -> Tensor1[AnyDType, A1]: ...
-
   @overload
   def __pow__(self, other: Tensor2[AnyDType, A1, A2]) -> Tensor2[AnyDType, A1, A2]: ...
-
   @overload
   def __pow__(self, other: Tensor3[AnyDType, A1, A2, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
-
   @overload
   def __pow__(self, other: Tensor4[AnyDType, A1, A2, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __pow__(self, other: Tensor5[AnyDType, A1, A2, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __pow__(self, other: Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __pow__(self, other: Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __pow__(self, other: Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
+  
   @overload
   def __lt__(self, other: Tensor0[AnyDType]) -> Tensor0[AnyDType]: ...
-
   @overload
   def __lt__(self, other: Tensor1[AnyDType, A1]) -> Tensor1[AnyDType, A1]: ...
-
   @overload
   def __lt__(self, other: Tensor2[AnyDType, A1, A2]) -> Tensor2[AnyDType, A1, A2]: ...
-
   @overload
   def __lt__(self, other: Tensor3[AnyDType, A1, A2, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
-
   @overload
   def __lt__(self, other: Tensor4[AnyDType, A1, A2, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __lt__(self, other: Tensor5[AnyDType, A1, A2, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __lt__(self, other: Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __lt__(self, other: Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __lt__(self, other: Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
+  
   @overload
   def __le__(self, other: Tensor0[AnyDType]) -> Tensor0[AnyDType]: ...
-
   @overload
   def __le__(self, other: Tensor1[AnyDType, A1]) -> Tensor1[AnyDType, A1]: ...
-
   @overload
   def __le__(self, other: Tensor2[AnyDType, A1, A2]) -> Tensor2[AnyDType, A1, A2]: ...
-
   @overload
   def __le__(self, other: Tensor3[AnyDType, A1, A2, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
-
   @overload
   def __le__(self, other: Tensor4[AnyDType, A1, A2, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __le__(self, other: Tensor5[AnyDType, A1, A2, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __le__(self, other: Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __le__(self, other: Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __le__(self, other: Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
+  
   @overload
   def __ge__(self, other: Tensor0[AnyDType]) -> Tensor0[AnyDType]: ...
-
   @overload
   def __ge__(self, other: Tensor1[AnyDType, A1]) -> Tensor1[AnyDType, A1]: ...
-
   @overload
   def __ge__(self, other: Tensor2[AnyDType, A1, A2]) -> Tensor2[AnyDType, A1, A2]: ...
-
   @overload
   def __ge__(self, other: Tensor3[AnyDType, A1, A2, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
-
   @overload
   def __ge__(self, other: Tensor4[AnyDType, A1, A2, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __ge__(self, other: Tensor5[AnyDType, A1, A2, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __ge__(self, other: Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __ge__(self, other: Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __ge__(self, other: Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
+  
   @overload
   def __gt__(self, other: Tensor0[AnyDType]) -> Tensor0[AnyDType]: ...
-
   @overload
   def __gt__(self, other: Tensor1[AnyDType, A1]) -> Tensor1[AnyDType, A1]: ...
-
   @overload
   def __gt__(self, other: Tensor2[AnyDType, A1, A2]) -> Tensor2[AnyDType, A1, A2]: ...
-
   @overload
   def __gt__(self, other: Tensor3[AnyDType, A1, A2, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
-
   @overload
   def __gt__(self, other: Tensor4[AnyDType, A1, A2, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __gt__(self, other: Tensor5[AnyDType, A1, A2, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __gt__(self, other: Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __gt__(self, other: Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __gt__(self, other: Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
+  
   @overload
   def __mul__(self, other: Tensor0[AnyDType]) -> Tensor0[AnyDType]: ...
-
   @overload
   def __mul__(self, other: Tensor1[AnyDType, A1]) -> Tensor1[AnyDType, A1]: ...
-
   @overload
   def __mul__(self, other: Tensor2[AnyDType, A1, A2]) -> Tensor2[AnyDType, A1, A2]: ...
-
   @overload
   def __mul__(self, other: Tensor3[AnyDType, A1, A2, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
-
   @overload
   def __mul__(self, other: Tensor4[AnyDType, A1, A2, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __mul__(self, other: Tensor5[AnyDType, A1, A2, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __mul__(self, other: Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __mul__(self, other: Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __mul__(self, other: Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
+  
   @overload
   def __rmul__(self, other: Tensor0[AnyDType]) -> Tensor0[AnyDType]: ...
-
   @overload
   def __rmul__(self, other: Tensor1[AnyDType, A1]) -> Tensor1[AnyDType, A1]: ...
-
   @overload
   def __rmul__(self, other: Tensor2[AnyDType, A1, A2]) -> Tensor2[AnyDType, A1, A2]: ...
-
   @overload
   def __rmul__(self, other: Tensor3[AnyDType, A1, A2, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
-
   @overload
   def __rmul__(self, other: Tensor4[AnyDType, A1, A2, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __rmul__(self, other: Tensor5[AnyDType, A1, A2, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __rmul__(self, other: Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __rmul__(self, other: Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
-  def __rmul__(self,
-      other: Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
+  def __rmul__(self, other: Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  
   # END: Binary element-wise operators
 
 
 class Tensor1(Generic[DT, A1]):
   def __getitem__(self, index) -> Any: ...
-
   def __setitem__(self, index, value) -> Any: ...
-
   def numpy(self) -> np.ndarray: ...
-
   shape: tf.TensorShape
   dtype: tf.DType
+  def __len__(self) -> int: ...
 
   # BEGIN: Unary operators
-
+  
   def __abs__(self) -> Tensor1[DT, A1]: ...
-
+  
   def __neg__(self) -> Tensor1[DT, A1]: ...
-
+  
   def __pos__(self) -> Tensor1[DT, A1]: ...
-
+  
   # END: Unary operators
 
   # BEGIN: Binary element-wise operators
 
+  
+
+  
   @overload
   def __add__(self, other: Number) -> Tensor1[AnyDType, A1]: ...
-
   @overload
   def __add__(self, other: Tensor0[AnyDType]) -> Tensor1[AnyDType, A1]: ...
 
+  
   @overload
   def __add__(self, other: Tensor1[AnyDType, A1]) -> Tensor1[AnyDType, A1]: ...
 
+  
+
+  
   @overload
   def __sub__(self, other: Number) -> Tensor1[AnyDType, A1]: ...
-
   @overload
   def __sub__(self, other: Tensor0[AnyDType]) -> Tensor1[AnyDType, A1]: ...
 
+  
   @overload
   def __sub__(self, other: Tensor1[AnyDType, A1]) -> Tensor1[AnyDType, A1]: ...
 
+  
+
+  
   @overload
   def __floordiv__(self, other: Number) -> Tensor1[AnyDType, A1]: ...
-
   @overload
   def __floordiv__(self, other: Tensor0[AnyDType]) -> Tensor1[AnyDType, A1]: ...
 
+  
   @overload
   def __floordiv__(self, other: Tensor1[AnyDType, A1]) -> Tensor1[AnyDType, A1]: ...
 
+  
+
+  
   @overload
   def __truediv__(self, other: Number) -> Tensor1[AnyDType, A1]: ...
-
   @overload
   def __truediv__(self, other: Tensor0[AnyDType]) -> Tensor1[AnyDType, A1]: ...
 
+  
   @overload
   def __truediv__(self, other: Tensor1[AnyDType, A1]) -> Tensor1[AnyDType, A1]: ...
 
+  
+
+  
   @overload
   def __pow__(self, other: Number) -> Tensor1[AnyDType, A1]: ...
-
   @overload
   def __pow__(self, other: Tensor0[AnyDType]) -> Tensor1[AnyDType, A1]: ...
 
+  
   @overload
   def __pow__(self, other: Tensor1[AnyDType, A1]) -> Tensor1[AnyDType, A1]: ...
 
+  
+
+  
   @overload
   def __lt__(self, other: Number) -> Tensor1[AnyDType, A1]: ...
-
   @overload
   def __lt__(self, other: Tensor0[AnyDType]) -> Tensor1[AnyDType, A1]: ...
 
+  
   @overload
   def __lt__(self, other: Tensor1[AnyDType, A1]) -> Tensor1[AnyDType, A1]: ...
 
+  
+
+  
   @overload
   def __le__(self, other: Number) -> Tensor1[AnyDType, A1]: ...
-
   @overload
   def __le__(self, other: Tensor0[AnyDType]) -> Tensor1[AnyDType, A1]: ...
 
+  
   @overload
   def __le__(self, other: Tensor1[AnyDType, A1]) -> Tensor1[AnyDType, A1]: ...
 
+  
+
+  
   @overload
   def __ge__(self, other: Number) -> Tensor1[AnyDType, A1]: ...
-
   @overload
   def __ge__(self, other: Tensor0[AnyDType]) -> Tensor1[AnyDType, A1]: ...
 
+  
   @overload
   def __ge__(self, other: Tensor1[AnyDType, A1]) -> Tensor1[AnyDType, A1]: ...
 
+  
+
+  
   @overload
   def __gt__(self, other: Number) -> Tensor1[AnyDType, A1]: ...
-
   @overload
   def __gt__(self, other: Tensor0[AnyDType]) -> Tensor1[AnyDType, A1]: ...
 
+  
   @overload
   def __gt__(self, other: Tensor1[AnyDType, A1]) -> Tensor1[AnyDType, A1]: ...
 
+  
+
+  
   @overload
   def __mul__(self, other: Number) -> Tensor1[AnyDType, A1]: ...
-
   @overload
   def __mul__(self, other: Tensor0[AnyDType]) -> Tensor1[AnyDType, A1]: ...
 
+  
   @overload
   def __mul__(self, other: Tensor1[AnyDType, A1]) -> Tensor1[AnyDType, A1]: ...
 
+  
+
+  
   @overload
   def __rmul__(self, other: Number) -> Tensor1[AnyDType, A1]: ...
-
   @overload
   def __rmul__(self, other: Tensor0[AnyDType]) -> Tensor1[AnyDType, A1]: ...
 
+  
   @overload
   def __rmul__(self, other: Tensor1[AnyDType, A1]) -> Tensor1[AnyDType, A1]: ...
+
+  
 
   # END: Binary element-wise operators
 
 
 class Tensor2(Generic[DT, A1, A2]):
   def __getitem__(self, index) -> Any: ...
-
   def __setitem__(self, index, value) -> Any: ...
-
   def numpy(self) -> np.ndarray: ...
-
   shape: tf.TensorShape
   dtype: tf.DType
+  def __len__(self) -> int: ...
 
   # BEGIN: Unary operators
-
+  
   def __abs__(self) -> Tensor2[DT, A1, A2]: ...
-
+  
   def __neg__(self) -> Tensor2[DT, A1, A2]: ...
-
+  
   def __pos__(self) -> Tensor2[DT, A1, A2]: ...
-
+  
   # END: Unary operators
 
   # BEGIN: Binary element-wise operators
 
+  
+
+  
   @overload
   def __add__(self, other: Number) -> Tensor2[AnyDType, A1, A2]: ...
-
   @overload
   def __add__(self, other: Tensor0[AnyDType]) -> Tensor2[AnyDType, A1, A2]: ...
 
+  
   @overload
   def __add__(self, other: Tensor1[AnyDType, A2]) -> Tensor2[AnyDType, A1, A2]: ...
 
+  
   @overload
   def __add__(self, other: Tensor2[AnyDType, A1, A2]) -> Tensor2[AnyDType, A1, A2]: ...
 
+  
+
+  
   @overload
   def __sub__(self, other: Number) -> Tensor2[AnyDType, A1, A2]: ...
-
   @overload
   def __sub__(self, other: Tensor0[AnyDType]) -> Tensor2[AnyDType, A1, A2]: ...
 
+  
   @overload
   def __sub__(self, other: Tensor1[AnyDType, A2]) -> Tensor2[AnyDType, A1, A2]: ...
 
+  
   @overload
   def __sub__(self, other: Tensor2[AnyDType, A1, A2]) -> Tensor2[AnyDType, A1, A2]: ...
 
+  
+
+  
   @overload
   def __floordiv__(self, other: Number) -> Tensor2[AnyDType, A1, A2]: ...
-
   @overload
   def __floordiv__(self, other: Tensor0[AnyDType]) -> Tensor2[AnyDType, A1, A2]: ...
 
+  
   @overload
   def __floordiv__(self, other: Tensor1[AnyDType, A2]) -> Tensor2[AnyDType, A1, A2]: ...
 
+  
   @overload
   def __floordiv__(self, other: Tensor2[AnyDType, A1, A2]) -> Tensor2[AnyDType, A1, A2]: ...
 
+  
+
+  
   @overload
   def __truediv__(self, other: Number) -> Tensor2[AnyDType, A1, A2]: ...
-
   @overload
   def __truediv__(self, other: Tensor0[AnyDType]) -> Tensor2[AnyDType, A1, A2]: ...
 
+  
   @overload
   def __truediv__(self, other: Tensor1[AnyDType, A2]) -> Tensor2[AnyDType, A1, A2]: ...
 
+  
   @overload
   def __truediv__(self, other: Tensor2[AnyDType, A1, A2]) -> Tensor2[AnyDType, A1, A2]: ...
 
+  
+
+  
   @overload
   def __pow__(self, other: Number) -> Tensor2[AnyDType, A1, A2]: ...
-
   @overload
   def __pow__(self, other: Tensor0[AnyDType]) -> Tensor2[AnyDType, A1, A2]: ...
 
+  
   @overload
   def __pow__(self, other: Tensor1[AnyDType, A2]) -> Tensor2[AnyDType, A1, A2]: ...
 
+  
   @overload
   def __pow__(self, other: Tensor2[AnyDType, A1, A2]) -> Tensor2[AnyDType, A1, A2]: ...
 
+  
+
+  
   @overload
   def __lt__(self, other: Number) -> Tensor2[AnyDType, A1, A2]: ...
-
   @overload
   def __lt__(self, other: Tensor0[AnyDType]) -> Tensor2[AnyDType, A1, A2]: ...
 
+  
   @overload
   def __lt__(self, other: Tensor1[AnyDType, A2]) -> Tensor2[AnyDType, A1, A2]: ...
 
+  
   @overload
   def __lt__(self, other: Tensor2[AnyDType, A1, A2]) -> Tensor2[AnyDType, A1, A2]: ...
 
+  
+
+  
   @overload
   def __le__(self, other: Number) -> Tensor2[AnyDType, A1, A2]: ...
-
   @overload
   def __le__(self, other: Tensor0[AnyDType]) -> Tensor2[AnyDType, A1, A2]: ...
 
+  
   @overload
   def __le__(self, other: Tensor1[AnyDType, A2]) -> Tensor2[AnyDType, A1, A2]: ...
 
+  
   @overload
   def __le__(self, other: Tensor2[AnyDType, A1, A2]) -> Tensor2[AnyDType, A1, A2]: ...
 
+  
+
+  
   @overload
   def __ge__(self, other: Number) -> Tensor2[AnyDType, A1, A2]: ...
-
   @overload
   def __ge__(self, other: Tensor0[AnyDType]) -> Tensor2[AnyDType, A1, A2]: ...
 
+  
   @overload
   def __ge__(self, other: Tensor1[AnyDType, A2]) -> Tensor2[AnyDType, A1, A2]: ...
 
+  
   @overload
   def __ge__(self, other: Tensor2[AnyDType, A1, A2]) -> Tensor2[AnyDType, A1, A2]: ...
 
+  
+
+  
   @overload
   def __gt__(self, other: Number) -> Tensor2[AnyDType, A1, A2]: ...
-
   @overload
   def __gt__(self, other: Tensor0[AnyDType]) -> Tensor2[AnyDType, A1, A2]: ...
 
+  
   @overload
   def __gt__(self, other: Tensor1[AnyDType, A2]) -> Tensor2[AnyDType, A1, A2]: ...
 
+  
   @overload
   def __gt__(self, other: Tensor2[AnyDType, A1, A2]) -> Tensor2[AnyDType, A1, A2]: ...
 
+  
+
+  
   @overload
   def __mul__(self, other: Number) -> Tensor2[AnyDType, A1, A2]: ...
-
   @overload
   def __mul__(self, other: Tensor0[AnyDType]) -> Tensor2[AnyDType, A1, A2]: ...
 
+  
   @overload
   def __mul__(self, other: Tensor1[AnyDType, A2]) -> Tensor2[AnyDType, A1, A2]: ...
 
+  
   @overload
   def __mul__(self, other: Tensor2[AnyDType, A1, A2]) -> Tensor2[AnyDType, A1, A2]: ...
 
+  
+
+  
   @overload
   def __rmul__(self, other: Number) -> Tensor2[AnyDType, A1, A2]: ...
-
   @overload
   def __rmul__(self, other: Tensor0[AnyDType]) -> Tensor2[AnyDType, A1, A2]: ...
 
+  
   @overload
   def __rmul__(self, other: Tensor1[AnyDType, A2]) -> Tensor2[AnyDType, A1, A2]: ...
 
+  
   @overload
   def __rmul__(self, other: Tensor2[AnyDType, A1, A2]) -> Tensor2[AnyDType, A1, A2]: ...
 
+  
+
   # END: Binary element-wise operators
+
+  # BEGIN: The `@` operator
+  @overload
+  def __matmul__(self, other: Tensor2[AnyDType, A2, A3]) -> Tensor2[AnyDType, A1, A3]: ...
+
+  @overload
+  def __matmul__(self, other: Tensor3[AnyDType, A4, A2, A3]) -> Tensor3[AnyDType, A4, A1, A3]: ...
+
+  @overload
+  def __matmul__(self, other: Tensor4[AnyDType, A4, A5, A2, A3]) -> Tensor4[AnyDType, A4, A5, A1, A3]: ...
+
+  @overload
+  def __rmatmul__(self, other: Tensor2[AnyDType, A3, A1]) -> Tensor2[AnyDType, A3, A2]: ...
+
+  @overload
+  def __rmatmul__(self, other: Tensor3[AnyDType, A3, A4, A1]) -> Tensor3[AnyDType, A3, A4, A2]: ...
+
+  @overload
+  def __rmatmul__(self, other: Tensor4[AnyDType, A3, A4, A5, A1]) -> Tensor4[AnyDType, A3, A4, A5, A2]: ...
+  # END: The `@` operator
 
 
 class Tensor3(Generic[DT, A1, A2, A3]):
   def __getitem__(self, index) -> Any: ...
-
   def __setitem__(self, index, value) -> Any: ...
-
   def numpy(self) -> np.ndarray: ...
-
   shape: tf.TensorShape
   dtype: tf.DType
+  def __len__(self) -> int: ...
 
   # BEGIN: Unary operators
-
+  
   def __abs__(self) -> Tensor3[DT, A1, A2, A3]: ...
-
+  
   def __neg__(self) -> Tensor3[DT, A1, A2, A3]: ...
-
+  
   def __pos__(self) -> Tensor3[DT, A1, A2, A3]: ...
-
+  
   # END: Unary operators
 
   # BEGIN: Binary element-wise operators
 
+  
+
+  
   @overload
   def __add__(self, other: Number) -> Tensor3[AnyDType, A1, A2, A3]: ...
-
   @overload
   def __add__(self, other: Tensor0[AnyDType]) -> Tensor3[AnyDType, A1, A2, A3]: ...
 
+  
   @overload
   def __add__(self, other: Tensor1[AnyDType, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
-
   @overload
   def __add__(self, other: Tensor2[AnyDType, A2, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
 
+  
   @overload
   def __add__(self, other: Tensor3[AnyDType, A1, A2, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
 
+  
+
+  
   @overload
   def __sub__(self, other: Number) -> Tensor3[AnyDType, A1, A2, A3]: ...
-
   @overload
   def __sub__(self, other: Tensor0[AnyDType]) -> Tensor3[AnyDType, A1, A2, A3]: ...
 
+  
   @overload
   def __sub__(self, other: Tensor1[AnyDType, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
-
   @overload
   def __sub__(self, other: Tensor2[AnyDType, A2, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
 
+  
   @overload
   def __sub__(self, other: Tensor3[AnyDType, A1, A2, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
 
+  
+
+  
   @overload
   def __floordiv__(self, other: Number) -> Tensor3[AnyDType, A1, A2, A3]: ...
-
   @overload
   def __floordiv__(self, other: Tensor0[AnyDType]) -> Tensor3[AnyDType, A1, A2, A3]: ...
 
+  
   @overload
   def __floordiv__(self, other: Tensor1[AnyDType, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
-
   @overload
   def __floordiv__(self, other: Tensor2[AnyDType, A2, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
 
+  
   @overload
   def __floordiv__(self, other: Tensor3[AnyDType, A1, A2, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
 
+  
+
+  
   @overload
   def __truediv__(self, other: Number) -> Tensor3[AnyDType, A1, A2, A3]: ...
-
   @overload
   def __truediv__(self, other: Tensor0[AnyDType]) -> Tensor3[AnyDType, A1, A2, A3]: ...
 
+  
   @overload
   def __truediv__(self, other: Tensor1[AnyDType, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
-
   @overload
   def __truediv__(self, other: Tensor2[AnyDType, A2, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
 
+  
   @overload
   def __truediv__(self, other: Tensor3[AnyDType, A1, A2, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
 
+  
+
+  
   @overload
   def __pow__(self, other: Number) -> Tensor3[AnyDType, A1, A2, A3]: ...
-
   @overload
   def __pow__(self, other: Tensor0[AnyDType]) -> Tensor3[AnyDType, A1, A2, A3]: ...
 
+  
   @overload
   def __pow__(self, other: Tensor1[AnyDType, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
-
   @overload
   def __pow__(self, other: Tensor2[AnyDType, A2, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
 
+  
   @overload
   def __pow__(self, other: Tensor3[AnyDType, A1, A2, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
 
+  
+
+  
   @overload
   def __lt__(self, other: Number) -> Tensor3[AnyDType, A1, A2, A3]: ...
-
   @overload
   def __lt__(self, other: Tensor0[AnyDType]) -> Tensor3[AnyDType, A1, A2, A3]: ...
 
+  
   @overload
   def __lt__(self, other: Tensor1[AnyDType, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
-
   @overload
   def __lt__(self, other: Tensor2[AnyDType, A2, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
 
+  
   @overload
   def __lt__(self, other: Tensor3[AnyDType, A1, A2, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
 
+  
+
+  
   @overload
   def __le__(self, other: Number) -> Tensor3[AnyDType, A1, A2, A3]: ...
-
   @overload
   def __le__(self, other: Tensor0[AnyDType]) -> Tensor3[AnyDType, A1, A2, A3]: ...
 
+  
   @overload
   def __le__(self, other: Tensor1[AnyDType, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
-
   @overload
   def __le__(self, other: Tensor2[AnyDType, A2, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
 
+  
   @overload
   def __le__(self, other: Tensor3[AnyDType, A1, A2, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
 
+  
+
+  
   @overload
   def __ge__(self, other: Number) -> Tensor3[AnyDType, A1, A2, A3]: ...
-
   @overload
   def __ge__(self, other: Tensor0[AnyDType]) -> Tensor3[AnyDType, A1, A2, A3]: ...
 
+  
   @overload
   def __ge__(self, other: Tensor1[AnyDType, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
-
   @overload
   def __ge__(self, other: Tensor2[AnyDType, A2, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
 
+  
   @overload
   def __ge__(self, other: Tensor3[AnyDType, A1, A2, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
 
+  
+
+  
   @overload
   def __gt__(self, other: Number) -> Tensor3[AnyDType, A1, A2, A3]: ...
-
   @overload
   def __gt__(self, other: Tensor0[AnyDType]) -> Tensor3[AnyDType, A1, A2, A3]: ...
 
+  
   @overload
   def __gt__(self, other: Tensor1[AnyDType, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
-
   @overload
   def __gt__(self, other: Tensor2[AnyDType, A2, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
 
+  
   @overload
   def __gt__(self, other: Tensor3[AnyDType, A1, A2, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
 
+  
+
+  
   @overload
   def __mul__(self, other: Number) -> Tensor3[AnyDType, A1, A2, A3]: ...
-
   @overload
   def __mul__(self, other: Tensor0[AnyDType]) -> Tensor3[AnyDType, A1, A2, A3]: ...
 
+  
   @overload
   def __mul__(self, other: Tensor1[AnyDType, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
-
   @overload
   def __mul__(self, other: Tensor2[AnyDType, A2, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
 
+  
   @overload
   def __mul__(self, other: Tensor3[AnyDType, A1, A2, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
 
+  
+
+  
   @overload
   def __rmul__(self, other: Number) -> Tensor3[AnyDType, A1, A2, A3]: ...
-
   @overload
   def __rmul__(self, other: Tensor0[AnyDType]) -> Tensor3[AnyDType, A1, A2, A3]: ...
 
+  
   @overload
   def __rmul__(self, other: Tensor1[AnyDType, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
-
   @overload
   def __rmul__(self, other: Tensor2[AnyDType, A2, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
 
+  
   @overload
   def __rmul__(self, other: Tensor3[AnyDType, A1, A2, A3]) -> Tensor3[AnyDType, A1, A2, A3]: ...
 
+  
+
   # END: Binary element-wise operators
+
+  # BEGIN: The `@` operator
+  @overload
+  def __matmul__(self, other: Tensor2[AnyDType, A3, A4]) -> Tensor3[AnyDType, A1, A2, A4]: ...
+
+  @overload
+  def __matmul__(self, other: Tensor3[AnyDType, A1, A3, A4]) -> Tensor3[AnyDType, A1, A2, A4]: ...
+
+  @overload
+  def __matmul__(self, other: Tensor4[AnyDType, A5, A1, A3, A4]) -> Tensor4[AnyDType, A5, A1, A2, A4]: ...
+
+  @overload
+  def __rmatmul__(self, other: Tensor2[AnyDType, A4, A2]) -> Tensor3[AnyDType, A1, A4, A3]: ...
+
+  @overload
+  def __rmatmul__(self, other: Tensor3[AnyDType, A1, A4, A2]) -> Tensor3[AnyDType, A1, A4, A3]: ...
+
+  @overload
+  def __rmatmul__(self, other: Tensor4[AnyDType, A5, A1, A4, A2]) -> Tensor4[AnyDType, A5, A1, A4, A3]: ...
+  # END: The `@` operator
 
 
 class Tensor4(Generic[DT, A1, A2, A3, A4]):
   def __getitem__(self, index) -> Any: ...
-
   def __setitem__(self, index, value) -> Any: ...
-
   def numpy(self) -> np.ndarray: ...
-
   shape: tf.TensorShape
   dtype: tf.DType
+  def __len__(self) -> int: ...
 
   # BEGIN: Unary operators
-
+  
   def __abs__(self) -> Tensor4[DT, A1, A2, A3, A4]: ...
-
+  
   def __neg__(self) -> Tensor4[DT, A1, A2, A3, A4]: ...
-
+  
   def __pos__(self) -> Tensor4[DT, A1, A2, A3, A4]: ...
-
+  
   # END: Unary operators
 
   # BEGIN: Binary element-wise operators
 
+  
+
+  
   @overload
   def __add__(self, other: Number) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __add__(self, other: Tensor0[AnyDType]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
 
+  
   @overload
   def __add__(self, other: Tensor1[AnyDType, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __add__(self, other: Tensor2[AnyDType, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __add__(self, other: Tensor3[AnyDType, A2, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
 
+  
   @overload
   def __add__(self, other: Tensor4[AnyDType, A1, A2, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
 
+  
+
+  
   @overload
   def __sub__(self, other: Number) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __sub__(self, other: Tensor0[AnyDType]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
 
+  
   @overload
   def __sub__(self, other: Tensor1[AnyDType, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __sub__(self, other: Tensor2[AnyDType, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __sub__(self, other: Tensor3[AnyDType, A2, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
 
+  
   @overload
   def __sub__(self, other: Tensor4[AnyDType, A1, A2, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
 
+  
+
+  
   @overload
   def __floordiv__(self, other: Number) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __floordiv__(self, other: Tensor0[AnyDType]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
 
+  
   @overload
   def __floordiv__(self, other: Tensor1[AnyDType, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __floordiv__(self, other: Tensor2[AnyDType, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __floordiv__(self, other: Tensor3[AnyDType, A2, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
 
+  
   @overload
   def __floordiv__(self, other: Tensor4[AnyDType, A1, A2, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
 
+  
+
+  
   @overload
   def __truediv__(self, other: Number) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __truediv__(self, other: Tensor0[AnyDType]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
 
+  
   @overload
   def __truediv__(self, other: Tensor1[AnyDType, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __truediv__(self, other: Tensor2[AnyDType, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __truediv__(self, other: Tensor3[AnyDType, A2, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
 
+  
   @overload
   def __truediv__(self, other: Tensor4[AnyDType, A1, A2, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
 
+  
+
+  
   @overload
   def __pow__(self, other: Number) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __pow__(self, other: Tensor0[AnyDType]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
 
+  
   @overload
   def __pow__(self, other: Tensor1[AnyDType, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __pow__(self, other: Tensor2[AnyDType, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __pow__(self, other: Tensor3[AnyDType, A2, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
 
+  
   @overload
   def __pow__(self, other: Tensor4[AnyDType, A1, A2, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
 
+  
+
+  
   @overload
   def __lt__(self, other: Number) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __lt__(self, other: Tensor0[AnyDType]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
 
+  
   @overload
   def __lt__(self, other: Tensor1[AnyDType, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __lt__(self, other: Tensor2[AnyDType, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __lt__(self, other: Tensor3[AnyDType, A2, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
 
+  
   @overload
   def __lt__(self, other: Tensor4[AnyDType, A1, A2, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
 
+  
+
+  
   @overload
   def __le__(self, other: Number) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __le__(self, other: Tensor0[AnyDType]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
 
+  
   @overload
   def __le__(self, other: Tensor1[AnyDType, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __le__(self, other: Tensor2[AnyDType, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __le__(self, other: Tensor3[AnyDType, A2, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
 
+  
   @overload
   def __le__(self, other: Tensor4[AnyDType, A1, A2, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
 
+  
+
+  
   @overload
   def __ge__(self, other: Number) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __ge__(self, other: Tensor0[AnyDType]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
 
+  
   @overload
   def __ge__(self, other: Tensor1[AnyDType, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __ge__(self, other: Tensor2[AnyDType, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __ge__(self, other: Tensor3[AnyDType, A2, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
 
+  
   @overload
   def __ge__(self, other: Tensor4[AnyDType, A1, A2, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
 
+  
+
+  
   @overload
   def __gt__(self, other: Number) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __gt__(self, other: Tensor0[AnyDType]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
 
+  
   @overload
   def __gt__(self, other: Tensor1[AnyDType, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __gt__(self, other: Tensor2[AnyDType, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __gt__(self, other: Tensor3[AnyDType, A2, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
 
+  
   @overload
   def __gt__(self, other: Tensor4[AnyDType, A1, A2, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
 
+  
+
+  
   @overload
   def __mul__(self, other: Number) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __mul__(self, other: Tensor0[AnyDType]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
 
+  
   @overload
   def __mul__(self, other: Tensor1[AnyDType, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __mul__(self, other: Tensor2[AnyDType, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __mul__(self, other: Tensor3[AnyDType, A2, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
 
+  
   @overload
   def __mul__(self, other: Tensor4[AnyDType, A1, A2, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
 
+  
+
+  
   @overload
   def __rmul__(self, other: Number) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __rmul__(self, other: Tensor0[AnyDType]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
 
+  
   @overload
   def __rmul__(self, other: Tensor1[AnyDType, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __rmul__(self, other: Tensor2[AnyDType, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
-
   @overload
   def __rmul__(self, other: Tensor3[AnyDType, A2, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
 
+  
   @overload
   def __rmul__(self, other: Tensor4[AnyDType, A1, A2, A3, A4]) -> Tensor4[AnyDType, A1, A2, A3, A4]: ...
 
+  
+
   # END: Binary element-wise operators
+
+  # BEGIN: The `@` operator
+  @overload
+  def __matmul__(self, other: Tensor2[AnyDType, A4, A5]) -> Tensor4[AnyDType, A1, A2, A3, A5]: ...
+
+  @overload
+  def __matmul__(self, other: Tensor3[AnyDType, A2, A4, A5]) -> Tensor4[AnyDType, A1, A2, A3, A5]: ...
+
+  @overload
+  def __matmul__(self, other: Tensor4[AnyDType, A1, A2, A4, A5]) -> Tensor4[AnyDType, A1, A2, A3, A5]: ...
+
+  @overload
+  def __rmatmul__(self, other: Tensor2[AnyDType, A5, A3]) -> Tensor4[AnyDType, A1, A2, A5, A4]: ...
+
+  @overload
+  def __rmatmul__(self, other: Tensor3[AnyDType, A2, A5, A3]) -> Tensor4[AnyDType, A1, A2, A5, A4]: ...
+
+  @overload
+  def __rmatmul__(self, other: Tensor4[AnyDType, A1, A2, A5, A3]) -> Tensor4[AnyDType, A1, A2, A5, A4]: ...
+  # END: The `@` operator
 
 
 class Tensor5(Generic[DT, A1, A2, A3, A4, A5]):
   def __getitem__(self, index) -> Any: ...
-
   def __setitem__(self, index, value) -> Any: ...
-
   def numpy(self) -> np.ndarray: ...
-
   shape: tf.TensorShape
   dtype: tf.DType
+  def __len__(self) -> int: ...
 
   # BEGIN: Unary operators
-
+  
   def __abs__(self) -> Tensor5[DT, A1, A2, A3, A4, A5]: ...
-
+  
   def __neg__(self) -> Tensor5[DT, A1, A2, A3, A4, A5]: ...
-
+  
   def __pos__(self) -> Tensor5[DT, A1, A2, A3, A4, A5]: ...
-
+  
   # END: Unary operators
 
   # BEGIN: Binary element-wise operators
 
+  
+
+  
   @overload
   def __add__(self, other: Number) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __add__(self, other: Tensor0[AnyDType]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
 
+  
   @overload
   def __add__(self, other: Tensor1[AnyDType, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __add__(self, other: Tensor2[AnyDType, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __add__(self, other: Tensor3[AnyDType, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __add__(self, other: Tensor4[AnyDType, A2, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
 
+  
   @overload
   def __add__(self, other: Tensor5[AnyDType, A1, A2, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
 
+  
+
+  
   @overload
   def __sub__(self, other: Number) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __sub__(self, other: Tensor0[AnyDType]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
 
+  
   @overload
   def __sub__(self, other: Tensor1[AnyDType, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __sub__(self, other: Tensor2[AnyDType, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __sub__(self, other: Tensor3[AnyDType, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __sub__(self, other: Tensor4[AnyDType, A2, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
 
+  
   @overload
   def __sub__(self, other: Tensor5[AnyDType, A1, A2, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
 
+  
+
+  
   @overload
   def __floordiv__(self, other: Number) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __floordiv__(self, other: Tensor0[AnyDType]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
 
+  
   @overload
   def __floordiv__(self, other: Tensor1[AnyDType, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __floordiv__(self, other: Tensor2[AnyDType, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __floordiv__(self, other: Tensor3[AnyDType, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __floordiv__(self, other: Tensor4[AnyDType, A2, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
 
+  
   @overload
   def __floordiv__(self, other: Tensor5[AnyDType, A1, A2, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
 
+  
+
+  
   @overload
   def __truediv__(self, other: Number) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __truediv__(self, other: Tensor0[AnyDType]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
 
+  
   @overload
   def __truediv__(self, other: Tensor1[AnyDType, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __truediv__(self, other: Tensor2[AnyDType, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __truediv__(self, other: Tensor3[AnyDType, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __truediv__(self, other: Tensor4[AnyDType, A2, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
 
+  
   @overload
   def __truediv__(self, other: Tensor5[AnyDType, A1, A2, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
 
+  
+
+  
   @overload
   def __pow__(self, other: Number) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __pow__(self, other: Tensor0[AnyDType]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
 
+  
   @overload
   def __pow__(self, other: Tensor1[AnyDType, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __pow__(self, other: Tensor2[AnyDType, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __pow__(self, other: Tensor3[AnyDType, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __pow__(self, other: Tensor4[AnyDType, A2, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
 
+  
   @overload
   def __pow__(self, other: Tensor5[AnyDType, A1, A2, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
 
+  
+
+  
   @overload
   def __lt__(self, other: Number) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __lt__(self, other: Tensor0[AnyDType]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
 
+  
   @overload
   def __lt__(self, other: Tensor1[AnyDType, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __lt__(self, other: Tensor2[AnyDType, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __lt__(self, other: Tensor3[AnyDType, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __lt__(self, other: Tensor4[AnyDType, A2, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
 
+  
   @overload
   def __lt__(self, other: Tensor5[AnyDType, A1, A2, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
 
+  
+
+  
   @overload
   def __le__(self, other: Number) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __le__(self, other: Tensor0[AnyDType]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
 
+  
   @overload
   def __le__(self, other: Tensor1[AnyDType, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __le__(self, other: Tensor2[AnyDType, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __le__(self, other: Tensor3[AnyDType, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __le__(self, other: Tensor4[AnyDType, A2, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
 
+  
   @overload
   def __le__(self, other: Tensor5[AnyDType, A1, A2, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
 
+  
+
+  
   @overload
   def __ge__(self, other: Number) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __ge__(self, other: Tensor0[AnyDType]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
 
+  
   @overload
   def __ge__(self, other: Tensor1[AnyDType, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __ge__(self, other: Tensor2[AnyDType, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __ge__(self, other: Tensor3[AnyDType, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __ge__(self, other: Tensor4[AnyDType, A2, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
 
+  
   @overload
   def __ge__(self, other: Tensor5[AnyDType, A1, A2, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
 
+  
+
+  
   @overload
   def __gt__(self, other: Number) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __gt__(self, other: Tensor0[AnyDType]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
 
+  
   @overload
   def __gt__(self, other: Tensor1[AnyDType, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __gt__(self, other: Tensor2[AnyDType, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __gt__(self, other: Tensor3[AnyDType, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __gt__(self, other: Tensor4[AnyDType, A2, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
 
+  
   @overload
   def __gt__(self, other: Tensor5[AnyDType, A1, A2, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
 
+  
+
+  
   @overload
   def __mul__(self, other: Number) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __mul__(self, other: Tensor0[AnyDType]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
 
+  
   @overload
   def __mul__(self, other: Tensor1[AnyDType, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __mul__(self, other: Tensor2[AnyDType, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __mul__(self, other: Tensor3[AnyDType, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __mul__(self, other: Tensor4[AnyDType, A2, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
 
+  
   @overload
   def __mul__(self, other: Tensor5[AnyDType, A1, A2, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
 
+  
+
+  
   @overload
   def __rmul__(self, other: Number) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __rmul__(self, other: Tensor0[AnyDType]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
 
+  
   @overload
   def __rmul__(self, other: Tensor1[AnyDType, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __rmul__(self, other: Tensor2[AnyDType, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __rmul__(self, other: Tensor3[AnyDType, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
-
   @overload
   def __rmul__(self, other: Tensor4[AnyDType, A2, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
 
+  
   @overload
   def __rmul__(self, other: Tensor5[AnyDType, A1, A2, A3, A4, A5]) -> Tensor5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
 
   # END: Binary element-wise operators
 
 
 class Tensor6(Generic[DT, A1, A2, A3, A4, A5, A6]):
   def __getitem__(self, index) -> Any: ...
-
   def __setitem__(self, index, value) -> Any: ...
-
   def numpy(self) -> np.ndarray: ...
-
   shape: tf.TensorShape
   dtype: tf.DType
+  def __len__(self) -> int: ...
 
   # BEGIN: Unary operators
-
+  
   def __abs__(self) -> Tensor6[DT, A1, A2, A3, A4, A5, A6]: ...
-
+  
   def __neg__(self) -> Tensor6[DT, A1, A2, A3, A4, A5, A6]: ...
-
+  
   def __pos__(self) -> Tensor6[DT, A1, A2, A3, A4, A5, A6]: ...
-
+  
   # END: Unary operators
 
   # BEGIN: Binary element-wise operators
 
+  
+
+  
   @overload
   def __add__(self, other: Number) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __add__(self, other: Tensor0[AnyDType]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
 
+  
   @overload
   def __add__(self, other: Tensor1[AnyDType, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __add__(self, other: Tensor2[AnyDType, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __add__(self, other: Tensor3[AnyDType, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __add__(self, other: Tensor4[AnyDType, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __add__(self, other: Tensor5[AnyDType, A2, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
 
+  
   @overload
   def __add__(self, other: Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
 
+  
+
+  
   @overload
   def __sub__(self, other: Number) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __sub__(self, other: Tensor0[AnyDType]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
 
+  
   @overload
   def __sub__(self, other: Tensor1[AnyDType, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __sub__(self, other: Tensor2[AnyDType, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __sub__(self, other: Tensor3[AnyDType, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __sub__(self, other: Tensor4[AnyDType, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __sub__(self, other: Tensor5[AnyDType, A2, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
 
+  
   @overload
   def __sub__(self, other: Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
 
+  
+
+  
   @overload
   def __floordiv__(self, other: Number) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __floordiv__(self, other: Tensor0[AnyDType]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
 
+  
   @overload
   def __floordiv__(self, other: Tensor1[AnyDType, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __floordiv__(self, other: Tensor2[AnyDType, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __floordiv__(self, other: Tensor3[AnyDType, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __floordiv__(self, other: Tensor4[AnyDType, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __floordiv__(self, other: Tensor5[AnyDType, A2, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
 
+  
   @overload
   def __floordiv__(self, other: Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
 
+  
+
+  
   @overload
   def __truediv__(self, other: Number) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __truediv__(self, other: Tensor0[AnyDType]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
 
+  
   @overload
   def __truediv__(self, other: Tensor1[AnyDType, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __truediv__(self, other: Tensor2[AnyDType, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __truediv__(self, other: Tensor3[AnyDType, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __truediv__(self, other: Tensor4[AnyDType, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __truediv__(self, other: Tensor5[AnyDType, A2, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
 
+  
   @overload
   def __truediv__(self, other: Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
 
+  
+
+  
   @overload
   def __pow__(self, other: Number) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __pow__(self, other: Tensor0[AnyDType]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
 
+  
   @overload
   def __pow__(self, other: Tensor1[AnyDType, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __pow__(self, other: Tensor2[AnyDType, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __pow__(self, other: Tensor3[AnyDType, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __pow__(self, other: Tensor4[AnyDType, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __pow__(self, other: Tensor5[AnyDType, A2, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
 
+  
   @overload
   def __pow__(self, other: Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
 
+  
+
+  
   @overload
   def __lt__(self, other: Number) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __lt__(self, other: Tensor0[AnyDType]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
 
+  
   @overload
   def __lt__(self, other: Tensor1[AnyDType, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __lt__(self, other: Tensor2[AnyDType, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __lt__(self, other: Tensor3[AnyDType, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __lt__(self, other: Tensor4[AnyDType, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __lt__(self, other: Tensor5[AnyDType, A2, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
 
+  
   @overload
   def __lt__(self, other: Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
 
+  
+
+  
   @overload
   def __le__(self, other: Number) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __le__(self, other: Tensor0[AnyDType]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
 
+  
   @overload
   def __le__(self, other: Tensor1[AnyDType, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __le__(self, other: Tensor2[AnyDType, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __le__(self, other: Tensor3[AnyDType, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __le__(self, other: Tensor4[AnyDType, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __le__(self, other: Tensor5[AnyDType, A2, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
 
+  
   @overload
   def __le__(self, other: Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
 
+  
+
+  
   @overload
   def __ge__(self, other: Number) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __ge__(self, other: Tensor0[AnyDType]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
 
+  
   @overload
   def __ge__(self, other: Tensor1[AnyDType, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __ge__(self, other: Tensor2[AnyDType, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __ge__(self, other: Tensor3[AnyDType, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __ge__(self, other: Tensor4[AnyDType, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __ge__(self, other: Tensor5[AnyDType, A2, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
 
+  
   @overload
   def __ge__(self, other: Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
 
+  
+
+  
   @overload
   def __gt__(self, other: Number) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __gt__(self, other: Tensor0[AnyDType]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
 
+  
   @overload
   def __gt__(self, other: Tensor1[AnyDType, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __gt__(self, other: Tensor2[AnyDType, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __gt__(self, other: Tensor3[AnyDType, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __gt__(self, other: Tensor4[AnyDType, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __gt__(self, other: Tensor5[AnyDType, A2, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
 
+  
   @overload
   def __gt__(self, other: Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
 
+  
+
+  
   @overload
   def __mul__(self, other: Number) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __mul__(self, other: Tensor0[AnyDType]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
 
+  
   @overload
   def __mul__(self, other: Tensor1[AnyDType, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __mul__(self, other: Tensor2[AnyDType, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __mul__(self, other: Tensor3[AnyDType, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __mul__(self, other: Tensor4[AnyDType, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __mul__(self, other: Tensor5[AnyDType, A2, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
 
+  
   @overload
   def __mul__(self, other: Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
 
+  
+
+  
   @overload
   def __rmul__(self, other: Number) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __rmul__(self, other: Tensor0[AnyDType]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
 
+  
   @overload
   def __rmul__(self, other: Tensor1[AnyDType, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __rmul__(self, other: Tensor2[AnyDType, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __rmul__(self, other: Tensor3[AnyDType, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __rmul__(self, other: Tensor4[AnyDType, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
-
   @overload
   def __rmul__(self, other: Tensor5[AnyDType, A2, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
 
+  
   @overload
   def __rmul__(self, other: Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]) -> Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
 
   # END: Binary element-wise operators
 
 
 class Tensor7(Generic[DT, A1, A2, A3, A4, A5, A6, A7]):
   def __getitem__(self, index) -> Any: ...
-
   def __setitem__(self, index, value) -> Any: ...
-
   def numpy(self) -> np.ndarray: ...
-
   shape: tf.TensorShape
   dtype: tf.DType
+  def __len__(self) -> int: ...
 
   # BEGIN: Unary operators
-
+  
   def __abs__(self) -> Tensor7[DT, A1, A2, A3, A4, A5, A6, A7]: ...
-
+  
   def __neg__(self) -> Tensor7[DT, A1, A2, A3, A4, A5, A6, A7]: ...
-
+  
   def __pos__(self) -> Tensor7[DT, A1, A2, A3, A4, A5, A6, A7]: ...
-
+  
   # END: Unary operators
 
   # BEGIN: Binary element-wise operators
 
+  
+
+  
   @overload
   def __add__(self, other: Number) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __add__(self, other: Tensor0[AnyDType]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
 
+  
   @overload
   def __add__(self, other: Tensor1[AnyDType, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __add__(self, other: Tensor2[AnyDType, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __add__(self, other: Tensor3[AnyDType, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __add__(self, other: Tensor4[AnyDType, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __add__(self, other: Tensor5[AnyDType, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __add__(self, other: Tensor6[AnyDType, A2, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
 
+  
   @overload
   def __add__(self, other: Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
 
+  
+
+  
   @overload
   def __sub__(self, other: Number) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __sub__(self, other: Tensor0[AnyDType]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
 
+  
   @overload
   def __sub__(self, other: Tensor1[AnyDType, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __sub__(self, other: Tensor2[AnyDType, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __sub__(self, other: Tensor3[AnyDType, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __sub__(self, other: Tensor4[AnyDType, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __sub__(self, other: Tensor5[AnyDType, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __sub__(self, other: Tensor6[AnyDType, A2, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
 
+  
   @overload
   def __sub__(self, other: Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
 
+  
+
+  
   @overload
   def __floordiv__(self, other: Number) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __floordiv__(self, other: Tensor0[AnyDType]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
 
+  
   @overload
   def __floordiv__(self, other: Tensor1[AnyDType, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __floordiv__(self, other: Tensor2[AnyDType, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __floordiv__(self, other: Tensor3[AnyDType, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __floordiv__(self, other: Tensor4[AnyDType, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __floordiv__(self, other: Tensor5[AnyDType, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __floordiv__(self, other: Tensor6[AnyDType, A2, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
 
+  
   @overload
-  def __floordiv__(self,
-      other: Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  def __floordiv__(self, other: Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
 
+  
+
+  
   @overload
   def __truediv__(self, other: Number) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __truediv__(self, other: Tensor0[AnyDType]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
 
+  
   @overload
   def __truediv__(self, other: Tensor1[AnyDType, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __truediv__(self, other: Tensor2[AnyDType, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __truediv__(self, other: Tensor3[AnyDType, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __truediv__(self, other: Tensor4[AnyDType, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __truediv__(self, other: Tensor5[AnyDType, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __truediv__(self, other: Tensor6[AnyDType, A2, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
 
+  
   @overload
   def __truediv__(self, other: Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
 
+  
+
+  
   @overload
   def __pow__(self, other: Number) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __pow__(self, other: Tensor0[AnyDType]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
 
+  
   @overload
   def __pow__(self, other: Tensor1[AnyDType, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __pow__(self, other: Tensor2[AnyDType, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __pow__(self, other: Tensor3[AnyDType, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __pow__(self, other: Tensor4[AnyDType, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __pow__(self, other: Tensor5[AnyDType, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __pow__(self, other: Tensor6[AnyDType, A2, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
 
+  
   @overload
   def __pow__(self, other: Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
 
+  
+
+  
   @overload
   def __lt__(self, other: Number) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __lt__(self, other: Tensor0[AnyDType]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
 
+  
   @overload
   def __lt__(self, other: Tensor1[AnyDType, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __lt__(self, other: Tensor2[AnyDType, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __lt__(self, other: Tensor3[AnyDType, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __lt__(self, other: Tensor4[AnyDType, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __lt__(self, other: Tensor5[AnyDType, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __lt__(self, other: Tensor6[AnyDType, A2, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
 
+  
   @overload
   def __lt__(self, other: Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
 
+  
+
+  
   @overload
   def __le__(self, other: Number) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __le__(self, other: Tensor0[AnyDType]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
 
+  
   @overload
   def __le__(self, other: Tensor1[AnyDType, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __le__(self, other: Tensor2[AnyDType, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __le__(self, other: Tensor3[AnyDType, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __le__(self, other: Tensor4[AnyDType, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __le__(self, other: Tensor5[AnyDType, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __le__(self, other: Tensor6[AnyDType, A2, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
 
+  
   @overload
   def __le__(self, other: Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
 
+  
+
+  
   @overload
   def __ge__(self, other: Number) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __ge__(self, other: Tensor0[AnyDType]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
 
+  
   @overload
   def __ge__(self, other: Tensor1[AnyDType, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __ge__(self, other: Tensor2[AnyDType, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __ge__(self, other: Tensor3[AnyDType, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __ge__(self, other: Tensor4[AnyDType, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __ge__(self, other: Tensor5[AnyDType, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __ge__(self, other: Tensor6[AnyDType, A2, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
 
+  
   @overload
   def __ge__(self, other: Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
 
+  
+
+  
   @overload
   def __gt__(self, other: Number) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __gt__(self, other: Tensor0[AnyDType]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
 
+  
   @overload
   def __gt__(self, other: Tensor1[AnyDType, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __gt__(self, other: Tensor2[AnyDType, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __gt__(self, other: Tensor3[AnyDType, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __gt__(self, other: Tensor4[AnyDType, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __gt__(self, other: Tensor5[AnyDType, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __gt__(self, other: Tensor6[AnyDType, A2, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
 
+  
   @overload
   def __gt__(self, other: Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
 
+  
+
+  
   @overload
   def __mul__(self, other: Number) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __mul__(self, other: Tensor0[AnyDType]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
 
+  
   @overload
   def __mul__(self, other: Tensor1[AnyDType, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __mul__(self, other: Tensor2[AnyDType, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __mul__(self, other: Tensor3[AnyDType, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __mul__(self, other: Tensor4[AnyDType, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __mul__(self, other: Tensor5[AnyDType, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __mul__(self, other: Tensor6[AnyDType, A2, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
 
+  
   @overload
   def __mul__(self, other: Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
 
+  
+
+  
   @overload
   def __rmul__(self, other: Number) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __rmul__(self, other: Tensor0[AnyDType]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
 
+  
   @overload
   def __rmul__(self, other: Tensor1[AnyDType, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __rmul__(self, other: Tensor2[AnyDType, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __rmul__(self, other: Tensor3[AnyDType, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __rmul__(self, other: Tensor4[AnyDType, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __rmul__(self, other: Tensor5[AnyDType, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
-
   @overload
   def __rmul__(self, other: Tensor6[AnyDType, A2, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
 
+  
   @overload
   def __rmul__(self, other: Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
 
   # END: Binary element-wise operators
 
 
 class Tensor8(Generic[DT, A1, A2, A3, A4, A5, A6, A7, A8]):
   def __getitem__(self, index) -> Any: ...
-
   def __setitem__(self, index, value) -> Any: ...
-
   def numpy(self) -> np.ndarray: ...
-
   shape: tf.TensorShape
   dtype: tf.DType
+  def __len__(self) -> int: ...
 
   # BEGIN: Unary operators
-
+  
   def __abs__(self) -> Tensor8[DT, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
+  
   def __neg__(self) -> Tensor8[DT, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
+  
   def __pos__(self) -> Tensor8[DT, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
+  
   # END: Unary operators
 
   # BEGIN: Binary element-wise operators
 
+  
+
+  
   @overload
   def __add__(self, other: Number) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __add__(self, other: Tensor0[AnyDType]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
 
+  
   @overload
   def __add__(self, other: Tensor1[AnyDType, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __add__(self, other: Tensor2[AnyDType, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __add__(self, other: Tensor3[AnyDType, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __add__(self, other: Tensor4[AnyDType, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __add__(self, other: Tensor5[AnyDType, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __add__(self, other: Tensor6[AnyDType, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __add__(self, other: Tensor7[AnyDType, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
 
+  
   @overload
   def __add__(self, other: Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
 
+  
+
+  
   @overload
   def __sub__(self, other: Number) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __sub__(self, other: Tensor0[AnyDType]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
 
+  
   @overload
   def __sub__(self, other: Tensor1[AnyDType, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __sub__(self, other: Tensor2[AnyDType, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __sub__(self, other: Tensor3[AnyDType, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __sub__(self, other: Tensor4[AnyDType, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __sub__(self, other: Tensor5[AnyDType, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __sub__(self, other: Tensor6[AnyDType, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __sub__(self, other: Tensor7[AnyDType, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
 
+  
   @overload
   def __sub__(self, other: Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
 
+  
+
+  
   @overload
   def __floordiv__(self, other: Number) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __floordiv__(self, other: Tensor0[AnyDType]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
 
+  
   @overload
   def __floordiv__(self, other: Tensor1[AnyDType, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __floordiv__(self, other: Tensor2[AnyDType, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __floordiv__(self, other: Tensor3[AnyDType, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __floordiv__(self, other: Tensor4[AnyDType, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __floordiv__(self, other: Tensor5[AnyDType, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __floordiv__(self, other: Tensor6[AnyDType, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
-  def __floordiv__(self,
-      other: Tensor7[AnyDType, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  def __floordiv__(self, other: Tensor7[AnyDType, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
 
+  
   @overload
-  def __floordiv__(self,
-      other: Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  def __floordiv__(self, other: Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
 
+  
+
+  
   @overload
   def __truediv__(self, other: Number) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __truediv__(self, other: Tensor0[AnyDType]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
 
+  
   @overload
   def __truediv__(self, other: Tensor1[AnyDType, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __truediv__(self, other: Tensor2[AnyDType, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __truediv__(self, other: Tensor3[AnyDType, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __truediv__(self, other: Tensor4[AnyDType, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __truediv__(self, other: Tensor5[AnyDType, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __truediv__(self, other: Tensor6[AnyDType, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __truediv__(self, other: Tensor7[AnyDType, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
 
+  
   @overload
-  def __truediv__(self,
-      other: Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  def __truediv__(self, other: Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
 
+  
+
+  
   @overload
   def __pow__(self, other: Number) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __pow__(self, other: Tensor0[AnyDType]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
 
+  
   @overload
   def __pow__(self, other: Tensor1[AnyDType, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __pow__(self, other: Tensor2[AnyDType, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __pow__(self, other: Tensor3[AnyDType, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __pow__(self, other: Tensor4[AnyDType, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __pow__(self, other: Tensor5[AnyDType, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __pow__(self, other: Tensor6[AnyDType, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __pow__(self, other: Tensor7[AnyDType, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
 
+  
   @overload
   def __pow__(self, other: Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
 
+  
+
+  
   @overload
   def __lt__(self, other: Number) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __lt__(self, other: Tensor0[AnyDType]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
 
+  
   @overload
   def __lt__(self, other: Tensor1[AnyDType, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __lt__(self, other: Tensor2[AnyDType, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __lt__(self, other: Tensor3[AnyDType, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __lt__(self, other: Tensor4[AnyDType, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __lt__(self, other: Tensor5[AnyDType, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __lt__(self, other: Tensor6[AnyDType, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __lt__(self, other: Tensor7[AnyDType, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
 
+  
   @overload
   def __lt__(self, other: Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
 
+  
+
+  
   @overload
   def __le__(self, other: Number) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __le__(self, other: Tensor0[AnyDType]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
 
+  
   @overload
   def __le__(self, other: Tensor1[AnyDType, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __le__(self, other: Tensor2[AnyDType, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __le__(self, other: Tensor3[AnyDType, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __le__(self, other: Tensor4[AnyDType, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __le__(self, other: Tensor5[AnyDType, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __le__(self, other: Tensor6[AnyDType, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __le__(self, other: Tensor7[AnyDType, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
 
+  
   @overload
   def __le__(self, other: Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
 
+  
+
+  
   @overload
   def __ge__(self, other: Number) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __ge__(self, other: Tensor0[AnyDType]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
 
+  
   @overload
   def __ge__(self, other: Tensor1[AnyDType, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __ge__(self, other: Tensor2[AnyDType, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __ge__(self, other: Tensor3[AnyDType, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __ge__(self, other: Tensor4[AnyDType, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __ge__(self, other: Tensor5[AnyDType, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __ge__(self, other: Tensor6[AnyDType, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __ge__(self, other: Tensor7[AnyDType, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
 
+  
   @overload
   def __ge__(self, other: Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
 
+  
+
+  
   @overload
   def __gt__(self, other: Number) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __gt__(self, other: Tensor0[AnyDType]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
 
+  
   @overload
   def __gt__(self, other: Tensor1[AnyDType, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __gt__(self, other: Tensor2[AnyDType, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __gt__(self, other: Tensor3[AnyDType, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __gt__(self, other: Tensor4[AnyDType, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __gt__(self, other: Tensor5[AnyDType, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __gt__(self, other: Tensor6[AnyDType, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __gt__(self, other: Tensor7[AnyDType, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
 
+  
   @overload
   def __gt__(self, other: Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
 
+  
+
+  
   @overload
   def __mul__(self, other: Number) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __mul__(self, other: Tensor0[AnyDType]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
 
+  
   @overload
   def __mul__(self, other: Tensor1[AnyDType, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __mul__(self, other: Tensor2[AnyDType, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __mul__(self, other: Tensor3[AnyDType, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __mul__(self, other: Tensor4[AnyDType, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __mul__(self, other: Tensor5[AnyDType, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __mul__(self, other: Tensor6[AnyDType, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __mul__(self, other: Tensor7[AnyDType, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
 
+  
   @overload
   def __mul__(self, other: Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
 
+  
+
+  
   @overload
   def __rmul__(self, other: Number) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __rmul__(self, other: Tensor0[AnyDType]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
 
+  
   @overload
   def __rmul__(self, other: Tensor1[AnyDType, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __rmul__(self, other: Tensor2[AnyDType, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __rmul__(self, other: Tensor3[AnyDType, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __rmul__(self, other: Tensor4[AnyDType, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __rmul__(self, other: Tensor5[AnyDType, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __rmul__(self, other: Tensor6[AnyDType, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
-
   @overload
   def __rmul__(self, other: Tensor7[AnyDType, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
 
+  
   @overload
-  def __rmul__(self,
-      other: Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  def __rmul__(self, other: Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
 
   # END: Binary element-wise operators

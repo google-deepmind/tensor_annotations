@@ -148,6 +148,7 @@ class Tensor1(Generic[DT, A1]):
   def numpy(self) -> np.ndarray: ...
   shape: tf.TensorShape
   dtype: tf.DType
+  def __len__(self) -> int: ...
 
   # BEGIN: Unary operators
   {% for func in unary_funcs %}
@@ -180,6 +181,7 @@ class Tensor2(Generic[DT, A1, A2]):
   def numpy(self) -> np.ndarray: ...
   shape: tf.TensorShape
   dtype: tf.DType
+  def __len__(self) -> int: ...
 
   # BEGIN: Unary operators
   {% for func in unary_funcs %}
@@ -209,6 +211,26 @@ class Tensor2(Generic[DT, A1, A2]):
 
   # END: Binary element-wise operators
 
+  # BEGIN: The `@` operator
+  @overload
+  def __matmul__(self, other: Tensor2[AnyDType, A2, A3]) -> Tensor2[AnyDType, A1, A3]: ...
+
+  @overload
+  def __matmul__(self, other: Tensor3[AnyDType, A4, A2, A3]) -> Tensor3[AnyDType, A4, A1, A3]: ...
+
+  @overload
+  def __matmul__(self, other: Tensor4[AnyDType, A4, A5, A2, A3]) -> Tensor4[AnyDType, A4, A5, A1, A3]: ...
+
+  @overload
+  def __rmatmul__(self, other: Tensor2[AnyDType, A3, A1]) -> Tensor2[AnyDType, A3, A2]: ...
+
+  @overload
+  def __rmatmul__(self, other: Tensor3[AnyDType, A3, A4, A1]) -> Tensor3[AnyDType, A3, A4, A2]: ...
+
+  @overload
+  def __rmatmul__(self, other: Tensor4[AnyDType, A3, A4, A5, A1]) -> Tensor4[AnyDType, A3, A4, A5, A2]: ...
+  # END: The `@` operator
+
 
 class Tensor3(Generic[DT, A1, A2, A3]):
   def __getitem__(self, index) -> Any: ...
@@ -216,6 +238,7 @@ class Tensor3(Generic[DT, A1, A2, A3]):
   def numpy(self) -> np.ndarray: ...
   shape: tf.TensorShape
   dtype: tf.DType
+  def __len__(self) -> int: ...
 
   # BEGIN: Unary operators
   {% for func in unary_funcs %}
@@ -247,6 +270,26 @@ class Tensor3(Generic[DT, A1, A2, A3]):
 
   # END: Binary element-wise operators
 
+  # BEGIN: The `@` operator
+  @overload
+  def __matmul__(self, other: Tensor2[AnyDType, A3, A4]) -> Tensor3[AnyDType, A1, A2, A4]: ...
+
+  @overload
+  def __matmul__(self, other: Tensor3[AnyDType, A1, A3, A4]) -> Tensor3[AnyDType, A1, A2, A4]: ...
+
+  @overload
+  def __matmul__(self, other: Tensor4[AnyDType, A5, A1, A3, A4]) -> Tensor4[AnyDType, A5, A1, A2, A4]: ...
+
+  @overload
+  def __rmatmul__(self, other: Tensor2[AnyDType, A4, A2]) -> Tensor3[AnyDType, A1, A4, A3]: ...
+
+  @overload
+  def __rmatmul__(self, other: Tensor3[AnyDType, A1, A4, A2]) -> Tensor3[AnyDType, A1, A4, A3]: ...
+
+  @overload
+  def __rmatmul__(self, other: Tensor4[AnyDType, A5, A1, A4, A2]) -> Tensor4[AnyDType, A5, A1, A4, A3]: ...
+  # END: The `@` operator
+
 
 class Tensor4(Generic[DT, A1, A2, A3, A4]):
   def __getitem__(self, index) -> Any: ...
@@ -254,6 +297,7 @@ class Tensor4(Generic[DT, A1, A2, A3, A4]):
   def numpy(self) -> np.ndarray: ...
   shape: tf.TensorShape
   dtype: tf.DType
+  def __len__(self) -> int: ...
 
   # BEGIN: Unary operators
   {% for func in unary_funcs %}
@@ -287,6 +331,26 @@ class Tensor4(Generic[DT, A1, A2, A3, A4]):
 
   # END: Binary element-wise operators
 
+  # BEGIN: The `@` operator
+  @overload
+  def __matmul__(self, other: Tensor2[AnyDType, A4, A5]) -> Tensor4[AnyDType, A1, A2, A3, A5]: ...
+
+  @overload
+  def __matmul__(self, other: Tensor3[AnyDType, A2, A4, A5]) -> Tensor4[AnyDType, A1, A2, A3, A5]: ...
+
+  @overload
+  def __matmul__(self, other: Tensor4[AnyDType, A1, A2, A4, A5]) -> Tensor4[AnyDType, A1, A2, A3, A5]: ...
+
+  @overload
+  def __rmatmul__(self, other: Tensor2[AnyDType, A5, A3]) -> Tensor4[AnyDType, A1, A2, A5, A4]: ...
+
+  @overload
+  def __rmatmul__(self, other: Tensor3[AnyDType, A2, A5, A3]) -> Tensor4[AnyDType, A1, A2, A5, A4]: ...
+
+  @overload
+  def __rmatmul__(self, other: Tensor4[AnyDType, A1, A2, A5, A3]) -> Tensor4[AnyDType, A1, A2, A5, A4]: ...
+  # END: The `@` operator
+
 
 class Tensor5(Generic[DT, A1, A2, A3, A4, A5]):
   def __getitem__(self, index) -> Any: ...
@@ -294,6 +358,7 @@ class Tensor5(Generic[DT, A1, A2, A3, A4, A5]):
   def numpy(self) -> np.ndarray: ...
   shape: tf.TensorShape
   dtype: tf.DType
+  def __len__(self) -> int: ...
 
   # BEGIN: Unary operators
   {% for func in unary_funcs %}
@@ -336,6 +401,7 @@ class Tensor6(Generic[DT, A1, A2, A3, A4, A5, A6]):
   def numpy(self) -> np.ndarray: ...
   shape: tf.TensorShape
   dtype: tf.DType
+  def __len__(self) -> int: ...
 
   # BEGIN: Unary operators
   {% for func in unary_funcs %}
@@ -380,6 +446,7 @@ class Tensor7(Generic[DT, A1, A2, A3, A4, A5, A6, A7]):
   def numpy(self) -> np.ndarray: ...
   shape: tf.TensorShape
   dtype: tf.DType
+  def __len__(self) -> int: ...
 
   # BEGIN: Unary operators
   {% for func in unary_funcs %}
@@ -426,6 +493,7 @@ class Tensor8(Generic[DT, A1, A2, A3, A4, A5, A6, A7, A8]):
   def numpy(self) -> np.ndarray: ...
   shape: tf.TensorShape
   dtype: tf.DType
+  def __len__(self) -> int: ...
 
   # BEGIN: Unary operators
   {% for func in unary_funcs %}

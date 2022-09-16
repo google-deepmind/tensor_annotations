@@ -107,7 +107,10 @@ class _ArrayBase:
   __ge__: Any
   __gt__: Any
   __le__: Any
+  __len__: Any
   __lt__: Any
+  __matmul__: Any
+  __rmatmul__: Any
   __mul__: Any
   __neg__: Any
   __neg__: Any
@@ -117,6 +120,7 @@ class _ArrayBase:
   __sub__: Any
   __truediv__: Any
   shape: Any
+  T: Any
   type: Any
   reshape: Any
 

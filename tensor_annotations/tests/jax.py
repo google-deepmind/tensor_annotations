@@ -34,6 +34,7 @@ from tensor_annotations.tests import utils
 
 A1 = NewType('A1', axes.Axis)
 A2 = NewType('A2', axes.Axis)
+A3 = NewType('A3', axes.Axis)
 AxisTypeVar = TypeVar('AxisTypeVar')
 
 # It's less than ideal that we have to repeat imports etc. here for pytype, but
@@ -50,6 +51,7 @@ from tensor_annotations.jax import Array0, Array1, Array2
 
 A1 = NewType('A1', axes.Axis)
 A2 = NewType('A2', axes.Axis)
+A3 = NewType('A3', axes.Axis)
 AxisTypeVar = TypeVar('AxisTypeVar')
 """
 
@@ -76,10 +78,12 @@ class JAXNumpyStubTests(absltest.TestCase):
     with utils.SaveCodeAsString() as code_saver:
       x: Array2[AnyDType, A1, A2] = jnp.zeros((1, 2))
       y = jnp.transpose(x)
+      y2 = x.T
 
     inferred = utils.pytype_infer_shapes(_PREAMBLE + code_saver.code)
 
     self.assertEqual(inferred.y, y.shape)
+    self.assertEqual(inferred.y2, y2.shape)
 
   def testUnaryOperator_ReturnCustomType(self):
     with utils.SaveCodeAsString() as code_saver:
@@ -158,6 +162,16 @@ class JAXNumpyStubTests(absltest.TestCase):
 
     self.assertEqual('Array1[Any, A1]', inferred.a)
     self.assertEqual('Array1[Any, A1]', inferred.b)
+
+  def testMatmul_InferredMatchesActualShape(self):
+    with utils.SaveCodeAsString() as code_saver:
+      x: Array2[AnyDType, A1, A2] = jnp.zeros((1, 2))
+      y: Array2[AnyDType, A2, A3] = jnp.zeros((2, 3))
+      xy = x @ y
+
+    inferred = utils.pytype_infer_shapes(_PREAMBLE + code_saver.code)
+
+    self.assertEqual(inferred.xy, xy.shape)
 
   def testTensorUnaryOp_ReturnsCorrectTypeAndShape(self):
     with utils.SaveCodeAsString() as code_saver:

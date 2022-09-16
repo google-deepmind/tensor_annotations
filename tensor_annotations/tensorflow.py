@@ -117,12 +117,15 @@ class _TensorBase:
   __ge__: Any
   __gt__: Any
   __le__: Any
+  __len__: Any
   __lt__: Any
+  __matmul__: Any
   __mul__: Any
   __neg__: Any
   __neg__: Any
   __pos__: Any
   __pow__: Any
+  __rmatmul__: Any
   __rmul__: Any
   __sub__: Any
   __truediv__: Any
