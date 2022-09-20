@@ -37,6 +37,7 @@ DT = TypeVar('DT', bound=tjax.DType)
 
 class ndarray: ...
 
+Shape0 = Tuple[()]
 Shape1 = Tuple[int]
 Shape2 = Tuple[int, int]
 Shape3 = Tuple[int, int, int]
@@ -577,14 +578,16 @@ def zeros(shape: List, dtype=...) -> Any: ...
 
 
 @overload
-def zeros(shape: L0, dtype=...) -> Array0[AnyDType]: ...
+def zeros(shape: int, dtype=...) -> Array1[AnyDType, Any]: ...
 
 
 
 
 
 @overload
-def zeros(shape: L1, dtype=...) -> Array1[AnyDType, Any]: ...
+def zeros(shape: Shape0, dtype=...) -> Array0[AnyDType, ]: ...
+
+
 
 
 @overload
@@ -594,17 +597,9 @@ def zeros(shape: Shape1, dtype=...) -> Array1[AnyDType, Any]: ...
 
 
 @overload
-def zeros(shape: L2, dtype=...) -> Array2[AnyDType, Any, Any]: ...
-
-
-@overload
 def zeros(shape: Shape2, dtype=...) -> Array2[AnyDType, Any, Any]: ...
 
 
-
-
-@overload
-def zeros(shape: L3, dtype=...) -> Array3[AnyDType, Any, Any, Any]: ...
 
 
 @overload
@@ -614,19 +609,9 @@ def zeros(shape: Shape3, dtype=...) -> Array3[AnyDType, Any, Any, Any]: ...
 
 
 @overload
-def zeros(shape: L4, dtype=...) -> Array4[AnyDType, Any, Any, Any, Any]: ...
-
-
-@overload
 def zeros(shape: Shape4, dtype=...) -> Array4[AnyDType, Any, Any, Any, Any]: ...
 
 
-
-# Array0[DT] is down here because otherwise it'd match shape e.g. Tuple[DT, Any, Any]
-# https://github.com/google/pytype/issues/767
-# (e.g. `dim = some_func_that_returns_any; zeros((dim, dim))` would be Array0[DT])
-@overload
-def zeros(shape: Tuple[()], dtype=...) -> Array0[AnyDType]: ...
 
 
 @overload
@@ -634,14 +619,16 @@ def ones(shape: List, dtype=...) -> Any: ...
 
 
 @overload
-def ones(shape: L0, dtype=...) -> Array0[AnyDType]: ...
+def ones(shape: int, dtype=...) -> Array1[AnyDType, Any]: ...
 
 
 
 
 
 @overload
-def ones(shape: L1, dtype=...) -> Array1[AnyDType, Any]: ...
+def ones(shape: Shape0, dtype=...) -> Array0[AnyDType, ]: ...
+
+
 
 
 @overload
@@ -651,17 +638,9 @@ def ones(shape: Shape1, dtype=...) -> Array1[AnyDType, Any]: ...
 
 
 @overload
-def ones(shape: L2, dtype=...) -> Array2[AnyDType, Any, Any]: ...
-
-
-@overload
 def ones(shape: Shape2, dtype=...) -> Array2[AnyDType, Any, Any]: ...
 
 
-
-
-@overload
-def ones(shape: L3, dtype=...) -> Array3[AnyDType, Any, Any, Any]: ...
 
 
 @overload
@@ -671,17 +650,10 @@ def ones(shape: Shape3, dtype=...) -> Array3[AnyDType, Any, Any, Any]: ...
 
 
 @overload
-def ones(shape: L4, dtype=...) -> Array4[AnyDType, Any, Any, Any, Any]: ...
-
-
-@overload
 def ones(shape: Shape4, dtype=...) -> Array4[AnyDType, Any, Any, Any, Any]: ...
 
 
 
-# See note about Array0[DT] in `zeros`
-@overload
-def ones(shape: Tuple[()], dtype=...) -> Array0[AnyDType]: ...
 
 
 # ---------- REDUCTION OPERATORS ----------
@@ -2071,8 +2043,6 @@ add_newdoc: Any
 
 add_newdoc_ufunc: Any
 
-alen: Any
-
 all: Any
 
 allclose: Any
@@ -2148,8 +2118,6 @@ asfarray: Any
 asfortranarray: Any
 
 asmatrix: Any
-
-asscalar: Any
 
 atleast_1d: Any
 
@@ -2555,8 +2523,6 @@ linspace: Any
 
 load: Any
 
-loads: Any
-
 loadtxt: Any
 
 log: Any
@@ -2580,8 +2546,6 @@ logical_xor: Any
 logspace: Any
 
 lookfor: Any
-
-mafromtxt: Any
 
 mask_indices: Any
 
@@ -2652,8 +2616,6 @@ nanstd: Any
 nansum: Any
 
 nanvar: Any
-
-ndfromtxt: Any
 
 ndim: Any
 

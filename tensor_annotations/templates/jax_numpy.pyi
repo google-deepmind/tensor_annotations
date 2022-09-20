@@ -38,6 +38,7 @@ DT = TypeVar('DT', bound=tjax.DType)
 
 class ndarray: ...
 
+Shape0 = Tuple[()]
 Shape1 = Tuple[int]
 Shape2 = Tuple[int, int]
 Shape3 = Tuple[int, int, int]
@@ -140,26 +141,16 @@ def zeros(shape: List, dtype=...) -> Any: ...
 
 
 @overload
-def zeros(shape: L0, dtype=...) -> Array0[AnyDType]: ...
+def zeros(shape: int, dtype=...) -> Array1[AnyDType, Any]: ...
 
 
-{% for i in range(1, 5) %}
+{% for i in range(5) %}
 {% set n_any = (['Any'] * i)|join(', ') %}
-
-@overload
-def zeros(shape: L{{ i }}, dtype=...) -> Array{{ i }}[AnyDType, {{ n_any }}]: ...
-
 
 @overload
 def zeros(shape: Shape{{ i }}, dtype=...) -> Array{{ i }}[AnyDType, {{ n_any }}]: ...
 
 {% endfor %}
-
-# Array0[DT] is down here because otherwise it'd match shape e.g. Tuple[DT, Any, Any]
-# https://github.com/google/pytype/issues/767
-# (e.g. `dim = some_func_that_returns_any; zeros((dim, dim))` would be Array0[DT])
-@overload
-def zeros(shape: Tuple[()], dtype=...) -> Array0[AnyDType]: ...
 
 
 @overload
@@ -167,24 +158,17 @@ def ones(shape: List, dtype=...) -> Any: ...
 
 
 @overload
-def ones(shape: L0, dtype=...) -> Array0[AnyDType]: ...
+def ones(shape: int, dtype=...) -> Array1[AnyDType, Any]: ...
 
 
-{% for i in range(1, 5) %}
+{% for i in range(5) %}
 {% set n_any = (['Any'] * i)|join(', ') %}
-
-@overload
-def ones(shape: L{{ i }}, dtype=...) -> Array{{ i }}[AnyDType, {{ n_any }}]: ...
-
 
 @overload
 def ones(shape: Shape{{ i }}, dtype=...) -> Array{{ i }}[AnyDType, {{ n_any }}]: ...
 
 {% endfor %}
 
-# See note about Array0[DT] in `zeros`
-@overload
-def ones(shape: Tuple[()], dtype=...) -> Array0[AnyDType]: ...
 
 
 # ---------- REDUCTION OPERATORS ----------

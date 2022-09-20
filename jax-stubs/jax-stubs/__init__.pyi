@@ -51,8 +51,6 @@ __version__: Any
 
 __version_info__: Any
 
-_src: Any
-
 abstract_arrays: Any
 
 ad: Any
@@ -92,6 +90,8 @@ custom_jvp: Any
 custom_transpose: Any
 
 custom_vjp: Any
+
+debug: Any
 
 debug_infs: Any
 
@@ -207,11 +207,15 @@ ops: Any
 
 pmap: Any
 
+print_environment_info: Any
+
 process_count: Any
 
 process_index: Any
 
 profiler: Any
+
+pure_callback: Any
 
 pxla: Any
 
@@ -238,8 +242,6 @@ tree_flatten: Any
 tree_leaves: Any
 
 tree_map: Any
-
-tree_multimap: Any
 
 tree_structure: Any
 
