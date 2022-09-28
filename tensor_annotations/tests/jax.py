@@ -24,6 +24,7 @@ from tensor_annotations.axes import Time
 from tensor_annotations.jax import AnyDType
 from tensor_annotations.jax import Array0
 from tensor_annotations.jax import Array1
+from tensor_annotations.jax import Array1AnyDType
 from tensor_annotations.jax import Array2
 from tensor_annotations.jax import float32
 from tensor_annotations.jax import float64
@@ -47,7 +48,7 @@ import jax.numpy as jnp
 from tensor_annotations import axes
 from tensor_annotations.axes import Batch, Time
 from tensor_annotations.jax import AnyDType, float32, float64, int16, int8
-from tensor_annotations.jax import Array0, Array1, Array2
+from tensor_annotations.jax import Array0, Array1, Array1AnyDType, Array2
 
 A1 = NewType('A1', axes.Axis)
 A2 = NewType('A2', axes.Axis)
@@ -465,7 +466,6 @@ class JAXAnyDtypeAliasTests(absltest.TestCase):
   def testInt8Batch_AcceptsAnyDTypeBatch(self):
     """Is Array1AnyDType[Batch] compatible with Array1[int8, Batch]?"""
     with utils.SaveCodeAsString() as code_saver:
-      Array1AnyDType = Array1[AnyDType, AxisTypeVar]  # pylint: disable=invalid-name
       def foo(_: Array1[int8, Batch]):
         pass
       x: Array1AnyDType[Batch] = jnp.array([[0]])
@@ -476,7 +476,6 @@ class JAXAnyDtypeAliasTests(absltest.TestCase):
   def testInt8Batch_RejectsAnyDTypeTime(self):
     """Is Array1AnyDType[Time] compatible with Array1[int8, Batch]?"""
     with utils.SaveCodeAsString() as code_saver:
-      Array1AnyDType = Array1[AnyDType, AxisTypeVar]  # pylint: disable=invalid-name
       def foo(_: Array1[int8, Batch]):
         pass
       x: Array1AnyDType[Time] = jnp.array([[0]])
@@ -487,7 +486,6 @@ class JAXAnyDtypeAliasTests(absltest.TestCase):
   def testAnyDTypeBatch_AcceptsUint8Batch(self):
     """Is Array1[int8, Batch] compatible with Array1AnyDType[Batch]?"""
     with utils.SaveCodeAsString() as code_saver:
-      Array1AnyDType = Array1[AnyDType, AxisTypeVar]  # pylint: disable=invalid-name
       def foo(_: Array1AnyDType[Batch]):
         pass
       x: Array1[int8, Batch] = jnp.array([[0]])
@@ -498,7 +496,6 @@ class JAXAnyDtypeAliasTests(absltest.TestCase):
   def testAnyDTypeBatch_RejectsUint8Time(self):
     """Is Array1[int8, Time] compatible with Array1AnyDType[Batch]?"""
     with utils.SaveCodeAsString() as code_saver:
-      Array1AnyDType = Array1[AnyDType, AxisTypeVar]  # pylint: disable=invalid-name
       def foo(_: Array1AnyDType[Batch]):
         pass
       x: Array1[int8, Time] = jnp.array([[0]])
