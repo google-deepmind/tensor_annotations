@@ -2417,3 +2417,14 @@ class Tensor8(Generic[DT, A1, A2, A3, A4, A5, A6, A7, A8]):
   
 
   # END: Binary element-wise operators
+
+
+Tensor0AnyDType = Tensor0[AnyDType]
+Tensor1AnyDType = Tensor1[AnyDType, A1]
+Tensor2AnyDType = Tensor2[AnyDType, A1, A2]
+Tensor3AnyDType = Tensor3[AnyDType, A1, A2, A3]
+Tensor4AnyDType = Tensor4[AnyDType, A1, A2, A3, A4]
+Tensor5AnyDType = Tensor5[AnyDType, A1, A2, A3, A4, A5]
+Tensor6AnyDType = Tensor6[AnyDType, A1, A2, A3, A4, A5, A6]
+Tensor7AnyDType = Tensor7[AnyDType, A1, A2, A3, A4, A5, A6, A7]
+Tensor8AnyDType = Tensor8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]

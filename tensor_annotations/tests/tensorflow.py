@@ -28,6 +28,7 @@ from tensor_annotations.tensorflow import int16
 from tensor_annotations.tensorflow import int8
 from tensor_annotations.tensorflow import Tensor0
 from tensor_annotations.tensorflow import Tensor1
+from tensor_annotations.tensorflow import Tensor1AnyDType
 from tensor_annotations.tensorflow import Tensor2
 from tensor_annotations.tests import utils
 import tensorflow as tf
@@ -49,7 +50,7 @@ from tensor_annotations.axes import Batch, Time
 import tensor_annotations.tensorflow as ttf
 from tensor_annotations.tensorflow import AnyDType
 from tensor_annotations.tensorflow import float32, float64, int8, int16
-from tensor_annotations.tensorflow import Tensor0, Tensor1, Tensor2
+from tensor_annotations.tensorflow import Tensor0, Tensor1, Tensor1AnyDType, Tensor2
 
 A1 = NewType('A1', axes.Axis)
 A2 = NewType('A2', axes.Axis)
@@ -521,7 +522,6 @@ class TensorFlowAnyDtypeAliasTests(absltest.TestCase):
   def testInt8Batch_AcceptsAnyDTypeBatch(self):
     """Is Tensor1AnyDType[Batch] compatible with Tensor1[int8, Batch]?"""
     with utils.SaveCodeAsString() as code_saver:
-      Tensor1AnyDType = Tensor1[AnyDType, AxisTypeVar]  # pylint: disable=invalid-name
       def foo(_: Tensor1[int8, Batch]):
         pass
       x: Tensor1AnyDType[Batch] = tf.constant([[0]])
@@ -532,7 +532,6 @@ class TensorFlowAnyDtypeAliasTests(absltest.TestCase):
   def testInt8Batch_RejectsAnyDTypeTime(self):
     """Is Tensor1AnyDType[Time] compatible with Tensor1[int8, Batch]?"""
     with utils.SaveCodeAsString() as code_saver:
-      Tensor1AnyDType = Tensor1[AnyDType, AxisTypeVar]  # pylint: disable=invalid-name
       def foo(_: Tensor1[int8, Batch]):
         pass
       x: Tensor1AnyDType[Time] = tf.constant([[0]])
@@ -543,7 +542,6 @@ class TensorFlowAnyDtypeAliasTests(absltest.TestCase):
   def testAnyDTypeBatch_AcceptsUint8Batch(self):
     """Is Tensor1[int8, Batch] compatible with Tensor1AnyDType[Batch]?"""
     with utils.SaveCodeAsString() as code_saver:
-      Tensor1AnyDType = Tensor1[AnyDType, AxisTypeVar]  # pylint: disable=invalid-name
       def foo(_: Tensor1AnyDType[Batch]):
         pass
       x: Tensor1[int8, Batch] = tf.constant([[0]])
@@ -554,13 +552,13 @@ class TensorFlowAnyDtypeAliasTests(absltest.TestCase):
   def testAnyDTypeBatch_RejectsUint8Time(self):
     """Is Tensor1[int8, Time] compatible with Tensor1AnyDType[Batch]?"""
     with utils.SaveCodeAsString() as code_saver:
-      Tensor1AnyDType = Tensor1[AnyDType, AxisTypeVar]  # pylint: disable=invalid-name
       def foo(_: Tensor1AnyDType[Batch]):
         pass
       x: Tensor1[int8, Time] = tf.constant([[0]])
       foo(x)
 
     utils.assert_pytype_fails(_PREAMBLE + code_saver.code)
+
 
 if __name__ == '__main__':
   absltest.main()
