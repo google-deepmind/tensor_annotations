@@ -1,5 +1,11 @@
 # Change Log
 
+## [2.0.1] - 2022-09-28
+
+### Added
+
+Added `TensorNAnyDType` aliases to TensorFlow stubs. (They already exist in JAX stubs.)
+
 ## [2.0.0] - 2022-09-27
 
 ### Changed
