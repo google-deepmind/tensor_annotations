@@ -12,4 +12,3 @@ jobs:
       - run: python -m tensor_annotations.tests.templates
       - run: python -m tensor_annotations.tests.tensorflow
       - run: python -m tensor_annotations.tests.jax
-      - run: python -m tensor_annotations.tests.decorators
