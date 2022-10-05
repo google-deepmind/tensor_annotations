@@ -41,7 +41,7 @@ AxisTypeVar = TypeVar('AxisTypeVar')
 # It's less than ideal that we have to repeat imports etc. here for pytype, but
 # this seems like the best balance between readability and complexity.
 _PREAMBLE = """
-from typing import Any, NewType, TypeVar
+from typing import Any, NewType, TypeVar, Union
 
 import jax
 import jax.numpy as jnp
@@ -262,6 +262,15 @@ class JAXNumpyStubTests(absltest.TestCase):
     self.assertEqual('Tuple[int, int]', inferred.x2_shape)
     self.assertEqual('Tuple[int, int, int]', inferred.x3_shape)
     self.assertEqual('Tuple[int, int, int, int]', inferred.x4_shape)
+
+  def testArray0Item_ReturnsIntFloatBoolComplexUnion(self):
+    with utils.SaveCodeAsString() as code_saver:
+      x = jnp.zeros(())
+      y = x.item()  # pylint: disable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    self.assertEqual(inferred.y, 'Union[bool, complex, float, int]')
 
 
 class JAXDtypeTests(absltest.TestCase):

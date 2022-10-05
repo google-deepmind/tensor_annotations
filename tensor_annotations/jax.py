@@ -24,7 +24,7 @@ Type annotations for these classes are maintained in a separate stubs file,
 
 # LINT.IfChange
 
-from typing import Any, Generic, TypeVar
+from typing import Any, Generic, TypeVar, Union
 
 from tensor_annotations import axes
 
@@ -127,7 +127,12 @@ class _ArrayBase:
 
 class Array0(Generic[DT], _ArrayBase):
   """A scalar - produced by e.g. jnp.sum(jnp.zeros((2, 3)))."""
-  pass
+
+  # Technically this exists on all instances of JAX arrays,
+  # but it throws an error for anything apart from a scalar
+  # array, eg jnp.array(0).
+  def item(self) -> Union[int, float, bool, complex]:
+    pass
 
 
 class Array1(Generic[DT, A1], _ArrayBase):

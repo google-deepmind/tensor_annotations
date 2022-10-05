@@ -1,5 +1,11 @@
 # Change Log
 
+## Upcoming
+
+### Fixed
+
+Added support for `.item()` on size-1 JAX arrays.
+
 ## [2.0.1] - 2022-09-28
 
 ### Added

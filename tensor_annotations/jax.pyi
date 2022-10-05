@@ -95,6 +95,11 @@ class Array0(Generic[DT]):
   shape: Tuple[()]
   T: Array0[DT]
 
+  # Technically this exists on all instances of JAX arrays,
+  # but it throws an error for anything apart from a scalar
+  # array, eg jnp.array(0).
+  def item(self) -> Union[int, float, bool, complex]: ...
+
   # BEGIN: Unary operators
   
   def __abs__(self) -> Array0[DT]: ...
