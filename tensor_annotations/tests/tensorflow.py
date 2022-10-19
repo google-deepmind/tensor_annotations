@@ -515,6 +515,45 @@ class TensorFlowDtypeTests(absltest.TestCase):
 
     utils.assert_pytype_succeeds(_PREAMBLE + code_saver.code)
 
+  def testTensorShapeAttr_IsTensorShape(self):
+    with utils.SaveCodeAsString() as code_saver:
+      x: Tensor1[int8, A1] = tf.constant([0], dtype=tf.int8)
+      s = x.shape  # pylint: disable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    self.assertEqual(inferred.s, 'tensorflow.TensorShape')
+
+  def testTensorShapeIndexedWithInt_IsInt(self):
+    with utils.SaveCodeAsString() as code_saver:
+      x: Tensor1[int8, A1] = tf.constant([0], dtype=tf.int8)
+      s = x.shape
+      s0 = s[0]  # pylint: disable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    self.assertEqual(inferred.s0, 'int')
+
+  def testTensorShapeIndexedWithSlice_IsTensorShape(self):
+    with utils.SaveCodeAsString() as code_saver:
+      x: Tensor1[int8, A1] = tf.constant([0], dtype=tf.int8)
+      s = x.shape
+      s0 = s[:1]  # pylint: disable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    self.assertEqual(inferred.s0, 'tensorflow.TensorShape')
+
+  def testTensorShapeAsList_IsListOfInt(self):
+    with utils.SaveCodeAsString() as code_saver:
+      x: Tensor1[int8, A1] = tf.constant([0], dtype=tf.int8)
+      s = x.shape
+      l = s.as_list()  # pylint: disable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    self.assertEqual(inferred.l, 'List[int]')
+
 
 class TensorFlowAnyDtypeAliasTests(absltest.TestCase):
   """Tests for backwards-compatible aliases that don't use DTypes."""
