@@ -1,10 +1,12 @@
 # Change Log
 
-## Upcoming
+## [2.0.2] - 2022-10-17
 
 ### Fixed
 
 Added support for `.item()` on size-1 JAX arrays.
+
+Fixed indexing of `TensorShape`, and `TensorShape.as_list()`.
 
 ## [2.0.1] - 2022-09-28
 

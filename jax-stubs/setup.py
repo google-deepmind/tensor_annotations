@@ -27,7 +27,7 @@ import setuptools
 
 setuptools.setup(
   name='tensor-annotations-jax-stubs',
-  version='2.0.1',
+  version='2.0.2',
   description='Shape-aware type stubs for JAX.',
   long_description='Shape-aware types stubs for JAX. See the `tensor-annotations` package.',
   long_description_content_type='text/markdown',

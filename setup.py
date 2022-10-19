@@ -35,7 +35,7 @@ with open('README.md', 'r') as f:
 
 setuptools.setup(
     name='tensor_annotations',
-    version='2.0.1',
+    version='2.0.2',
     description=('Enables annotations of tensor shapes in numerical computing '
                  'libraries. Includes type stubs for TensorFlow and JAX '
                  'describing how library functions change shapes.'),
