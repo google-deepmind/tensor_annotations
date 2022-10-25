@@ -123,6 +123,7 @@ class _ArrayBase:
   T: Any
   type: Any
   reshape: Any
+  astype: Any
 
 
 class Array0(Generic[DT], _ArrayBase):

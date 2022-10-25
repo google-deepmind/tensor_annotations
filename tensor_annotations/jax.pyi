@@ -94,11 +94,13 @@ class Array0(Generic[DT]):
   def __setitem__(self, index, value) -> Any: ...
   shape: Tuple[()]
   T: Array0[DT]
+  def astype(self, dtype) -> Array0[AnyDType]: ...
 
   # Technically this exists on all instances of JAX arrays,
   # but it throws an error for anything apart from a scalar
   # array, eg jnp.array(0).
   def item(self) -> Union[int, float, bool, complex]: ...
+
 
   # BEGIN: Unary operators
   
@@ -242,6 +244,7 @@ class Array1(Generic[DT, A1]):
   shape: Tuple[int]
   T: Array1[DT, A1]
   def __len__(self) -> int: ...
+  def astype(self, dtype) -> Array1[AnyDType, A1]: ...
 
   # BEGIN: Unary operators
   
@@ -424,6 +427,7 @@ class Array2(Generic[DT, A1, A2]):
   shape: Tuple[int, int]
   T: Array2[DT, A2, A1]
   def __len__(self) -> int: ...
+  def astype(self, dtype) -> Array2[AnyDType, A1, A2]: ...
 
   # BEGIN: Unary operators
   
@@ -650,6 +654,7 @@ class Array3(Generic[DT, A1, A2, A3]):
   shape: Tuple[int, int, int]
   T: Array3[DT, A3, A2, A1]
   def __len__(self) -> int: ...
+  def astype(self, dtype) -> Array3[AnyDType, A1, A2, A3]: ...
 
   # BEGIN: Unary operators
   
@@ -898,6 +903,7 @@ class Array4(Generic[DT, A1, A2, A3, A4]):
   shape: Tuple[int, int, int, int]
   T: Array4[DT, A4, A3, A2, A1]
   def __len__(self) -> int: ...
+  def astype(self, dtype) -> Array4[AnyDType, A1, A2, A3, A4]: ...
 
   # BEGIN: Unary operators
   
@@ -1168,6 +1174,7 @@ class Array5(Generic[DT, A1, A2, A3, A4, A5]):
   shape: Tuple[int, int, int, int]
   T: Array5[DT, A5, A4, A3, A2, A1]
   def __len__(self) -> int: ...
+  def astype(self, dtype) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
 
   # BEGIN: Unary operators
   
@@ -1434,6 +1441,7 @@ class Array6(Generic[DT, A1, A2, A3, A4, A5, A6]):
   shape: Tuple[int, int, int, int]
   T: Array6[DT, A6, A5, A4, A3, A2, A1]
   def __len__(self) -> int: ...
+  def astype(self, dtype) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
 
   # BEGIN: Unary operators
   
@@ -1722,6 +1730,7 @@ class Array7(Generic[DT, A1, A2, A3, A4, A5, A6, A7]):
   shape: Tuple[int, int, int, int]
   T: Array7[DT, A7, A6, A5, A4, A3, A2, A1]
   def __len__(self) -> int: ...
+  def astype(self, dtype) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
 
   # BEGIN: Unary operators
   
@@ -2032,6 +2041,7 @@ class Array8(Generic[DT, A1, A2, A3, A4, A5, A6, A7, A8]):
   shape: Tuple[int, int, int, int]
   T: Array8[DT, A8, A7, A6, A5, A4, A3, A2, A1]
   def __len__(self) -> int: ...
+  def astype(self, dtype) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
 
   # BEGIN: Unary operators
   
