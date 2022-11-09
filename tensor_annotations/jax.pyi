@@ -96,6 +96,7 @@ class Array0(Generic[DT]):
   T: Array0[DT]
   at: Any
   ndim: Literal[0]
+  dtype: type
   def astype(self, dtype) -> Array0[AnyDType]: ...
 
   # Technically this exists on all instances of JAX arrays,
@@ -247,6 +248,7 @@ class Array1(Generic[DT, A1]):
   T: Array1[DT, A1]
   at: Any
   ndim: Literal[1]
+  dtype: type
   def __len__(self) -> int: ...
   def astype(self, dtype) -> Array1[AnyDType, A1]: ...
 
@@ -432,6 +434,7 @@ class Array2(Generic[DT, A1, A2]):
   T: Array2[DT, A2, A1]
   at: Any
   ndim: Literal[2]
+  dtype: type
   def __len__(self) -> int: ...
   def astype(self, dtype) -> Array2[AnyDType, A1, A2]: ...
 
@@ -661,6 +664,7 @@ class Array3(Generic[DT, A1, A2, A3]):
   T: Array3[DT, A3, A2, A1]
   at: Any
   ndim: Literal[3]
+  dtype: type
   def __len__(self) -> int: ...
   def astype(self, dtype) -> Array3[AnyDType, A1, A2, A3]: ...
 
@@ -912,6 +916,7 @@ class Array4(Generic[DT, A1, A2, A3, A4]):
   T: Array4[DT, A4, A3, A2, A1]
   at: Any
   ndim: Literal[4]
+  dtype: type
   def __len__(self) -> int: ...
   def astype(self, dtype) -> Array4[AnyDType, A1, A2, A3, A4]: ...
 
@@ -1185,6 +1190,7 @@ class Array5(Generic[DT, A1, A2, A3, A4, A5]):
   T: Array5[DT, A5, A4, A3, A2, A1]
   at: Any
   ndim: Literal[5]
+  dtype: type
   def __len__(self) -> int: ...
   def astype(self, dtype) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
 
@@ -1454,6 +1460,7 @@ class Array6(Generic[DT, A1, A2, A3, A4, A5, A6]):
   T: Array6[DT, A6, A5, A4, A3, A2, A1]
   at: Any
   ndim: Literal[6]
+  dtype: type
   def __len__(self) -> int: ...
   def astype(self, dtype) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
 
@@ -1745,6 +1752,7 @@ class Array7(Generic[DT, A1, A2, A3, A4, A5, A6, A7]):
   T: Array7[DT, A7, A6, A5, A4, A3, A2, A1]
   at: Any
   ndim: Literal[7]
+  dtype: type
   def __len__(self) -> int: ...
   def astype(self, dtype) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
 
@@ -2058,6 +2066,7 @@ class Array8(Generic[DT, A1, A2, A3, A4, A5, A6, A7, A8]):
   T: Array8[DT, A8, A7, A6, A5, A4, A3, A2, A1]
   at: Any
   ndim: Literal[8]
+  dtype: type
   def __len__(self) -> int: ...
   def astype(self, dtype) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
 

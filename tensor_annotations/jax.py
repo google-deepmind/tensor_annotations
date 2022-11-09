@@ -122,7 +122,7 @@ class _ArrayBase:
   shape: Any
   T: Any
   at: Any
-  type: Any
+  dtype: Any
   reshape: Any
   astype: Any
   ndim: Any
