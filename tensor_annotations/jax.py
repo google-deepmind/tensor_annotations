@@ -125,6 +125,7 @@ class _ArrayBase:
   type: Any
   reshape: Any
   astype: Any
+  ndim: Any
 
 
 class Array0(Generic[DT], _ArrayBase):

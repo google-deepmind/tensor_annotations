@@ -9,7 +9,7 @@ To regenerate, run the following from the tensor_annotations directory:
      --out jax.pyi
 """
 
-from typing import Any, TypeVar, Tuple, Sequence, Generic, overload, Union
+from typing import Any, TypeVar, Tuple, Sequence, Generic, overload, Union, Literal
 
 from tensor_annotations.axes import Axis
 
@@ -98,6 +98,7 @@ class Array0(Generic[DT]):
   shape: Tuple[()]
   T: Array0[DT]
   at: Any
+  ndim: Literal[0]
   def astype(self, dtype) -> Array0[AnyDType]: ...
 
   # Technically this exists on all instances of JAX arrays,
@@ -134,6 +135,7 @@ class Array1(Generic[DT, A1]):
   shape: Tuple[int]
   T: Array1[DT, A1]
   at: Any
+  ndim: Literal[1]
   def __len__(self) -> int: ...
   def astype(self, dtype) -> Array1[AnyDType, A1]: ...
 
@@ -194,6 +196,7 @@ class Array2(Generic[DT, A1, A2]):
   shape: Tuple[int, int]
   T: Array2[DT, A2, A1]
   at: Any
+  ndim: Literal[2]
   def __len__(self) -> int: ...
   def astype(self, dtype) -> Array2[AnyDType, A1, A2]: ...
 
@@ -258,6 +261,7 @@ class Array3(Generic[DT, A1, A2, A3]):
   shape: Tuple[int, int, int]
   T: Array3[DT, A3, A2, A1]
   at: Any
+  ndim: Literal[3]
   def __len__(self) -> int: ...
   def astype(self, dtype) -> Array3[AnyDType, A1, A2, A3]: ...
 
@@ -324,6 +328,7 @@ class Array4(Generic[DT, A1, A2, A3, A4]):
   shape: Tuple[int, int, int, int]
   T: Array4[DT, A4, A3, A2, A1]
   at: Any
+  ndim: Literal[4]
   def __len__(self) -> int: ...
   def astype(self, dtype) -> Array4[AnyDType, A1, A2, A3, A4]: ...
 
@@ -392,6 +397,7 @@ class Array5(Generic[DT, A1, A2, A3, A4, A5]):
   shape: Tuple[int, int, int, int]
   T: Array5[DT, A5, A4, A3, A2, A1]
   at: Any
+  ndim: Literal[5]
   def __len__(self) -> int: ...
   def astype(self, dtype) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
 
@@ -436,6 +442,7 @@ class Array6(Generic[DT, A1, A2, A3, A4, A5, A6]):
   shape: Tuple[int, int, int, int]
   T: Array6[DT, A6, A5, A4, A3, A2, A1]
   at: Any
+  ndim: Literal[6]
   def __len__(self) -> int: ...
   def astype(self, dtype) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
 
@@ -482,6 +489,7 @@ class Array7(Generic[DT, A1, A2, A3, A4, A5, A6, A7]):
   shape: Tuple[int, int, int, int]
   T: Array7[DT, A7, A6, A5, A4, A3, A2, A1]
   at: Any
+  ndim: Literal[7]
   def __len__(self) -> int: ...
   def astype(self, dtype) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
 
@@ -530,6 +538,7 @@ class Array8(Generic[DT, A1, A2, A3, A4, A5, A6, A7, A8]):
   shape: Tuple[int, int, int, int]
   T: Array8[DT, A8, A7, A6, A5, A4, A3, A2, A1]
   at: Any
+  ndim: Literal[8]
   def __len__(self) -> int: ...
   def astype(self, dtype) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
 
