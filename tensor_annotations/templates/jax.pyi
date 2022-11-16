@@ -24,8 +24,6 @@ from typing import Any
 
 _sentinel: int
 
-class Array: pass
-
 {% for x in jax_dir %}
 {{ x }}: Any
 {% endfor %}

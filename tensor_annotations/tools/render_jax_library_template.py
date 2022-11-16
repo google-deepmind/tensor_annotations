@@ -44,9 +44,6 @@ def main(argv):
   # We _don't_ want to stub `jax.numpy` as `Any`, because it would prevent
   # our stubs for jax.numpy.* being used.
   jax_dir.remove('numpy')
-  # `jax.Array` is actually an important type, so we've added it as a class
-  # manually in the template, and don't need to stub it as `Any`.
-  jax_dir.remove('Array')
   with open(_JAX_STUBS_PATH, 'w') as f:
     f.write(jax_template.render(jax_dir=jax_dir))
 
