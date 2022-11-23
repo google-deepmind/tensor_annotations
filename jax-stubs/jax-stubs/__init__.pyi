@@ -14,6 +14,9 @@
 # ==============================================================================
 """Stubs for jax.*
 
+We also need to provide stubs for jax.Array in here to avoid breaking
+code which doesn't use tensor_annotations annotations. Le sigh.
+
 NOTE: This file is generated from templates/jax.pyi.
 
 To regenerate, run the following from the tensor_annotations directory:
@@ -25,7 +28,69 @@ from typing import Any
 _sentinel: int
 
 
-Array: Any
+class Array:
+
+  shape: tuple[int, ...]
+
+  item: Any
+
+  def astype(self, dtype) -> 'Array':
+    ...
+
+  def __add__(self, other) -> 'Array':
+    ...
+
+  def __radd__(self, other) -> 'Array':
+    ...
+
+  def __sub__(self, other) -> 'Array':
+    ...
+
+  def __rsub__(self, other) -> 'Array':
+    ...
+
+  def __mul__(self, other) -> 'Array':
+    ...
+
+  def __rmul__(self, other) -> 'Array':
+    ...
+
+  def __floordiv__(self, other) -> 'Array':
+    ...
+
+  def __truediv__(self, other) -> 'Array':
+    ...
+
+  def __pow__(self, other) -> 'Array':
+    ...
+
+  def __matmul__(self, other) -> 'Array':
+    ...
+
+  @property
+  def T(self) -> 'Array':
+    ...
+
+  def __getitem__(self, key) -> 'Array':
+    ...
+
+  @property
+  def at(self) -> '_IndexUpdateHelper':
+    ...
+
+
+class _IndexUpdateHelper:
+
+  def __getitem__(self, key) -> '_IndexUpdateRef':
+    ...
+
+
+class _IndexUpdateRef:
+
+  def set(self, value) -> Array:
+    ...
+
+
 
 ShapeDtypeStruct: Any
 

@@ -14,6 +14,9 @@
 # ==============================================================================
 """Stubs for jax.numpy.*
 
+We also need to provide stubs for jax.Array in here to avoid breaking
+code which doesn't use tensor_annotations annotations. Le sigh.
+
 NOTE: This file is generated from templates/jax_numpy.pyi.
 
 To regenerate, run the following from the tensor_annotations directory:
@@ -22,6 +25,7 @@ To regenerate, run the following from the tensor_annotations directory:
 
 from typing import overload, Any, List, Literal, Tuple, TypeVar
 
+import jax
 import tensor_annotations.jax as tjax
 from tensor_annotations.jax import Array0, Array1, Array2, Array3, Array4
 from tensor_annotations.axes import Axis
@@ -56,6 +60,11 @@ LN1 = Literal[-1]
 
 
 
+
+@overload
+def abs(x: jax.Array) -> jax.Array: ...
+
+
 @overload
 def abs(x: Array0[DT]) -> Array0[DT]: ...
 
@@ -75,6 +84,11 @@ def abs(x: Array3[DT, A1, A2, A3]) -> Array3[DT, A1, A2, A3]: ...
 @overload
 def abs(x: Array4[DT, A1, A2, A3, A4]) -> Array4[DT, A1, A2, A3, A4]: ...
 
+
+
+
+@overload
+def acos(x: jax.Array) -> jax.Array: ...
 
 
 @overload
@@ -98,6 +112,11 @@ def acos(x: Array4[DT, A1, A2, A3, A4]) -> Array4[DT, A1, A2, A3, A4]: ...
 
 
 
+
+@overload
+def acosh(x: jax.Array) -> jax.Array: ...
+
+
 @overload
 def acosh(x: Array0[DT]) -> Array0[DT]: ...
 
@@ -117,6 +136,11 @@ def acosh(x: Array3[DT, A1, A2, A3]) -> Array3[DT, A1, A2, A3]: ...
 @overload
 def acosh(x: Array4[DT, A1, A2, A3, A4]) -> Array4[DT, A1, A2, A3, A4]: ...
 
+
+
+
+@overload
+def asin(x: jax.Array) -> jax.Array: ...
 
 
 @overload
@@ -140,6 +164,11 @@ def asin(x: Array4[DT, A1, A2, A3, A4]) -> Array4[DT, A1, A2, A3, A4]: ...
 
 
 
+
+@overload
+def asinh(x: jax.Array) -> jax.Array: ...
+
+
 @overload
 def asinh(x: Array0[DT]) -> Array0[DT]: ...
 
@@ -159,6 +188,11 @@ def asinh(x: Array3[DT, A1, A2, A3]) -> Array3[DT, A1, A2, A3]: ...
 @overload
 def asinh(x: Array4[DT, A1, A2, A3, A4]) -> Array4[DT, A1, A2, A3, A4]: ...
 
+
+
+
+@overload
+def atan(x: jax.Array) -> jax.Array: ...
 
 
 @overload
@@ -182,6 +216,11 @@ def atan(x: Array4[DT, A1, A2, A3, A4]) -> Array4[DT, A1, A2, A3, A4]: ...
 
 
 
+
+@overload
+def atanh(x: jax.Array) -> jax.Array: ...
+
+
 @overload
 def atanh(x: Array0[DT]) -> Array0[DT]: ...
 
@@ -201,6 +240,11 @@ def atanh(x: Array3[DT, A1, A2, A3]) -> Array3[DT, A1, A2, A3]: ...
 @overload
 def atanh(x: Array4[DT, A1, A2, A3, A4]) -> Array4[DT, A1, A2, A3, A4]: ...
 
+
+
+
+@overload
+def cos(x: jax.Array) -> jax.Array: ...
 
 
 @overload
@@ -224,6 +268,11 @@ def cos(x: Array4[DT, A1, A2, A3, A4]) -> Array4[DT, A1, A2, A3, A4]: ...
 
 
 
+
+@overload
+def cosh(x: jax.Array) -> jax.Array: ...
+
+
 @overload
 def cosh(x: Array0[DT]) -> Array0[DT]: ...
 
@@ -243,6 +292,11 @@ def cosh(x: Array3[DT, A1, A2, A3]) -> Array3[DT, A1, A2, A3]: ...
 @overload
 def cosh(x: Array4[DT, A1, A2, A3, A4]) -> Array4[DT, A1, A2, A3, A4]: ...
 
+
+
+
+@overload
+def exp(x: jax.Array) -> jax.Array: ...
 
 
 @overload
@@ -266,6 +320,11 @@ def exp(x: Array4[DT, A1, A2, A3, A4]) -> Array4[DT, A1, A2, A3, A4]: ...
 
 
 
+
+@overload
+def floor(x: jax.Array) -> jax.Array: ...
+
+
 @overload
 def floor(x: Array0[DT]) -> Array0[DT]: ...
 
@@ -285,6 +344,11 @@ def floor(x: Array3[DT, A1, A2, A3]) -> Array3[DT, A1, A2, A3]: ...
 @overload
 def floor(x: Array4[DT, A1, A2, A3, A4]) -> Array4[DT, A1, A2, A3, A4]: ...
 
+
+
+
+@overload
+def logical_not(x: jax.Array) -> jax.Array: ...
 
 
 @overload
@@ -308,6 +372,11 @@ def logical_not(x: Array4[DT, A1, A2, A3, A4]) -> Array4[DT, A1, A2, A3, A4]: ..
 
 
 
+
+@overload
+def negative(x: jax.Array) -> jax.Array: ...
+
+
 @overload
 def negative(x: Array0[DT]) -> Array0[DT]: ...
 
@@ -327,6 +396,11 @@ def negative(x: Array3[DT, A1, A2, A3]) -> Array3[DT, A1, A2, A3]: ...
 @overload
 def negative(x: Array4[DT, A1, A2, A3, A4]) -> Array4[DT, A1, A2, A3, A4]: ...
 
+
+
+
+@overload
+def sigmoid(x: jax.Array) -> jax.Array: ...
 
 
 @overload
@@ -350,6 +424,11 @@ def sigmoid(x: Array4[DT, A1, A2, A3, A4]) -> Array4[DT, A1, A2, A3, A4]: ...
 
 
 
+
+@overload
+def sign(x: jax.Array) -> jax.Array: ...
+
+
 @overload
 def sign(x: Array0[DT]) -> Array0[DT]: ...
 
@@ -369,6 +448,11 @@ def sign(x: Array3[DT, A1, A2, A3]) -> Array3[DT, A1, A2, A3]: ...
 @overload
 def sign(x: Array4[DT, A1, A2, A3, A4]) -> Array4[DT, A1, A2, A3, A4]: ...
 
+
+
+
+@overload
+def sin(x: jax.Array) -> jax.Array: ...
 
 
 @overload
@@ -392,6 +476,11 @@ def sin(x: Array4[DT, A1, A2, A3, A4]) -> Array4[DT, A1, A2, A3, A4]: ...
 
 
 
+
+@overload
+def sinh(x: jax.Array) -> jax.Array: ...
+
+
 @overload
 def sinh(x: Array0[DT]) -> Array0[DT]: ...
 
@@ -411,6 +500,11 @@ def sinh(x: Array3[DT, A1, A2, A3]) -> Array3[DT, A1, A2, A3]: ...
 @overload
 def sinh(x: Array4[DT, A1, A2, A3, A4]) -> Array4[DT, A1, A2, A3, A4]: ...
 
+
+
+
+@overload
+def sqrt(x: jax.Array) -> jax.Array: ...
 
 
 @overload
@@ -434,6 +528,11 @@ def sqrt(x: Array4[DT, A1, A2, A3, A4]) -> Array4[DT, A1, A2, A3, A4]: ...
 
 
 
+
+@overload
+def square(x: jax.Array) -> jax.Array: ...
+
+
 @overload
 def square(x: Array0[DT]) -> Array0[DT]: ...
 
@@ -455,6 +554,11 @@ def square(x: Array4[DT, A1, A2, A3, A4]) -> Array4[DT, A1, A2, A3, A4]: ...
 
 
 
+
+@overload
+def tan(x: jax.Array) -> jax.Array: ...
+
+
 @overload
 def tan(x: Array0[DT]) -> Array0[DT]: ...
 
@@ -474,6 +578,11 @@ def tan(x: Array3[DT, A1, A2, A3]) -> Array3[DT, A1, A2, A3]: ...
 @overload
 def tan(x: Array4[DT, A1, A2, A3, A4]) -> Array4[DT, A1, A2, A3, A4]: ...
 
+
+
+
+@overload
+def tanh(x: jax.Array) -> jax.Array: ...
 
 
 @overload
@@ -502,6 +611,9 @@ def tanh(x: Array4[DT, A1, A2, A3, A4]) -> Array4[DT, A1, A2, A3, A4]: ...
 
 
 @overload
+def zeros_like(x: jax.Array, dtype=...) -> jax.Array: ...
+
+@overload
 def zeros_like(x: Array0[DT], dtype=...) -> Array0[DT]: ...
 
 
@@ -521,6 +633,9 @@ def zeros_like(x: Array3[DT, A1, A2, A3], dtype=...) -> Array3[DT, A1, A2, A3]: 
 def zeros_like(x: Array4[DT, A1, A2, A3, A4], dtype=...) -> Array4[DT, A1, A2, A3, A4]: ...
 
 
+
+@overload
+def ones_like(x: jax.Array, dtype=...) -> jax.Array: ...
 
 @overload
 def ones_like(x: Array0[DT], dtype=...) -> Array0[DT]: ...
@@ -543,6 +658,8 @@ def ones_like(x: Array4[DT, A1, A2, A3, A4], dtype=...) -> Array4[DT, A1, A2, A3
 
 
 
+@overload
+def round(x: jax.Array, decimals=...) -> jax.Array: ...
 
 @overload
 def round(x: Array0[DT], decimals=...) -> Array0[DT]: ...
@@ -659,6 +776,15 @@ def ones(shape: Shape4, dtype=...) -> Array4[AnyDType, Any, Any, Any, Any]: ...
 # ---------- REDUCTION OPERATORS ----------
 
 
+
+@overload
+def sum(
+    a: jax.Array,
+    keepdims=...,
+    axis=...,
+    out=...,
+    dtype=...
+) -> jax.Array: ...
 
 ## keepdims = True: yet be to be typed
 
@@ -1165,6 +1291,15 @@ def sum(
 ) -> Any: ...
 
 
+
+@overload
+def mean(
+    a: jax.Array,
+    keepdims=...,
+    axis=...,
+    out=...,
+    dtype=...
+) -> jax.Array: ...
 
 ## keepdims = True: yet be to be typed
 
@@ -1673,6 +1808,12 @@ def mean(
 
 
 # ---------- TRANSPOSE ----------
+
+@overload
+def transpose(
+    a: jax.Array,
+    axes=...
+) -> jax.Array: ...
 
 
 

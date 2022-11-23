@@ -14,9 +14,10 @@
 # ==============================================================================
 """Tests for JAX stubs."""
 
-from typing import NewType, TypeVar
+from typing import cast, NewType, TypeVar
 
 from absl.testing import absltest
+import jax
 import jax.numpy as jnp
 from tensor_annotations import axes
 from tensor_annotations.axes import Batch
@@ -41,7 +42,7 @@ AxisTypeVar = TypeVar('AxisTypeVar')
 # It's less than ideal that we have to repeat imports etc. here for pytype, but
 # this seems like the best balance between readability and complexity.
 _PREAMBLE = """
-from typing import Any, NewType, TypeVar, Union
+from typing import Any, cast, NewType, TypeVar, Union
 
 import jax
 import jax.numpy as jnp
@@ -511,6 +512,144 @@ class JAXAnyDtypeAliasTests(absltest.TestCase):
       foo(x)
 
     utils.assert_pytype_fails(_PREAMBLE + code_saver.code)
+
+
+class JAXArrayTests(absltest.TestCase):
+  """Test for operations on official jax.Array class.
+
+  We need to do some explicit casting in these tests because, since we're
+  using our stubs, things like jnp.zeros returns an ArrayN, rather than
+  a jax.Array, as we want.
+  """
+
+  def testArrayShape_HasInferredTypeTupleInt(self):
+    """Tests that pytype infers tuple[int, ...] for jax.Array.shape."""
+    with utils.SaveCodeAsString() as code_saver:
+      x = cast(jax.Array, jnp.zeros(3))
+      s = x.shape  # pylint: disable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    self.assertEqual(inferred.s, 'Tuple[int, ...]')
+
+  def testArrayFunctions_ReturnJaxArray(self):
+    """Tests that the inferred types for eg jax.Array.astype() is are right."""
+    with utils.SaveCodeAsString() as code_saver:
+      a = cast(jax.Array, jnp.zeros(3))
+      b = a.astype(jnp.int64)
+      c = a + 1
+      d = 1 + a
+      e = a - 1
+      f = 1 - a
+      g = a * 2
+      h = 2 * a
+      i = a / 2
+      j = a // 2
+      k = a ** 2
+      l = a @ a
+      m = a[0]
+      n = a.T
+      o = a.at[0].set(1)
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    # These are all jax.Arrays, right?
+    # Or close enough - they'll actually be some subclass of jax.Array
+    # like tensorflow.compiler.xla.python.xla_extension.Array.
+    self.assertIsInstance(a, jax.Array)
+    self.assertIsInstance(b, jax.Array)
+    self.assertIsInstance(c, jax.Array)
+    self.assertIsInstance(d, jax.Array)
+    self.assertIsInstance(e, jax.Array)
+    self.assertIsInstance(f, jax.Array)
+    self.assertIsInstance(g, jax.Array)
+    self.assertIsInstance(h, jax.Array)
+    self.assertIsInstance(i, jax.Array)
+    self.assertIsInstance(j, jax.Array)
+    self.assertIsInstance(k, jax.Array)
+    self.assertIsInstance(l, jax.Array)
+    self.assertIsInstance(m, jax.Array)
+    self.assertIsInstance(n, jax.Array)
+    self.assertIsInstance(o, jax.Array)
+
+    # If all the variables are definitely jax.Arrays, then we should have
+    # inferred jax.Array types.
+    self.assertEqual(inferred.a, 'jax.Array')
+    self.assertEqual(inferred.b, 'jax.Array')
+    self.assertEqual(inferred.c, 'jax.Array')
+    self.assertEqual(inferred.d, 'jax.Array')
+    self.assertEqual(inferred.e, 'jax.Array')
+    self.assertEqual(inferred.f, 'jax.Array')
+    self.assertEqual(inferred.g, 'jax.Array')
+    self.assertEqual(inferred.h, 'jax.Array')
+    self.assertEqual(inferred.i, 'jax.Array')
+    self.assertEqual(inferred.j, 'jax.Array')
+    self.assertEqual(inferred.k, 'jax.Array')
+    self.assertEqual(inferred.l, 'jax.Array')
+    self.assertEqual(inferred.m, 'jax.Array')
+    self.assertEqual(inferred.n, 'jax.Array')
+    self.assertEqual(inferred.o, 'jax.Array')
+
+  def testUnaryFunction_ReturnsJaxArray(self):
+    with utils.SaveCodeAsString() as code_saver:
+      x = cast(jax.Array, jnp.zeros(3))
+      y = jnp.abs(x)  # pylint: disable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    self.assertEqual(inferred.y, 'jax.Array')
+
+  def testZerosLike_ReturnsJaxArray(self):
+    """Tests that jnp.zeros_like(jax.Array) returns a jax.Array."""
+    with utils.SaveCodeAsString() as code_saver:
+      a = cast(jax.Array, jnp.zeros(3))
+      # pylint: disable=unused-variable
+      b = jnp.zeros_like(a)
+      c = jnp.zeros_like(a, dtype=jnp.uint8)
+      # pylint: enable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    self.assertEqual(inferred.b, 'jax.Array')
+    self.assertEqual(inferred.c, 'jax.Array')
+
+  def testRound_ReturnsJaxArray(self):
+    with utils.SaveCodeAsString() as code_saver:
+      x = cast(jax.Array, jnp.zeros(3))
+      y = jnp.round(x, 2)  # pylint: disable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    self.assertEqual(inferred.y, 'jax.Array')
+
+  def testSum_ReturnsJaxArray(self):
+    """Tests that jnp.sum(jax.Array) returns a jax.Array."""
+    with utils.SaveCodeAsString() as code_saver:
+      a = cast(jax.Array, jnp.zeros(3))
+      # pylint: disable=unused-variable
+      b = jnp.sum(a)
+      c = jnp.sum(a, keepdims=True)
+      d = jnp.sum(a, axis=0)
+      e = jnp.sum(a, axis=0, keepdims=True)
+      # pylint: enable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    self.assertEqual(inferred.b, 'jax.Array')
+    self.assertEqual(inferred.c, 'jax.Array')
+    self.assertEqual(inferred.d, 'jax.Array')
+    self.assertEqual(inferred.e, 'jax.Array')
+
+  def testTranspsoe_ReturnsJaxArray(self):
+    with utils.SaveCodeAsString() as code_saver:
+      a = cast(jax.Array, jnp.zeros(3))
+      b = jnp.transpose(a)  # pylint: disable=unused-variable
+      c = jnp.transpose(a, axes=(0,))  # pylint: disable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    self.assertEqual(inferred.b, 'jax.Array')
+    self.assertEqual(inferred.c, 'jax.Array')
 
 
 if __name__ == '__main__':

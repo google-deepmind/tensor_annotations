@@ -15,6 +15,9 @@
 # LINT.IfChange
 """Stubs for jax.numpy.*
 
+We also need to provide stubs for jax.Array in here to avoid breaking
+code which doesn't use tensor_annotations annotations. Le sigh.
+
 NOTE: This file is generated from templates/jax_numpy.pyi.
 
 To regenerate, run the following from the tensor_annotations directory:
@@ -23,6 +26,7 @@ To regenerate, run the following from the tensor_annotations directory:
 
 from typing import overload, Any, List, Literal, Tuple, TypeVar
 
+import jax
 import tensor_annotations.jax as tjax
 from tensor_annotations.jax import Array0, Array1, Array2, Array3, Array4
 from tensor_annotations.axes import Axis
@@ -60,6 +64,11 @@ LN1 = Literal[-1]
                       'tanh'] %}
 {% for func in unary_funcs %}
 
+
+@overload
+def {{ func }}(x: jax.Array) -> jax.Array: ...
+
+
 @overload
 def {{ func }}(x: Array0[DT]) -> Array0[DT]: ...
 
@@ -86,6 +95,9 @@ def {{ func }}(x: Array4[DT, A1, A2, A3, A4]) -> Array4[DT, A1, A2, A3, A4]: ...
 {% for func in dtype_unary_funcs %}
 
 @overload
+def {{ func }}(x: jax.Array, dtype=...) -> jax.Array: ...
+
+@overload
 def {{ func }}(x: Array0[DT], dtype=...) -> Array0[DT]: ...
 
 
@@ -106,6 +118,8 @@ def {{ func }}(x: Array4[DT, A1, A2, A3, A4], dtype=...) -> Array4[DT, A1, A2, A
 
 {% endfor %}
 
+@overload
+def round(x: jax.Array, decimals=...) -> jax.Array: ...
 
 @overload
 def round(x: Array0[DT], decimals=...) -> Array0[DT]: ...
@@ -174,6 +188,15 @@ def ones(shape: Shape{{ i }}, dtype=...) -> Array{{ i }}[AnyDType, {{ n_any }}]:
 # ---------- REDUCTION OPERATORS ----------
 
 {% for op in ['sum', 'mean'] %}
+
+@overload
+def {{ op }}(
+    a: jax.Array,
+    keepdims=...,
+    axis=...,
+    out=...,
+    dtype=...
+) -> jax.Array: ...
 
 ## keepdims = True: yet be to be typed
 
@@ -250,6 +273,12 @@ def {{ op }}(
 {% endfor %}
 
 # ---------- TRANSPOSE ----------
+
+@overload
+def transpose(
+    a: jax.Array,
+    axes=...
+) -> jax.Array: ...
 
 {% for n_axes in range(1, 5) %}
 
