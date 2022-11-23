@@ -25,6 +25,8 @@ from typing import Any
 _sentinel: int
 
 
+Array: Any
+
 ShapeDtypeStruct: Any
 
 ShapedArray: Any
@@ -185,13 +187,21 @@ linear_util: Any
 
 linearize: Any
 
+live_arrays: Any
+
 local_device_count: Any
 
 local_devices: Any
 
 log_compiles: Any
 
+make_array_from_callback: Any
+
+make_array_from_single_device_arrays: Any
+
 make_jaxpr: Any
+
+monitoring: Any
 
 named_call: Any
 
@@ -225,7 +235,9 @@ remat: Any
 
 scipy: Any
 
-soft_pmap: Any
+sharding: Any
+
+spmd_mode: Any
 
 stages: Any
 
