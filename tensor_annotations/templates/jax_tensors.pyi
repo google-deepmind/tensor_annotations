@@ -81,7 +81,8 @@ Number = Union[int, float]
 {# Yes, __mul__ _is_ elementwise! __matmul__ is matrix multiply. #}
 {% set binary_elementwise_funcs = ['__add__', '__sub__', '__floordiv__',
                                    '__truediv__', '__pow__', '__lt__', '__le__',
-                                   '__ge__', '__gt__', '__mul__', '__rmul__'] %}
+                                   '__ge__', '__gt__', '__eq__', '__ne__',
+                                   '__mul__', '__rmul__'] %}
 
 
 # A quick refresher on broadcasting rules:
