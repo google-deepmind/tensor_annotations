@@ -25,6 +25,8 @@ To regenerate, run the following from the tensor_annotations directory:
 
 from typing import Any
 
+import numpy as np
+
 _sentinel: int
 
 
@@ -33,6 +35,8 @@ class Array:
   shape: tuple[int, ...]
 
   item: Any
+
+  dtype: np.dtype
 
   def astype(self, dtype) -> 'Array':
     ...

@@ -651,6 +651,15 @@ class JAXArrayTests(absltest.TestCase):
     self.assertEqual(inferred.b, 'jax.Array')
     self.assertEqual(inferred.c, 'jax.Array')
 
+  def testArray_HasDtypeAttribute(self):
+    with utils.SaveCodeAsString() as code_saver:
+      a = cast(jax.Array, jnp.zeros(3))
+      b = a.dtype  # pylint: disable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    self.assertEqual(inferred.b, 'numpy.dtype')
+
 
 if __name__ == '__main__':
   absltest.main()
