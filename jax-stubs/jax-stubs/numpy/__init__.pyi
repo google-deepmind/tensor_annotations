@@ -2178,12 +2178,6 @@ absolute: Any
 
 add: Any
 
-add_docstring: Any
-
-add_newdoc: Any
-
-add_newdoc_ufunc: Any
-
 all: Any
 
 allclose: Any
@@ -2234,8 +2228,6 @@ around: Any
 
 array: Any
 
-array2string: Any
-
 array_equal: Any
 
 array_equiv: Any
@@ -2246,19 +2238,7 @@ array_split: Any
 
 array_str: Any
 
-asanyarray: Any
-
 asarray: Any
-
-asarray_chkfinite: Any
-
-ascontiguousarray: Any
-
-asfarray: Any
-
-asfortranarray: Any
-
-asmatrix: Any
 
 atleast_1d: Any
 
@@ -2270,11 +2250,7 @@ average: Any
 
 bartlett: Any
 
-base_repr: Any
-
 bfloat16: Any
-
-binary_repr: Any
 
 bincount: Any
 
@@ -2290,8 +2266,6 @@ blackman: Any
 
 block: Any
 
-bmat: Any
-
 bool_: Any
 
 broadcast_arrays: Any
@@ -2299,12 +2273,6 @@ broadcast_arrays: Any
 broadcast_shapes: Any
 
 broadcast_to: Any
-
-busday_count: Any
-
-busday_offset: Any
-
-byte_bounds: Any
 
 c_: Any
 
@@ -2323,10 +2291,6 @@ choose: Any
 clip: Any
 
 column_stack: Any
-
-common_type: Any
-
-compare_chararrays: Any
 
 complex128: Any
 
@@ -2350,8 +2314,6 @@ copy: Any
 
 copysign: Any
 
-copyto: Any
-
 corrcoef: Any
 
 correlate: Any
@@ -2370,19 +2332,11 @@ cumproduct: Any
 
 cumsum: Any
 
-datetime_as_string: Any
-
-datetime_data: Any
-
 deg2rad: Any
 
 degrees: Any
 
 delete: Any
-
-deprecate: Any
-
-deprecate_with_doc: Any
 
 diag: Any
 
@@ -2397,8 +2351,6 @@ diagonal: Any
 diff: Any
 
 digitize: Any
-
-disp: Any
 
 divide: Any
 
@@ -2442,13 +2394,7 @@ eye: Any
 
 fabs: Any
 
-fastCopyAndTranspose: Any
-
 fft: Any
-
-fill_diagonal: Any
-
-find_common_type: Any
 
 finfo: Any
 
@@ -2470,6 +2416,10 @@ float32: Any
 
 float64: Any
 
+float8_e4m3fn: Any
+
+float8_e5m2: Any
+
 float_: Any
 
 float_power: Any
@@ -2484,10 +2434,6 @@ fmin: Any
 
 fmod: Any
 
-format_float_positional: Any
-
-format_float_scientific: Any
-
 frexp: Any
 
 from_dlpack: Any
@@ -2500,10 +2446,6 @@ fromfunction: Any
 
 fromiter: Any
 
-frompyfunc: Any
-
-fromregex: Any
-
 fromstring: Any
 
 full: Any
@@ -2514,23 +2456,9 @@ gcd: Any
 
 generic: Any
 
-genfromtxt: Any
-
 geomspace: Any
 
-get_array_wrap: Any
-
-get_include: Any
-
 get_printoptions: Any
-
-getbufsize: Any
-
-geterr: Any
-
-geterrcall: Any
-
-geterrobj: Any
 
 gradient: Any
 
@@ -2576,8 +2504,6 @@ inexact: Any
 
 inf: Any
 
-info: Any
-
 inner: Any
 
 insert: Any
@@ -2600,8 +2526,6 @@ intersect1d: Any
 
 invert: Any
 
-is_busday: Any
-
 isclose: Any
 
 iscomplex: Any
@@ -2610,15 +2534,11 @@ iscomplexobj: Any
 
 isfinite: Any
 
-isfortran: Any
-
 isin: Any
 
 isinf: Any
 
 isnan: Any
-
-isnat: Any
 
 isneginf: Any
 
@@ -2629,10 +2549,6 @@ isreal: Any
 isrealobj: Any
 
 isscalar: Any
-
-issctype: Any
-
-issubclass_: Any
 
 issubdtype: Any
 
@@ -2664,8 +2580,6 @@ linspace: Any
 
 load: Any
 
-loadtxt: Any
-
 log: Any
 
 log10: Any
@@ -2686,21 +2600,13 @@ logical_xor: Any
 
 logspace: Any
 
-lookfor: Any
-
 mask_indices: Any
-
-mat: Any
 
 matmul: Any
 
 max: Any
 
 maximum: Any
-
-maximum_sctype: Any
-
-may_share_memory: Any
 
 median: Any
 
@@ -2710,11 +2616,7 @@ mgrid: Any
 
 min: Any
 
-min_scalar_type: Any
-
 minimum: Any
-
-mintypecode: Any
 
 mod: Any
 
@@ -2760,8 +2662,6 @@ nanvar: Any
 
 ndim: Any
 
-nested_iters: Any
-
 newaxis: Any
 
 nextafter: Any
@@ -2771,8 +2671,6 @@ nonzero: Any
 not_equal: Any
 
 number: Any
-
-obj2sctype: Any
 
 object_: Any
 
@@ -2828,10 +2726,6 @@ ptp: Any
 
 put: Any
 
-put_along_axis: Any
-
-putmask: Any
-
 quantile: Any
 
 r_: Any
@@ -2846,19 +2740,11 @@ ravel_multi_index: Any
 
 real: Any
 
-real_if_close: Any
-
-recfromcsv: Any
-
-recfromtxt: Any
-
 reciprocal: Any
 
 remainder: Any
 
 repeat: Any
-
-require: Any
 
 reshape: Any
 
@@ -2884,45 +2770,21 @@ row_stack: Any
 
 s_: Any
 
-safe_eval: Any
-
 save: Any
 
-savetxt: Any
-
 savez: Any
-
-savez_compressed: Any
-
-sctype2char: Any
 
 searchsorted: Any
 
 select: Any
 
-set_numeric_ops: Any
-
 set_printoptions: Any
 
-set_string_function: Any
-
-setbufsize: Any
-
 setdiff1d: Any
-
-seterr: Any
-
-seterrcall: Any
-
-seterrobj: Any
 
 setxor1d: Any
 
 shape: Any
-
-shares_memory: Any
-
-show_config: Any
 
 signbit: Any
 
@@ -2939,10 +2801,6 @@ sometrue: Any
 sort: Any
 
 sort_complex: Any
-
-source: Any
-
-spacing: Any
 
 split: Any
 
@@ -2988,8 +2846,6 @@ true_divide: Any
 
 trunc: Any
 
-typename: Any
-
 uint: Any
 
 uint16: Any
@@ -3025,6 +2881,4 @@ vsplit: Any
 vstack: Any
 
 where: Any
-
-who: Any
 

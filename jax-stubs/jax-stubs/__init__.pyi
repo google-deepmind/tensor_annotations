@@ -96,6 +96,8 @@ class _IndexUpdateRef:
 
 
 
+Device: Any
+
 ShapeDtypeStruct: Any
 
 ShapedArray: Any
@@ -238,8 +240,6 @@ jax: Any
 
 jax2tf_associative_scan_reductions: Any
 
-jax_google: Any
-
 jaxlib: Any
 
 jit: Any
@@ -333,6 +333,8 @@ tree_unflatten: Any
 tree_util: Any
 
 treedef_is_leaf: Any
+
+typing: Any
 
 util: Any
 
