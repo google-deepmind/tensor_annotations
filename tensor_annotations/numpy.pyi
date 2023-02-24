@@ -8,7 +8,7 @@ To regenerate, run the following from the tensor_annotations directory:
      --out numpy.pyi
 """
 
-from typing import Any, TypeVar, Generic
+from typing import Any, Literal, Tuple, TypeVar, Generic
 from tensor_annotations.axes import Axis
 
 
@@ -75,32 +75,80 @@ DT = TypeVar('DT', bound=DType)
 
 
 class Array1(Generic[DT, A1]):
-  pass
+  def __getitem__(self, index) -> Any: ...
+  def __setitem__(self, index, value) -> Any: ...
+  shape: Tuple[int]
+  T: Array1[DT, A1]
+  ndim: Literal[1]
+  dtype: type
+  def astype(self, dtype) -> Array1[AnyDType, A1]: ...
 
 
 class Array2(Generic[DT, A1, A2]):
-  pass
+  def __getitem__(self, index) -> Any: ...
+  def __setitem__(self, index, value) -> Any: ...
+  shape: Tuple[int, int]
+  T: Array2[DT, A2, A1]
+  ndim: Literal[2]
+  dtype: type
+  def astype(self, dtype) -> Array2[AnyDType, A1, A2]: ...
 
 
 class Array3(Generic[DT, A1, A2, A3]):
-  pass
+  def __getitem__(self, index) -> Any: ...
+  def __setitem__(self, index, value) -> Any: ...
+  shape: Tuple[int, int, int]
+  T: Array3[DT, A3, A2, A1]
+  ndim: Literal[3]
+  dtype: type
+  def astype(self, dtype) -> Array3[AnyDType, A1, A2, A3]: ...
 
 
 class Array4(Generic[DT, A1, A2, A3, A4]):
-  pass
+  def __getitem__(self, index) -> Any: ...
+  def __setitem__(self, index, value) -> Any: ...
+  shape: Tuple[int, int, int, int]
+  T: Array4[DT, A4, A3, A2, A1]
+  ndim: Literal[4]
+  dtype: type
+  def astype(self, dtype) -> Array4[AnyDType]: ...
 
 
 class Array5(Generic[DT, A1, A2, A3, A4, A5]):
-  pass
+  def __getitem__(self, index) -> Any: ...
+  def __setitem__(self, index, value) -> Any: ...
+  shape: Tuple[int, int, int, int, int]
+  T: Array5[DT, A5, A4, A3, A2, A1]
+  ndim: Literal[5]
+  dtype: type
+  def astype(self, dtype) -> Array5[AnyDType]: ...
 
 
 class Array6(Generic[DT, A1, A2, A3, A4, A5, A6]):
-  pass
+  def __getitem__(self, index) -> Any: ...
+  def __setitem__(self, index, value) -> Any: ...
+  shape: Tuple[int, int, int, int, int, int]
+  T: Array6[DT, A6, A5, A4, A3, A2, A1]
+  ndim: Literal[6]
+  dtype: type
+  def astype(self, dtype) -> Array6[AnyDType]: ...
 
 
 class Array7(Generic[DT, A1, A2, A3, A4, A5, A6, A7]):
-  pass
+  def __getitem__(self, index) -> Any: ...
+  def __setitem__(self, index, value) -> Any: ...
+  shape: Tuple[int, int, int, int, int, int, int]
+  T: Array7[DT, A7, A6, A5, A4, A3, A2, A1]
+  ndim: Literal[7]
+  dtype: type
+  def astype(self, dtype) -> Array7[AnyDType]: ...
 
 
 class Array8(Generic[DT, A1, A2, A3, A4, A5, A6, A7, A8]):
-  pass
+  def __getitem__(self, index) -> Any: ...
+  def __setitem__(self, index, value) -> Any: ...
+  shape: Tuple[int, int, int, int, int, int, int, int]
+  T: Array8[DT, A8, A7, A6, A5, A4, A3, A2, A1]
+  ndim: Literal[8]
+  dtype: type
+  def astype(self, dtype) -> Array8[AnyDType]: ...
