@@ -74,6 +74,8 @@ AnyDType = Any
 
 DT = TypeVar('DT', bound=DType)
 
+{% set unary_funcs = ['__abs__', '__neg__', '__pos__'] %}
+
 
 class Array1(Generic[DT, A1]):
   def __getitem__(self, index) -> Any: ...
@@ -83,6 +85,12 @@ class Array1(Generic[DT, A1]):
   ndim: Literal[1]
   dtype: type
   def astype(self, dtype) -> Array1[AnyDType, A1]: ...
+
+  # BEGIN: Unary operators
+  {% for func in unary_funcs %}
+  def {{ func }}(self) -> Array1[DT, A1]: ...
+  {% endfor %}
+  # END: Unary operators
 
 
 class Array2(Generic[DT, A1, A2]):
@@ -94,6 +102,12 @@ class Array2(Generic[DT, A1, A2]):
   dtype: type
   def astype(self, dtype) -> Array2[AnyDType, A1, A2]: ...
 
+  # BEGIN: Unary operators
+  {% for func in unary_funcs %}
+  def {{ func }}(self) -> Array2[DT, A1, A2]: ...
+  {% endfor %}
+  # END: Unary operators
+
 
 class Array3(Generic[DT, A1, A2, A3]):
   def __getitem__(self, index) -> Any: ...
@@ -103,6 +117,12 @@ class Array3(Generic[DT, A1, A2, A3]):
   ndim: Literal[3]
   dtype: type
   def astype(self, dtype) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  # BEGIN: Unary operators
+  {% for func in unary_funcs %}
+  def {{ func }}(self) -> Array3[DT, A1, A2, A3]: ...
+  {% endfor %}
+  # END: Unary operators
 
 
 class Array4(Generic[DT, A1, A2, A3, A4]):
@@ -114,6 +134,12 @@ class Array4(Generic[DT, A1, A2, A3, A4]):
   dtype: type
   def astype(self, dtype) -> Array4[AnyDType]: ...
 
+  # BEGIN: Unary operators
+  {% for func in unary_funcs %}
+  def {{ func }}(self) -> Array4[DT, A1, A2, A3, A4]: ...
+  {% endfor %}
+  # END: Unary operators
+
 
 class Array5(Generic[DT, A1, A2, A3, A4, A5]):
   def __getitem__(self, index) -> Any: ...
@@ -123,6 +149,12 @@ class Array5(Generic[DT, A1, A2, A3, A4, A5]):
   ndim: Literal[5]
   dtype: type
   def astype(self, dtype) -> Array5[AnyDType]: ...
+
+  # BEGIN: Unary operators
+  {% for func in unary_funcs %}
+  def {{ func }}(self) -> Array5[DT, A1, A2, A3, A4, A5]: ...
+  {% endfor %}
+  # END: Unary operators
 
 
 class Array6(Generic[DT, A1, A2, A3, A4, A5, A6]):
@@ -134,6 +166,12 @@ class Array6(Generic[DT, A1, A2, A3, A4, A5, A6]):
   dtype: type
   def astype(self, dtype) -> Array6[AnyDType]: ...
 
+  # BEGIN: Unary operators
+  {% for func in unary_funcs %}
+  def {{ func }}(self) -> Array6[DT, A1, A2, A3, A4, A5, A6]: ...
+  {% endfor %}
+  # END: Unary operators
+
 
 class Array7(Generic[DT, A1, A2, A3, A4, A5, A6, A7]):
   def __getitem__(self, index) -> Any: ...
@@ -144,6 +182,12 @@ class Array7(Generic[DT, A1, A2, A3, A4, A5, A6, A7]):
   dtype: type
   def astype(self, dtype) -> Array7[AnyDType]: ...
 
+  # BEGIN: Unary operators
+  {% for func in unary_funcs %}
+  def {{ func }}(self) -> Array7[DT, A1, A2, A3, A4, A5, A6, A7]: ...
+  {% endfor %}
+  # END: Unary operators
+
 
 class Array8(Generic[DT, A1, A2, A3, A4, A5, A6, A7, A8]):
   def __getitem__(self, index) -> Any: ...
@@ -153,5 +197,11 @@ class Array8(Generic[DT, A1, A2, A3, A4, A5, A6, A7, A8]):
   ndim: Literal[8]
   dtype: type
   def astype(self, dtype) -> Array8[AnyDType]: ...
+
+  # BEGIN: Unary operators
+  {% for func in unary_funcs %}
+  def {{ func }}(self) -> Array8[DT, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  {% endfor %}
+  # END: Unary operators
 
 # LINT.ThenChange(../numpy.pyi)

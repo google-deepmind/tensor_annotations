@@ -22,12 +22,14 @@ from tensor_annotations import axes
 from tensor_annotations.axes import Batch
 from tensor_annotations.numpy import AnyDType
 from tensor_annotations.numpy import Array1
+from tensor_annotations.numpy import Array2
 from tensor_annotations.numpy import int16
 from tensor_annotations.numpy import int8
 from tensor_annotations.tests import utils
 
 
 A1 = NewType('A1', axes.Axis)
+A2 = NewType('A2', axes.Axis)
 
 # It's less than ideal that we have to repeat imports etc. here for pytype, but
 # this seems like the best balance between readability and complexity.
@@ -38,10 +40,32 @@ import numpy as np
 from tensor_annotations import axes
 from tensor_annotations.axes import Batch
 from tensor_annotations.numpy import AnyDType, int8, int16
-from tensor_annotations.numpy import Array1
+from tensor_annotations.numpy import Array1, Array2
 
 A1 = NewType('A1', axes.Axis)
+A2 = NewType('A2', axes.Axis)
 """
+
+
+class NumPyStubTests(absltest.TestCase):
+  """Tests for numpy.* stubs."""
+
+  def testArrayUnaryOp_ReturnsCorrectTypeAndShape(self):
+    """Confirms that unary functions like abs() don't change the shape."""
+    with utils.SaveCodeAsString() as code_saver:
+      x1 = cast(Array1[AnyDType, A1], np.array([0]))
+      y1 = abs(x1)  # pylint: disable=unused-variable
+      y2 = -x1  # pylint: disable=unused-variable
+      x2 = cast(Array2[AnyDType, A1, A2], np.array([[0]]))
+      y3 = abs(x2)  # pylint: disable=unused-variable
+      y4 = -x2  # pylint: disable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    self.assertEqual('Array1[Any, A1]', inferred.y1)
+    self.assertEqual('Array1[Any, A1]', inferred.y2)
+    self.assertEqual('Array2[Any, A1, A2]', inferred.y3)
+    self.assertEqual('Array2[Any, A1, A2]', inferred.y4)
 
 
 class NumPyDtypeTests(absltest.TestCase):
