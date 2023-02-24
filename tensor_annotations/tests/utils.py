@@ -75,7 +75,9 @@ def _link_stubs(tensor_annotations_dir: pathlib.Path, stubs_dir: pathlib.Path):
       (tensor_annotations_dir / 'jax.pyi',
        stubs_dir / 'tensor_annotations' / 'jax.pyi'),
       (tensor_annotations_dir / 'tensorflow.pyi',
-       stubs_dir / 'tensor_annotations' / 'tensorflow.pyi')
+       stubs_dir / 'tensor_annotations' / 'tensorflow.pyi'),
+      (tensor_annotations_dir / 'numpy.pyi',
+       stubs_dir / 'tensor_annotations' / 'numpy.pyi')
   ]:
     if not os.path.exists(source):
       raise Exception(f"Stub file '{source}' does not exist")
