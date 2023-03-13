@@ -49,6 +49,11 @@ def run_pytype(code: str, check: bool) -> subprocess.CompletedProcess:  # pylint
     _generate_tensor_annotations_stubs(pytype_path, tensor_annotations_dir,
                                        stubs_dir)
 
+    cmd = ([str(pytype_path), '--pythonpath', str(stubs_dir), code_filename])
+
+    if 'TENSOR_ANNOTATIONS_DEBUG' in os.environ:
+      input(f'About to run:\n{" ".join(cmd)}\nPress enter to continue: ')
+
     return subprocess.run(
         [str(pytype_path), '--pythonpath',
          str(stubs_dir), code_filename],
