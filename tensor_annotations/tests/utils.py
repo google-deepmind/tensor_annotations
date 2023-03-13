@@ -66,11 +66,14 @@ def _link_stubs(tensor_annotations_dir: pathlib.Path, stubs_dir: pathlib.Path):
     jax_stubs_dir = pathlib.Path(jax_module.__path__[0])
     tf_module = importlib.import_module('tensorflow-stubs')
     tf_stubs_dir = pathlib.Path(tf_module.__path__[0])
+    np_module = importlib.import_module('numpy-stubs')
+    np_stubs_dir = pathlib.Path(np_module.__path__[0])
 
   for source, target in [
       # Library functions, e.g. tf.reduce_sum.
       (jax_stubs_dir, stubs_dir / 'jax'),
       (tf_stubs_dir, stubs_dir / 'tensorflow'),
+      (np_stubs_dir, stubs_dir / 'numpy'),
       # Tensor functions, e.g. Tensor.__add__.
       (tensor_annotations_dir / 'jax.pyi',
        stubs_dir / 'tensor_annotations' / 'jax.pyi'),
