@@ -54,13 +54,21 @@ def run_pytype(code: str, check: bool) -> subprocess.CompletedProcess:  # pylint
     if 'TENSOR_ANNOTATIONS_DEBUG' in os.environ:
       input(f'About to run:\n{" ".join(cmd)}\nPress enter to continue: ')
 
-    return subprocess.run(
+    proc = subprocess.run(
         [str(pytype_path), '--pythonpath',
          str(stubs_dir), code_filename],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         check=check,  # Raise error if non-zero return code.
     )
+
+    if 'TENSOR_ANNOTATIONS_DEBUG' in os.environ:
+      print('pytype stdout:')
+      print(proc.stdout.decode())
+      print('\npytype stderr:')
+      print(proc.stderr.decode())
+
+    return proc
 
 
 def _link_stubs(tensor_annotations_dir: pathlib.Path, stubs_dir: pathlib.Path):
