@@ -43,7 +43,32 @@ Shape2 = Tuple[int, int]
 Shape3 = Tuple[int, int, int]
 Shape4 = Tuple[int, int, int, int]
 
-# ---------- ZEROS_LIKE, ONES_LIKE ----------
+# ---------- UNARY OPERATORS ----------
+
+{% set unary_funcs = ['abs', 'acos', 'acosh', 'asin', 'asinh', 'atan', 'atanh',
+                      'cos', 'cosh', 'exp', 'floor', 'logical_not', 'negative',
+                      'sigmoid', 'sign', 'sin', 'sinh', 'sqrt', 'square', 'tan',
+                      'tanh'] %}
+{% for func in unary_funcs %}
+
+
+@overload
+def {{ func }}(x: Array1[DT, A1]) -> Array1[DT, A1]: ...
+
+
+@overload
+def {{ func }}(x: Array2[DT, A1, A2]) -> Array2[DT, A1, A2]: ...
+
+
+@overload
+def {{ func }}(x: Array3[DT, A1, A2, A3]) -> Array3[DT, A1, A2, A3]: ...
+
+
+@overload
+def {{ func }}(x: Array4[DT, A1, A2, A3, A4]) -> Array4[DT, A1, A2, A3, A4]: ...
+
+{% endfor %}
+
 
 {% set dtype_unary_funcs = ['zeros_like', 'ones_like'] %}
 {% for func in dtype_unary_funcs %}
