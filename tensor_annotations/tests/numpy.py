@@ -32,6 +32,7 @@ from tensor_annotations.tests import utils
 
 A1 = NewType('A1', axes.Axis)
 A2 = NewType('A2', axes.Axis)
+A3 = NewType('A3', axes.Axis)
 
 # It's less than ideal that we have to repeat imports etc. here for pytype, but
 # this seems like the best balance between readability and complexity.
@@ -46,6 +47,7 @@ from tensor_annotations.numpy import Array1, Array2
 
 A1 = NewType('A1', axes.Axis)
 A2 = NewType('A2', axes.Axis)
+A3 = NewType('A3', axes.Axis)
 """
 
 
@@ -133,6 +135,16 @@ class NumPyStubTests(absltest.TestCase):
 
     self.assertEqual('Array1[Any, A1]', inferred.a)
     self.assertEqual('Array1[Any, A1]', inferred.b)
+
+  def testMatmul_InferredMatchesActualShape(self):
+    with utils.SaveCodeAsString() as code_saver:
+      x: Array2[AnyDType, A1, A2] = np.zeros((1, 2))
+      y: Array2[AnyDType, A2, A3] = np.zeros((2, 3))
+      xy = x @ y
+
+    inferred = utils.pytype_infer_shapes(_PREAMBLE + code_saver.code)
+
+    self.assertEqual(inferred.xy, xy.shape)
 
   def testArrayUnaryOp_ReturnsCorrectTypeAndShape(self):
     """Confirms that unary functions like abs() don't change the shape."""

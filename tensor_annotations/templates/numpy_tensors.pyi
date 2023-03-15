@@ -120,6 +120,32 @@ class Array1(Generic[DT, A1]):
 
   # END: Binary element-wise operators
 
+  # BEGIN: The `@` operator
+  @overload
+  def __matmul__(self, other: Array1[AnyDType, A1]) -> AnyDType: ...
+
+  @overload
+  def __matmul__(self, other: Array2[AnyDType, A1, A2]) -> Array1[AnyDType, A2]: ...
+
+  @overload
+  def __matmul__(self, other: Array3[AnyDType, A3, A1, A2]) -> Array2[AnyDType, A3, A2]: ...
+
+  @overload
+  def __matmul__(self, other: Array4[AnyDType, A3, A4, A1, A2]) -> Array3[AnyDType, A3, A4, A2]: ...
+
+  @overload
+  def __rmatmul__(self, other: Array1[AnyDType, A1]) -> AnyDType: ...
+
+  @overload
+  def __rmatmul__(self, other: Array2[AnyDType, A2, A1]) -> Array1[AnyDType, A2]: ...
+
+  @overload
+  def __rmatmul__(self, other: Array3[AnyDType, A3, A2, A1]) -> Array2[AnyDType, A3, A2]: ...
+
+  @overload
+  def __rmatmul__(self, other: Array4[AnyDType, A3, A4, A2, A1]) -> Array3[AnyDType, A3, A4, A2]: ...
+  # END: The `@` operator
+
 
 class Array2(Generic[DT, A1, A2]):
   def __getitem__(self, index) -> Any: ...
@@ -155,6 +181,32 @@ class Array2(Generic[DT, A1, A2]):
   {% endfor %}
 
   # END: Binary element-wise operators
+
+  # BEGIN: The `@` operator
+  @overload
+  def __matmul__(self, other: Array1[AnyDType, A2]) -> Array1[AnyDType, A1]: ...
+
+  @overload
+  def __matmul__(self, other: Array2[AnyDType, A2, A3]) -> Array2[AnyDType, A1, A3]: ...
+
+  @overload
+  def __matmul__(self, other: Array3[AnyDType, A4, A2, A3]) -> Array3[AnyDType, A4, A1, A3]: ...
+
+  @overload
+  def __matmul__(self, other: Array4[AnyDType, A4, A5, A2, A3]) -> Array4[AnyDType, A4, A5, A1, A3]: ...
+
+  @overload
+  def __rmatmul__(self, other: Array1[AnyDType, A1]) -> Array1[AnyDType, A2]: ...
+
+  @overload
+  def __rmatmul__(self, other: Array2[AnyDType, A3, A1]) -> Array2[AnyDType, A3, A2]: ...
+
+  @overload
+  def __rmatmul__(self, other: Array3[AnyDType, A3, A4, A1]) -> Array3[AnyDType, A3, A4, A2]: ...
+
+  @overload
+  def __rmatmul__(self, other: Array4[AnyDType, A3, A4, A5, A1]) -> Array4[AnyDType, A3, A4, A5, A2]: ...
+  # END: The `@` operator
 
 
 class Array3(Generic[DT, A1, A2, A3]):
@@ -193,6 +245,32 @@ class Array3(Generic[DT, A1, A2, A3]):
   {% endfor %}
 
   # END: Binary element-wise operators
+
+  # BEGIN: The `@` operator
+  @overload
+  def __matmul__(self, other: Array1[AnyDType, A3]) -> Array2[AnyDType, A1, A2]: ...
+
+  @overload
+  def __matmul__(self, other: Array2[AnyDType, A3, A4]) -> Array3[AnyDType, A1, A2, A4]: ...
+
+  @overload
+  def __matmul__(self, other: Array3[AnyDType, A1, A3, A4]) -> Array3[AnyDType, A1, A2, A4]: ...
+
+  @overload
+  def __matmul__(self, other: Array4[AnyDType, A5, A1, A3, A4]) -> Array4[AnyDType, A5, A1, A2, A4]: ...
+
+  @overload
+  def __rmatmul__(self, other: Array1[AnyDType, A2]) -> Array2[AnyDType, A1, A3]: ...
+
+  @overload
+  def __rmatmul__(self, other: Array2[AnyDType, A4, A2]) -> Array3[AnyDType, A1, A4, A3]: ...
+
+  @overload
+  def __rmatmul__(self, other: Array3[AnyDType, A1, A4, A2]) -> Array3[AnyDType, A1, A4, A3]: ...
+
+  @overload
+  def __rmatmul__(self, other: Array4[AnyDType, A5, A1, A4, A2]) -> Array4[AnyDType, A5, A1, A4, A3]: ...
+  # END: The `@` operator
 
 
 class Array4(Generic[DT, A1, A2, A3, A4]):
@@ -233,6 +311,32 @@ class Array4(Generic[DT, A1, A2, A3, A4]):
   {% endfor %}
 
   # END: Binary element-wise operators
+
+  # BEGIN: The `@` operator
+  @overload
+  def __matmul__(self, other: Array1[AnyDType, A4]) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  @overload
+  def __matmul__(self, other: Array2[AnyDType, A4, A5]) -> Array4[AnyDType, A1, A2, A3, A5]: ...
+
+  @overload
+  def __matmul__(self, other: Array3[AnyDType, A2, A4, A5]) -> Array4[AnyDType, A1, A2, A3, A5]: ...
+
+  @overload
+  def __matmul__(self, other: Array4[AnyDType, A1, A2, A4, A5]) -> Array4[AnyDType, A1, A2, A3, A5]: ...
+
+  @overload
+  def __rmatmul__(self, other: Array1[AnyDType, A3]) -> Array3[AnyDType, A1, A2, A4]: ...
+
+  @overload
+  def __rmatmul__(self, other: Array2[AnyDType, A5, A3]) -> Array4[AnyDType, A1, A2, A5, A4]: ...
+
+  @overload
+  def __rmatmul__(self, other: Array3[AnyDType, A2, A5, A3]) -> Array4[AnyDType, A1, A2, A5, A4]: ...
+
+  @overload
+  def __rmatmul__(self, other: Array4[AnyDType, A1, A2, A5, A3]) -> Array4[AnyDType, A1, A2, A5, A4]: ...
+  # END: The `@` operator
 
 
 class Array5(Generic[DT, A1, A2, A3, A4, A5]):
