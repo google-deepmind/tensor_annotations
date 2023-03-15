@@ -113,6 +113,10 @@ def round(x: Array3[DT, A1, A2, A3], decimals=...) -> Array3[DT, A1, A2, A3]: ..
 @overload
 def round(x: Array4[DT, A1, A2, A3, A4], decimals=...) -> Array4[DT, A1, A2, A3, A4]: ...
 
+# I what even why would you
+@overload
+def sqrt(x: float) -> float: ...
+
 # ---------- ZEROS, ONES ----------
 
 # Can't type these properly when shape is specified as a list. :(
