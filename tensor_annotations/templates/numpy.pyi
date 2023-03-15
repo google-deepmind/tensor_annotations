@@ -253,6 +253,44 @@ def ones(shape: Shape{{ i }}, dtype=...) -> Array{{ i }}[AnyDType, {{ n_any }}]:
 
 {% endfor %}
 
+# ---------- TRANSPOSE ----------
+
+@overload
+def transpose(
+    a: jax.Array,
+    axes=...
+) -> jax.Array: ...
+
+{% for n_axes in range(1, 5) %}
+
+### n_axes = {{ n_axes }}
+
+#### `axes` specified
+
+{% for axes in transpose_axes(n_axes) %}
+
+@overload
+def transpose(
+    a: Array{{ n_axes }}[DT, {{ axes.all_axes }}],
+    axes: {{ axes.transpose_axes }}
+) -> Array{{ n_axes }}[DT, {{ axes.result_axes }}]: ...
+
+{% endfor %}
+
+#### `axes` unspecified
+
+{# axes = 'A1, A2, A3' #}
+{% set axes = get_axis_list(n_axes) %}
+{# reverse_axes = 'A3, A2, A1' #}
+{% set reverse_axes = get_axis_list(n_axes, reverse=True) %}
+
+@overload
+def transpose(
+    a: Array{{ n_axes }}[DT, {{ axes }}]
+) -> Array{{ n_axes }}[DT, {{ reverse_axes }}]: ...
+
+{% endfor %}
+
 # ---------- EVERYTHING ELSE: UNTYPED ----------
 
 # We need to special-case this because the type of the `dtype` attribute of a

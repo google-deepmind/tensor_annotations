@@ -1907,6 +1907,360 @@ def ones(shape: Shape4, dtype=...) -> Array4[AnyDType, Any, Any, Any, Any]: ...
 
 
 
+# ---------- TRANSPOSE ----------
+
+@overload
+def transpose(
+    a: jax.Array,
+    axes=...
+) -> jax.Array: ...
+
+
+
+### n_axes = 1
+
+#### `axes` specified
+
+
+
+@overload
+def transpose(
+    a: Array1[DT, A1],
+    axes: Tuple[L0]
+) -> Array1[DT, A1]: ...
+
+
+
+#### `axes` unspecified
+
+
+
+
+
+
+@overload
+def transpose(
+    a: Array1[DT, A1]
+) -> Array1[DT, A1]: ...
+
+
+
+### n_axes = 2
+
+#### `axes` specified
+
+
+
+@overload
+def transpose(
+    a: Array2[DT, A1, A2],
+    axes: Tuple[L0, L1]
+) -> Array2[DT, A1, A2]: ...
+
+
+
+@overload
+def transpose(
+    a: Array2[DT, A1, A2],
+    axes: Tuple[L1, L0]
+) -> Array2[DT, A2, A1]: ...
+
+
+
+#### `axes` unspecified
+
+
+
+
+
+
+@overload
+def transpose(
+    a: Array2[DT, A1, A2]
+) -> Array2[DT, A2, A1]: ...
+
+
+
+### n_axes = 3
+
+#### `axes` specified
+
+
+
+@overload
+def transpose(
+    a: Array3[DT, A1, A2, A3],
+    axes: Tuple[L0, L1, L2]
+) -> Array3[DT, A1, A2, A3]: ...
+
+
+
+@overload
+def transpose(
+    a: Array3[DT, A1, A2, A3],
+    axes: Tuple[L0, L2, L1]
+) -> Array3[DT, A1, A3, A2]: ...
+
+
+
+@overload
+def transpose(
+    a: Array3[DT, A1, A2, A3],
+    axes: Tuple[L1, L0, L2]
+) -> Array3[DT, A2, A1, A3]: ...
+
+
+
+@overload
+def transpose(
+    a: Array3[DT, A1, A2, A3],
+    axes: Tuple[L1, L2, L0]
+) -> Array3[DT, A2, A3, A1]: ...
+
+
+
+@overload
+def transpose(
+    a: Array3[DT, A1, A2, A3],
+    axes: Tuple[L2, L0, L1]
+) -> Array3[DT, A3, A1, A2]: ...
+
+
+
+@overload
+def transpose(
+    a: Array3[DT, A1, A2, A3],
+    axes: Tuple[L2, L1, L0]
+) -> Array3[DT, A3, A2, A1]: ...
+
+
+
+#### `axes` unspecified
+
+
+
+
+
+
+@overload
+def transpose(
+    a: Array3[DT, A1, A2, A3]
+) -> Array3[DT, A3, A2, A1]: ...
+
+
+
+### n_axes = 4
+
+#### `axes` specified
+
+
+
+@overload
+def transpose(
+    a: Array4[DT, A1, A2, A3, A4],
+    axes: Tuple[L0, L1, L2, L3]
+) -> Array4[DT, A1, A2, A3, A4]: ...
+
+
+
+@overload
+def transpose(
+    a: Array4[DT, A1, A2, A3, A4],
+    axes: Tuple[L0, L1, L3, L2]
+) -> Array4[DT, A1, A2, A4, A3]: ...
+
+
+
+@overload
+def transpose(
+    a: Array4[DT, A1, A2, A3, A4],
+    axes: Tuple[L0, L2, L1, L3]
+) -> Array4[DT, A1, A3, A2, A4]: ...
+
+
+
+@overload
+def transpose(
+    a: Array4[DT, A1, A2, A3, A4],
+    axes: Tuple[L0, L2, L3, L1]
+) -> Array4[DT, A1, A3, A4, A2]: ...
+
+
+
+@overload
+def transpose(
+    a: Array4[DT, A1, A2, A3, A4],
+    axes: Tuple[L0, L3, L1, L2]
+) -> Array4[DT, A1, A4, A2, A3]: ...
+
+
+
+@overload
+def transpose(
+    a: Array4[DT, A1, A2, A3, A4],
+    axes: Tuple[L0, L3, L2, L1]
+) -> Array4[DT, A1, A4, A3, A2]: ...
+
+
+
+@overload
+def transpose(
+    a: Array4[DT, A1, A2, A3, A4],
+    axes: Tuple[L1, L0, L2, L3]
+) -> Array4[DT, A2, A1, A3, A4]: ...
+
+
+
+@overload
+def transpose(
+    a: Array4[DT, A1, A2, A3, A4],
+    axes: Tuple[L1, L0, L3, L2]
+) -> Array4[DT, A2, A1, A4, A3]: ...
+
+
+
+@overload
+def transpose(
+    a: Array4[DT, A1, A2, A3, A4],
+    axes: Tuple[L1, L2, L0, L3]
+) -> Array4[DT, A2, A3, A1, A4]: ...
+
+
+
+@overload
+def transpose(
+    a: Array4[DT, A1, A2, A3, A4],
+    axes: Tuple[L1, L2, L3, L0]
+) -> Array4[DT, A2, A3, A4, A1]: ...
+
+
+
+@overload
+def transpose(
+    a: Array4[DT, A1, A2, A3, A4],
+    axes: Tuple[L1, L3, L0, L2]
+) -> Array4[DT, A2, A4, A1, A3]: ...
+
+
+
+@overload
+def transpose(
+    a: Array4[DT, A1, A2, A3, A4],
+    axes: Tuple[L1, L3, L2, L0]
+) -> Array4[DT, A2, A4, A3, A1]: ...
+
+
+
+@overload
+def transpose(
+    a: Array4[DT, A1, A2, A3, A4],
+    axes: Tuple[L2, L0, L1, L3]
+) -> Array4[DT, A3, A1, A2, A4]: ...
+
+
+
+@overload
+def transpose(
+    a: Array4[DT, A1, A2, A3, A4],
+    axes: Tuple[L2, L0, L3, L1]
+) -> Array4[DT, A3, A1, A4, A2]: ...
+
+
+
+@overload
+def transpose(
+    a: Array4[DT, A1, A2, A3, A4],
+    axes: Tuple[L2, L1, L0, L3]
+) -> Array4[DT, A3, A2, A1, A4]: ...
+
+
+
+@overload
+def transpose(
+    a: Array4[DT, A1, A2, A3, A4],
+    axes: Tuple[L2, L1, L3, L0]
+) -> Array4[DT, A3, A2, A4, A1]: ...
+
+
+
+@overload
+def transpose(
+    a: Array4[DT, A1, A2, A3, A4],
+    axes: Tuple[L2, L3, L0, L1]
+) -> Array4[DT, A3, A4, A1, A2]: ...
+
+
+
+@overload
+def transpose(
+    a: Array4[DT, A1, A2, A3, A4],
+    axes: Tuple[L2, L3, L1, L0]
+) -> Array4[DT, A3, A4, A2, A1]: ...
+
+
+
+@overload
+def transpose(
+    a: Array4[DT, A1, A2, A3, A4],
+    axes: Tuple[L3, L0, L1, L2]
+) -> Array4[DT, A4, A1, A2, A3]: ...
+
+
+
+@overload
+def transpose(
+    a: Array4[DT, A1, A2, A3, A4],
+    axes: Tuple[L3, L0, L2, L1]
+) -> Array4[DT, A4, A1, A3, A2]: ...
+
+
+
+@overload
+def transpose(
+    a: Array4[DT, A1, A2, A3, A4],
+    axes: Tuple[L3, L1, L0, L2]
+) -> Array4[DT, A4, A2, A1, A3]: ...
+
+
+
+@overload
+def transpose(
+    a: Array4[DT, A1, A2, A3, A4],
+    axes: Tuple[L3, L1, L2, L0]
+) -> Array4[DT, A4, A2, A3, A1]: ...
+
+
+
+@overload
+def transpose(
+    a: Array4[DT, A1, A2, A3, A4],
+    axes: Tuple[L3, L2, L0, L1]
+) -> Array4[DT, A4, A3, A1, A2]: ...
+
+
+
+@overload
+def transpose(
+    a: Array4[DT, A1, A2, A3, A4],
+    axes: Tuple[L3, L2, L1, L0]
+) -> Array4[DT, A4, A3, A2, A1]: ...
+
+
+
+#### `axes` unspecified
+
+
+
+
+
+
+@overload
+def transpose(
+    a: Array4[DT, A1, A2, A3, A4]
+) -> Array4[DT, A4, A3, A2, A1]: ...
+
+
+
 # ---------- EVERYTHING ELSE: UNTYPED ----------
 
 # Special-cased because JAX tests expect this to not be Any.
@@ -2906,8 +3260,6 @@ timedelta64: Any
 trace: Any
 
 tracemalloc_domain: Any
-
-transpose: Any
 
 trapz: Any
 

@@ -54,6 +54,17 @@ A3 = NewType('A3', axes.Axis)
 class NumPyStubTests(absltest.TestCase):
   """Tests for numpy.* stubs."""
 
+  def testTranspose_InferredShapeMatchesActualShape(self):
+    with utils.SaveCodeAsString() as code_saver:
+      x: Array2[AnyDType, A1, A2] = np.zeros((1, 2))
+      y = np.transpose(x)
+      y2 = x.T
+
+    inferred = utils.pytype_infer_shapes(_PREAMBLE + code_saver.code)
+
+    self.assertEqual(inferred.y, y.shape)
+    self.assertEqual(inferred.y2, y2.shape)
+
   def testUnaryOperator_ReturnCustomType(self):
     """Confirms that things like np.abs() don't change the shape."""
     with utils.SaveCodeAsString() as code_saver:
@@ -213,6 +224,19 @@ class NumPyStubTests(absltest.TestCase):
 
 class NumPyDtypeTests(absltest.TestCase):
   """Tests for data types inferred from NumPy type stubs using pytype."""
+
+  def testTranspose_ReturnsSameDtypeAsInput(self):
+    """Tests that np.transpose() doesn't change the dtype."""
+    with utils.SaveCodeAsString() as code_saver:
+      x8: Array2[int8, A1, A1] = np.array([[0]], dtype=np.int8)
+      x16: Array2[int16, A1, A1] = np.array([[0]], dtype=np.int16)
+      y8 = np.transpose(x8)  # pylint: disable=unused-variable
+      y16 = np.transpose(x16)  # pylint: disable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    self.assertEqual(inferred.y8, 'Array2[int8, A1, A1]')
+    self.assertEqual(inferred.y16, 'Array2[int16, A1, A1]')
 
   def testZerosOnes_ReturnsAnyDType(self):
     """Tests that np.zeros and np.ones returns AnyDType."""

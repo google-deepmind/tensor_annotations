@@ -37,6 +37,8 @@ def main(argv):
       extensions=['jinja2.ext.do'],
   )
   numpy_template.globals['reduction_axes'] = templates.reduction_axes
+  numpy_template.globals['transpose_axes'] = templates.transpose_axes
+  numpy_template.globals['get_axis_list'] = templates.axis_list
 
   # We need to make sure that the library functions we _haven't_ annotated
   # are still present in the type stubs or the type checker will think they
