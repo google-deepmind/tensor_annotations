@@ -461,6 +461,23 @@ def ones_like(x: Array4[DT, A1, A2, A3, A4], dtype=...) -> Array4[DT, A1, A2, A3
 
 
 
+# ---------- ROUND ----------
+
+@overload
+def round(x: Array1[DT, A1], decimals=...) -> Array1[DT, A1]: ...
+
+
+@overload
+def round(x: Array2[DT, A1, A2], decimals=...) -> Array2[DT, A1, A2]: ...
+
+
+@overload
+def round(x: Array3[DT, A1, A2, A3], decimals=...) -> Array3[DT, A1, A2, A3]: ...
+
+
+@overload
+def round(x: Array4[DT, A1, A2, A3, A4], decimals=...) -> Array4[DT, A1, A2, A3, A4]: ...
+
 # ---------- ZEROS, ONES ----------
 
 # Can't type these properly when shape is specified as a list. :(
@@ -1426,8 +1443,6 @@ rollaxis: Any
 roots: Any
 
 rot90: Any
-
-round: Any
 
 round_: Any
 

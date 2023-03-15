@@ -60,6 +60,7 @@ class NumPyStubTests(absltest.TestCase):
       c = np.floor(x)  # pylint: disable=unused-variable
       d = np.ones_like(x)  # pylint: disable=unused-variable
       e = np.sign(x)  # pylint: disable=unused-variable
+      f = np.round(x)  # pylint: disable=unused-variable
 
     inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
 
@@ -69,6 +70,7 @@ class NumPyStubTests(absltest.TestCase):
     self.assertEqual(inferred.c, expected)
     self.assertEqual(inferred.d, expected)
     self.assertEqual(inferred.e, expected)
+    self.assertEqual(inferred.f, expected)
 
   def testZerosOnes_ReturnsCorrectShape(self):
     """Confirms that np.zeros() returns a tensor_annotations type."""

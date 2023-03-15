@@ -19,6 +19,12 @@ NOTE: This file is generated from templates/numpy.pyi.
 
 To regenerate, run the following from the tensor_annotations directory:
    tools/render_numpy_library_template.py
+
+Note that we only go up to rank 4 arrays here because at rank 5, the number of
+possible permutations of arguments starts to really explode, so the stubs get
+too big and it starts to be really slow to actually run a type checker. (We go
+up to rank 8 in numpy_tensors.pyi because the methods on the array classes
+don't explode so badly.)
 """
 
 # We use old-style annotations - `List` and `Tuple` rather than `list` and
@@ -89,6 +95,23 @@ def {{ func }}(x: Array3[DT, A1, A2, A3], dtype=...) -> Array3[DT, A1, A2, A3]: 
 def {{ func }}(x: Array4[DT, A1, A2, A3, A4], dtype=...) -> Array4[DT, A1, A2, A3, A4]: ...
 
 {% endfor %}
+
+# ---------- ROUND ----------
+
+@overload
+def round(x: Array1[DT, A1], decimals=...) -> Array1[DT, A1]: ...
+
+
+@overload
+def round(x: Array2[DT, A1, A2], decimals=...) -> Array2[DT, A1, A2]: ...
+
+
+@overload
+def round(x: Array3[DT, A1, A2, A3], decimals=...) -> Array3[DT, A1, A2, A3]: ...
+
+
+@overload
+def round(x: Array4[DT, A1, A2, A3, A4], decimals=...) -> Array4[DT, A1, A2, A3, A4]: ...
 
 # ---------- ZEROS, ONES ----------
 
