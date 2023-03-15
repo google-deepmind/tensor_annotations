@@ -100,6 +100,11 @@ class _ArrayBase:
     raise TypeError('tensor_annotations tensors should not be instantiated')
 
 
+class Array0(Generic[DT], _ArrayBase):
+  """An scalar array - from eg `np.zeros(())`."""
+  pass
+
+
 class Array1(Generic[DT, A1], _ArrayBase):
   """An array of rank 1."""
   pass

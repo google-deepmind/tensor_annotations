@@ -89,6 +89,42 @@ Number = Union[
                                    '__mul__', '__rmul__'] %}
 
 
+# A scalar array, constructed by doing eg `np.zeros(())`.
+class Array0(Generic[DT]):
+  def __getitem__(self, index) -> Any: ...
+  def __setitem__(self, index, value) -> Any: ...
+  shape: Tuple[()]
+  T: Array0[DT]
+  ndim: Literal[0]
+  dtype: type
+  def astype(self, dtype) -> Array0[AnyDType]: ...
+
+  # Technically this exists on all instances of JAX arrays, but it throws an
+  # error when called on anything but scalar arrays.
+  def item(self) -> Union[int, float, bool, complex]: ...
+
+  # BEGIN: Unary operators
+  {% for func in unary_funcs %}
+  def {{ func }}(self) -> Array0[DT]: ...
+  {% endfor %}
+  # END: Unary operators
+
+  # BEGIN: Binary element-wise operators
+  {% for func in binary_elementwise_funcs %}
+  @overload
+  def {{ func }}(self, other: Array0[AnyDType]) -> Array0[AnyDType]: ...
+  @overload
+  def {{ func }}(self, other: Array1[AnyDType, A1]) -> Array1[AnyDType, A1]: ...
+  @overload
+  def {{ func }}(self, other: Array2[AnyDType, A1, A2]) -> Array2[AnyDType, A1, A2]: ...
+  @overload
+  def {{ func }}(self, other: Array3[AnyDType, A1, A2, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+  @overload
+  def {{ func }}(self, other: Array4[AnyDType, A1, A2, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+  {% endfor %}
+  # END: Binary element-wise operators
+
+
 class Array1(Generic[DT, A1]):
   def __getitem__(self, index) -> Any: ...
   def __setitem__(self, index, value) -> Any: ...
