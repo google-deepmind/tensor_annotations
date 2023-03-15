@@ -151,6 +151,53 @@ class NumPyStubTests(absltest.TestCase):
     self.assertEqual('Array2[Any, A1, A2]', inferred.y3)
     self.assertEqual('Array2[Any, A1, A2]', inferred.y4)
 
+  def testBinaryOpWithScalar_InferredMatchesActualShape(self):
+    with utils.SaveCodeAsString() as code_saver:
+      x: Array2[AnyDType, A1, A2] = np.zeros((1, 2))
+      y1 = x + 1.0
+      y2 = x - 1.0
+      y3 = x / 1.0
+      y4 = x * 1.0
+
+    inferred = utils.pytype_infer_shapes(_PREAMBLE + code_saver.code)
+
+    self.assertEqual(y1.shape, inferred.y1)
+    self.assertEqual(y2.shape, inferred.y2)
+    self.assertEqual(y3.shape, inferred.y3)
+    self.assertEqual(y4.shape, inferred.y4)
+
+  def testBinaryOpWithBroadcast_InferredMatchesActualShape(self):
+    with utils.SaveCodeAsString() as code_saver:
+      a: Array2[AnyDType, A1, A2] = np.ones((1, 2))
+      b: Array1[AnyDType, A2] = np.ones((2,))
+      y1 = a + b
+      y2 = a - b
+      y3 = a / b
+      y4 = a * b
+
+    inferred = utils.pytype_infer_shapes(_PREAMBLE + code_saver.code)
+
+    self.assertEqual(y1.shape, inferred.y1)
+    self.assertEqual(y2.shape, inferred.y2)
+    self.assertEqual(y3.shape, inferred.y3)
+    self.assertEqual(y4.shape, inferred.y4)
+
+  def testBinaryOpWithSameShape_InferredMatchesActualShape(self):
+    with utils.SaveCodeAsString() as code_saver:
+      a: Array2[AnyDType, A1, A2] = np.ones((1, 2))
+      b: Array2[AnyDType, A1, A2] = np.ones((1, 2))
+      y1 = a + b
+      y2 = a - b
+      y3 = a / b
+      y4 = a * b
+
+    inferred = utils.pytype_infer_shapes(_PREAMBLE + code_saver.code)
+
+    self.assertEqual(y1.shape, inferred.y1)
+    self.assertEqual(y2.shape, inferred.y2)
+    self.assertEqual(y3.shape, inferred.y3)
+    self.assertEqual(y4.shape, inferred.y4)
+
 
 class NumPyDtypeTests(absltest.TestCase):
   """Tests for data types inferred from NumPy type stubs using pytype."""
@@ -205,6 +252,59 @@ class NumPyDtypeTests(absltest.TestCase):
     # AnyDType is printed as Any in pytype output.
     self.assertEqual(inferred.a, 'Array1[Any, A1]')
     self.assertEqual(inferred.b, 'Array1[Any, A1]')
+
+  def testArrayUnaryOp_ReturnsSameDTypeAsInput(self):
+    """Tests that e.g. `-x` has the same dtype as `x`."""
+    with utils.SaveCodeAsString() as code_saver:
+      a8: Array1[int8, A1] = np.array([0], dtype=np.int8)
+      b8 = abs(a8)  # pylint: disable=unused-variable
+      c8 = -a8  # pylint: disable=unused-variable
+
+      a16: Array1[int16, A1] = np.array([0], dtype=np.int16)
+      b16 = abs(a16)  # pylint: disable=unused-variable
+      c16 = -a16  # pylint: disable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    self.assertEqual(inferred.b8, 'Array1[int8, A1]')
+    self.assertEqual(inferred.c8, 'Array1[int8, A1]')
+    self.assertEqual(inferred.b16, 'Array1[int16, A1]')
+    self.assertEqual(inferred.c16, 'Array1[int16, A1]')
+
+  def testBinaryOpWithScalar_ReturnsAnyDType(self):
+    """Tests that e.g. `x + 1` has dtype AnyDType."""
+    with utils.SaveCodeAsString() as code_saver:
+      x: Array1[int8, A1] = np.array([0], dtype=np.int8)
+      y1 = x + 1  # pylint: disable=unused-variable
+      y2 = x - 1  # pylint: disable=unused-variable
+      y3 = x / 1  # pylint: disable=unused-variable
+      y4 = x * 1  # pylint: disable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    # pytype displays AnyDType as Any.
+    self.assertEqual(inferred.y1, 'Array1[Any, A1]')
+    self.assertEqual(inferred.y2, 'Array1[Any, A1]')
+    self.assertEqual(inferred.y3, 'Array1[Any, A1]')
+    self.assertEqual(inferred.y4, 'Array1[Any, A1]')
+
+  def testBinaryOpWithArray_ReturnsAnyDType(self):
+    """Tests that e.g. adding two arrays results in dtype AnyDType."""
+    with utils.SaveCodeAsString() as code_saver:
+      a: Array1[int8, A1] = np.array([0], dtype=np.int8)
+      b: Array1[int8, A1] = np.array([0], dtype=np.int8)
+      y1 = a + b  # pylint: disable=unused-variable
+      y2 = a - b  # pylint: disable=unused-variable
+      y3 = a / b  # pylint: disable=unused-variable
+      y4 = a * b  # pylint: disable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    # pytype displays AnyDType as Any.
+    self.assertEqual(inferred.y1, 'Array1[Any, A1]')
+    self.assertEqual(inferred.y2, 'Array1[Any, A1]')
+    self.assertEqual(inferred.y3, 'Array1[Any, A1]')
+    self.assertEqual(inferred.y4, 'Array1[Any, A1]')
 
   def testFunctionWithInt8Argument_AcceptsInt8Value(self):
     """Tests whether a function will accept a value with the right dtype."""

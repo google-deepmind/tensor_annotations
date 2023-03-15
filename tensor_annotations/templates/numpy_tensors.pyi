@@ -82,7 +82,11 @@ Number = Union[
 ]
 
 {% set unary_funcs = ['__abs__', '__neg__', '__pos__'] %}
-{% set binary_elementwise_funcs = ['__add__', '__sub__'] %}
+{# Yes, __mul__ _is_ elementwise! __matmul__ is matrix multiply. #}
+{% set binary_elementwise_funcs = ['__add__', '__sub__', '__floordiv__',
+                                   '__truediv__', '__pow__', '__lt__', '__le__',
+                                   '__ge__', '__gt__', '__eq__', '__ne__',
+                                   '__mul__', '__rmul__'] %}
 
 
 class Array1(Generic[DT, A1]):

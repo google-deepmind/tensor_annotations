@@ -81,6 +81,7 @@ Number = Union[
 ]
 
 
+                                   
 
 
 
@@ -124,6 +125,116 @@ class Array1(Generic[DT, A1]):
   
   @overload
   def __sub__(self, other: Array1[AnyDType, A1]) -> Array1[AnyDType, A1]: ...
+
+  
+
+  
+  @overload
+  def __floordiv__(self, other: Number) -> Array1[AnyDType, A1]: ...
+
+  
+  @overload
+  def __floordiv__(self, other: Array1[AnyDType, A1]) -> Array1[AnyDType, A1]: ...
+
+  
+
+  
+  @overload
+  def __truediv__(self, other: Number) -> Array1[AnyDType, A1]: ...
+
+  
+  @overload
+  def __truediv__(self, other: Array1[AnyDType, A1]) -> Array1[AnyDType, A1]: ...
+
+  
+
+  
+  @overload
+  def __pow__(self, other: Number) -> Array1[AnyDType, A1]: ...
+
+  
+  @overload
+  def __pow__(self, other: Array1[AnyDType, A1]) -> Array1[AnyDType, A1]: ...
+
+  
+
+  
+  @overload
+  def __lt__(self, other: Number) -> Array1[AnyDType, A1]: ...
+
+  
+  @overload
+  def __lt__(self, other: Array1[AnyDType, A1]) -> Array1[AnyDType, A1]: ...
+
+  
+
+  
+  @overload
+  def __le__(self, other: Number) -> Array1[AnyDType, A1]: ...
+
+  
+  @overload
+  def __le__(self, other: Array1[AnyDType, A1]) -> Array1[AnyDType, A1]: ...
+
+  
+
+  
+  @overload
+  def __ge__(self, other: Number) -> Array1[AnyDType, A1]: ...
+
+  
+  @overload
+  def __ge__(self, other: Array1[AnyDType, A1]) -> Array1[AnyDType, A1]: ...
+
+  
+
+  
+  @overload
+  def __gt__(self, other: Number) -> Array1[AnyDType, A1]: ...
+
+  
+  @overload
+  def __gt__(self, other: Array1[AnyDType, A1]) -> Array1[AnyDType, A1]: ...
+
+  
+
+  
+  @overload
+  def __eq__(self, other: Number) -> Array1[AnyDType, A1]: ...
+
+  
+  @overload
+  def __eq__(self, other: Array1[AnyDType, A1]) -> Array1[AnyDType, A1]: ...
+
+  
+
+  
+  @overload
+  def __ne__(self, other: Number) -> Array1[AnyDType, A1]: ...
+
+  
+  @overload
+  def __ne__(self, other: Array1[AnyDType, A1]) -> Array1[AnyDType, A1]: ...
+
+  
+
+  
+  @overload
+  def __mul__(self, other: Number) -> Array1[AnyDType, A1]: ...
+
+  
+  @overload
+  def __mul__(self, other: Array1[AnyDType, A1]) -> Array1[AnyDType, A1]: ...
+
+  
+
+  
+  @overload
+  def __rmul__(self, other: Number) -> Array1[AnyDType, A1]: ...
+
+  
+  @overload
+  def __rmul__(self, other: Array1[AnyDType, A1]) -> Array1[AnyDType, A1]: ...
 
   
 
@@ -178,6 +289,160 @@ class Array2(Generic[DT, A1, A2]):
   
   @overload
   def __sub__(self, other: Array2[AnyDType, A1, A2]) -> Array2[AnyDType, A1, A2]: ...
+
+  
+
+  
+  @overload
+  def __floordiv__(self, other: Number) -> Array2[AnyDType, A1, A2]: ...
+
+  
+  @overload
+  def __floordiv__(self, other: Array1[AnyDType, A2]) -> Array2[AnyDType, A1, A2]: ...
+
+  
+  @overload
+  def __floordiv__(self, other: Array2[AnyDType, A1, A2]) -> Array2[AnyDType, A1, A2]: ...
+
+  
+
+  
+  @overload
+  def __truediv__(self, other: Number) -> Array2[AnyDType, A1, A2]: ...
+
+  
+  @overload
+  def __truediv__(self, other: Array1[AnyDType, A2]) -> Array2[AnyDType, A1, A2]: ...
+
+  
+  @overload
+  def __truediv__(self, other: Array2[AnyDType, A1, A2]) -> Array2[AnyDType, A1, A2]: ...
+
+  
+
+  
+  @overload
+  def __pow__(self, other: Number) -> Array2[AnyDType, A1, A2]: ...
+
+  
+  @overload
+  def __pow__(self, other: Array1[AnyDType, A2]) -> Array2[AnyDType, A1, A2]: ...
+
+  
+  @overload
+  def __pow__(self, other: Array2[AnyDType, A1, A2]) -> Array2[AnyDType, A1, A2]: ...
+
+  
+
+  
+  @overload
+  def __lt__(self, other: Number) -> Array2[AnyDType, A1, A2]: ...
+
+  
+  @overload
+  def __lt__(self, other: Array1[AnyDType, A2]) -> Array2[AnyDType, A1, A2]: ...
+
+  
+  @overload
+  def __lt__(self, other: Array2[AnyDType, A1, A2]) -> Array2[AnyDType, A1, A2]: ...
+
+  
+
+  
+  @overload
+  def __le__(self, other: Number) -> Array2[AnyDType, A1, A2]: ...
+
+  
+  @overload
+  def __le__(self, other: Array1[AnyDType, A2]) -> Array2[AnyDType, A1, A2]: ...
+
+  
+  @overload
+  def __le__(self, other: Array2[AnyDType, A1, A2]) -> Array2[AnyDType, A1, A2]: ...
+
+  
+
+  
+  @overload
+  def __ge__(self, other: Number) -> Array2[AnyDType, A1, A2]: ...
+
+  
+  @overload
+  def __ge__(self, other: Array1[AnyDType, A2]) -> Array2[AnyDType, A1, A2]: ...
+
+  
+  @overload
+  def __ge__(self, other: Array2[AnyDType, A1, A2]) -> Array2[AnyDType, A1, A2]: ...
+
+  
+
+  
+  @overload
+  def __gt__(self, other: Number) -> Array2[AnyDType, A1, A2]: ...
+
+  
+  @overload
+  def __gt__(self, other: Array1[AnyDType, A2]) -> Array2[AnyDType, A1, A2]: ...
+
+  
+  @overload
+  def __gt__(self, other: Array2[AnyDType, A1, A2]) -> Array2[AnyDType, A1, A2]: ...
+
+  
+
+  
+  @overload
+  def __eq__(self, other: Number) -> Array2[AnyDType, A1, A2]: ...
+
+  
+  @overload
+  def __eq__(self, other: Array1[AnyDType, A2]) -> Array2[AnyDType, A1, A2]: ...
+
+  
+  @overload
+  def __eq__(self, other: Array2[AnyDType, A1, A2]) -> Array2[AnyDType, A1, A2]: ...
+
+  
+
+  
+  @overload
+  def __ne__(self, other: Number) -> Array2[AnyDType, A1, A2]: ...
+
+  
+  @overload
+  def __ne__(self, other: Array1[AnyDType, A2]) -> Array2[AnyDType, A1, A2]: ...
+
+  
+  @overload
+  def __ne__(self, other: Array2[AnyDType, A1, A2]) -> Array2[AnyDType, A1, A2]: ...
+
+  
+
+  
+  @overload
+  def __mul__(self, other: Number) -> Array2[AnyDType, A1, A2]: ...
+
+  
+  @overload
+  def __mul__(self, other: Array1[AnyDType, A2]) -> Array2[AnyDType, A1, A2]: ...
+
+  
+  @overload
+  def __mul__(self, other: Array2[AnyDType, A1, A2]) -> Array2[AnyDType, A1, A2]: ...
+
+  
+
+  
+  @overload
+  def __rmul__(self, other: Number) -> Array2[AnyDType, A1, A2]: ...
+
+  
+  @overload
+  def __rmul__(self, other: Array1[AnyDType, A2]) -> Array2[AnyDType, A1, A2]: ...
+
+  
+  @overload
+  def __rmul__(self, other: Array2[AnyDType, A1, A2]) -> Array2[AnyDType, A1, A2]: ...
 
   
 
@@ -236,6 +501,182 @@ class Array3(Generic[DT, A1, A2, A3]):
   
   @overload
   def __sub__(self, other: Array3[AnyDType, A1, A2, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+
+  
+  @overload
+  def __floordiv__(self, other: Number) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+  @overload
+  def __floordiv__(self, other: Array1[AnyDType, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+  @overload
+  def __floordiv__(self, other: Array2[AnyDType, A2, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+  @overload
+  def __floordiv__(self, other: Array3[AnyDType, A1, A2, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+
+  
+  @overload
+  def __truediv__(self, other: Number) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+  @overload
+  def __truediv__(self, other: Array1[AnyDType, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+  @overload
+  def __truediv__(self, other: Array2[AnyDType, A2, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+  @overload
+  def __truediv__(self, other: Array3[AnyDType, A1, A2, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+
+  
+  @overload
+  def __pow__(self, other: Number) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+  @overload
+  def __pow__(self, other: Array1[AnyDType, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+  @overload
+  def __pow__(self, other: Array2[AnyDType, A2, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+  @overload
+  def __pow__(self, other: Array3[AnyDType, A1, A2, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+
+  
+  @overload
+  def __lt__(self, other: Number) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+  @overload
+  def __lt__(self, other: Array1[AnyDType, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+  @overload
+  def __lt__(self, other: Array2[AnyDType, A2, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+  @overload
+  def __lt__(self, other: Array3[AnyDType, A1, A2, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+
+  
+  @overload
+  def __le__(self, other: Number) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+  @overload
+  def __le__(self, other: Array1[AnyDType, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+  @overload
+  def __le__(self, other: Array2[AnyDType, A2, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+  @overload
+  def __le__(self, other: Array3[AnyDType, A1, A2, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+
+  
+  @overload
+  def __ge__(self, other: Number) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+  @overload
+  def __ge__(self, other: Array1[AnyDType, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+  @overload
+  def __ge__(self, other: Array2[AnyDType, A2, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+  @overload
+  def __ge__(self, other: Array3[AnyDType, A1, A2, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+
+  
+  @overload
+  def __gt__(self, other: Number) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+  @overload
+  def __gt__(self, other: Array1[AnyDType, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+  @overload
+  def __gt__(self, other: Array2[AnyDType, A2, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+  @overload
+  def __gt__(self, other: Array3[AnyDType, A1, A2, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+
+  
+  @overload
+  def __eq__(self, other: Number) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+  @overload
+  def __eq__(self, other: Array1[AnyDType, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+  @overload
+  def __eq__(self, other: Array2[AnyDType, A2, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+  @overload
+  def __eq__(self, other: Array3[AnyDType, A1, A2, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+
+  
+  @overload
+  def __ne__(self, other: Number) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+  @overload
+  def __ne__(self, other: Array1[AnyDType, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+  @overload
+  def __ne__(self, other: Array2[AnyDType, A2, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+  @overload
+  def __ne__(self, other: Array3[AnyDType, A1, A2, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+
+  
+  @overload
+  def __mul__(self, other: Number) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+  @overload
+  def __mul__(self, other: Array1[AnyDType, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+  @overload
+  def __mul__(self, other: Array2[AnyDType, A2, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+  @overload
+  def __mul__(self, other: Array3[AnyDType, A1, A2, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+
+  
+  @overload
+  def __rmul__(self, other: Number) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+  @overload
+  def __rmul__(self, other: Array1[AnyDType, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+  @overload
+  def __rmul__(self, other: Array2[AnyDType, A2, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+  @overload
+  def __rmul__(self, other: Array3[AnyDType, A1, A2, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
 
   
 
@@ -298,6 +739,204 @@ class Array4(Generic[DT, A1, A2, A3, A4]):
   
   @overload
   def __sub__(self, other: Array4[AnyDType, A1, A2, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+
+  
+  @overload
+  def __floordiv__(self, other: Number) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+  @overload
+  def __floordiv__(self, other: Array1[AnyDType, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+  @overload
+  def __floordiv__(self, other: Array2[AnyDType, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+  @overload
+  def __floordiv__(self, other: Array3[AnyDType, A2, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+  @overload
+  def __floordiv__(self, other: Array4[AnyDType, A1, A2, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+
+  
+  @overload
+  def __truediv__(self, other: Number) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+  @overload
+  def __truediv__(self, other: Array1[AnyDType, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+  @overload
+  def __truediv__(self, other: Array2[AnyDType, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+  @overload
+  def __truediv__(self, other: Array3[AnyDType, A2, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+  @overload
+  def __truediv__(self, other: Array4[AnyDType, A1, A2, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+
+  
+  @overload
+  def __pow__(self, other: Number) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+  @overload
+  def __pow__(self, other: Array1[AnyDType, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+  @overload
+  def __pow__(self, other: Array2[AnyDType, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+  @overload
+  def __pow__(self, other: Array3[AnyDType, A2, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+  @overload
+  def __pow__(self, other: Array4[AnyDType, A1, A2, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+
+  
+  @overload
+  def __lt__(self, other: Number) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+  @overload
+  def __lt__(self, other: Array1[AnyDType, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+  @overload
+  def __lt__(self, other: Array2[AnyDType, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+  @overload
+  def __lt__(self, other: Array3[AnyDType, A2, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+  @overload
+  def __lt__(self, other: Array4[AnyDType, A1, A2, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+
+  
+  @overload
+  def __le__(self, other: Number) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+  @overload
+  def __le__(self, other: Array1[AnyDType, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+  @overload
+  def __le__(self, other: Array2[AnyDType, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+  @overload
+  def __le__(self, other: Array3[AnyDType, A2, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+  @overload
+  def __le__(self, other: Array4[AnyDType, A1, A2, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+
+  
+  @overload
+  def __ge__(self, other: Number) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+  @overload
+  def __ge__(self, other: Array1[AnyDType, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+  @overload
+  def __ge__(self, other: Array2[AnyDType, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+  @overload
+  def __ge__(self, other: Array3[AnyDType, A2, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+  @overload
+  def __ge__(self, other: Array4[AnyDType, A1, A2, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+
+  
+  @overload
+  def __gt__(self, other: Number) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+  @overload
+  def __gt__(self, other: Array1[AnyDType, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+  @overload
+  def __gt__(self, other: Array2[AnyDType, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+  @overload
+  def __gt__(self, other: Array3[AnyDType, A2, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+  @overload
+  def __gt__(self, other: Array4[AnyDType, A1, A2, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+
+  
+  @overload
+  def __eq__(self, other: Number) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+  @overload
+  def __eq__(self, other: Array1[AnyDType, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+  @overload
+  def __eq__(self, other: Array2[AnyDType, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+  @overload
+  def __eq__(self, other: Array3[AnyDType, A2, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+  @overload
+  def __eq__(self, other: Array4[AnyDType, A1, A2, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+
+  
+  @overload
+  def __ne__(self, other: Number) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+  @overload
+  def __ne__(self, other: Array1[AnyDType, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+  @overload
+  def __ne__(self, other: Array2[AnyDType, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+  @overload
+  def __ne__(self, other: Array3[AnyDType, A2, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+  @overload
+  def __ne__(self, other: Array4[AnyDType, A1, A2, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+
+  
+  @overload
+  def __mul__(self, other: Number) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+  @overload
+  def __mul__(self, other: Array1[AnyDType, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+  @overload
+  def __mul__(self, other: Array2[AnyDType, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+  @overload
+  def __mul__(self, other: Array3[AnyDType, A2, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+  @overload
+  def __mul__(self, other: Array4[AnyDType, A1, A2, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+
+  
+  @overload
+  def __rmul__(self, other: Number) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+  @overload
+  def __rmul__(self, other: Array1[AnyDType, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+  @overload
+  def __rmul__(self, other: Array2[AnyDType, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+  @overload
+  def __rmul__(self, other: Array3[AnyDType, A2, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+  @overload
+  def __rmul__(self, other: Array4[AnyDType, A1, A2, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
 
   
 
@@ -364,6 +1003,226 @@ class Array5(Generic[DT, A1, A2, A3, A4, A5]):
   
   @overload
   def __sub__(self, other: Array5[AnyDType, A1, A2, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+
+  
+  @overload
+  def __floordiv__(self, other: Number) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+  @overload
+  def __floordiv__(self, other: Array1[AnyDType, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __floordiv__(self, other: Array2[AnyDType, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __floordiv__(self, other: Array3[AnyDType, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __floordiv__(self, other: Array4[AnyDType, A2, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+  @overload
+  def __floordiv__(self, other: Array5[AnyDType, A1, A2, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+
+  
+  @overload
+  def __truediv__(self, other: Number) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+  @overload
+  def __truediv__(self, other: Array1[AnyDType, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __truediv__(self, other: Array2[AnyDType, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __truediv__(self, other: Array3[AnyDType, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __truediv__(self, other: Array4[AnyDType, A2, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+  @overload
+  def __truediv__(self, other: Array5[AnyDType, A1, A2, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+
+  
+  @overload
+  def __pow__(self, other: Number) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+  @overload
+  def __pow__(self, other: Array1[AnyDType, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __pow__(self, other: Array2[AnyDType, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __pow__(self, other: Array3[AnyDType, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __pow__(self, other: Array4[AnyDType, A2, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+  @overload
+  def __pow__(self, other: Array5[AnyDType, A1, A2, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+
+  
+  @overload
+  def __lt__(self, other: Number) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+  @overload
+  def __lt__(self, other: Array1[AnyDType, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __lt__(self, other: Array2[AnyDType, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __lt__(self, other: Array3[AnyDType, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __lt__(self, other: Array4[AnyDType, A2, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+  @overload
+  def __lt__(self, other: Array5[AnyDType, A1, A2, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+
+  
+  @overload
+  def __le__(self, other: Number) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+  @overload
+  def __le__(self, other: Array1[AnyDType, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __le__(self, other: Array2[AnyDType, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __le__(self, other: Array3[AnyDType, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __le__(self, other: Array4[AnyDType, A2, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+  @overload
+  def __le__(self, other: Array5[AnyDType, A1, A2, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+
+  
+  @overload
+  def __ge__(self, other: Number) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+  @overload
+  def __ge__(self, other: Array1[AnyDType, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __ge__(self, other: Array2[AnyDType, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __ge__(self, other: Array3[AnyDType, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __ge__(self, other: Array4[AnyDType, A2, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+  @overload
+  def __ge__(self, other: Array5[AnyDType, A1, A2, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+
+  
+  @overload
+  def __gt__(self, other: Number) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+  @overload
+  def __gt__(self, other: Array1[AnyDType, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __gt__(self, other: Array2[AnyDType, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __gt__(self, other: Array3[AnyDType, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __gt__(self, other: Array4[AnyDType, A2, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+  @overload
+  def __gt__(self, other: Array5[AnyDType, A1, A2, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+
+  
+  @overload
+  def __eq__(self, other: Number) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+  @overload
+  def __eq__(self, other: Array1[AnyDType, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __eq__(self, other: Array2[AnyDType, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __eq__(self, other: Array3[AnyDType, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __eq__(self, other: Array4[AnyDType, A2, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+  @overload
+  def __eq__(self, other: Array5[AnyDType, A1, A2, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+
+  
+  @overload
+  def __ne__(self, other: Number) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+  @overload
+  def __ne__(self, other: Array1[AnyDType, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __ne__(self, other: Array2[AnyDType, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __ne__(self, other: Array3[AnyDType, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __ne__(self, other: Array4[AnyDType, A2, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+  @overload
+  def __ne__(self, other: Array5[AnyDType, A1, A2, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+
+  
+  @overload
+  def __mul__(self, other: Number) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+  @overload
+  def __mul__(self, other: Array1[AnyDType, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __mul__(self, other: Array2[AnyDType, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __mul__(self, other: Array3[AnyDType, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __mul__(self, other: Array4[AnyDType, A2, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+  @overload
+  def __mul__(self, other: Array5[AnyDType, A1, A2, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+
+  
+  @overload
+  def __rmul__(self, other: Number) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+  @overload
+  def __rmul__(self, other: Array1[AnyDType, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __rmul__(self, other: Array2[AnyDType, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __rmul__(self, other: Array3[AnyDType, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __rmul__(self, other: Array4[AnyDType, A2, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+  @overload
+  def __rmul__(self, other: Array5[AnyDType, A1, A2, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
 
   
 
@@ -434,6 +1293,248 @@ class Array6(Generic[DT, A1, A2, A3, A4, A5, A6]):
   
   @overload
   def __sub__(self, other: Array6[AnyDType, A1, A2, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+
+  
+  @overload
+  def __floordiv__(self, other: Number) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+  @overload
+  def __floordiv__(self, other: Array1[AnyDType, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __floordiv__(self, other: Array2[AnyDType, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __floordiv__(self, other: Array3[AnyDType, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __floordiv__(self, other: Array4[AnyDType, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __floordiv__(self, other: Array5[AnyDType, A2, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+  @overload
+  def __floordiv__(self, other: Array6[AnyDType, A1, A2, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+
+  
+  @overload
+  def __truediv__(self, other: Number) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+  @overload
+  def __truediv__(self, other: Array1[AnyDType, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __truediv__(self, other: Array2[AnyDType, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __truediv__(self, other: Array3[AnyDType, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __truediv__(self, other: Array4[AnyDType, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __truediv__(self, other: Array5[AnyDType, A2, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+  @overload
+  def __truediv__(self, other: Array6[AnyDType, A1, A2, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+
+  
+  @overload
+  def __pow__(self, other: Number) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+  @overload
+  def __pow__(self, other: Array1[AnyDType, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __pow__(self, other: Array2[AnyDType, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __pow__(self, other: Array3[AnyDType, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __pow__(self, other: Array4[AnyDType, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __pow__(self, other: Array5[AnyDType, A2, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+  @overload
+  def __pow__(self, other: Array6[AnyDType, A1, A2, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+
+  
+  @overload
+  def __lt__(self, other: Number) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+  @overload
+  def __lt__(self, other: Array1[AnyDType, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __lt__(self, other: Array2[AnyDType, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __lt__(self, other: Array3[AnyDType, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __lt__(self, other: Array4[AnyDType, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __lt__(self, other: Array5[AnyDType, A2, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+  @overload
+  def __lt__(self, other: Array6[AnyDType, A1, A2, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+
+  
+  @overload
+  def __le__(self, other: Number) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+  @overload
+  def __le__(self, other: Array1[AnyDType, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __le__(self, other: Array2[AnyDType, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __le__(self, other: Array3[AnyDType, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __le__(self, other: Array4[AnyDType, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __le__(self, other: Array5[AnyDType, A2, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+  @overload
+  def __le__(self, other: Array6[AnyDType, A1, A2, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+
+  
+  @overload
+  def __ge__(self, other: Number) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+  @overload
+  def __ge__(self, other: Array1[AnyDType, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __ge__(self, other: Array2[AnyDType, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __ge__(self, other: Array3[AnyDType, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __ge__(self, other: Array4[AnyDType, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __ge__(self, other: Array5[AnyDType, A2, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+  @overload
+  def __ge__(self, other: Array6[AnyDType, A1, A2, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+
+  
+  @overload
+  def __gt__(self, other: Number) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+  @overload
+  def __gt__(self, other: Array1[AnyDType, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __gt__(self, other: Array2[AnyDType, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __gt__(self, other: Array3[AnyDType, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __gt__(self, other: Array4[AnyDType, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __gt__(self, other: Array5[AnyDType, A2, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+  @overload
+  def __gt__(self, other: Array6[AnyDType, A1, A2, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+
+  
+  @overload
+  def __eq__(self, other: Number) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+  @overload
+  def __eq__(self, other: Array1[AnyDType, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __eq__(self, other: Array2[AnyDType, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __eq__(self, other: Array3[AnyDType, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __eq__(self, other: Array4[AnyDType, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __eq__(self, other: Array5[AnyDType, A2, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+  @overload
+  def __eq__(self, other: Array6[AnyDType, A1, A2, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+
+  
+  @overload
+  def __ne__(self, other: Number) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+  @overload
+  def __ne__(self, other: Array1[AnyDType, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __ne__(self, other: Array2[AnyDType, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __ne__(self, other: Array3[AnyDType, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __ne__(self, other: Array4[AnyDType, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __ne__(self, other: Array5[AnyDType, A2, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+  @overload
+  def __ne__(self, other: Array6[AnyDType, A1, A2, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+
+  
+  @overload
+  def __mul__(self, other: Number) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+  @overload
+  def __mul__(self, other: Array1[AnyDType, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __mul__(self, other: Array2[AnyDType, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __mul__(self, other: Array3[AnyDType, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __mul__(self, other: Array4[AnyDType, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __mul__(self, other: Array5[AnyDType, A2, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+  @overload
+  def __mul__(self, other: Array6[AnyDType, A1, A2, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+
+  
+  @overload
+  def __rmul__(self, other: Number) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+  @overload
+  def __rmul__(self, other: Array1[AnyDType, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __rmul__(self, other: Array2[AnyDType, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __rmul__(self, other: Array3[AnyDType, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __rmul__(self, other: Array4[AnyDType, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __rmul__(self, other: Array5[AnyDType, A2, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+  @overload
+  def __rmul__(self, other: Array6[AnyDType, A1, A2, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
 
   
 
@@ -508,6 +1609,270 @@ class Array7(Generic[DT, A1, A2, A3, A4, A5, A6, A7]):
   
   @overload
   def __sub__(self, other: Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+
+  
+  @overload
+  def __floordiv__(self, other: Number) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+  @overload
+  def __floordiv__(self, other: Array1[AnyDType, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __floordiv__(self, other: Array2[AnyDType, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __floordiv__(self, other: Array3[AnyDType, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __floordiv__(self, other: Array4[AnyDType, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __floordiv__(self, other: Array5[AnyDType, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __floordiv__(self, other: Array6[AnyDType, A2, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+  @overload
+  def __floordiv__(self, other: Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+
+  
+  @overload
+  def __truediv__(self, other: Number) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+  @overload
+  def __truediv__(self, other: Array1[AnyDType, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __truediv__(self, other: Array2[AnyDType, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __truediv__(self, other: Array3[AnyDType, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __truediv__(self, other: Array4[AnyDType, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __truediv__(self, other: Array5[AnyDType, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __truediv__(self, other: Array6[AnyDType, A2, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+  @overload
+  def __truediv__(self, other: Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+
+  
+  @overload
+  def __pow__(self, other: Number) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+  @overload
+  def __pow__(self, other: Array1[AnyDType, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __pow__(self, other: Array2[AnyDType, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __pow__(self, other: Array3[AnyDType, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __pow__(self, other: Array4[AnyDType, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __pow__(self, other: Array5[AnyDType, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __pow__(self, other: Array6[AnyDType, A2, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+  @overload
+  def __pow__(self, other: Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+
+  
+  @overload
+  def __lt__(self, other: Number) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+  @overload
+  def __lt__(self, other: Array1[AnyDType, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __lt__(self, other: Array2[AnyDType, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __lt__(self, other: Array3[AnyDType, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __lt__(self, other: Array4[AnyDType, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __lt__(self, other: Array5[AnyDType, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __lt__(self, other: Array6[AnyDType, A2, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+  @overload
+  def __lt__(self, other: Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+
+  
+  @overload
+  def __le__(self, other: Number) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+  @overload
+  def __le__(self, other: Array1[AnyDType, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __le__(self, other: Array2[AnyDType, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __le__(self, other: Array3[AnyDType, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __le__(self, other: Array4[AnyDType, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __le__(self, other: Array5[AnyDType, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __le__(self, other: Array6[AnyDType, A2, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+  @overload
+  def __le__(self, other: Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+
+  
+  @overload
+  def __ge__(self, other: Number) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+  @overload
+  def __ge__(self, other: Array1[AnyDType, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __ge__(self, other: Array2[AnyDType, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __ge__(self, other: Array3[AnyDType, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __ge__(self, other: Array4[AnyDType, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __ge__(self, other: Array5[AnyDType, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __ge__(self, other: Array6[AnyDType, A2, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+  @overload
+  def __ge__(self, other: Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+
+  
+  @overload
+  def __gt__(self, other: Number) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+  @overload
+  def __gt__(self, other: Array1[AnyDType, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __gt__(self, other: Array2[AnyDType, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __gt__(self, other: Array3[AnyDType, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __gt__(self, other: Array4[AnyDType, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __gt__(self, other: Array5[AnyDType, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __gt__(self, other: Array6[AnyDType, A2, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+  @overload
+  def __gt__(self, other: Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+
+  
+  @overload
+  def __eq__(self, other: Number) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+  @overload
+  def __eq__(self, other: Array1[AnyDType, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __eq__(self, other: Array2[AnyDType, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __eq__(self, other: Array3[AnyDType, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __eq__(self, other: Array4[AnyDType, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __eq__(self, other: Array5[AnyDType, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __eq__(self, other: Array6[AnyDType, A2, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+  @overload
+  def __eq__(self, other: Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+
+  
+  @overload
+  def __ne__(self, other: Number) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+  @overload
+  def __ne__(self, other: Array1[AnyDType, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __ne__(self, other: Array2[AnyDType, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __ne__(self, other: Array3[AnyDType, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __ne__(self, other: Array4[AnyDType, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __ne__(self, other: Array5[AnyDType, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __ne__(self, other: Array6[AnyDType, A2, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+  @overload
+  def __ne__(self, other: Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+
+  
+  @overload
+  def __mul__(self, other: Number) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+  @overload
+  def __mul__(self, other: Array1[AnyDType, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __mul__(self, other: Array2[AnyDType, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __mul__(self, other: Array3[AnyDType, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __mul__(self, other: Array4[AnyDType, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __mul__(self, other: Array5[AnyDType, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __mul__(self, other: Array6[AnyDType, A2, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+  @overload
+  def __mul__(self, other: Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+
+  
+  @overload
+  def __rmul__(self, other: Number) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+  @overload
+  def __rmul__(self, other: Array1[AnyDType, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __rmul__(self, other: Array2[AnyDType, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __rmul__(self, other: Array3[AnyDType, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __rmul__(self, other: Array4[AnyDType, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __rmul__(self, other: Array5[AnyDType, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __rmul__(self, other: Array6[AnyDType, A2, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+  @overload
+  def __rmul__(self, other: Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
 
   
 
@@ -586,6 +1951,292 @@ class Array8(Generic[DT, A1, A2, A3, A4, A5, A6, A7, A8]):
   
   @overload
   def __sub__(self, other: Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+
+  
+  @overload
+  def __floordiv__(self, other: Number) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+  @overload
+  def __floordiv__(self, other: Array1[AnyDType, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __floordiv__(self, other: Array2[AnyDType, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __floordiv__(self, other: Array3[AnyDType, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __floordiv__(self, other: Array4[AnyDType, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __floordiv__(self, other: Array5[AnyDType, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __floordiv__(self, other: Array6[AnyDType, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __floordiv__(self, other: Array7[AnyDType, A2, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+  @overload
+  def __floordiv__(self, other: Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+
+  
+  @overload
+  def __truediv__(self, other: Number) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+  @overload
+  def __truediv__(self, other: Array1[AnyDType, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __truediv__(self, other: Array2[AnyDType, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __truediv__(self, other: Array3[AnyDType, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __truediv__(self, other: Array4[AnyDType, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __truediv__(self, other: Array5[AnyDType, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __truediv__(self, other: Array6[AnyDType, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __truediv__(self, other: Array7[AnyDType, A2, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+  @overload
+  def __truediv__(self, other: Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+
+  
+  @overload
+  def __pow__(self, other: Number) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+  @overload
+  def __pow__(self, other: Array1[AnyDType, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __pow__(self, other: Array2[AnyDType, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __pow__(self, other: Array3[AnyDType, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __pow__(self, other: Array4[AnyDType, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __pow__(self, other: Array5[AnyDType, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __pow__(self, other: Array6[AnyDType, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __pow__(self, other: Array7[AnyDType, A2, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+  @overload
+  def __pow__(self, other: Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+
+  
+  @overload
+  def __lt__(self, other: Number) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+  @overload
+  def __lt__(self, other: Array1[AnyDType, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __lt__(self, other: Array2[AnyDType, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __lt__(self, other: Array3[AnyDType, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __lt__(self, other: Array4[AnyDType, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __lt__(self, other: Array5[AnyDType, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __lt__(self, other: Array6[AnyDType, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __lt__(self, other: Array7[AnyDType, A2, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+  @overload
+  def __lt__(self, other: Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+
+  
+  @overload
+  def __le__(self, other: Number) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+  @overload
+  def __le__(self, other: Array1[AnyDType, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __le__(self, other: Array2[AnyDType, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __le__(self, other: Array3[AnyDType, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __le__(self, other: Array4[AnyDType, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __le__(self, other: Array5[AnyDType, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __le__(self, other: Array6[AnyDType, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __le__(self, other: Array7[AnyDType, A2, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+  @overload
+  def __le__(self, other: Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+
+  
+  @overload
+  def __ge__(self, other: Number) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+  @overload
+  def __ge__(self, other: Array1[AnyDType, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __ge__(self, other: Array2[AnyDType, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __ge__(self, other: Array3[AnyDType, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __ge__(self, other: Array4[AnyDType, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __ge__(self, other: Array5[AnyDType, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __ge__(self, other: Array6[AnyDType, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __ge__(self, other: Array7[AnyDType, A2, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+  @overload
+  def __ge__(self, other: Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+
+  
+  @overload
+  def __gt__(self, other: Number) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+  @overload
+  def __gt__(self, other: Array1[AnyDType, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __gt__(self, other: Array2[AnyDType, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __gt__(self, other: Array3[AnyDType, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __gt__(self, other: Array4[AnyDType, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __gt__(self, other: Array5[AnyDType, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __gt__(self, other: Array6[AnyDType, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __gt__(self, other: Array7[AnyDType, A2, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+  @overload
+  def __gt__(self, other: Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+
+  
+  @overload
+  def __eq__(self, other: Number) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+  @overload
+  def __eq__(self, other: Array1[AnyDType, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __eq__(self, other: Array2[AnyDType, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __eq__(self, other: Array3[AnyDType, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __eq__(self, other: Array4[AnyDType, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __eq__(self, other: Array5[AnyDType, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __eq__(self, other: Array6[AnyDType, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __eq__(self, other: Array7[AnyDType, A2, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+  @overload
+  def __eq__(self, other: Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+
+  
+  @overload
+  def __ne__(self, other: Number) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+  @overload
+  def __ne__(self, other: Array1[AnyDType, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __ne__(self, other: Array2[AnyDType, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __ne__(self, other: Array3[AnyDType, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __ne__(self, other: Array4[AnyDType, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __ne__(self, other: Array5[AnyDType, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __ne__(self, other: Array6[AnyDType, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __ne__(self, other: Array7[AnyDType, A2, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+  @overload
+  def __ne__(self, other: Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+
+  
+  @overload
+  def __mul__(self, other: Number) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+  @overload
+  def __mul__(self, other: Array1[AnyDType, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __mul__(self, other: Array2[AnyDType, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __mul__(self, other: Array3[AnyDType, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __mul__(self, other: Array4[AnyDType, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __mul__(self, other: Array5[AnyDType, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __mul__(self, other: Array6[AnyDType, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __mul__(self, other: Array7[AnyDType, A2, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+  @overload
+  def __mul__(self, other: Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+
+  
+  @overload
+  def __rmul__(self, other: Number) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+  @overload
+  def __rmul__(self, other: Array1[AnyDType, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __rmul__(self, other: Array2[AnyDType, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __rmul__(self, other: Array3[AnyDType, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __rmul__(self, other: Array4[AnyDType, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __rmul__(self, other: Array5[AnyDType, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __rmul__(self, other: Array6[AnyDType, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __rmul__(self, other: Array7[AnyDType, A2, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+  @overload
+  def __rmul__(self, other: Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
 
   
 
