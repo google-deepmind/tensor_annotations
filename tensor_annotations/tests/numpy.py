@@ -50,6 +50,17 @@ A2 = NewType('A2', axes.Axis)
 class NumPyStubTests(absltest.TestCase):
   """Tests for numpy.* stubs."""
 
+  def testUnaryOperator_ReturnCustomType(self):
+    """Confirms that things like np.ones_like() don't change the shape."""
+    with utils.SaveCodeAsString() as code_saver:
+      x: Array1[AnyDType, A1] = np.zeros((1,))
+      a = np.ones_like(x)  # pylint: disable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    expected = 'Array1[Any, A1]'
+    self.assertEqual(inferred.a, expected)
+
   def testZerosOnes_ReturnsCorrectShape(self):
     """Confirms that np.zeros() returns a tensor_annotations type."""
     with utils.SaveCodeAsString() as code_saver:

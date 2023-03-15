@@ -20,16 +20,64 @@ To regenerate, run the following from the tensor_annotations directory:
    tools/render_numpy_library_template.py
 """
 
-from typing import Any, List, Tuple
+from typing import Any, List, overload, Tuple
+
+import tensor_annotations.numpy as tnp
 from tensor_annotations.numpy import Array1, Array2, Array3, Array4
+from tensor_annotations.axes import Axis
 
 AnyDType = Any
+DT = TypeVar('DT', bound=tnp.DType)
+
+A1 = TypeVar('A1', bound=Axis)
+A2 = TypeVar('A2', bound=Axis)
+A3 = TypeVar('A3', bound=Axis)
+A4 = TypeVar('A4', bound=Axis)
 
 Shape0 = Tuple[()]
 Shape1 = Tuple[int]
 Shape2 = Tuple[int, int]
 Shape3 = Tuple[int, int, int]
 Shape4 = Tuple[int, int, int, int]
+
+# ---------- ZEROS_LIKE, ONES_LIKE ----------
+
+
+
+
+@overload
+def zeros_like(x: Array1[DT, A1], dtype=...) -> Array1[DT, A1]: ...
+
+
+@overload
+def zeros_like(x: Array2[DT, A1, A2], dtype=...) -> Array2[DT, A1, A2]: ...
+
+
+@overload
+def zeros_like(x: Array3[DT, A1, A2, A3], dtype=...) -> Array3[DT, A1, A2, A3]: ...
+
+
+@overload
+def zeros_like(x: Array4[DT, A1, A2, A3, A4], dtype=...) -> Array4[DT, A1, A2, A3, A4]: ...
+
+
+
+@overload
+def ones_like(x: Array1[DT, A1], dtype=...) -> Array1[DT, A1]: ...
+
+
+@overload
+def ones_like(x: Array2[DT, A1, A2], dtype=...) -> Array2[DT, A1, A2]: ...
+
+
+@overload
+def ones_like(x: Array3[DT, A1, A2, A3], dtype=...) -> Array3[DT, A1, A2, A3]: ...
+
+
+@overload
+def ones_like(x: Array4[DT, A1, A2, A3, A4], dtype=...) -> Array4[DT, A1, A2, A3, A4]: ...
+
+
 
 # ---------- ZEROS, ONES ----------
 
@@ -899,8 +947,6 @@ ogrid: Any
 
 oldnumeric: Any
 
-ones_like: Any
-
 outer: Any
 
 packbits: Any
@@ -1226,6 +1272,4 @@ vstack: Any
 where: Any
 
 who: Any
-
-zeros_like: Any
 
