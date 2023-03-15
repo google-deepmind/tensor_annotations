@@ -20,7 +20,92 @@ To regenerate, run the following from the tensor_annotations directory:
    tools/render_numpy_library_template.py
 """
 
-from typing import Any
+from typing import Any, List, Tuple
+from tensor_annotations.numpy import Array1, Array2, Array3, Array4
+
+AnyDType = Any
+
+Shape0 = Tuple[()]
+Shape1 = Tuple[int]
+Shape2 = Tuple[int, int]
+Shape3 = Tuple[int, int, int]
+Shape4 = Tuple[int, int, int, int]
+
+# ---------- ZEROS, ONES ----------
+
+# Can't type these properly when shape is specified as a list. :(
+# But if shape is specified as an int or a tuple, we're good! :)
+
+@overload
+def zeros(shape: List, dtype=...) -> Any: ...
+
+
+@overload
+def zeros(shape: int, dtype=...) -> Array1[AnyDType, Any]: ...
+
+
+
+
+
+@overload
+def zeros(shape: Shape1, dtype=...) -> Array1[AnyDType, Any]: ...
+
+
+
+
+@overload
+def zeros(shape: Shape2, dtype=...) -> Array2[AnyDType, Any, Any]: ...
+
+
+
+
+@overload
+def zeros(shape: Shape3, dtype=...) -> Array3[AnyDType, Any, Any, Any]: ...
+
+
+
+
+@overload
+def zeros(shape: Shape4, dtype=...) -> Array4[AnyDType, Any, Any, Any, Any]: ...
+
+
+
+
+@overload
+def ones(shape: List, dtype=...) -> Any: ...
+
+
+@overload
+def ones(shape: int, dtype=...) -> Array1[AnyDType, Any]: ...
+
+
+
+
+
+@overload
+def ones(shape: Shape1, dtype=...) -> Array1[AnyDType, Any]: ...
+
+
+
+
+@overload
+def ones(shape: Shape2, dtype=...) -> Array2[AnyDType, Any, Any]: ...
+
+
+
+
+@overload
+def ones(shape: Shape3, dtype=...) -> Array3[AnyDType, Any, Any, Any]: ...
+
+
+
+
+@overload
+def ones(shape: Shape4, dtype=...) -> Array4[AnyDType, Any, Any, Any, Any]: ...
+
+
+
+# ---------- EVERYTHING ELSE: UNTYPED ----------
 
 # Special-cased because JAX tests expect this to not be Any.
 class dtype: pass
@@ -814,8 +899,6 @@ ogrid: Any
 
 oldnumeric: Any
 
-ones: Any
-
 ones_like: Any
 
 outer: Any
@@ -1143,8 +1226,6 @@ vstack: Any
 where: Any
 
 who: Any
-
-zeros: Any
 
 zeros_like: Any
 
