@@ -661,5 +661,26 @@ class JAXArrayTests(absltest.TestCase):
     self.assertEqual(inferred.b, 'numpy.dtype')
 
 
+class JnpNdarrayTests(absltest.TestCase):
+  """Tests for operations on the plain jnp.ndarray class.
+
+  Users might not have all their arrays being typed as Tensor Annotations
+  types - they might also have some plain jnp.ndarrays around. We need to make
+  sure they don't get weird type errors on those.
+  """
+
+  def testSlicingNdArray_ReturnsNdArray(self):
+    with utils.SaveCodeAsString() as code_saver:
+      a = cast(jnp.ndarray, jnp.zeros((2, 3)))
+      b = a[0]  # pylint: disable=unused-variable
+      c = a[0:1]  # pylint: disable=unused-variable
+      d = a[:, 2:]  # pylint: disable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    self.assertEqual(inferred.b, 'jax.numpy.ndarray')
+    self.assertEqual(inferred.c, 'jax.numpy.ndarray')
+    self.assertEqual(inferred.d, 'jax.numpy.ndarray')
+
 if __name__ == '__main__':
   absltest.main()

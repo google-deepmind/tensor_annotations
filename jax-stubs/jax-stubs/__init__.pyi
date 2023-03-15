@@ -102,6 +102,8 @@ ShapeDtypeStruct: Any
 
 ShapedArray: Any
 
+Shard: Any
+
 __builtins__: Any
 
 __cached__: Any
@@ -123,6 +125,8 @@ __spec__: Any
 __version__: Any
 
 __version_info__: Any
+
+_src: Any
 
 abstract_arrays: Any
 

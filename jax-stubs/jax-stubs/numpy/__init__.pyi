@@ -39,8 +39,6 @@ A4 = TypeVar('A4', bound=Axis)
 AnyDType = Any
 DT = TypeVar('DT', bound=tjax.DType)
 
-class ndarray: ...
-
 Shape0 = Tuple[()]
 Shape1 = Tuple[int]
 Shape2 = Tuple[int, int]
@@ -54,6 +52,12 @@ L3 = Literal[3]
 L4 = Literal[4]
 LN1 = Literal[-1]
 
+# Users might have some variables explicitly annotated as ndarray, so we need
+# to provide minimal stubs for ndarray too so users don't get type errors.
+class ndarray:
+
+  def __getitem__(self, key) -> ndarray:
+    pass
 
 # ---------- UNARY OPERATORS ----------
 
