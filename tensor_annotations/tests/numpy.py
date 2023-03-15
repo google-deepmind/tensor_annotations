@@ -123,6 +123,17 @@ class NumPyStubTests(absltest.TestCase):
     self.assertEqual(inferred.a, 'Any')
     self.assertEqual(inferred.b, 'Any')
 
+  def testTensorAdd_ReturnsCustomType(self):
+    with utils.SaveCodeAsString() as code_saver:
+      x: Array1[AnyDType, A1] = np.zeros((1,))
+      a = x + 1  # pylint: disable=unused-variable
+      b = x + x  # pylint: disable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    self.assertEqual('Array1[Any, A1]', inferred.a)
+    self.assertEqual('Array1[Any, A1]', inferred.b)
+
   def testArrayUnaryOp_ReturnsCorrectTypeAndShape(self):
     """Confirms that unary functions like abs() don't change the shape."""
     with utils.SaveCodeAsString() as code_saver:
@@ -181,6 +192,19 @@ class NumPyDtypeTests(absltest.TestCase):
     self.assertEqual(inferred.xsum64, 'float64')
     self.assertEqual(inferred.ysum32, 'Array1[float32, A1]')
     self.assertEqual(inferred.ysum64, 'Array1[float64, A1]')
+
+  def testArrayAdd_ReturnsAnyDType(self):
+    """Tests that e.g. `x + 1` has dtype AnyDType."""
+    with utils.SaveCodeAsString() as code_saver:
+      x: Array1[int8, A1] = np.array([[0]])
+      a = x + 1  # pylint: disable=unused-variable
+      b = x + x  # pylint: disable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    # AnyDType is printed as Any in pytype output.
+    self.assertEqual(inferred.a, 'Array1[Any, A1]')
+    self.assertEqual(inferred.b, 'Array1[Any, A1]')
 
   def testFunctionWithInt8Argument_AcceptsInt8Value(self):
     """Tests whether a function will accept a value with the right dtype."""

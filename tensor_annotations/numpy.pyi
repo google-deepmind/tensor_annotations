@@ -8,7 +8,7 @@ To regenerate, run the following from the tensor_annotations directory:
      --out numpy.pyi
 """
 
-from typing import Any, Literal, Tuple, TypeVar, Generic
+from typing import Any, Literal, Tuple, TypeVar, Union, Generic
 from tensor_annotations.axes import Axis
 
 
@@ -73,6 +73,14 @@ AnyDType = Any
 
 DT = TypeVar('DT', bound=DType)
 
+Number = Union[
+    int, float,
+    int8, int16, int32, int64,
+    uint8, uint16, uint32, uint64,
+    float16, float32, float64
+]
+
+
 
 
 
@@ -95,6 +103,32 @@ class Array1(Generic[DT, A1]):
   
   # END: Unary operators
 
+  # BEGIN: Binary element-wise operators
+
+  
+
+  
+  @overload
+  def __add__(self, other: Number) -> Array1[AnyDType, A1]: ...
+
+  
+  @overload
+  def __add__(self, other: Array1[AnyDType, A1]) -> Array1[AnyDType, A1]: ...
+
+  
+
+  
+  @overload
+  def __sub__(self, other: Number) -> Array1[AnyDType, A1]: ...
+
+  
+  @overload
+  def __sub__(self, other: Array1[AnyDType, A1]) -> Array1[AnyDType, A1]: ...
+
+  
+
+  # END: Binary element-wise operators
+
 
 class Array2(Generic[DT, A1, A2]):
   def __getitem__(self, index) -> Any: ...
@@ -114,6 +148,40 @@ class Array2(Generic[DT, A1, A2]):
   def __pos__(self) -> Array2[DT, A1, A2]: ...
   
   # END: Unary operators
+
+  # BEGIN: Binary element-wise operators
+
+  
+
+  
+  @overload
+  def __add__(self, other: Number) -> Array2[AnyDType, A1, A2]: ...
+
+  
+  @overload
+  def __add__(self, other: Array1[AnyDType, A2]) -> Array2[AnyDType, A1, A2]: ...
+
+  
+  @overload
+  def __add__(self, other: Array2[AnyDType, A1, A2]) -> Array2[AnyDType, A1, A2]: ...
+
+  
+
+  
+  @overload
+  def __sub__(self, other: Number) -> Array2[AnyDType, A1, A2]: ...
+
+  
+  @overload
+  def __sub__(self, other: Array1[AnyDType, A2]) -> Array2[AnyDType, A1, A2]: ...
+
+  
+  @overload
+  def __sub__(self, other: Array2[AnyDType, A1, A2]) -> Array2[AnyDType, A1, A2]: ...
+
+  
+
+  # END: Binary element-wise operators
 
 
 class Array3(Generic[DT, A1, A2, A3]):
@@ -135,6 +203,44 @@ class Array3(Generic[DT, A1, A2, A3]):
   
   # END: Unary operators
 
+  # BEGIN: Binary element-wise operators
+
+  
+
+  
+  @overload
+  def __add__(self, other: Number) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+  @overload
+  def __add__(self, other: Array1[AnyDType, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+  @overload
+  def __add__(self, other: Array2[AnyDType, A2, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+  @overload
+  def __add__(self, other: Array3[AnyDType, A1, A2, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+
+  
+  @overload
+  def __sub__(self, other: Number) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+  @overload
+  def __sub__(self, other: Array1[AnyDType, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+  @overload
+  def __sub__(self, other: Array2[AnyDType, A2, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+  @overload
+  def __sub__(self, other: Array3[AnyDType, A1, A2, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  
+
+  # END: Binary element-wise operators
+
 
 class Array4(Generic[DT, A1, A2, A3, A4]):
   def __getitem__(self, index) -> Any: ...
@@ -154,6 +260,48 @@ class Array4(Generic[DT, A1, A2, A3, A4]):
   def __pos__(self) -> Array4[DT, A1, A2, A3, A4]: ...
   
   # END: Unary operators
+
+  # BEGIN: Binary element-wise operators
+
+  
+
+  
+  @overload
+  def __add__(self, other: Number) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+  @overload
+  def __add__(self, other: Array1[AnyDType, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+  @overload
+  def __add__(self, other: Array2[AnyDType, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+  @overload
+  def __add__(self, other: Array3[AnyDType, A2, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+  @overload
+  def __add__(self, other: Array4[AnyDType, A1, A2, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+
+  
+  @overload
+  def __sub__(self, other: Number) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+  @overload
+  def __sub__(self, other: Array1[AnyDType, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+  @overload
+  def __sub__(self, other: Array2[AnyDType, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+  @overload
+  def __sub__(self, other: Array3[AnyDType, A2, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+  @overload
+  def __sub__(self, other: Array4[AnyDType, A1, A2, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  
+
+  # END: Binary element-wise operators
 
 
 class Array5(Generic[DT, A1, A2, A3, A4, A5]):
@@ -175,6 +323,52 @@ class Array5(Generic[DT, A1, A2, A3, A4, A5]):
   
   # END: Unary operators
 
+  # BEGIN: Binary element-wise operators
+
+  
+
+  
+  @overload
+  def __add__(self, other: Number) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+  @overload
+  def __add__(self, other: Array1[AnyDType, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __add__(self, other: Array2[AnyDType, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __add__(self, other: Array3[AnyDType, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __add__(self, other: Array4[AnyDType, A2, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+  @overload
+  def __add__(self, other: Array5[AnyDType, A1, A2, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+
+  
+  @overload
+  def __sub__(self, other: Number) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+  @overload
+  def __sub__(self, other: Array1[AnyDType, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __sub__(self, other: Array2[AnyDType, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __sub__(self, other: Array3[AnyDType, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def __sub__(self, other: Array4[AnyDType, A2, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+  @overload
+  def __sub__(self, other: Array5[AnyDType, A1, A2, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  
+
+  # END: Binary element-wise operators
+
 
 class Array6(Generic[DT, A1, A2, A3, A4, A5, A6]):
   def __getitem__(self, index) -> Any: ...
@@ -194,6 +388,56 @@ class Array6(Generic[DT, A1, A2, A3, A4, A5, A6]):
   def __pos__(self) -> Array6[DT, A1, A2, A3, A4, A5, A6]: ...
   
   # END: Unary operators
+
+  # BEGIN: Binary element-wise operators
+
+  
+
+  
+  @overload
+  def __add__(self, other: Number) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+  @overload
+  def __add__(self, other: Array1[AnyDType, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __add__(self, other: Array2[AnyDType, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __add__(self, other: Array3[AnyDType, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __add__(self, other: Array4[AnyDType, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __add__(self, other: Array5[AnyDType, A2, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+  @overload
+  def __add__(self, other: Array6[AnyDType, A1, A2, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+
+  
+  @overload
+  def __sub__(self, other: Number) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+  @overload
+  def __sub__(self, other: Array1[AnyDType, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __sub__(self, other: Array2[AnyDType, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __sub__(self, other: Array3[AnyDType, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __sub__(self, other: Array4[AnyDType, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def __sub__(self, other: Array5[AnyDType, A2, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+  @overload
+  def __sub__(self, other: Array6[AnyDType, A1, A2, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  
+
+  # END: Binary element-wise operators
 
 
 class Array7(Generic[DT, A1, A2, A3, A4, A5, A6, A7]):
@@ -215,6 +459,60 @@ class Array7(Generic[DT, A1, A2, A3, A4, A5, A6, A7]):
   
   # END: Unary operators
 
+  # BEGIN: Binary element-wise operators
+
+  
+
+  
+  @overload
+  def __add__(self, other: Number) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+  @overload
+  def __add__(self, other: Array1[AnyDType, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __add__(self, other: Array2[AnyDType, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __add__(self, other: Array3[AnyDType, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __add__(self, other: Array4[AnyDType, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __add__(self, other: Array5[AnyDType, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __add__(self, other: Array6[AnyDType, A2, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+  @overload
+  def __add__(self, other: Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+
+  
+  @overload
+  def __sub__(self, other: Number) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+  @overload
+  def __sub__(self, other: Array1[AnyDType, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __sub__(self, other: Array2[AnyDType, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __sub__(self, other: Array3[AnyDType, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __sub__(self, other: Array4[AnyDType, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __sub__(self, other: Array5[AnyDType, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def __sub__(self, other: Array6[AnyDType, A2, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+  @overload
+  def __sub__(self, other: Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  
+
+  # END: Binary element-wise operators
+
 
 class Array8(Generic[DT, A1, A2, A3, A4, A5, A6, A7, A8]):
   def __getitem__(self, index) -> Any: ...
@@ -234,3 +532,62 @@ class Array8(Generic[DT, A1, A2, A3, A4, A5, A6, A7, A8]):
   def __pos__(self) -> Array8[DT, A1, A2, A3, A4, A5, A6, A7, A8]: ...
   
   # END: Unary operators
+
+  # BEGIN: Binary element-wise operators
+
+  
+
+  
+  @overload
+  def __add__(self, other: Number) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+  @overload
+  def __add__(self, other: Array1[AnyDType, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __add__(self, other: Array2[AnyDType, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __add__(self, other: Array3[AnyDType, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __add__(self, other: Array4[AnyDType, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __add__(self, other: Array5[AnyDType, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __add__(self, other: Array6[AnyDType, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __add__(self, other: Array7[AnyDType, A2, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+  @overload
+  def __add__(self, other: Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+
+  
+  @overload
+  def __sub__(self, other: Number) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+  @overload
+  def __sub__(self, other: Array1[AnyDType, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __sub__(self, other: Array2[AnyDType, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __sub__(self, other: Array3[AnyDType, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __sub__(self, other: Array4[AnyDType, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __sub__(self, other: Array5[AnyDType, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __sub__(self, other: Array6[AnyDType, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def __sub__(self, other: Array7[AnyDType, A2, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+  @overload
+  def __sub__(self, other: Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  
+
+  # END: Binary element-wise operators
+

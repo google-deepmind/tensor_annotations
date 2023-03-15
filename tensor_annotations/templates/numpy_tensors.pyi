@@ -9,7 +9,7 @@ To regenerate, run the following from the tensor_annotations directory:
      --out numpy.pyi
 """
 
-from typing import Any, Literal, Tuple, TypeVar, Generic
+from typing import Any, Literal, Tuple, TypeVar, Union, Generic
 from tensor_annotations.axes import Axis
 
 
@@ -74,7 +74,15 @@ AnyDType = Any
 
 DT = TypeVar('DT', bound=DType)
 
+Number = Union[
+    int, float,
+    int8, int16, int32, int64,
+    uint8, uint16, uint32, uint64,
+    float16, float32, float64
+]
+
 {% set unary_funcs = ['__abs__', '__neg__', '__pos__'] %}
+{% set binary_elementwise_funcs = ['__add__', '__sub__'] %}
 
 
 class Array1(Generic[DT, A1]):
@@ -92,6 +100,22 @@ class Array1(Generic[DT, A1]):
   {% endfor %}
   # END: Unary operators
 
+  # BEGIN: Binary element-wise operators
+
+  {% for func in binary_elementwise_funcs %}
+
+  {# Broadcasting case 1: Broadcasting with scalars #}
+  @overload
+  def {{ func }}(self, other: Number) -> Array1[AnyDType, A1]: ...
+
+  {# No broadcast #}
+  @overload
+  def {{ func }}(self, other: Array1[AnyDType, A1]) -> Array1[AnyDType, A1]: ...
+
+  {% endfor %}
+
+  # END: Binary element-wise operators
+
 
 class Array2(Generic[DT, A1, A2]):
   def __getitem__(self, index) -> Any: ...
@@ -107,6 +131,26 @@ class Array2(Generic[DT, A1, A2]):
   def {{ func }}(self) -> Array2[DT, A1, A2]: ...
   {% endfor %}
   # END: Unary operators
+
+  # BEGIN: Binary element-wise operators
+
+  {% for func in binary_elementwise_funcs %}
+
+  {# Broadcasting case 1: Broadcasting with scalars #}
+  @overload
+  def {{ func }}(self, other: Number) -> Array2[AnyDType, A1, A2]: ...
+
+  {# Broadcasting case 2: Broadcasting with a lesser rank #}
+  @overload
+  def {{ func }}(self, other: Array1[AnyDType, A2]) -> Array2[AnyDType, A1, A2]: ...
+
+  {# No broadcast #}
+  @overload
+  def {{ func }}(self, other: Array2[AnyDType, A1, A2]) -> Array2[AnyDType, A1, A2]: ...
+
+  {% endfor %}
+
+  # END: Binary element-wise operators
 
 
 class Array3(Generic[DT, A1, A2, A3]):
@@ -124,6 +168,28 @@ class Array3(Generic[DT, A1, A2, A3]):
   {% endfor %}
   # END: Unary operators
 
+  # BEGIN: Binary element-wise operators
+
+  {% for func in binary_elementwise_funcs %}
+
+  {# Broadcasting case 1: Broadcasting with scalars #}
+  @overload
+  def {{ func }}(self, other: Number) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  {# Broadcasting case 2: Broadcasting with a lesser rank #}
+  @overload
+  def {{ func }}(self, other: Array1[AnyDType, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+  @overload
+  def {{ func }}(self, other: Array2[AnyDType, A2, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  {# No broadcast #}
+  @overload
+  def {{ func }}(self, other: Array3[AnyDType, A1, A2, A3]) -> Array3[AnyDType, A1, A2, A3]: ...
+
+  {% endfor %}
+
+  # END: Binary element-wise operators
+
 
 class Array4(Generic[DT, A1, A2, A3, A4]):
   def __getitem__(self, index) -> Any: ...
@@ -139,6 +205,30 @@ class Array4(Generic[DT, A1, A2, A3, A4]):
   def {{ func }}(self) -> Array4[DT, A1, A2, A3, A4]: ...
   {% endfor %}
   # END: Unary operators
+
+  # BEGIN: Binary element-wise operators
+
+  {% for func in binary_elementwise_funcs %}
+
+  {# Broadcasting case 1: Broadcasting with scalars #}
+  @overload
+  def {{ func }}(self, other: Number) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  {# Broadcasting case 2: Broadcasting with a lesser rank #}
+  @overload
+  def {{ func }}(self, other: Array1[AnyDType, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+  @overload
+  def {{ func }}(self, other: Array2[AnyDType, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+  @overload
+  def {{ func }}(self, other: Array3[AnyDType, A2, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  {# No broadcast #}
+  @overload
+  def {{ func }}(self, other: Array4[AnyDType, A1, A2, A3, A4]) -> Array4[AnyDType, A1, A2, A3, A4]: ...
+
+  {% endfor %}
+
+  # END: Binary element-wise operators
 
 
 class Array5(Generic[DT, A1, A2, A3, A4, A5]):
@@ -156,6 +246,32 @@ class Array5(Generic[DT, A1, A2, A3, A4, A5]):
   {% endfor %}
   # END: Unary operators
 
+  # BEGIN: Binary element-wise operators
+
+  {% for func in binary_elementwise_funcs %}
+
+  {# Broadcasting case 1: Broadcasting with scalars #}
+  @overload
+  def {{ func }}(self, other: Number) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  {# Broadcasting case 2: Broadcasting with a lesser rank #}
+  @overload
+  def {{ func }}(self, other: Array1[AnyDType, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def {{ func }}(self, other: Array2[AnyDType, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def {{ func }}(self, other: Array3[AnyDType, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+  @overload
+  def {{ func }}(self, other: Array4[AnyDType, A2, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  {# No broadcast #}
+  @overload
+  def {{ func }}(self, other: Array5[AnyDType, A1, A2, A3, A4, A5]) -> Array5[AnyDType, A1, A2, A3, A4, A5]: ...
+
+  {% endfor %}
+
+  # END: Binary element-wise operators
+
 
 class Array6(Generic[DT, A1, A2, A3, A4, A5, A6]):
   def __getitem__(self, index) -> Any: ...
@@ -171,6 +287,34 @@ class Array6(Generic[DT, A1, A2, A3, A4, A5, A6]):
   def {{ func }}(self) -> Array6[DT, A1, A2, A3, A4, A5, A6]: ...
   {% endfor %}
   # END: Unary operators
+
+  # BEGIN: Binary element-wise operators
+
+  {% for func in binary_elementwise_funcs %}
+
+  {# Broadcasting case 1: Broadcasting with scalars #}
+  @overload
+  def {{ func }}(self, other: Number) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  {# Broadcasting case 2: Broadcasting with a lesser rank #}
+  @overload
+  def {{ func }}(self, other: Array1[AnyDType, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def {{ func }}(self, other: Array2[AnyDType, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def {{ func }}(self, other: Array3[AnyDType, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def {{ func }}(self, other: Array4[AnyDType, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+  @overload
+  def {{ func }}(self, other: Array5[AnyDType, A2, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  {# No broadcast #}
+  @overload
+  def {{ func }}(self, other: Array6[AnyDType, A1, A2, A3, A4, A5, A6]) -> Array6[AnyDType, A1, A2, A3, A4, A5, A6]: ...
+
+  {% endfor %}
+
+  # END: Binary element-wise operators
 
 
 class Array7(Generic[DT, A1, A2, A3, A4, A5, A6, A7]):
@@ -188,6 +332,36 @@ class Array7(Generic[DT, A1, A2, A3, A4, A5, A6, A7]):
   {% endfor %}
   # END: Unary operators
 
+  # BEGIN: Binary element-wise operators
+
+  {% for func in binary_elementwise_funcs %}
+
+  {# Broadcasting case 1: Broadcasting with scalars #}
+  @overload
+  def {{ func }}(self, other: Number) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  {# Broadcasting case 2: Broadcasting with a lesser rank #}
+  @overload
+  def {{ func }}(self, other: Array1[AnyDType, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def {{ func }}(self, other: Array2[AnyDType, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def {{ func }}(self, other: Array3[AnyDType, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def {{ func }}(self, other: Array4[AnyDType, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def {{ func }}(self, other: Array5[AnyDType, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+  @overload
+  def {{ func }}(self, other: Array6[AnyDType, A2, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  {# No broadcast #}
+  @overload
+  def {{ func }}(self, other: Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]) -> Array7[AnyDType, A1, A2, A3, A4, A5, A6, A7]: ...
+
+  {% endfor %}
+
+  # END: Binary element-wise operators
+
 
 class Array8(Generic[DT, A1, A2, A3, A4, A5, A6, A7, A8]):
   def __getitem__(self, index) -> Any: ...
@@ -203,5 +377,38 @@ class Array8(Generic[DT, A1, A2, A3, A4, A5, A6, A7, A8]):
   def {{ func }}(self) -> Array8[DT, A1, A2, A3, A4, A5, A6, A7, A8]: ...
   {% endfor %}
   # END: Unary operators
+
+  # BEGIN: Binary element-wise operators
+
+  {% for func in binary_elementwise_funcs %}
+
+  {# Broadcasting case 1: Broadcasting with scalars #}
+  @overload
+  def {{ func }}(self, other: Number) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  {# Broadcasting case 2: Broadcasting with a lesser rank #}
+  @overload
+  def {{ func }}(self, other: Array1[AnyDType, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def {{ func }}(self, other: Array2[AnyDType, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def {{ func }}(self, other: Array3[AnyDType, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def {{ func }}(self, other: Array4[AnyDType, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def {{ func }}(self, other: Array5[AnyDType, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def {{ func }}(self, other: Array6[AnyDType, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+  @overload
+  def {{ func }}(self, other: Array7[AnyDType, A2, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  {# No broadcast #}
+  @overload
+  def {{ func }}(self, other: Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]) -> Array8[AnyDType, A1, A2, A3, A4, A5, A6, A7, A8]: ...
+
+  {% endfor %}
+
+  # END: Binary element-wise operators
+
 
 # LINT.ThenChange(../numpy.pyi)
