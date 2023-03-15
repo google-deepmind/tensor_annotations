@@ -233,6 +233,32 @@ class NumPyStubTests(absltest.TestCase):
     self.assertEqual(y3.shape, inferred.y3)
     self.assertEqual(y4.shape, inferred.y4)
 
+  def testShapeAttribute_HasCorrectLength(self):
+    with utils.SaveCodeAsString() as code_saver:
+      x0 = np.zeros(())
+      x1 = np.zeros((1,))
+      x2 = np.zeros((1, 2))
+      x3 = np.zeros((1, 2, 3))
+      x4 = np.zeros((1, 2, 3, 4))
+      x0_shape = x0.shape   # pylint: disable=unused-variable
+      x1_shape = x1.shape   # pylint: disable=unused-variable
+      x2_shape = x2.shape   # pylint: disable=unused-variable
+      x3_shape = x3.shape   # pylint: disable=unused-variable
+      x4_shape = x4.shape   # pylint: disable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    self.assertEqual(x0_shape, ())
+    self.assertEqual(x1_shape, (1,))
+    self.assertEqual(x2_shape, (1, 2))
+    self.assertEqual(x3_shape, (1, 2, 3))
+    self.assertEqual(x4_shape, (1, 2, 3, 4))
+    self.assertEqual('Tuple[()]', inferred.x0_shape)
+    self.assertEqual('Tuple[int]', inferred.x1_shape)
+    self.assertEqual('Tuple[int, int]', inferred.x2_shape)
+    self.assertEqual('Tuple[int, int, int]', inferred.x3_shape)
+    self.assertEqual('Tuple[int, int, int, int]', inferred.x4_shape)
+
   def testArray0Item_ReturnsIntFloatBoolComplexUnion(self):
     with utils.SaveCodeAsString() as code_saver:
       x = cast(Array0[AnyDType], np.zeros(()))
