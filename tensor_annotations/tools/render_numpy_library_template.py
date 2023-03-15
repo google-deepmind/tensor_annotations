@@ -17,6 +17,7 @@
 from absl import app
 import jinja2
 import numpy as np
+from tensor_annotations.tools import templates
 
 
 _NUMPY_TEMPLATE_PATH = 'templates/numpy.pyi'
@@ -35,6 +36,7 @@ def main(argv):
       ''.join(lines),
       extensions=['jinja2.ext.do'],
   )
+  numpy_template.globals['reduction_axes'] = templates.reduction_axes
 
   # We need to make sure that the library functions we _haven't_ annotated
   # are still present in the type stubs or the type checker will think they

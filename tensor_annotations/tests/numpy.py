@@ -23,6 +23,8 @@ from tensor_annotations.axes import Batch
 from tensor_annotations.numpy import AnyDType
 from tensor_annotations.numpy import Array1
 from tensor_annotations.numpy import Array2
+from tensor_annotations.numpy import float32
+from tensor_annotations.numpy import float64
 from tensor_annotations.numpy import int16
 from tensor_annotations.numpy import int8
 from tensor_annotations.tests import utils
@@ -39,7 +41,7 @@ from typing import cast, NewType
 import numpy as np
 from tensor_annotations import axes
 from tensor_annotations.axes import Batch
-from tensor_annotations.numpy import AnyDType, int8, int16
+from tensor_annotations.numpy import AnyDType, float32, float64, int8, int16
 from tensor_annotations.numpy import Array1, Array2
 
 A1 = NewType('A1', axes.Axis)
@@ -87,6 +89,40 @@ class NumPyStubTests(absltest.TestCase):
     self.assertEqual(inferred.c, 'Array2')
     self.assertEqual(inferred.d, 'Array2')
 
+  def testSum_InferredMatchesActualShape(self):
+    """Tests whether np.sum() return the right shapes."""
+    with utils.SaveCodeAsString() as code_saver:
+      x: Array2[float64, A1, A2] = np.zeros((1, 2))
+      y1 = np.sum(x, axis=0)
+      y2 = np.sum(x, axis=1)
+      y3 = np.sum(x, axis=(0, 1))
+      y4 = np.sum(x)
+
+    inferred_types = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+    inferred_shapes = utils.pytype_infer_shapes(_PREAMBLE + code_saver.code)
+
+    self.assertEqual(inferred_shapes.y1, y1.shape)
+    self.assertEqual(inferred_shapes.y2, y2.shape)
+
+    # y3 and y4 should just be scalars.
+    self.assertEqual(type(y3), np.float64)
+    self.assertEqual(type(y4), np.float64)
+    self.assertEqual(inferred_types.y3, 'float64')
+    self.assertEqual(inferred_types.y4, 'float64')
+
+  def testSumKeepdimsTrue_ReturnsAny(self):
+    # We haven't got around to making stubs for keepdims=True yet;
+    # make sure the type reflects that.
+    with utils.SaveCodeAsString() as code_saver:
+      x: Array1[AnyDType, A1] = np.zeros((1,))
+      a = np.sum(x, axis=0, keepdims=True)  # pylint: disable=unused-variable
+      b = np.sum(x, keepdims=True)  # pylint: disable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    self.assertEqual(inferred.a, 'Any')
+    self.assertEqual(inferred.b, 'Any')
+
   def testArrayUnaryOp_ReturnsCorrectTypeAndShape(self):
     """Confirms that unary functions like abs() don't change the shape."""
     with utils.SaveCodeAsString() as code_saver:
@@ -126,6 +162,25 @@ class NumPyDtypeTests(absltest.TestCase):
     self.assertEqual(inferred.b, 'Array1')
     self.assertEqual(inferred.c, 'Array2')
     self.assertEqual(inferred.d, 'Array2')
+
+  def testSum_ReturnsSameDtypeAsInput(self):
+    """Tests that np.sum() doesn't change the dtype."""
+    with utils.SaveCodeAsString() as code_saver:
+      x32: Array1[float32, A1] = np.array([0.0], dtype=float32)  # pylint: disable=unused-variable
+      x64: Array1[float64, A1] = np.array([0.0], dtype=float64)  # pylint: disable=unused-variable
+      y32: Array2[float32, A1, A1] = np.array([[0.0]], dtype=float32)  # pylint: disable=unused-variable
+      y64: Array2[float64, A1, A1] = np.array([[0.0]], dtype=float64)  # pylint: disable=unused-variable
+      xsum32 = np.sum(x32, axis=0)  # pylint: disable=unused-variable
+      xsum64 = np.sum(x64, axis=0)  # pylint: disable=unused-variable
+      ysum32 = np.sum(y32, axis=0)  # pylint: disable=unused-variable
+      ysum64 = np.sum(y64, axis=0)  # pylint: disable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    self.assertEqual(inferred.xsum32, 'float32')
+    self.assertEqual(inferred.xsum64, 'float64')
+    self.assertEqual(inferred.ysum32, 'Array1[float32, A1]')
+    self.assertEqual(inferred.ysum64, 'Array1[float64, A1]')
 
   def testFunctionWithInt8Argument_AcceptsInt8Value(self):
     """Tests whether a function will accept a value with the right dtype."""

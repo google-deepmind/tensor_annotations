@@ -20,7 +20,7 @@ To regenerate, run the following from the tensor_annotations directory:
    tools/render_numpy_library_template.py
 """
 
-from typing import Any, List, overload, Tuple
+from typing import Any, List, Literal, overload, Tuple
 
 import tensor_annotations.numpy as tnp
 from tensor_annotations.numpy import Array1, Array2, Array3, Array4
@@ -34,11 +34,1362 @@ A2 = TypeVar('A2', bound=Axis)
 A3 = TypeVar('A3', bound=Axis)
 A4 = TypeVar('A4', bound=Axis)
 
+LN1 = Literal[-1]
+L0 = Literal[0]
+L1 = Literal[1]
+L2 = Literal[2]
+L3 = Literal[3]
+L4 = Literal[4]
+
 Shape0 = Tuple[()]
 Shape1 = Tuple[int]
 Shape2 = Tuple[int, int]
 Shape3 = Tuple[int, int, int]
 Shape4 = Tuple[int, int, int, int]
+
+# ---------- REDUCTION OPERATORS ----------
+
+
+
+## keepdims = True: yet be to be typed
+
+# This type signature is technically incorrect: `keepdims` is *not*
+# the second argument. However, this way seems to be the only way
+# to get both pytype and Mypy to recognise this overload: if we put
+# `keepdims: Literal[True]` in the right position, Mypy complains
+# about a non-default argument following a default argument; if we
+# put `keepdims: Literal[True] = ...` in the right place, pytype
+# matches this overload even when `keepdims=False`.
+#
+# In practice, though, this shouldn't be an issue:
+# * It's very unlikely that anyone would pass `True` as the second (non-keyword)
+#   argument here (since the second argument is *supposed* to be `axis`).
+# * If someone *did* want to set `keepdims` to `True`, they'd *have* to
+#   use a keyword argument, since `keepdims` comes after `out, and setting `out`
+#   to anything (even `None`) produces a "The 'out' argument to jnp.sum is
+#   not supported" error.
+@overload
+def sum(
+    a: Any,
+    keepdims: Literal[True],
+    axis=...,
+    out=...,
+    dtype=...
+) -> Any: ...
+
+## keepdims = False or unspecified
+
+
+
+### n_axes = 1
+
+#### `axis` specified
+
+
+
+
+
+@overload
+def sum(
+    a: Array1[DT, A1],
+    axis: L0,
+    out=..., keepdims=..., dtype=...
+) -> DT: ...
+
+
+
+
+
+
+
+@overload
+def sum(
+    a: Array1[DT, A1],
+    axis: LN1,
+    out=..., keepdims=..., dtype=...
+) -> DT: ...
+
+
+
+
+
+# Fallback: `axis` not any of the above
+@overload
+def sum(
+    a: Array1[DT, Any],
+    axis: Any,
+    out=..., keepdims=..., dtype=...
+) -> Any: ...
+
+#### `axis` unspecified
+
+@overload
+def sum(
+    a: Array1[DT, Any],
+    out=..., keepdims=..., dtype=...
+) -> DT: ...
+
+
+
+### n_axes = 2
+
+#### `axis` specified
+
+
+
+
+
+@overload
+def sum(
+    a: Array2[DT, A1, A2],
+    axis: L0,
+    out=..., keepdims=..., dtype=...
+) -> Array1[DT, A2]: ...
+
+
+
+
+
+
+
+@overload
+def sum(
+    a: Array2[DT, A1, A2],
+    axis: L1,
+    out=..., keepdims=..., dtype=...
+) -> Array1[DT, A1]: ...
+
+
+
+
+
+
+
+@overload
+def sum(
+    a: Array2[DT, A1, A2],
+    axis: LN1,
+    out=..., keepdims=..., dtype=...
+) -> Array1[DT, A1]: ...
+
+
+
+
+
+
+
+@overload
+def sum(
+    a: Array2[DT, A1, A2],
+    axis: Tuple[L0, L1],
+    out=..., keepdims=..., dtype=...
+) -> DT: ...
+
+
+
+
+
+
+
+@overload
+def sum(
+    a: Array2[DT, A1, A2],
+    axis: Tuple[L0, LN1],
+    out=..., keepdims=..., dtype=...
+) -> DT: ...
+
+
+
+
+
+# Fallback: `axis` not any of the above
+@overload
+def sum(
+    a: Array2[DT, Any, Any],
+    axis: Any,
+    out=..., keepdims=..., dtype=...
+) -> Any: ...
+
+#### `axis` unspecified
+
+@overload
+def sum(
+    a: Array2[DT, Any, Any],
+    out=..., keepdims=..., dtype=...
+) -> DT: ...
+
+
+
+### n_axes = 3
+
+#### `axis` specified
+
+
+
+
+
+@overload
+def sum(
+    a: Array3[DT, A1, A2, A3],
+    axis: L0,
+    out=..., keepdims=..., dtype=...
+) -> Array2[DT, A2, A3]: ...
+
+
+
+
+
+
+
+@overload
+def sum(
+    a: Array3[DT, A1, A2, A3],
+    axis: L1,
+    out=..., keepdims=..., dtype=...
+) -> Array2[DT, A1, A3]: ...
+
+
+
+
+
+
+
+@overload
+def sum(
+    a: Array3[DT, A1, A2, A3],
+    axis: L2,
+    out=..., keepdims=..., dtype=...
+) -> Array2[DT, A1, A2]: ...
+
+
+
+
+
+
+
+@overload
+def sum(
+    a: Array3[DT, A1, A2, A3],
+    axis: LN1,
+    out=..., keepdims=..., dtype=...
+) -> Array2[DT, A1, A2]: ...
+
+
+
+
+
+
+
+@overload
+def sum(
+    a: Array3[DT, A1, A2, A3],
+    axis: Tuple[L0, L1],
+    out=..., keepdims=..., dtype=...
+) -> Array1[DT, A3]: ...
+
+
+
+
+
+
+
+@overload
+def sum(
+    a: Array3[DT, A1, A2, A3],
+    axis: Tuple[L0, L2],
+    out=..., keepdims=..., dtype=...
+) -> Array1[DT, A2]: ...
+
+
+
+
+
+
+
+@overload
+def sum(
+    a: Array3[DT, A1, A2, A3],
+    axis: Tuple[L0, LN1],
+    out=..., keepdims=..., dtype=...
+) -> Array1[DT, A2]: ...
+
+
+
+
+
+
+
+@overload
+def sum(
+    a: Array3[DT, A1, A2, A3],
+    axis: Tuple[L1, L2],
+    out=..., keepdims=..., dtype=...
+) -> Array1[DT, A1]: ...
+
+
+
+
+
+
+
+@overload
+def sum(
+    a: Array3[DT, A1, A2, A3],
+    axis: Tuple[L1, LN1],
+    out=..., keepdims=..., dtype=...
+) -> Array1[DT, A1]: ...
+
+
+
+
+
+
+
+@overload
+def sum(
+    a: Array3[DT, A1, A2, A3],
+    axis: Tuple[L0, L1, L2],
+    out=..., keepdims=..., dtype=...
+) -> DT: ...
+
+
+
+
+
+
+
+@overload
+def sum(
+    a: Array3[DT, A1, A2, A3],
+    axis: Tuple[L0, L1, LN1],
+    out=..., keepdims=..., dtype=...
+) -> DT: ...
+
+
+
+
+
+# Fallback: `axis` not any of the above
+@overload
+def sum(
+    a: Array3[DT, Any, Any, Any],
+    axis: Any,
+    out=..., keepdims=..., dtype=...
+) -> Any: ...
+
+#### `axis` unspecified
+
+@overload
+def sum(
+    a: Array3[DT, Any, Any, Any],
+    out=..., keepdims=..., dtype=...
+) -> DT: ...
+
+
+
+### n_axes = 4
+
+#### `axis` specified
+
+
+
+
+
+@overload
+def sum(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: L0,
+    out=..., keepdims=..., dtype=...
+) -> Array3[DT, A2, A3, A4]: ...
+
+
+
+
+
+
+
+@overload
+def sum(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: L1,
+    out=..., keepdims=..., dtype=...
+) -> Array3[DT, A1, A3, A4]: ...
+
+
+
+
+
+
+
+@overload
+def sum(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: L2,
+    out=..., keepdims=..., dtype=...
+) -> Array3[DT, A1, A2, A4]: ...
+
+
+
+
+
+
+
+@overload
+def sum(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: L3,
+    out=..., keepdims=..., dtype=...
+) -> Array3[DT, A1, A2, A3]: ...
+
+
+
+
+
+
+
+@overload
+def sum(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: LN1,
+    out=..., keepdims=..., dtype=...
+) -> Array3[DT, A1, A2, A3]: ...
+
+
+
+
+
+
+
+@overload
+def sum(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: Tuple[L0, L1],
+    out=..., keepdims=..., dtype=...
+) -> Array2[DT, A3, A4]: ...
+
+
+
+
+
+
+
+@overload
+def sum(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: Tuple[L0, L2],
+    out=..., keepdims=..., dtype=...
+) -> Array2[DT, A2, A4]: ...
+
+
+
+
+
+
+
+@overload
+def sum(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: Tuple[L0, L3],
+    out=..., keepdims=..., dtype=...
+) -> Array2[DT, A2, A3]: ...
+
+
+
+
+
+
+
+@overload
+def sum(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: Tuple[L0, LN1],
+    out=..., keepdims=..., dtype=...
+) -> Array2[DT, A2, A3]: ...
+
+
+
+
+
+
+
+@overload
+def sum(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: Tuple[L1, L2],
+    out=..., keepdims=..., dtype=...
+) -> Array2[DT, A1, A4]: ...
+
+
+
+
+
+
+
+@overload
+def sum(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: Tuple[L1, L3],
+    out=..., keepdims=..., dtype=...
+) -> Array2[DT, A1, A3]: ...
+
+
+
+
+
+
+
+@overload
+def sum(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: Tuple[L1, LN1],
+    out=..., keepdims=..., dtype=...
+) -> Array2[DT, A1, A3]: ...
+
+
+
+
+
+
+
+@overload
+def sum(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: Tuple[L2, L3],
+    out=..., keepdims=..., dtype=...
+) -> Array2[DT, A1, A2]: ...
+
+
+
+
+
+
+
+@overload
+def sum(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: Tuple[L2, LN1],
+    out=..., keepdims=..., dtype=...
+) -> Array2[DT, A1, A2]: ...
+
+
+
+
+
+
+
+@overload
+def sum(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: Tuple[L0, L1, L2],
+    out=..., keepdims=..., dtype=...
+) -> Array1[DT, A4]: ...
+
+
+
+
+
+
+
+@overload
+def sum(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: Tuple[L0, L1, L3],
+    out=..., keepdims=..., dtype=...
+) -> Array1[DT, A3]: ...
+
+
+
+
+
+
+
+@overload
+def sum(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: Tuple[L0, L1, LN1],
+    out=..., keepdims=..., dtype=...
+) -> Array1[DT, A3]: ...
+
+
+
+
+
+
+
+@overload
+def sum(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: Tuple[L0, L2, L3],
+    out=..., keepdims=..., dtype=...
+) -> Array1[DT, A2]: ...
+
+
+
+
+
+
+
+@overload
+def sum(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: Tuple[L0, L2, LN1],
+    out=..., keepdims=..., dtype=...
+) -> Array1[DT, A2]: ...
+
+
+
+
+
+
+
+@overload
+def sum(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: Tuple[L1, L2, L3],
+    out=..., keepdims=..., dtype=...
+) -> Array1[DT, A1]: ...
+
+
+
+
+
+
+
+@overload
+def sum(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: Tuple[L1, L2, LN1],
+    out=..., keepdims=..., dtype=...
+) -> Array1[DT, A1]: ...
+
+
+
+
+
+
+
+@overload
+def sum(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: Tuple[L0, L1, L2, L3],
+    out=..., keepdims=..., dtype=...
+) -> DT: ...
+
+
+
+
+
+
+
+@overload
+def sum(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: Tuple[L0, L1, L2, LN1],
+    out=..., keepdims=..., dtype=...
+) -> DT: ...
+
+
+
+
+
+# Fallback: `axis` not any of the above
+@overload
+def sum(
+    a: Array4[DT, Any, Any, Any, Any],
+    axis: Any,
+    out=..., keepdims=..., dtype=...
+) -> Any: ...
+
+#### `axis` unspecified
+
+@overload
+def sum(
+    a: Array4[DT, Any, Any, Any, Any],
+    out=..., keepdims=..., dtype=...
+) -> DT: ...
+
+
+
+### Some weird argument like a list of arrays
+
+@overload
+def sum(
+    a: Any,
+    axis=...,
+    out=..., keepdims=..., dtype=...
+) -> Any: ...
+
+
+
+## keepdims = True: yet be to be typed
+
+# This type signature is technically incorrect: `keepdims` is *not*
+# the second argument. However, this way seems to be the only way
+# to get both pytype and Mypy to recognise this overload: if we put
+# `keepdims: Literal[True]` in the right position, Mypy complains
+# about a non-default argument following a default argument; if we
+# put `keepdims: Literal[True] = ...` in the right place, pytype
+# matches this overload even when `keepdims=False`.
+#
+# In practice, though, this shouldn't be an issue:
+# * It's very unlikely that anyone would pass `True` as the second (non-keyword)
+#   argument here (since the second argument is *supposed* to be `axis`).
+# * If someone *did* want to set `keepdims` to `True`, they'd *have* to
+#   use a keyword argument, since `keepdims` comes after `out, and setting `out`
+#   to anything (even `None`) produces a "The 'out' argument to jnp.mean is
+#   not supported" error.
+@overload
+def mean(
+    a: Any,
+    keepdims: Literal[True],
+    axis=...,
+    out=...,
+    dtype=...
+) -> Any: ...
+
+## keepdims = False or unspecified
+
+
+
+### n_axes = 1
+
+#### `axis` specified
+
+
+
+
+
+@overload
+def mean(
+    a: Array1[DT, A1],
+    axis: L0,
+    out=..., keepdims=..., dtype=...
+) -> DT: ...
+
+
+
+
+
+
+
+@overload
+def mean(
+    a: Array1[DT, A1],
+    axis: LN1,
+    out=..., keepdims=..., dtype=...
+) -> DT: ...
+
+
+
+
+
+# Fallback: `axis` not any of the above
+@overload
+def mean(
+    a: Array1[DT, Any],
+    axis: Any,
+    out=..., keepdims=..., dtype=...
+) -> Any: ...
+
+#### `axis` unspecified
+
+@overload
+def mean(
+    a: Array1[DT, Any],
+    out=..., keepdims=..., dtype=...
+) -> DT: ...
+
+
+
+### n_axes = 2
+
+#### `axis` specified
+
+
+
+
+
+@overload
+def mean(
+    a: Array2[DT, A1, A2],
+    axis: L0,
+    out=..., keepdims=..., dtype=...
+) -> Array1[DT, A2]: ...
+
+
+
+
+
+
+
+@overload
+def mean(
+    a: Array2[DT, A1, A2],
+    axis: L1,
+    out=..., keepdims=..., dtype=...
+) -> Array1[DT, A1]: ...
+
+
+
+
+
+
+
+@overload
+def mean(
+    a: Array2[DT, A1, A2],
+    axis: LN1,
+    out=..., keepdims=..., dtype=...
+) -> Array1[DT, A1]: ...
+
+
+
+
+
+
+
+@overload
+def mean(
+    a: Array2[DT, A1, A2],
+    axis: Tuple[L0, L1],
+    out=..., keepdims=..., dtype=...
+) -> DT: ...
+
+
+
+
+
+
+
+@overload
+def mean(
+    a: Array2[DT, A1, A2],
+    axis: Tuple[L0, LN1],
+    out=..., keepdims=..., dtype=...
+) -> DT: ...
+
+
+
+
+
+# Fallback: `axis` not any of the above
+@overload
+def mean(
+    a: Array2[DT, Any, Any],
+    axis: Any,
+    out=..., keepdims=..., dtype=...
+) -> Any: ...
+
+#### `axis` unspecified
+
+@overload
+def mean(
+    a: Array2[DT, Any, Any],
+    out=..., keepdims=..., dtype=...
+) -> DT: ...
+
+
+
+### n_axes = 3
+
+#### `axis` specified
+
+
+
+
+
+@overload
+def mean(
+    a: Array3[DT, A1, A2, A3],
+    axis: L0,
+    out=..., keepdims=..., dtype=...
+) -> Array2[DT, A2, A3]: ...
+
+
+
+
+
+
+
+@overload
+def mean(
+    a: Array3[DT, A1, A2, A3],
+    axis: L1,
+    out=..., keepdims=..., dtype=...
+) -> Array2[DT, A1, A3]: ...
+
+
+
+
+
+
+
+@overload
+def mean(
+    a: Array3[DT, A1, A2, A3],
+    axis: L2,
+    out=..., keepdims=..., dtype=...
+) -> Array2[DT, A1, A2]: ...
+
+
+
+
+
+
+
+@overload
+def mean(
+    a: Array3[DT, A1, A2, A3],
+    axis: LN1,
+    out=..., keepdims=..., dtype=...
+) -> Array2[DT, A1, A2]: ...
+
+
+
+
+
+
+
+@overload
+def mean(
+    a: Array3[DT, A1, A2, A3],
+    axis: Tuple[L0, L1],
+    out=..., keepdims=..., dtype=...
+) -> Array1[DT, A3]: ...
+
+
+
+
+
+
+
+@overload
+def mean(
+    a: Array3[DT, A1, A2, A3],
+    axis: Tuple[L0, L2],
+    out=..., keepdims=..., dtype=...
+) -> Array1[DT, A2]: ...
+
+
+
+
+
+
+
+@overload
+def mean(
+    a: Array3[DT, A1, A2, A3],
+    axis: Tuple[L0, LN1],
+    out=..., keepdims=..., dtype=...
+) -> Array1[DT, A2]: ...
+
+
+
+
+
+
+
+@overload
+def mean(
+    a: Array3[DT, A1, A2, A3],
+    axis: Tuple[L1, L2],
+    out=..., keepdims=..., dtype=...
+) -> Array1[DT, A1]: ...
+
+
+
+
+
+
+
+@overload
+def mean(
+    a: Array3[DT, A1, A2, A3],
+    axis: Tuple[L1, LN1],
+    out=..., keepdims=..., dtype=...
+) -> Array1[DT, A1]: ...
+
+
+
+
+
+
+
+@overload
+def mean(
+    a: Array3[DT, A1, A2, A3],
+    axis: Tuple[L0, L1, L2],
+    out=..., keepdims=..., dtype=...
+) -> DT: ...
+
+
+
+
+
+
+
+@overload
+def mean(
+    a: Array3[DT, A1, A2, A3],
+    axis: Tuple[L0, L1, LN1],
+    out=..., keepdims=..., dtype=...
+) -> DT: ...
+
+
+
+
+
+# Fallback: `axis` not any of the above
+@overload
+def mean(
+    a: Array3[DT, Any, Any, Any],
+    axis: Any,
+    out=..., keepdims=..., dtype=...
+) -> Any: ...
+
+#### `axis` unspecified
+
+@overload
+def mean(
+    a: Array3[DT, Any, Any, Any],
+    out=..., keepdims=..., dtype=...
+) -> DT: ...
+
+
+
+### n_axes = 4
+
+#### `axis` specified
+
+
+
+
+
+@overload
+def mean(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: L0,
+    out=..., keepdims=..., dtype=...
+) -> Array3[DT, A2, A3, A4]: ...
+
+
+
+
+
+
+
+@overload
+def mean(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: L1,
+    out=..., keepdims=..., dtype=...
+) -> Array3[DT, A1, A3, A4]: ...
+
+
+
+
+
+
+
+@overload
+def mean(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: L2,
+    out=..., keepdims=..., dtype=...
+) -> Array3[DT, A1, A2, A4]: ...
+
+
+
+
+
+
+
+@overload
+def mean(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: L3,
+    out=..., keepdims=..., dtype=...
+) -> Array3[DT, A1, A2, A3]: ...
+
+
+
+
+
+
+
+@overload
+def mean(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: LN1,
+    out=..., keepdims=..., dtype=...
+) -> Array3[DT, A1, A2, A3]: ...
+
+
+
+
+
+
+
+@overload
+def mean(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: Tuple[L0, L1],
+    out=..., keepdims=..., dtype=...
+) -> Array2[DT, A3, A4]: ...
+
+
+
+
+
+
+
+@overload
+def mean(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: Tuple[L0, L2],
+    out=..., keepdims=..., dtype=...
+) -> Array2[DT, A2, A4]: ...
+
+
+
+
+
+
+
+@overload
+def mean(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: Tuple[L0, L3],
+    out=..., keepdims=..., dtype=...
+) -> Array2[DT, A2, A3]: ...
+
+
+
+
+
+
+
+@overload
+def mean(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: Tuple[L0, LN1],
+    out=..., keepdims=..., dtype=...
+) -> Array2[DT, A2, A3]: ...
+
+
+
+
+
+
+
+@overload
+def mean(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: Tuple[L1, L2],
+    out=..., keepdims=..., dtype=...
+) -> Array2[DT, A1, A4]: ...
+
+
+
+
+
+
+
+@overload
+def mean(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: Tuple[L1, L3],
+    out=..., keepdims=..., dtype=...
+) -> Array2[DT, A1, A3]: ...
+
+
+
+
+
+
+
+@overload
+def mean(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: Tuple[L1, LN1],
+    out=..., keepdims=..., dtype=...
+) -> Array2[DT, A1, A3]: ...
+
+
+
+
+
+
+
+@overload
+def mean(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: Tuple[L2, L3],
+    out=..., keepdims=..., dtype=...
+) -> Array2[DT, A1, A2]: ...
+
+
+
+
+
+
+
+@overload
+def mean(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: Tuple[L2, LN1],
+    out=..., keepdims=..., dtype=...
+) -> Array2[DT, A1, A2]: ...
+
+
+
+
+
+
+
+@overload
+def mean(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: Tuple[L0, L1, L2],
+    out=..., keepdims=..., dtype=...
+) -> Array1[DT, A4]: ...
+
+
+
+
+
+
+
+@overload
+def mean(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: Tuple[L0, L1, L3],
+    out=..., keepdims=..., dtype=...
+) -> Array1[DT, A3]: ...
+
+
+
+
+
+
+
+@overload
+def mean(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: Tuple[L0, L1, LN1],
+    out=..., keepdims=..., dtype=...
+) -> Array1[DT, A3]: ...
+
+
+
+
+
+
+
+@overload
+def mean(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: Tuple[L0, L2, L3],
+    out=..., keepdims=..., dtype=...
+) -> Array1[DT, A2]: ...
+
+
+
+
+
+
+
+@overload
+def mean(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: Tuple[L0, L2, LN1],
+    out=..., keepdims=..., dtype=...
+) -> Array1[DT, A2]: ...
+
+
+
+
+
+
+
+@overload
+def mean(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: Tuple[L1, L2, L3],
+    out=..., keepdims=..., dtype=...
+) -> Array1[DT, A1]: ...
+
+
+
+
+
+
+
+@overload
+def mean(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: Tuple[L1, L2, LN1],
+    out=..., keepdims=..., dtype=...
+) -> Array1[DT, A1]: ...
+
+
+
+
+
+
+
+@overload
+def mean(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: Tuple[L0, L1, L2, L3],
+    out=..., keepdims=..., dtype=...
+) -> DT: ...
+
+
+
+
+
+
+
+@overload
+def mean(
+    a: Array4[DT, A1, A2, A3, A4],
+    axis: Tuple[L0, L1, L2, LN1],
+    out=..., keepdims=..., dtype=...
+) -> DT: ...
+
+
+
+
+
+# Fallback: `axis` not any of the above
+@overload
+def mean(
+    a: Array4[DT, Any, Any, Any, Any],
+    axis: Any,
+    out=..., keepdims=..., dtype=...
+) -> Any: ...
+
+#### `axis` unspecified
+
+@overload
+def mean(
+    a: Array4[DT, Any, Any, Any, Any],
+    out=..., keepdims=..., dtype=...
+) -> DT: ...
+
+
+
+### Some weird argument like a list of arrays
+
+@overload
+def mean(
+    a: Any,
+    axis=...,
+    out=..., keepdims=..., dtype=...
+) -> Any: ...
+
+
 
 # ---------- UNARY OPERATORS ----------
 
@@ -1242,8 +2593,6 @@ maximum_sctype: Any
 
 may_share_memory: Any
 
-mean: Any
-
 median: Any
 
 memmap: Any
@@ -1537,8 +2886,6 @@ str_: Any
 string_: Any
 
 subtract: Any
-
-sum: Any
 
 swapaxes: Any
 

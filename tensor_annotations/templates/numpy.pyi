@@ -29,7 +29,7 @@ don't explode so badly.)
 
 # We use old-style annotations - `List` and `Tuple` rather than `list` and
 # `tuple` - because we want to be compatible with older versions of Python.
-from typing import Any, List, overload, Tuple
+from typing import Any, List, Literal, overload, Tuple
 
 import tensor_annotations.numpy as tnp
 from tensor_annotations.numpy import Array1, Array2, Array3, Array4
@@ -43,11 +43,109 @@ A2 = TypeVar('A2', bound=Axis)
 A3 = TypeVar('A3', bound=Axis)
 A4 = TypeVar('A4', bound=Axis)
 
+LN1 = Literal[-1]
+L0 = Literal[0]
+L1 = Literal[1]
+L2 = Literal[2]
+L3 = Literal[3]
+L4 = Literal[4]
+
 Shape0 = Tuple[()]
 Shape1 = Tuple[int]
 Shape2 = Tuple[int, int]
 Shape3 = Tuple[int, int, int]
 Shape4 = Tuple[int, int, int, int]
+
+# ---------- REDUCTION OPERATORS ----------
+
+{% for op in ['sum', 'mean'] %}
+
+## keepdims = True: yet be to be typed
+
+# This type signature is technically incorrect: `keepdims` is *not*
+# the second argument. However, this way seems to be the only way
+# to get both pytype and Mypy to recognise this overload: if we put
+# `keepdims: Literal[True]` in the right position, Mypy complains
+# about a non-default argument following a default argument; if we
+# put `keepdims: Literal[True] = ...` in the right place, pytype
+# matches this overload even when `keepdims=False`.
+#
+# In practice, though, this shouldn't be an issue:
+# * It's very unlikely that anyone would pass `True` as the second (non-keyword)
+#   argument here (since the second argument is *supposed* to be `axis`).
+# * If someone *did* want to set `keepdims` to `True`, they'd *have* to
+#   use a keyword argument, since `keepdims` comes after `out, and setting `out`
+#   to anything (even `None`) produces a "The 'out' argument to jnp.{{op}} is
+#   not supported" error.
+@overload
+def {{ op }}(
+    a: Any,
+    keepdims: Literal[True],
+    axis=...,
+    out=...,
+    dtype=...
+) -> Any: ...
+
+## keepdims = False or unspecified
+
+{% for n_axes in range(1, 5) %}
+
+### n_axes = {{ n_axes }}
+
+#### `axis` specified
+
+{% for axes in reduction_axes(n_axes) %}
+
+{% if axes.remaining_n_axes == 0 %}
+
+@overload
+def {{ op }}(
+    a: Array{{ axes.n_axes }}[DT, {{ axes.all_axes }}],
+    axis: {{ axes.reduction_axes }},
+    out=..., keepdims=..., dtype=...
+) -> DT: ...
+
+{% else %}
+
+@overload
+def {{ op }}(
+    a: Array{{ axes.n_axes }}[DT, {{ axes.all_axes }}],
+    axis: {{ axes.reduction_axes }},
+    out=..., keepdims=..., dtype=...
+) -> Array{{ axes.remaining_n_axes }}[DT{{ axes.remaining_axes }}]: ...
+
+{% endif %}
+
+{% endfor %}
+
+# Fallback: `axis` not any of the above
+@overload
+def {{ op }}(
+    a: Array{{ n_axes }}[DT, {{ (['Any'] * n_axes)|join(', ') }}],
+    axis: Any,
+    out=..., keepdims=..., dtype=...
+) -> Any: ...
+
+#### `axis` unspecified
+
+@overload
+def {{ op }}(
+    a: Array{{ n_axes }}[DT, {{ (['Any'] * n_axes)|join(', ') }}],
+    out=..., keepdims=..., dtype=...
+) -> DT: ...
+
+{% endfor %}
+
+### Some weird argument like a list of arrays
+
+@overload
+def {{ op }}(
+    a: Any,
+    axis=...,
+    out=..., keepdims=..., dtype=...
+) -> Any: ...
+
+{% endfor %}
 
 # ---------- UNARY OPERATORS ----------
 
