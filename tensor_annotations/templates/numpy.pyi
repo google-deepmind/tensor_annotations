@@ -32,7 +32,7 @@ don't explode so badly.)
 from typing import Any, List, Literal, overload, Tuple
 
 import tensor_annotations.numpy as tnp
-from tensor_annotations.numpy import Array1, Array2, Array3, Array4
+from tensor_annotations.numpy import Array0, Array1, Array2, Array3, Array4
 from tensor_annotations.axes import Axis
 
 AnyDType = Any
@@ -178,6 +178,9 @@ def {{ func }}(x: Array4[DT, A1, A2, A3, A4]) -> Array4[DT, A1, A2, A3, A4]: ...
 {% for func in dtype_unary_funcs %}
 
 @overload
+def {{ func }}(x: Array0[DT], dtype=...) -> Array0[DT]: ...
+
+@overload
 def {{ func }}(x: Array1[DT, A1], dtype=...) -> Array1[DT, A1]: ...
 
 
@@ -228,7 +231,7 @@ def zeros(shape: List, dtype=...) -> Any: ...
 def zeros(shape: int, dtype=...) -> Array1[AnyDType, Any]: ...
 
 
-{% for i in range(1, 5) %}
+{% for i in range(5) %}
 {% set n_any = (['Any'] * i)|join(', ') %}
 
 @overload
@@ -245,7 +248,7 @@ def ones(shape: List, dtype=...) -> Any: ...
 def ones(shape: int, dtype=...) -> Array1[AnyDType, Any]: ...
 
 
-{% for i in range(1, 5) %}
+{% for i in range(5) %}
 {% set n_any = (['Any'] * i)|join(', ') %}
 
 @overload

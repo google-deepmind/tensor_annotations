@@ -18,12 +18,20 @@ NOTE: This file is generated from templates/numpy.pyi.
 
 To regenerate, run the following from the tensor_annotations directory:
    tools/render_numpy_library_template.py
+
+Note that we only go up to rank 4 arrays here because at rank 5, the number of
+possible permutations of arguments starts to really explode, so the stubs get
+too big and it starts to be really slow to actually run a type checker. (We go
+up to rank 8 in numpy_tensors.pyi because the methods on the array classes
+don't explode so badly.)
 """
 
+# We use old-style annotations - `List` and `Tuple` rather than `list` and
+# `tuple` - because we want to be compatible with older versions of Python.
 from typing import Any, List, Literal, overload, Tuple
 
 import tensor_annotations.numpy as tnp
-from tensor_annotations.numpy import Array1, Array2, Array3, Array4
+from tensor_annotations.numpy import Array0, Array1, Array2, Array3, Array4
 from tensor_annotations.axes import Axis
 
 AnyDType = Any
@@ -1779,6 +1787,9 @@ def tanh(x: Array4[DT, A1, A2, A3, A4]) -> Array4[DT, A1, A2, A3, A4]: ...
 
 
 @overload
+def zeros_like(x: Array0[DT], dtype=...) -> Array0[DT]: ...
+
+@overload
 def zeros_like(x: Array1[DT, A1], dtype=...) -> Array1[DT, A1]: ...
 
 
@@ -1794,6 +1805,9 @@ def zeros_like(x: Array3[DT, A1, A2, A3], dtype=...) -> Array3[DT, A1, A2, A3]: 
 def zeros_like(x: Array4[DT, A1, A2, A3, A4], dtype=...) -> Array4[DT, A1, A2, A3, A4]: ...
 
 
+
+@overload
+def ones_like(x: Array0[DT], dtype=...) -> Array0[DT]: ...
 
 @overload
 def ones_like(x: Array1[DT, A1], dtype=...) -> Array1[DT, A1]: ...
@@ -1850,6 +1864,12 @@ def zeros(shape: int, dtype=...) -> Array1[AnyDType, Any]: ...
 
 
 @overload
+def zeros(shape: Shape0, dtype=...) -> Array0[AnyDType, ]: ...
+
+
+
+
+@overload
 def zeros(shape: Shape1, dtype=...) -> Array1[AnyDType, Any]: ...
 
 
@@ -1880,6 +1900,12 @@ def ones(shape: List, dtype=...) -> Any: ...
 @overload
 def ones(shape: int, dtype=...) -> Array1[AnyDType, Any]: ...
 
+
+
+
+
+@overload
+def ones(shape: Shape0, dtype=...) -> Array0[AnyDType, ]: ...
 
 
 
@@ -2263,7 +2289,10 @@ def transpose(
 
 # ---------- EVERYTHING ELSE: UNTYPED ----------
 
-# Special-cased because JAX tests expect this to not be Any.
+# We need to special-case this because the type of the `dtype` attribute of a
+# `jax.Array` (that is, JAX's built-in array type - _not_ a Tensor annotations
+# array class) is actually `np.dtype` - so ideally it should be something more
+# than just `Any`.
 class dtype: pass
 
 

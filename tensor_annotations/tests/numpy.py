@@ -91,17 +91,21 @@ class NumPyStubTests(absltest.TestCase):
   def testZerosOnes_ReturnsCorrectShape(self):
     """Confirms that np.zeros() returns a tensor_annotations type."""
     with utils.SaveCodeAsString() as code_saver:
-      a = np.zeros((1,))  # pylint: disable=unused-variable
-      b = np.ones((1,))  # pylint: disable=unused-variable
-      c = np.zeros((1, 1))  # pylint: disable=unused-variable
-      d = np.ones((1, 1))  # pylint: disable=unused-variable
+      a = np.zeros(())  # pylint: disable=unused-variable
+      b = np.ones(())  # pylint: disable=unused-variable
+      c = np.zeros((1,))  # pylint: disable=unused-variable
+      d = np.ones((1,))  # pylint: disable=unused-variable
+      e = np.zeros((1, 1))  # pylint: disable=unused-variable
+      f = np.ones((1, 1))  # pylint: disable=unused-variable
 
     inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
 
-    self.assertEqual(inferred.a, 'Array1')
-    self.assertEqual(inferred.b, 'Array1')
-    self.assertEqual(inferred.c, 'Array2')
-    self.assertEqual(inferred.d, 'Array2')
+    self.assertEqual(inferred.a, 'Array0')
+    self.assertEqual(inferred.b, 'Array0')
+    self.assertEqual(inferred.c, 'Array1')
+    self.assertEqual(inferred.d, 'Array1')
+    self.assertEqual(inferred.e, 'Array2')
+    self.assertEqual(inferred.f, 'Array2')
 
   def testSum_InferredMatchesActualShape(self):
     """Tests whether np.sum() return the right shapes."""
@@ -258,21 +262,26 @@ class NumPyDtypeTests(absltest.TestCase):
   def testZerosOnes_ReturnsAnyDType(self):
     """Tests that np.zeros and np.ones returns AnyDType."""
     with utils.SaveCodeAsString() as code_saver:
-      a = np.zeros((1,))  # pylint: disable=unused-variable
-      b = np.ones((1,))  # pylint: disable=unused-variable
+      a = np.zeros(())  # pylint: disable=unused-variable
+      b = np.ones(())  # pylint: disable=unused-variable
 
-      c = np.zeros((1, 1))  # pylint: disable=unused-variable
-      d = np.ones((1, 1))  # pylint: disable=unused-variable
+      c = np.zeros((1,))  # pylint: disable=unused-variable
+      d = np.ones((1,))  # pylint: disable=unused-variable
+
+      e = np.zeros((1, 1))  # pylint: disable=unused-variable
+      f = np.ones((1, 1))  # pylint: disable=unused-variable
 
     inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
 
     # These should be e.g. Array1[AnyDType, Any], but because AnyDType
     # is currently aliased to `Any`, and pytype doesn't print type arguments at
     # all when they're all `Any`, hence just comparing to e.g. Array1.
-    self.assertEqual(inferred.a, 'Array1')
-    self.assertEqual(inferred.b, 'Array1')
-    self.assertEqual(inferred.c, 'Array2')
-    self.assertEqual(inferred.d, 'Array2')
+    self.assertEqual(inferred.a, 'Array0')
+    self.assertEqual(inferred.b, 'Array0')
+    self.assertEqual(inferred.c, 'Array1')
+    self.assertEqual(inferred.d, 'Array1')
+    self.assertEqual(inferred.e, 'Array2')
+    self.assertEqual(inferred.f, 'Array2')
 
   def testSum_ReturnsSameDtypeAsInput(self):
     """Tests that np.sum() doesn't change the dtype."""
