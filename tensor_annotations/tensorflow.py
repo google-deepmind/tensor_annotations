@@ -113,6 +113,7 @@ class _TensorBase:
   __abs__: Any
   __add__: Any
   __add__: Any
+  __float__: Any
   __floordiv__: Any
   __ge__: Any
   __gt__: Any

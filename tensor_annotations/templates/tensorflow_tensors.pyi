@@ -108,6 +108,11 @@ Number = Union[int, float]
 class Tensor0(Generic[DT]):
   def __getitem__(self, index) -> Any: ...
   def __setitem__(self, index, value) -> Any: ...
+
+  # Technically, arrays of any rank can float()ed if they only contain a
+  # single value, but we can only guarantee it for Tensor0.
+  def __float__(self) -> float: ...
+
   def numpy(self) -> Any: ...  # Returns a scalar value, *not* an ndarray.
   shape: tf.TensorShape
   dtype: tf.DType

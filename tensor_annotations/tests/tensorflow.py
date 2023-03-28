@@ -14,7 +14,7 @@
 # ==============================================================================
 """Tests for TensorFlow stubs."""
 
-from typing import Any, NewType, TypeVar
+from typing import Any, NewType, SupportsFloat, TypeVar
 
 from absl.testing import absltest  # For sharded test support
 from tensor_annotations import axes
@@ -42,7 +42,7 @@ AxisTypeVar = TypeVar('AxisTypeVar')
 # It's less than ideal that we have to repeat imports etc. here for pytype, but
 # this seems like the best balance between readability and complexity.
 _PREAMBLE = """
-from typing import Any, NewType, TypeVar
+from typing import Any, NewType, SupportsFloat, TypeVar
 
 import tensorflow as tf
 from tensor_annotations import axes
@@ -275,6 +275,26 @@ class TensorFlowShapeTests(absltest.TestCase):
 
     inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
     self.assertEqual('int', inferred.rank)
+
+  def testTensor0_CanBeConvertedToFloat(self):
+    with utils.SaveCodeAsString() as code_saver:
+      x = tf.zeros(())
+      y = float(x)  # pylint: disable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    self.assertEqual(inferred.y, 'float')
+
+  def testTensor0_SupportsFloat(self):
+    with utils.SaveCodeAsString() as code_saver:
+
+      def foo(x: SupportsFloat):
+        return x
+
+      x = tf.zeros(())
+      foo(x)
+
+    utils.assert_pytype_succeeds(_PREAMBLE + code_saver.code)
 
 
 class TensorFlowDtypeTests(absltest.TestCase):
