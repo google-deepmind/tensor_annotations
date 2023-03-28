@@ -14,7 +14,7 @@
 # ==============================================================================
 """Tests for NumPy stubs."""
 
-from typing import cast, NewType
+from typing import cast, NewType, SupportsFloat
 
 from absl.testing import absltest
 import numpy as np
@@ -38,7 +38,7 @@ A3 = NewType('A3', axes.Axis)
 # It's less than ideal that we have to repeat imports etc. here for pytype, but
 # this seems like the best balance between readability and complexity.
 _PREAMBLE = """
-from typing import cast, NewType
+from typing import cast, NewType, SupportsFloat
 
 import numpy as np
 from tensor_annotations import axes
@@ -267,6 +267,26 @@ class NumPyStubTests(absltest.TestCase):
     inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
 
     self.assertEqual(inferred.y, 'Union[bool, complex, float, int]')
+
+  def testArray0_CanBeConvertedToFloat(self):
+    with utils.SaveCodeAsString() as code_saver:
+      x = np.zeros(())
+      y = float(x)  # pylint: disable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    self.assertEqual(inferred.y, 'float')
+
+  def testArray0_SupportsFloat(self):
+    with utils.SaveCodeAsString() as code_saver:
+
+      def foo(x: SupportsFloat):
+        return x
+
+      x = np.zeros(())
+      foo(x)
+
+    utils.assert_pytype_succeeds(_PREAMBLE + code_saver.code)
 
 
 class NumPyDtypeTests(absltest.TestCase):
