@@ -96,6 +96,29 @@ DT = TypeVar('DT', bound=DType)
 class _ArrayBase:
   """Base class for ArrayN classes containing common methods and attributes."""
 
+  # These are necessary so that type checkers know we have these methods.
+  __abs__: Any
+  __add__: Any
+  __add__: Any
+  __floordiv__: Any
+  __ge__: Any
+  __gt__: Any
+  __le__: Any
+  __len__: Any
+  __lt__: Any
+  __matmul__: Any
+  __mul__: Any
+  __neg__: Any
+  __neg__: Any
+  __pos__: Any
+  __pow__: Any
+  __rmatmul__: Any
+  __rmul__: Any
+  __sub__: Any
+  __truediv__: Any
+  shape: Any
+  dtype: Any
+
   def __new__(cls, *args, **kwargs):
     raise TypeError('tensor_annotations tensors should not be instantiated')
 
