@@ -14,7 +14,7 @@
 # ==============================================================================
 """Tests for JAX stubs."""
 
-from typing import cast, NewType, TypeVar
+from typing import cast, NewType, SupportsFloat, TypeVar
 
 from absl.testing import absltest
 import jax
@@ -42,7 +42,7 @@ AxisTypeVar = TypeVar('AxisTypeVar')
 # It's less than ideal that we have to repeat imports etc. here for pytype, but
 # this seems like the best balance between readability and complexity.
 _PREAMBLE = """
-from typing import Any, cast, NewType, TypeVar, Union
+from typing import Any, cast, NewType, SupportsFloat, TypeVar, Union
 
 import jax
 import jax.numpy as jnp
@@ -272,6 +272,26 @@ class JAXNumpyStubTests(absltest.TestCase):
     inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
 
     self.assertEqual(inferred.y, 'Union[bool, complex, float, int]')
+
+  def testArray0_CanBeConvertedToFloat(self):
+    with utils.SaveCodeAsString() as code_saver:
+      x = jnp.zeros(())
+      y = float(x)  # pylint: disable=unused-variable
+
+    inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
+
+    self.assertEqual(inferred.y, 'float')
+
+  def testArray0_SupportsFloat(self):
+    with utils.SaveCodeAsString() as code_saver:
+
+      def foo(x: SupportsFloat):
+        return x
+
+      x = jnp.zeros(())
+      foo(x)
+
+    utils.assert_pytype_succeeds(_PREAMBLE + code_saver.code)
 
 
 class JAXDtypeTests(absltest.TestCase):

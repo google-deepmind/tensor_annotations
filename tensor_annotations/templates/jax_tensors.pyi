@@ -96,6 +96,11 @@ Number = Union[int, float]
 class Array0(Generic[DT]):
   def __getitem__(self, index) -> Any: ...
   def __setitem__(self, index, value) -> Any: ...
+
+  # Technically, arrays of any rank can float()ed if they only contain a
+  # single value, but we can only guarantee it for Array0.
+  def __float__(self) -> float: ...
+
   shape: Tuple[()]
   T: Array0[DT]
   at: Any
