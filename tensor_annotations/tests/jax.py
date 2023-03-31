@@ -119,12 +119,12 @@ class JAXNumpyStubTests(absltest.TestCase):
 
     inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
 
-    self.assertEqual(inferred.a, 'Array0')
-    self.assertEqual(inferred.b, 'Array0')
-    self.assertEqual(inferred.c, 'Array1')
-    self.assertEqual(inferred.d, 'Array1')
-    self.assertEqual(inferred.e, 'Array2')
-    self.assertEqual(inferred.f, 'Array2')
+    self.assertEqual(inferred.a, 'Array0[float32]')
+    self.assertEqual(inferred.b, 'Array0[float32]')
+    self.assertEqual(inferred.c, 'Array1[float32, Any]')
+    self.assertEqual(inferred.d, 'Array1[float32, Any]')
+    self.assertEqual(inferred.e, 'Array2[float32, Any, Any]')
+    self.assertEqual(inferred.f, 'Array2[float32, Any, Any]')
 
   def testSum_InferredMatchesActualShape(self):
     with utils.SaveCodeAsString() as code_saver:
@@ -340,29 +340,44 @@ class JAXDtypeTests(absltest.TestCase):
     self.assertEqual(inferred.e32, 'Array1[float32, A1]')
     self.assertEqual(inferred.e64, 'Array1[float64, A1]')
 
-  def testZerosOnes_ReturnsAnyDType(self):
-    """Tests that jnp.zeros and jnp.ones returns AnyDType."""
+  def testZerosOnes_ReturnsCorrectDtype(self):
+    """Tests that jnp.zeros and jnp.ones returns arrays with correct dtypes."""
     with utils.SaveCodeAsString() as code_saver:
       a = jnp.zeros(())  # pylint: disable=unused-variable
       b = jnp.ones(())  # pylint: disable=unused-variable
+      c = jnp.zeros((), dtype=jnp.int8)  # pylint: disable=unused-variable
+      d = jnp.ones((), dtype=jnp.int8)  # pylint: disable=unused-variable
 
-      c = jnp.zeros((1,))  # pylint: disable=unused-variable
-      d = jnp.ones((1,))  # pylint: disable=unused-variable
+      e = jnp.zeros((1,))  # pylint: disable=unused-variable
+      f = jnp.ones((1,))  # pylint: disable=unused-variable
+      g = jnp.zeros((1,), dtype=jnp.int8)  # pylint: disable=unused-variable
+      h = jnp.ones((1,), dtype=jnp.int8)  # pylint: disable=unused-variable
 
-      e = jnp.zeros((1, 1))  # pylint: disable=unused-variable
-      f = jnp.ones((1, 1))  # pylint: disable=unused-variable
+      i = jnp.zeros((1, 1))  # pylint: disable=unused-variable
+      j = jnp.ones((1, 1))  # pylint: disable=unused-variable
+      k = jnp.zeros((1, 1), dtype=jnp.int8)  # pylint: disable=unused-variable
+      l = jnp.ones((1, 1), dtype=jnp.int8)  # pylint: disable=unused-variable
 
     inferred = utils.pytype_infer_types(_PREAMBLE + code_saver.code)
 
-    # These should be e.g. Array0[AnyDType, Any, Any], but because AnyDType
-    # is currently aliased to `Any`, and pytype doesn't print type arguments at
-    # all when they're all `Any`, hence just comparing to e.g. Array0.
-    self.assertEqual(inferred.a, 'Array0')
-    self.assertEqual(inferred.b, 'Array0')
-    self.assertEqual(inferred.c, 'Array1')
-    self.assertEqual(inferred.d, 'Array1')
-    self.assertEqual(inferred.e, 'Array2')
-    self.assertEqual(inferred.f, 'Array2')
+    self.assertEqual(inferred.a, 'Array0[float32]')
+    self.assertEqual(inferred.b, 'Array0[float32]')
+    # These should be Array0[AnyDType], but because AnyDType is currently
+    # aliased to `Any`, and pytype doesn't print type arguments at all when
+    # they're all `Any`, hence just comparing to e.g. Array0.
+    # Ditto tests below.
+    self.assertEqual(inferred.c, 'Array0')
+    self.assertEqual(inferred.d, 'Array0')
+
+    self.assertEqual(inferred.e, 'Array1[float32, Any]')
+    self.assertEqual(inferred.f, 'Array1[float32, Any]')
+    self.assertEqual(inferred.g, 'Array1')
+    self.assertEqual(inferred.h, 'Array1')
+
+    self.assertEqual(inferred.i, 'Array2[float32, Any, Any]')
+    self.assertEqual(inferred.j, 'Array2[float32, Any, Any]')
+    self.assertEqual(inferred.k, 'Array2')
+    self.assertEqual(inferred.l, 'Array2')
 
   def testSum_ReturnsSameDtypeAsInput(self):
     """Tests that jnp.sum() doesn't change the dtype."""

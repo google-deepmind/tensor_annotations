@@ -25,12 +25,12 @@ from tensor_annotations import jax as tjax
 
 Batch = axes.Batch
 Time = axes.Time
-uint8 = tjax.uint8
+float32 = tjax.float32
 
 
-def sample_batch() -> tjax.Array2[uint8, Time, Batch]:
-  # jnp.zeros((x, y)) returns a Tensor2[AnyDType, Any, Any], which is compatible
-  # with Tensor2[uint8, Batch, Time] => pytype accepts this return.
+def sample_batch() -> tjax.Array2[float32, Time, Batch]:
+  # jnp.zeros((x, y)) returns a Tensor2[float32, Any, Any], which is compatible
+  # with Tensor2[float32, Batch, Time] => pytype accepts this return.
   return jnp.zeros((3, 5))
 
 
@@ -43,8 +43,8 @@ def sample_batch_legacy() -> jnp.ndarray:
   return jnp.zeros([3, 5])
 
 
-def train_batch(batch: tjax.Array2[uint8, Batch, Time]):
-  b: tjax.Array1[uint8, Batch] = jnp.max(batch, axis=1)
+def train_batch(batch: tjax.Array2[float32, Batch, Time]):
+  b: tjax.Array1[float32, Batch] = jnp.max(batch, axis=1)
   del b  # Unused
 
 
@@ -72,10 +72,10 @@ def legacy_example() -> None:
   y1 = sample_batch_legacy()
 
   # We explicitly cast it to the desired type. This is a no-op at runtime.
-  y2 = cast(tjax.Array2[uint8, Batch, Time], y1)
+  y2 = cast(tjax.Array2[float32, Batch, Time], y1)
 
   # Alternative syntax for casting; again a no-op.
-  y3: tjax.Array2[uint8, Batch, Time] = y1  # type: ignore
+  y3: tjax.Array2[float32, Batch, Time] = y1  # type: ignore
 
   train_batch(y2)
   train_batch(y3)
