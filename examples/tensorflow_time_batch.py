@@ -23,11 +23,12 @@ import tensorflow as tf
 
 # pylint: disable=missing-function-docstring
 
+float16 = ttf.float16
 Batch = axes.Batch
 Time = axes.Time
 
 
-def sample_batch() -> ttf.Tensor2[float, Time, Batch]:
+def sample_batch() -> ttf.Tensor2[float16, Time, Batch]:
   # tf.zeros((x, y)) returns a Tensor2[Any, Any], which is a compatibe
   # with Tensor2[Batch, Time] => pytype accepts this return.
   return tf.zeros((3, 5))
@@ -42,8 +43,8 @@ def sample_batch_legacy() -> tf.Tensor:
   return tf.zeros([3, 5])
 
 
-def train_batch(batch: ttf.Tensor2[float, Batch, Time]):
-  b: ttf.Tensor1[float, Batch] = tf.reduce_max(batch, axis=1)
+def train_batch(batch: ttf.Tensor2[float16, Batch, Time]):
+  b: ttf.Tensor1[float16, Batch] = tf.reduce_max(batch, axis=1)
   del b   # Unused
 
 
@@ -71,10 +72,10 @@ def legacy_example() -> None:
   y = sample_batch_legacy()
 
   # We explicitly cast it to the desired type. This is a no-op at runtime.
-  y2 = cast(ttf.Tensor2[float, Batch, Time], y)
+  y2 = cast(ttf.Tensor2[float16, Batch, Time], y)
 
   # Alternative syntax for casting; again a no-op.
-  y3: ttf.Tensor2[float, Batch, Time] = y  # type: ignore
+  y3: ttf.Tensor2[float16, Batch, Time] = y  # type: ignore
 
   train_batch(y2)
   train_batch(y3)
