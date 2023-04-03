@@ -288,6 +288,8 @@ numpy_rank_promotion: Any
 
 ops: Any
 
+partial_eval: Any
+
 pmap: Any
 
 print_environment_info: Any

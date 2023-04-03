@@ -2204,8 +2204,6 @@ def transpose(
 
 ComplexWarning: Any
 
-DeviceArray: Any
-
 NINF: Any
 
 NZERO: Any
