@@ -280,8 +280,6 @@ named_call: Any
 
 named_scope: Any
 
-nn: Any
-
 numpy_dtype_promotion: Any
 
 numpy_rank_promotion: Any

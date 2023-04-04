@@ -16,6 +16,7 @@
 
 from absl import app
 import jax
+import jax.nn as jnn
 import jax.numpy as jnp
 import jinja2
 from tensor_annotations.tools import templates
@@ -23,8 +24,10 @@ from tensor_annotations.tools import templates
 
 _JAX_TEMPLATE_PATH = 'templates/jax.pyi'
 _JAX_NUMPY_TEMPLATE_PATH = 'templates/jax_numpy.pyi'
+_JAX_NN_TEMPLATE_PATH = 'templates/jax_nn.pyi'
 _JAX_STUBS_PATH = 'library_stubs/third_party/py/jax/__init__.pyi'
 _JAX_NUMPY_STUBS_PATH = 'library_stubs/third_party/py/jax/numpy/__init__.pyi'
+_JAX_NN_STUBS_PATH = 'library_stubs/third_party/py/jax/nn/__init__.pyi'
 
 
 def main(argv):
@@ -44,6 +47,8 @@ def main(argv):
   # We _don't_ want to stub `jax.numpy` as `Any`, because it would prevent
   # our stubs for jax.numpy.* being used.
   jax_dir.remove('numpy')
+  # Ditto `jax.nn`.
+  jax_dir.remove('nn')
   # `jax.Array` is actually an important type, so we've added it as a class
   # manually in the template, and don't need to stub it as `Any`.
   jax_dir.remove('Array')
@@ -82,6 +87,32 @@ def main(argv):
 
   with open(_JAX_NUMPY_STUBS_PATH, 'w') as f:
     f.write(jax_numpy_template.render(jnp_dir=jnp_dir))
+
+  # ===== Render stubs for jax.nn.* =====
+
+  with open(_JAX_NN_TEMPLATE_PATH, 'r') as f:
+    lines = f.readlines()
+  # Strip IfChange/ThenChange lines.
+  lines = [l for l in lines if not l.startswith('# LINT')]
+
+  jax_nn_template = jinja2.Template(
+      ''.join(lines),
+      extensions=['jinja2.ext.do'],
+  )
+
+  current_stubs = open(_JAX_NN_STUBS_PATH).read()
+  jnn_dir = []
+  for x in dir(jnn):
+    if (
+        x.startswith('_')
+        or f'def {x}(' in current_stubs
+        or f'class {x}:' in current_stubs
+    ):
+      continue
+    jnn_dir.append(x)
+
+  with open(_JAX_NN_STUBS_PATH, 'w') as f:
+    f.write(jax_nn_template.render(jnn_dir=jnn_dir))
 
 
 if __name__ == '__main__':
