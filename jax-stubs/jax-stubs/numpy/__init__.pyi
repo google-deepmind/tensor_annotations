@@ -2660,8 +2660,6 @@ modf: Any
 
 moveaxis: Any
 
-msort: Any
-
 multiply: Any
 
 nan: Any
