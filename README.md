@@ -1,5 +1,9 @@
 # TensorAnnotations
 
+:warning: WARNING: TensorAnnotations is no longer being maintained. Instead, we recommend users switch to [jaxtyping](https://github.com/google/jaxtyping). For more information, see [Why TensorAnnotations is being deprecated](https://docs.google.com/document/d/1AAP-wq06j1TQwJPtrlky4lfyPHyl7-itgN5S47oZO98/edit).
+
+---
+
 TensorAnnotations is an experimental library enabling annotation of data-type
 and semantic shape information using type annotations - for example:
 ```python
